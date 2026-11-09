@@ -3,8 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getRunDescriptor } from "../data/manifest";
 import type {
-  RunFrame, RunSummary, RunWorkerRequest, RunWorkerResponse,
-  StepInspection, Viewport,
+  RunFrame,
+  RunSummary,
+  RunWorkerRequest,
+  RunWorkerResponse,
+  StepInspection,
+  Viewport,
 } from "../model/view-types";
 
 interface RunState {
@@ -25,11 +29,21 @@ interface Session {
 }
 
 function loadingState(runId: string): RunState {
-  return { runId, status: "loading", summary: null, frame: null, inspection: null, error: null, updating: false };
+  return {
+    runId,
+    status: "loading",
+    summary: null,
+    frame: null,
+    inspection: null,
+    error: null,
+    updating: false,
+  };
 }
 
 function drawableWidth(width: number): number {
-  return Number.isFinite(width) ? Math.min(16_384, Math.max(1, Math.round(width))) : 1;
+  return Number.isFinite(width)
+    ? Math.min(16_384, Math.max(1, Math.round(width)))
+    : 1;
 }
 
 /** One worker owns the full source; React receives only summaries and render data. */
@@ -54,8 +68,12 @@ export function useRun(runId: string, width: number) {
     let currentViewport: Viewport | null = null;
     let viewportInFlight: number | null = null;
     let inspectionInFlight: number | null = null;
-    let wantedViewport: Extract<RunWorkerRequest, { type: "viewport" }> | null = null;
-    let wantedInspection: Extract<RunWorkerRequest, { type: "inspect" }> | null = null;
+    let wantedViewport: Extract<RunWorkerRequest, { type: "viewport" }> | null =
+      null;
+    let wantedInspection: Extract<
+      RunWorkerRequest,
+      { type: "inspect" }
+    > | null = null;
     let initialInspectionPending = true;
     const loadId = ++sequenceRef.current;
 
@@ -63,7 +81,9 @@ export function useRun(runId: string, width: number) {
       if (!active) return;
       setState((previous) => ({
         ...(previous.runId === runId ? previous : loadingState(runId)),
-        status: "error", error: message, updating: false,
+        status: "error",
+        error: message,
+        updating: false,
       }));
     };
 
@@ -81,25 +101,55 @@ export function useRun(runId: string, width: number) {
 
     const session: Session = {
       setViewport(start, end) {
-        if (!active || !summary || !Number.isFinite(start) || !Number.isFinite(end)) return;
-        const lower = Math.max(summary.firstStep, Math.min(summary.lastStep, Math.round(Math.min(start, end))));
-        const upper = Math.max(lower, Math.min(summary.lastStep, Math.round(Math.max(start, end))));
+        if (
+          !active ||
+          !summary ||
+          !Number.isFinite(start) ||
+          !Number.isFinite(end)
+        )
+          return;
+        const lower = Math.max(
+          summary.firstStep,
+          Math.min(summary.lastStep, Math.round(Math.min(start, end))),
+        );
+        const upper = Math.max(
+          lower,
+          Math.min(summary.lastStep, Math.round(Math.max(start, end))),
+        );
         const viewport = { start: lower, end: upper, width: widthRef.current };
         const previous = wantedViewport?.viewport ?? currentViewport;
-        if (previous && previous.start === lower && previous.end === upper && previous.width === viewport.width) return;
-        wantedViewport = { type: "viewport", runId, requestId: ++sequenceRef.current, viewport };
+        if (
+          previous &&
+          previous.start === lower &&
+          previous.end === upper &&
+          previous.width === viewport.width
+        )
+          return;
+        wantedViewport = {
+          type: "viewport",
+          runId,
+          requestId: ++sequenceRef.current,
+          viewport,
+        };
         // A pointer reply from the previous geometry must not become the new selection.
         wantedInspection = null;
         // An already inspected source observation remains valid across zooms.
         // Keeping it mounted also preserves keyboard focus in the inspector.
-        setState((previousState) => ({ ...previousState, updating: true, error: null }));
+        setState((previousState) => ({
+          ...previousState,
+          updating: true,
+          error: null,
+        }));
         sendViewport();
       },
       inspect(step) {
         // While the old frame is retained, its pointer geometry is obsolete.
-        if (!active || !summary || wantedViewport || !Number.isFinite(step)) return;
+        if (!active || !summary || wantedViewport || !Number.isFinite(step))
+          return;
         wantedInspection = {
-          type: "inspect", runId, requestId: ++sequenceRef.current,
+          type: "inspect",
+          runId,
+          requestId: ++sequenceRef.current,
           step: Math.max(summary.firstStep, Math.min(summary.lastStep, step)),
         };
         sendInspection();
@@ -125,24 +175,35 @@ export function useRun(runId: string, width: number) {
 
     try {
       const sourceVersion = getRunDescriptor(runId).sourceVersion;
-      worker = new Worker(new URL("../worker/run.worker.ts", import.meta.url), { type: "module" });
+      worker = new Worker(new URL("../worker/run.worker.ts", import.meta.url), {
+        type: "module",
+      });
       worker.onmessage = (event: MessageEvent<RunWorkerResponse>) => {
         const message = event.data;
         if (!active || message.runId !== runId) return;
 
         if (message.type === "loaded") {
           if (message.requestId !== loadId) return;
-          if (message.frame.runId !== runId || message.frame.sourceVersion !== sourceVersion) {
-            halt("The worker returned a different source snapshot. Reload this run.");
+          if (
+            message.frame.runId !== runId ||
+            message.frame.sourceVersion !== sourceVersion
+          ) {
+            halt(
+              "The worker returned a different source snapshot. Reload this run.",
+            );
             return;
           }
           summary = message.summary;
           currentViewport = message.frame.viewport;
           const resizedDuringLoad = currentViewport.width !== widthRef.current;
           setState({
-            runId, status: resizedDuringLoad ? "loading" : "ready", summary,
+            runId,
+            status: resizedDuringLoad ? "loading" : "ready",
+            summary,
             frame: resizedDuringLoad ? null : message.frame,
-            inspection: null, error: null, updating: resizedDuringLoad,
+            inspection: null,
+            error: null,
+            updating: resizedDuringLoad,
           });
           if (resizedDuringLoad) session.resize();
           else {
@@ -158,16 +219,28 @@ export function useRun(runId: string, width: number) {
           if (message.requestId === wantedViewport?.requestId) {
             const requested = wantedViewport.viewport;
             const returned = message.frame.viewport;
-            if (message.frame.runId !== runId || message.frame.sourceVersion !== sourceVersion
-              || returned.start !== requested.start || returned.end !== requested.end || returned.width !== requested.width) {
-              halt("The chart does not match the requested source and step range. Reload this run.");
+            if (
+              message.frame.runId !== runId ||
+              message.frame.sourceVersion !== sourceVersion ||
+              returned.start !== requested.start ||
+              returned.end !== requested.end ||
+              returned.width !== requested.width
+            ) {
+              halt(
+                "The chart does not match the requested source and step range. Reload this run.",
+              );
               return;
             }
             currentViewport = message.frame.viewport;
             wantedViewport = null;
             setState((previous) => ({
-              ...previous, runId, status: "ready", summary, frame: message.frame,
-              updating: false, error: null,
+              ...previous,
+              runId,
+              status: "ready",
+              summary,
+              frame: message.frame,
+              updating: false,
+              error: null,
             }));
             if (initialInspectionPending && summary) {
               initialInspectionPending = false;
@@ -183,7 +256,10 @@ export function useRun(runId: string, width: number) {
           inspectionInFlight = null;
           if (message.requestId === wantedInspection?.requestId) {
             wantedInspection = null;
-            setState((previous) => ({ ...previous, inspection: message.inspection }));
+            setState((previous) => ({
+              ...previous,
+              inspection: message.inspection,
+            }));
           }
           sendInspection();
           return;
@@ -209,13 +285,27 @@ export function useRun(runId: string, width: number) {
           }
         }
       };
-      worker.onerror = () => halt("Run processing stopped unexpectedly. Reload the run to try again.");
-      worker.onmessageerror = () => halt("The run response could not be read. Reload the run to try again.");
-      const load: RunWorkerRequest = { type: "load", runId, requestId: loadId, width: widthRef.current };
+      worker.onerror = () =>
+        halt(
+          "Run processing stopped unexpectedly. Reload the run to try again.",
+        );
+      worker.onmessageerror = () =>
+        halt(
+          "The run response could not be read. Reload the run to try again.",
+        );
+      const load: RunWorkerRequest = {
+        type: "load",
+        runId,
+        requestId: loadId,
+        width: widthRef.current,
+      };
       worker.postMessage(load);
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Unable to load this run.";
-      queueMicrotask(() => { if (active) halt(message); });
+      const message =
+        error instanceof Error ? error.message : "Unable to load this run.";
+      queueMicrotask(() => {
+        if (active) halt(message);
+      });
     }
 
     return () => {
@@ -223,14 +313,28 @@ export function useRun(runId: string, width: number) {
     };
   }, [runId, refreshVersion]);
 
-  const setViewport = useCallback((start: number, end: number) => sessionRef.current?.setViewport(start, end), []);
-  const inspect = useCallback((step: number) => sessionRef.current?.inspect(step), []);
+  const setViewport = useCallback(
+    (start: number, end: number) => sessionRef.current?.setViewport(start, end),
+    [],
+  );
+  const inspect = useCallback(
+    (step: number) => sessionRef.current?.inspect(step),
+    [],
+  );
   const refresh = useCallback(() => {
     // Invalidate immediately; a queued reply must not win before effect cleanup.
     sessionRef.current?.cancel();
-    setState((previous) => previous.runId === runId && previous.frame
-      ? { ...previous, status: "ready", error: null, updating: true, inspection: null }
-      : loadingState(runId));
+    setState((previous) =>
+      previous.runId === runId && previous.frame
+        ? {
+            ...previous,
+            status: "ready",
+            error: null,
+            updating: true,
+            inspection: null,
+          }
+        : loadingState(runId),
+    );
     setRefreshVersion((version) => version + 1);
   }, [runId]);
 

@@ -1,0 +1,12 @@
+Development server error excerpt, retained during final log review on 10 November 2026.
+This is an excerpt, not the complete server log.
+
+[browser] Uncaught Error: Hydration failed because the server rendered text didn't match the client.
+
+<RunDashboard runId="run-001">
+  <span>
++   Nov 1 at 12:00 UTC
+-   Nov 1, 12:00 UTC
+
+Cause: Intl.DateTimeFormat locale data can choose different separators across runtimes.
+Correction: formatSnapshot now constructs a fixed English UTC label from date getters.

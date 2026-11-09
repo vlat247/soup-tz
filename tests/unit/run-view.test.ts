@@ -324,12 +324,30 @@ describe("numerical and time presentation", () => {
     expect(formatReading({ kind: "conflict", value: null })).toBe("Conflicting");
   });
 
-  it("formats the same source instant in UTC across a date-boundary offset", () => {
-    const utc = formatSnapshot("2026-11-01T23:30:00.000Z");
-    expect(utc).toContain("Nov 1");
-    expect(utc).toContain("23:30");
-    expect(utc.endsWith(" UTC")).toBe(true);
-    expect(formatSnapshot("2026-11-02T04:30:00.000+05:00")).toBe(utc);
+  it.each([
+    ["2026-11-01T12:00:00.000Z", "Nov 1, 12:00 UTC"],
+    ["2026-11-02T04:30:00.000+05:00", "Nov 1, 23:30 UTC"],
+    ["2026-11-02T00:00:00.000Z", "Nov 2, 00:00 UTC"],
+    ["2026-01-01T00:30:00.000+05:00", "Dec 31, 19:30 UTC"],
+    ["2026-12-31T23:30:00.000-02:00", "Jan 1, 01:30 UTC"],
+  ])("formats %s with stable UTC date, time, and punctuation", (instant, expected) => {
+    expect(formatSnapshot(instant)).toBe(expected);
+  });
+
+  it("does not inherit host Intl punctuation that would change hydrated text", () => {
+    const original = Object.getOwnPropertyDescriptor(Intl.DateTimeFormat.prototype, "format");
+    if (!original) throw new Error("Intl.DateTimeFormat must expose its format accessor");
+    Object.defineProperty(Intl.DateTimeFormat.prototype, "format", {
+      ...original,
+      get: () => () => "Nov 1 at 12:00",
+    });
+    try {
+      expect(new Intl.DateTimeFormat("en-US").format(new Date("2026-11-01T12:00:00.000Z")))
+        .toBe("Nov 1 at 12:00");
+      expect(formatSnapshot("2026-11-01T12:00:00.000Z")).toBe("Nov 1, 12:00 UTC");
+    } finally {
+      Object.defineProperty(Intl.DateTimeFormat.prototype, "format", original);
+    }
   });
 });
 

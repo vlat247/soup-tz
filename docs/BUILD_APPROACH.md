@@ -4,7 +4,7 @@ Current implementation direction, refined on 10 November 2026.
 
 Build a small, explainable training monitor using explicit data rules and ordinary loops. Keep the original observations, reduce only what is drawn, and prove that the result preserves the evidence a person needs to inspect a run. This document records the direction to follow in later implementation sessions. Product acceptance criteria remain in [PRD.md](./PRD.md); precise data contracts and the measurement protocol remain in [TRD.md](./TRD.md).
 
-Status: the Next.js scaffold, specifications, and deterministic 20-run fixture generator with source-data tests exist. See [MOCK_DATA.md](MOCK_DATA.md) for fixture usage. Normalization, charts, monitor interactions, and browser evidence are still to be implemented. The sequence below remains the overall build plan.
+Status: the dashboard, deterministic fixtures, typed-array preparation and exact summaries, per-metric viewport reduction, worker, generated run-list catalog, and source/numerical-engine tests are implemented. The UI provides run search/filter/sort, three ECharts plots, shared range controls, data-quality details, and raw observation inspection. See [MOCK_DATA.md](MOCK_DATA.md) for fixture usage. Browser QA is separate from the numerical tests. A browser baseline renderer, before/after 4x CPU traces, tab-memory measurements, comprehensive browser automation, and deployment remain outstanding; the sequence below still defines the overall completion checks.
 
 ## Scope of the first implementation
 
@@ -26,7 +26,7 @@ flowchart LR
     Source --> Inspect[Inspect original values]
 ```
 
-Separate small pure functions for generation, normalization, summaries, reduction, and formatting from React and drawing. Return explicit reading states and drawing commands so unit tests can inspect the decisions without requiring a browser. Use a small versioned catalog for list metadata; loading the list must not allocate every run's full dataset. Generate catalog summaries through the same numerical pipeline and check them against the fixtures.
+Small pure modules separate generation, preparation/summaries, reduction, inspection, and formatting from React and drawing. Explicit reading states and point/break tuples make the numerical decisions testable without a browser. The generated catalog supplies list summaries without allocating every run's dataset. `npm run data:catalog` uses the same generator and preparation module as the worker; `npm run data:catalog:check` fails when the checked-in catalog is stale.
 
 ## Rules for each data problem
 
@@ -38,7 +38,7 @@ Separate small pure functions for generation, normalization, summaries, reductio
 | Identical duplicate readings at one step | Collapse per metric for drawing; retain source records and counts. | Duplicate count; source values available for inspection. |
 | Conflicting duplicate readings | Do not choose a winner. Break the affected metric's line and retain finite extremes at that step. | Conflict marker or labelled observed range; all original readings inspectable. |
 | Unsorted steps | Validate and sort numerically by step, with source order as a stable tie-breaker. | A line following actual training steps, independent of arrival order. |
-| Invalid step | Exclude from the ordered plot and retain as rejected input. | Rejected-row count and reason. |
+| Invalid step | Exclude from ordered plotting and metric summaries; retain the original row and its rejected source index. | Rejected-row count; detailed rejected-row inspection remains a diagnostic concern. |
 | Missing expected steps | Use the run's declared sampling interval to detect a missing interval. | A disclosed gap; no connection across it. |
 | Valid zero or negative reading | Preserve its value. | Its actual position on the linear axis. |
 | Isolated spike | Preserve the bucket extremum at its original step. | A visible peak with an inspectable source value. |
@@ -79,15 +79,15 @@ The known isolated maximum survives every viewport that contains its step becaus
 
 ## Keep displayed numbers tied to source data
 
-Whole-run summary cards come from the full source history and remain unchanged by zoom. A latest invalid or conflicting observation is shown as that state; an earlier valid value is separately labelled with its actual step. Observed extrema include finite conflicting readings.
+Whole-run summary cards come from the full valid-step source history and remain unchanged by zoom. A latest invalid or conflicting observation is shown as that state; an earlier valid value is separately labelled with its actual step. Observed extrema include finite conflicting readings. Rows with invalid steps remain preserved and counted separately; they do not influence metric extents, latest readings, or metric quality totals.
 
-Axis bounds use all finite source readings in the visible interval. Tooltip and keyboard inspection query source groups by step, rather than inventing values between retained chart vertices. If multiple source observations share a pixel, expose the column's extrema as well as the nearest recorded step. If the pointer falls in a gap, identify the missing interval.
+Axis bounds use all finite valid-step source readings in the visible interval. Tooltip and keyboard inspection query source groups by step, rather than inventing values between retained chart vertices. If the pointer falls in a gap, identify the missing interval. The current inspector exposes nearest or explicitly entered steps and original readings; a complete per-pixel column inspector with local extrema and quality counts remains a later completion check.
 
 Use one formatting policy for cards, axes, and inspection. Keep exact values available, show tiny learning rates without rounding them to zero, and use explicit UTC metadata timestamps. Distinguish source snapshot time from the time the application loaded it.
 
 ## Performance and state management
 
-First build a correct reference implementation with the same fixture generator and normalization rules, and capture its baseline before optimizing. Keep that source revision or a controlled comparison mode. Both versions call the same numerical helpers; the baseline draws raw finite segments while the optimized version reduces drawing volume and changes computation location. A slow or failed baseline is still evidence; do not replace it with an undocumented smaller dataset.
+The engine provides `buildFrame(prepared, viewport, "raw")` alongside its reduced mode. A browser baseline renderer and its measurements are not yet implemented. Before claiming a before/after improvement, connect the raw mode to a controlled main-thread baseline, preserve that source revision or comparison mode, and record both versions under the same conditions. Both versions must call the same numerical helpers; the baseline draws raw finite segments while the optimized version reduces drawing volume and changes computation location. A slow or failed baseline is still evidence; do not replace it with an undocumented smaller dataset.
 
 For the final million-point path, one Web Worker owns the selected run's Float64 source columns. It performs generation, normalization, reduction, and source inspection. React receives only metadata, small summaries, inspection results, and reduced drawing data. Preserve the worker's source buffers; transfer only temporary result buffers.
 

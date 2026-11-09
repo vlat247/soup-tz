@@ -1,8 +1,8 @@
 # Soup Training Run Monitor Technical Requirements
 
-Version 1.1 · 10 November 2026 · Status: implementation specification
+Version 1.2 · 10 November 2026 · Status: dashboard and numerical pipeline implemented; verification and delivery incomplete
 
-This specification defines how to implement and verify a training-run monitor whose charts remain trustworthy when records are malformed or too numerous to draw individually. The current delivery includes the Next.js foundation, requirements documents, and [deterministic fixture generation with source-data tests](MOCK_DATA.md). The monitor, normalization/reduction pipeline, chart behavior tests, benchmark evidence, and deployment described below are subsequent implementation work.
+This specification defines how to implement and verify a training-run monitor whose charts remain trustworthy when records are malformed or too numerous to draw individually. The current application includes the dashboard, [deterministic fixtures](MOCK_DATA.md), typed-array preparation and exact summaries, per-metric viewport reduction, worker queries, generated catalog, and source/numerical-engine tests. Apache ECharts renders the worker results. A browser baseline renderer, comparable before/after traces at 4x CPU throttling, tab-memory measurements, comprehensive automated browser coverage, and deployment remain outstanding. The requirements below include those remaining acceptance checks; implemented behavior is not a claim that every release gate has passed.
 
 The product behavior and release criteria are in [PRD.md](./PRD.md). Assignment requirements come from *Soup-Task-05-Frontend-Engineer(1).pdf*, page 1, supplied at `/Users/vlat247/Downloads/Soup-Task-05-Frontend-Engineer(1).pdf`. Architecture, data policies, fixture allocation, and performance budgets below are engineering decisions, rather than constraints prescribed by the assignment.
 
@@ -24,13 +24,13 @@ The application supports inspection, not actual training termination. Authentica
 | Framework | Next.js App Router with React and strict TypeScript | Matches the requested stack; separates route shells from interactive charts. |
 | Runtime and package management | Node.js 24.x and npm; committed `package-lock.json` | Makes local and deployment installations reproducible. |
 | Styling | Global tokens and CSS Modules | Small dependency surface; no component library required for this task. |
-| Quality checks | ESLint, TypeScript, production build | Establishes a working baseline before feature development. |
+| Quality checks | ESLint, TypeScript, unit tests, catalog consistency, production build | Checks source and numerical behavior and prevents stale run-list summaries. |
 | Chart renderer | Apache ECharts Canvas renderer, tree-shaken line/scatter/grid components; HTML controls and inspection | User-selected visualization library; application controls sampling, gaps, raw axes, and exact inspection. |
-| Planned computation | Dedicated Web Worker with typed arrays | Keeps generation, normalization, and reduction off the UI thread. |
-| Tests | Vitest is installed for fixture verification; Playwright and axe integration are planned for browser behavior | Covers source data now; chart and interaction checks follow during monitor implementation. |
+| Computation | Dedicated Web Worker with typed arrays | Owns generation, preparation, summaries, reduction, and source inspection. |
+| Tests | Vitest covers fixtures and numerical-engine behavior; Playwright and axe integration remain planned | Reducer and source assertions do not establish browser pixels, interaction behavior, or accessibility. |
 | Deployment target | Vercel | Direct fit for this Next.js setup. GitHub Pages would require a separate static-export routing decision. |
 
-`package.json` and the lockfile are authoritative for installed versions. The project contains `/`, its root layout, styles, metadata, the fixture module, and `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `test:watch`, `data:inspect`, and `check` commands. `/runs`, `/runs/[runId]`, normalization, charts, and workers are planned features.
+`package.json` and the lockfile are authoritative for installed versions. `/` and `/runs` redirect to `/runs/run-001`; `/runs/[runId]` validates the manifest ID and renders the dashboard in its shared run-browser layout. Commands include `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `test:watch`, `data:inspect`, `data:catalog`, `data:catalog:check`, and `check`. The dashboard includes loading/error feedback, a no-results state, shared viewport controls, a quality view, source inspection, and a summary export.
 
 App Router configuration follows the [official Next.js installation guide](https://nextjs.org/docs/app/getting-started/installation). Keep browser APIs in client components or workers, not module initialization shared with server rendering. Do not fetch remote fonts during builds.
 
@@ -38,62 +38,59 @@ App Router configuration follows the [official Next.js installation guide](https
 
 ```mermaid
 flowchart TD
-    Manifest[Small versioned run manifest] --> List[Run list and route shell]
+    Manifest[Versioned manifest and generated catalog] --> List[Run browser and route shell]
     List --> View[Client run view and request controller]
     View -->|Load, viewport, inspect| Worker[Worker holding full source columns]
     Worker --> Normalize[Validation and duplicate groups]
     Normalize --> Reduce[Exact summaries and viewport reduction]
-    Reduce -->|Small render buffers and quality metadata| View
-    View --> Canvas[Canvas plot with explicit breaks]
+    Reduce -->|Bounded point arrays and quality metadata| View
+    View --> Canvas[ECharts Canvas plots with explicit breaks]
     View --> Accessible[Axes, summary cards, controls, data inspector]
 ```
 
-The manifest describes 20 synthetic runs and fixed generator versions. A small versioned catalog supplies exact list summaries and quality counts without loading point arrays in the list. Generate this catalog ahead of time through the shared generator, normalizer, and summarizer in a Node script, processing and releasing one run at a time. Commit the result with its generator/source version and verify that it matches regenerated fixtures; build or CI must fail on a stale catalog. Encode unavailable or invalid summary readings as tagged states, never JSON nonfinite numbers. Each catalog entry extends the run descriptor with latest step, latest reading states, last unambiguous finite loss and its step, and quality counts used by filters.
+The manifest describes 20 synthetic runs and fixed generator/source versions. `data/catalog.json` contains `{ id, summary }` entries with exact latest states, last unambiguous finite readings and their steps, extents, and quality counts. The run browser joins those entries to the versioned descriptors without loading point arrays. `scripts/generate-run-catalog.ts` processes one generated run at a time through `prepareRun`; `npm run data:catalog:check`, included in `npm run check`, fails if the committed JSON differs. Unavailable or invalid readings use explicit kinds and null values, never JSON nonfinite numbers. Keep catalog and manifest changes together.
 
 A selected run gets one dedicated worker that owns its full source data. Its computed summary must agree with the same-version catalog. On a run switch, terminate the previous worker, clear previous run content, and create a new worker. This bounds active data ownership to one dataset and makes cancellation of synchronous worker computation reliable; browser reclamation can lag, so measure switch-time peaks.
 
-Use React state for route identity, filters, viewport, scale, load state, small summaries, and the inspected sample. Keep the canvas and render arrays behind refs. Coalesce pointer input to animation frames; do not trigger a full chart redraw for each hover update. A base plot layer and a small interaction overlay can redraw independently.
+React state holds route/filter/load state, small summaries, the bounded frame, and the selected inspection result. Full source columns and normalization indexes stay in the worker. ECharts instances remain behind refs; pointer events are coalesced to animation frames, and the selected-step overlay updates separately from the numerical frame. The hook coalesces viewport and inspection requests and rejects obsolete replies.
 
-### Planned module boundaries
+### Implemented module boundaries
 
 ```text
 src/
   app/
-    runs/page.tsx                  run list shell
+    page.tsx                       redirect to the first run
+    runs/page.tsx                  redirect to the first run
+    runs/layout.tsx                persistent run-browser shell
     runs/[runId]/page.tsx          validated run route
-    runs/[runId]/loading.tsx       route loading state
-    runs/[runId]/error.tsx         recoverable route failure
-    not-found.tsx                 unknown run
+    runs/[runId]/not-found.tsx     unknown-run view
+  features/dashboard/
+    dashboard-shell.tsx            search, filters, sorting, navigation
+    run-dashboard.tsx              summaries, controls, quality, inspection
   features/runs/
-    components/                   list, summary, quality notice, run view
     data/manifest.ts              20 fixture descriptors
     data/catalog.json             generated small list summaries
     data/generate.ts               seeded column generator
-    model/types.ts                 source and UI contracts
-    model/normalize.ts             sorted groups and metric states
-    model/summarize.ts             raw finite extrema and latest states
+    model/types.ts                 source contracts
+    model/view-types.ts            summaries, frames, inspection, worker protocol
+    model/prepare.ts               sorted source indexes, groups, exact summaries
     model/reduce.ts                viewport buckets and segment breaks
+    model/inspect.ts               nearest source group and raw readings
     model/format.ts                shared numeric and timestamp formatters
     worker/run.worker.ts           computation and query dispatcher
-    worker/protocol.ts             discriminated message types
     hooks/use-run.ts               lifecycle and request identity checks
   features/charts/
-    draw.ts                       pure geometry to Canvas commands
-    scales.ts                     linear/log maps and tick positions
-    metric-chart.tsx               plot and native controls
-    data-inspector.tsx             exact sample and duplicate inspection
+    metric-chart.tsx               ECharts plots, axes, pointer interaction
 tests/
-  unit/                           normalization, reduction, formatting
-  e2e/                            pixels, interaction, races, states
+  unit/                           fixture and numerical-engine verification
 scripts/
-  generate-catalog.ts              reproducible metadata generation
+  inspect-runs.ts                  source fixture diagnostics
+  generate-run-catalog.ts          reproducible metadata generation
 evidence/
-  tests/                          original test output
-  performance/                    traces, environment, raw observations
-  submission/                     final short note and AI disclosure
+  mock-data/                      retained source-fixture verification
 ```
 
-Create modules as their features are implemented. This is a target structure, not a requirement to add empty files.
+Create browser-test, performance, and submission artifacts as those checks are performed. Their absence must not be replaced with generated pass claims or invented results. Loading, empty-metric, and worker error states currently live in the dashboard/chart components rather than separate route files.
 
 ## 4 Source data and fixture contract
 
@@ -129,9 +126,9 @@ interface SourceColumns {
 }
 ```
 
-Use four Float64 columns to avoid changing metric precision while optimizing. Their payload for one million rows is 32,000,000 bytes, about 30.52 MiB. Three one-byte missing masks add about 2.86 MiB. A `Uint32Array` source-order index adds about 3.81 MiB when sorting is necessary. These calculations cover the named arrays only, not browser/tab memory, duplicate-group indexes, temporary allocations, or canvas backing stores.
+Use four Float64 columns to avoid changing metric precision while optimizing. Their payload for one million rows is 32,000,000 bytes, about 30.52 MiB. Three one-byte missing masks add about 2.86 MiB. Preparation allocates a `Uint32Array` source-order index, about 3.81 MiB for one million accepted rows, and a group-boundary index of about 3.81 MiB when every step is unique. Rejected source indexes are retained separately. These calculations cover the named arrays only, not browser/tab memory, temporary allocations, chart objects, or canvas backing stores.
 
-Keep source row positions as provenance. The sorted index is an ordering over raw columns, so original values remain available without a second full copy of the dataset. For monotonic input use an identity-order fast path; do not allocate a million boxed objects merely to sort an already sorted fixture.
+Keep source row positions as provenance. The sorted index is an ordering over raw columns, so original values remain available without a second full copy of the dataset. Monotonic input uses an identity order and skips sorting; it still has a compact index. No million-element array of row objects is allocated by preparation.
 
 Generate points inside the worker from a small manifest and fixed integer PRNG. Formula, seed, anomaly locations, and generator version must reproduce the same data. Do not use ambient `Math.random()` or current time. Golden fixtures and manually specified expected values prevent tests from merely agreeing with the same faulty generator.
 
@@ -164,7 +161,7 @@ For `run-020`, the existing loss reading at step 500,000 is replaced with exactl
 
 ### Step validity and ordering
 
-1. Classify invalid `step` values separately. Reject the row from the ordered chart, count it, and keep it inspectable as rejected input. Do not coerce strings, round fractional steps, or replace invalid steps with zero.
+1. Classify invalid `step` values separately. Reject the row from the ordered chart and metric summaries, count it in `rejectedRows`, and preserve its source index and original columns. Do not coerce strings, round fractional steps, or replace invalid steps with zero. The dashboard discloses the rejected count; a detailed rejected-row UI is not implemented.
 2. Order valid rows by `(step, sourceRowIndex)`. All plotted x coordinates are actual steps, never array positions.
 3. Group equal steps. For each metric independently, compare reading classes and values. All NaNs form the same invalid class; signed infinities remain distinct. Treat positive and negative zero as numerically equal for these metrics, while source inspection may retain their representation.
 4. Identical readings within a step collapse into one plotted state and a disclosed duplicate count. A difference in any metric affects that metric only.
@@ -188,10 +185,10 @@ Every valid singleton segment needs a point marker because a path with only `mov
 | Latest step | Largest valid unique step, independent of input order. |
 | Latest metric | Reading state at that step, including invalid or conflict states. |
 | Last valid metric | Last unambiguous finite group at or before the latest step, explicitly labelled with its step. |
-| Observed minimum and maximum | Extrema of every raw finite reading for the metric, including conflicting duplicates; invalid and missing readings excluded with counts disclosed. |
+| Observed minimum and maximum | Extrema of every raw finite reading attached to a valid step, including conflicting duplicates; invalid and missing readings excluded with counts disclosed. Rejected-step rows do not influence metric extrema. |
 | Source count | Total input row count, including duplicates and rejected-step rows. |
 | Chart step count | Number of valid unique steps. |
-| Quality counts | Raw invalid readings by type, duplicate extra rows, conflicting steps per metric, rejected-step rows, and missing intervals; overlapping categories need not sum to the source count. |
+| Quality counts | Raw nonfinite and missing metric counts on valid-step rows, duplicate extra rows, conflicting steps per metric, rejected-step rows, and missing intervals; overlapping categories need not sum to the source count. Individual numerical invalid kinds remain available in inspection. |
 
 Whole-run summaries do not silently change when zooming. If viewport summaries are later added, label their interval separately. All-invalid and empty inputs return explicit unavailable states, never `0`, `Infinity`, or an arbitrary axis domain displayed as a measurement.
 
@@ -228,14 +225,15 @@ When multiple observations share a pixel, the column inspector also exposes its 
 
 ## 7 Worker protocol and asynchronous state
 
-Every request and response carries `runId`, `sourceVersion`, and monotonically increasing `requestId`. Viewport requests include the step interval and drawable width; changes to either increment `viewportRevision`, which is echoed in replies. Hover requests have a separate sequence so obsolete inspection replies cannot overwrite a newer cursor selection. A new revision invalidates pending inspection requests from the previous coordinate mapping.
+The implemented protocol in `model/view-types.ts` carries `runId` and a monotonically increasing `requestId` on every request and response. Rendered frames additionally carry `sourceVersion`, which the hook checks against the selected descriptor. A new viewport request ID covers both the step interval and drawable width, serving as the geometry revision; resize replies cannot commit under an older ID. Inspection requests also receive fresh IDs and are tracked separately. Changing viewport geometry invalidates pending inspection replies from the previous mapping.
 
 | Request | Response | Main contents |
 | --- | --- | --- |
-| `LOAD_RUN` | `RUN_READY` or `RUN_ERROR` | Descriptor, exact whole-run summary, quality totals; raw columns stay in worker. |
-| `QUERY_VIEWPORT` | `VIEWPORT_READY` | Requested interval, revision, domains, tick values, vertices, breaks, conflict extrema, representation mode, quality counts. |
-| `INSPECT_STEP` | `STEP_DETAILS` | Exact nearest group, raw readings and provenance; pagination for large duplicate groups. |
-| `INSPECT_COLUMN` | `COLUMN_DETAILS` | Exact extrema and quality counts for the selected visible step interval. |
+| `load` | `loaded` or `error` | Exact whole-run summary and initial full-range frame; raw columns stay in worker. |
+| `viewport` | `frame` or `error` | Interval/width, raw domains, points, null breaks, conflict extrema, representation mode, quality counts. |
+| `inspect` | `inspection` or `error` | Nearest group with lower-step tie rule, previous/next recorded steps, source provenance, and up to 20 raw readings with the full source count. |
+
+The provided fixtures have small duplicate groups, so all their readings fit in the inspector. Pagination beyond 20 rows and an explicit pixel-column inspection request remain future work; current exact-step controls and visible peak markers do not constitute those broader capabilities.
 
 Validate payload discriminants and ranges at the worker boundary. Return a bounded error record rather than serializing an entire exception or dataset. Keep complete source arrays in the worker and transfer only temporary result buffers; transferring an `ArrayBuffer` detaches the sender's view, so a persistent source buffer must never be transferred accidentally. See [MDN transferable objects](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
 
@@ -247,7 +245,7 @@ Use fixed `snapshotAt` and `sourceVersion` labels for the synthetic demo. Record
 
 ## 8 Routes and interaction design
 
-`/` is the starter page in this delivery. During monitor implementation, make it redirect or link to `/runs`. `/runs` supports name/id search, status and quality filters, and sort by name, latest step, or last unambiguous finite loss. The loss column shows that reading's actual step and separately identifies any invalid/conflicted latest observation; its heading must not imply the earlier value is current. Runs with no unambiguous finite loss go last in either direction; tie-break by stable run ID. Preserve query state on returning from a detail page.
+`/` and `/runs` redirect to the first run. The shared run-browser shell provides name/ID search, status and quality filters, and fixed sort options: run ID, name, last step descending, and last unambiguous finite loss ascending. Loss sorting exposes that reading's value and actual step; latest invalid/conflicted states remain visible in the run detail. Runs with no unambiguous finite loss go last, with stable run IDs breaking numerical ties. If reverse sort directions are added, unavailable readings must still remain last. Preserve filter/sort state across detail navigation.
 
 `/runs/[runId]` validates membership in the manifest and returns a meaningful unknown-run state for invalid IDs. The detail view shows run metadata, whole-run summaries, quality notices, and separate loss, learning-rate, and gradient-norm plots sharing a step interval. It never claims that one y-axis unit applies to all three metrics.
 
@@ -310,7 +308,7 @@ Unit tests cannot prove that the browser painted the intended pixels. Pixel asse
 
 ## 11 Performance experiment
 
-The assignment requires measured first render, zoom response, and hover response in a Performance trace with CPU throttling at 4x, plus tab memory at 1M points, before and after optimization. All values are **not measured** at setup. Proposed budgets are engineering goals, not assignment pass thresholds or current results.
+The assignment requires measured first render, zoom response, and hover response in a Performance trace with CPU throttling at 4x, plus tab memory at 1M points, before and after optimization. Comparable before/after results and tab-memory measurements are **not yet captured** for the current dashboard. Proposed budgets are engineering goals, not assignment pass thresholds or current results.
 
 | Measure | Definition | Proposed optimized goal |
 | --- | --- | --- |
@@ -319,7 +317,7 @@ The assignment requires measured first render, zoom response, and hover response
 | Hover response | Pointer/key input to the correct inspection result becoming visible. | p95 at most 50 ms. |
 | Memory | Browser task memory footprint and JS memory, with baseline, loaded steady state, peak, and release observation. | Incremental steady-state tab footprint at most 250 MiB; always report absolute footprint too. |
 
-Capture a correctness-preserving baseline before optimizing: the same generated columns, normalization policies, viewport, and Canvas renderer, but raw finite segments are drawn on the main thread without reduction. Baseline execution may be slow; impose a documented timeout and retain an honest timeout/crash result rather than substituting a smaller dataset. Do not use a deliberately incorrect every-Nth sample as a performance baseline.
+The numerical engine exposes `buildFrame(prepared, viewport, "raw")`, but the current UI uses reduced worker frames. A main-thread raw browser baseline and its traces have not been implemented or captured. Before claiming an optimization result, connect a correctness-preserving baseline using the same generated columns, normalization policies, viewport, and ECharts Canvas renderer, with raw finite segments drawn on the main thread without reduction. Baseline execution may be slow; impose a documented timeout and retain an honest timeout/crash result rather than substituting a smaller dataset. Do not use a deliberately incorrect every-Nth sample as a performance baseline.
 
 Then compare the worker-owned dataset and segment-aware viewport reducer. Preserve a baseline source revision or controlled benchmark mode with both implementations and identical fixtures. Ensure screenshot geometry and truth tests still pass after the optimization; changed behavior invalidates the comparison.
 
@@ -372,4 +370,4 @@ Choose **DON'T SHIP** if a truth invariant fails, another run can overwrite the 
 
 ## 14 Remaining decisions
 
-The implementation may revise the Canvas choice after a small, measured prototype, provided the renderer exposes enough control to preserve gaps, conflict extrema, and exact inspection. Do not accept a library's automatic downsampling or gap-joining behavior without tests. Optional log controls and block indexing should be added only when their scope is justified. Record the actual reference machine and measured limits during profiling; no absolute benchmark result can be specified in advance.
+Apache ECharts with its Canvas renderer is the user's selected visualization approach. Preserve application-controlled reduction, gap breaks, conflict extrema, and raw inspection when changing chart options; do not enable automatic downsampling or gap joining without numerical and browser evidence. Optional log controls and block indexing should be added only when their scope is justified. Record the actual reference machine and measured limits during profiling; no absolute benchmark result can be specified in advance.

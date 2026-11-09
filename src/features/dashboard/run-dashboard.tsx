@@ -404,9 +404,6 @@ export function RunDashboard({ runId }: { runId: string }) {
         <div className={styles.summaryMetric}>
           <div className={styles.summaryLabel}>Latest step</div>
           <strong>{summary ? formatCount(summary.lastStep) : "—"}</strong>
-          <span>
-            {summary ? `${formatCount(summary.uniqueSteps)} unique steps` : ""}
-          </span>
         </div>
         {METRICS.map((metric) => (
           <div key={metric} className={styles.summaryMetric}>
@@ -469,19 +466,12 @@ export function RunDashboard({ runId }: { runId: string }) {
             )}
           </button>
         </div>
-        <div className={styles.trustLabel}>
-          {updating ? (
-            <>
-              <CircleNotch size={13} />
-              Updating chart
-            </>
-          ) : (
-            <>
-              <span className={styles.plainLine} />
-              Linear · no smoothing
-            </>
-          )}
-        </div>
+        {updating && (
+          <div className={styles.trustLabel}>
+            <CircleNotch size={13} />
+            Updating chart
+          </div>
+        )}
       </div>
 
       {error && (
@@ -853,9 +843,10 @@ export function RunDashboard({ runId }: { runId: string }) {
           <details className={styles.sourceNote}>
             <summary>How points are shown</summary>
             <p>
-              Dense charts show selected source points, preserving first, last,
-              minimum and maximum readings per column. Smaller details may be
-              omitted; gaps remain open. Use the inspector for exact readings.
+              Charts use linear scales without smoothing. Dense charts show
+              selected source points, preserving first, last, minimum and
+              maximum readings per column. Smaller details may be omitted; gaps
+              remain open. Use the inspector for exact readings.
             </p>
           </details>
         </footer>

@@ -15,6 +15,12 @@ Status: the dashboard, deterministic fixtures, typed-array preparation and exact
 - Share the visible step range across all three charts. Start with keyboard-accessible zoom in/out/reset buttons, step-range inputs, and exact step inspection. Pointer inspection is included; elaborate drag gestures are optional.
 - Retain the three separate metric charts. After reviewing the rainfall/flow example on 10 November 2026, no additional rainfall timeline or dual-axis area overlay is planned for this iteration. Introduce another visualization only when it resolves a concrete investigation need. Finish the gaps recorded in [PRD_AUDIT.md](PRD_AUDIT.md) first.
 
+## Visual direction
+
+The 10 November 2026 redesign uses black `#000000`, cream `#E6D5B7`, and orange `#F54F1B` for the interface. The user replaced the initial navy with black, then requested lighter chart panels and allowed additional line colors. Chart panels use charcoal `#141414`; loss uses warm orange `#FF794B`, learning rate blue `#82B1FF`, and gradient norm mint `#83CDA8`. Keep the canvas black, text cream, and selection cues orange. Primary buttons use cream with black text. The supplied slash icon is kept unchanged in `public/soup-icon.png` and `src/app/icon.png`.
+
+Give space to the run data rather than workspace decoration. Remove redundant breadcrumbs, explanatory metric subtitles, repeated legends, and reassurance slogans. Keep actual snapshot time, latest reading states, quality warnings, visible-range controls, and exact source inspection. The run list shows latest step and loss. Explain the synthetic source once in an accessible disclosure, and explain point selection on demand. Meaningful warnings and accessible names are not decorative copy.
+
 ## One data pipeline
 
 ```mermaid

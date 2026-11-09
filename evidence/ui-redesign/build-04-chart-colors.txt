@@ -1,0 +1,34 @@
+
+> soup-training-monitor@0.1.0 build
+> next build
+
+▲ Next.js 16.4.5 (Turbopack)
+✓ Running next.config.ts took 40ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 822ms
+  Running TypeScript ...
+  Finished TypeScript in 1856ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/25) ...
+  Generating static pages using 7 workers (6/25) 
+  Generating static pages using 7 workers (12/25) 
+  Generating static pages using 7 workers (18/25) 
+✓ Generating static pages using 7 workers (25/25) in 516ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /icon.png
+├ ○ /runs
+└   /runs/[runId]
+  ├ ● /runs/run-001
+  ├ ● /runs/run-002
+  ├ ● /runs/run-003
+  └ ● [+17 more paths]
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+

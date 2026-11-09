@@ -1,18 +1,19 @@
 :root {
   color-scheme: dark;
-  --navy: #1e223d;
+  --black: #000000;
   --cream: #e6d5b7;
   --orange: #f54f1b;
-  --canvas: var(--navy);
-  --sidebar: var(--navy);
-  --surface: color-mix(in srgb, var(--cream) 3%, var(--navy));
-  --surface-hover: color-mix(in srgb, var(--cream) 8%, var(--navy));
+  --canvas: var(--black);
+  --sidebar: var(--black);
+  --surface: color-mix(in srgb, var(--cream) 3%, var(--black));
+  --chart-surface: #141414;
+  --surface-hover: color-mix(in srgb, var(--cream) 8%, var(--black));
   --line: rgb(230 213 183 / 18%);
   --line-soft: rgb(230 213 183 / 10%);
-  --control-border: color-mix(in srgb, var(--cream) 46%, var(--navy));
+  --control-border: color-mix(in srgb, var(--cream) 46%, var(--black));
   --text: var(--cream);
-  --text-secondary: color-mix(in srgb, var(--cream) 82%, var(--navy));
-  --muted: color-mix(in srgb, var(--cream) 68%, var(--navy));
+  --text-secondary: color-mix(in srgb, var(--cream) 82%, var(--black));
+  --muted: color-mix(in srgb, var(--cream) 68%, var(--black));
   --accent: var(--orange);
   --accent-soft: rgb(245 79 27 / 10%);
   --warning: var(--cream);
@@ -87,7 +88,7 @@ select {
 
 ::selection {
   background: var(--cream);
-  color: var(--navy);
+  color: var(--black);
 }
 
 * {

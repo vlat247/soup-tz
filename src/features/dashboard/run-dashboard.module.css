@@ -97,7 +97,7 @@
 .headingActions .exportButton {
   border-color: var(--cream);
   background: var(--cream);
-  color: var(--navy);
+  color: var(--black);
   font-weight: 550;
 }
 
@@ -215,12 +215,6 @@
   color: var(--muted);
   font-size: 12px;
   white-space: nowrap;
-}
-
-.plainLine {
-  width: 14px;
-  height: 1px;
-  background: var(--muted);
 }
 
 .chartToolbar {
@@ -361,7 +355,7 @@
   padding: 8px 12px;
   border: 1px solid var(--cream);
   background: var(--cream);
-  color: var(--navy);
+  color: var(--black);
   font-size: 12px;
   font-weight: 500;
 }
@@ -409,7 +403,7 @@
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: var(--surface);
+  background: var(--chart-surface);
 }
 
 .primaryChart {
@@ -993,7 +987,7 @@
   }
 
   .summaryMetric {
-    padding: 18px 16px;
+    padding: 16px;
   }
 
   .summaryMetric:nth-child(odd) {

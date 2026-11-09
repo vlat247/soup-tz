@@ -394,7 +394,7 @@
 
 .drawer::backdrop,
 .aboutDialog::backdrop {
-  background: rgb(30 34 61 / 0.8);
+  background: rgb(0 0 0 / 0.8);
 }
 
 .drawerHeading {

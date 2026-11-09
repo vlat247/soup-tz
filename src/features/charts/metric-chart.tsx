@@ -119,15 +119,19 @@ function plotGrid(domain: [number, number] | null, metric: Metric) {
   if (!domain) return GRID;
   const span = domain[1] - domain[0];
   const longestLabel = Math.max(
-    ...[0, 0.25, 0.5, 0.75, 1].map((fraction) =>
-      tickLabel(domain[0] + span * fraction, domain, metric).length,
+    ...[0, 0.25, 0.5, 0.75, 1].map(
+      (fraction) =>
+        tickLabel(domain[0] + span * fraction, domain, metric).length,
     ),
   );
   // IBM Plex Mono has a 0.6em advance. Reserve the full label instead of
   // shrinking its text or truncating precision on a narrow viewport.
   return {
     ...GRID,
-    left: Math.max(GRID.left, Math.ceil(longestLabel * AXIS_FONT_SIZE * 0.6) + 16),
+    left: Math.max(
+      GRID.left,
+      Math.ceil(longestLabel * AXIS_FONT_SIZE * 0.6) + 16,
+    ),
   };
 }
 
@@ -302,7 +306,7 @@ export function MetricChart({
         symbolSize: 7,
         clip: false,
         itemStyle: {
-          color: "#1E223D",
+          color: "#141414",
           borderColor: "#E6D5B7",
           borderWidth: 1.5,
           opacity: 1,
@@ -425,7 +429,11 @@ export function MetricChart({
           aria-hidden={!domain}
         />
         {domain && selectedFraction !== null && (
-          <div className={styles.guideArea} style={plotGrid(domain, metric)} aria-hidden="true">
+          <div
+            className={styles.guideArea}
+            style={plotGrid(domain, metric)}
+            aria-hidden="true"
+          >
             <span
               className={styles.guide}
               style={{ left: `${selectedFraction * 100}%` }}

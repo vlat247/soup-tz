@@ -1,0 +1,1416 @@
+[
+  {
+    "id": "run-001",
+    "summary": {
+      "rowCount": 6000,
+      "uniqueSteps": 6000,
+      "firstStep": 0,
+      "lastStep": 5999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.13161623920806542
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.1359320074459538
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 5999,
+          "value": 0.13161623920806542
+        },
+        "lr": {
+          "step": 5999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 5999,
+          "value": 0.1359320074459538
+        }
+      },
+      "extents": {
+        "loss": [
+          0.1269538687424,
+          1.7967512700983495
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13101528071310958,
+          0.827492340079214
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-002",
+    "summary": {
+      "rowCount": 5000,
+      "uniqueSteps": 5000,
+      "firstStep": 0,
+      "lastStep": 4999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.041901984028644056
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.18972524713724853
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 4999,
+          "value": 0.041901984028644056
+        },
+        "lr": {
+          "step": 4999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 4999,
+          "value": 0.18972524713724853
+        }
+      },
+      "extents": {
+        "loss": [
+          0.03894407212204162,
+          1.798673153645359
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13084345637123448,
+          0.8154761893951022
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-003",
+    "summary": {
+      "rowCount": 8000,
+      "uniqueSteps": 8000,
+      "firstStep": 0,
+      "lastStep": 7999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.6002740914793685
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.13612433528527618
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 7999,
+          "value": 0.6002740914793685
+        },
+        "lr": {
+          "step": 7999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 7999,
+          "value": 0.13612433528527618
+        }
+      },
+      "extents": {
+        "loss": [
+          0.5906002428120979,
+          1.8079273472816022
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.1314918702559936,
+          0.8279893399798338
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-004",
+    "summary": {
+      "rowCount": 4000,
+      "uniqueSteps": 4000,
+      "firstStep": 0,
+      "lastStep": 3999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.6313511214870584
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.17136797560844572
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 3999,
+          "value": 0.6313511214870584
+        },
+        "lr": {
+          "step": 3999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 3999,
+          "value": 0.17136797560844572
+        }
+      },
+      "extents": {
+        "loss": [
+          0.6313511214870584,
+          1.7951311208051628
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13131565346898827,
+          0.8194867931926436
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-005",
+    "summary": {
+      "rowCount": 4000,
+      "uniqueSteps": 4000,
+      "firstStep": 0,
+      "lastStep": 3999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.5143691700268537
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.15203737335745246
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 3999,
+          "value": 0.5143691700268537
+        },
+        "lr": {
+          "step": 3999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 3999,
+          "value": 0.15203737335745246
+        }
+      },
+      "extents": {
+        "loss": [
+          0.4912704200251028,
+          1.1097265664068983
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13124840638741,
+          0.8155685438147905
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-006",
+    "summary": {
+      "rowCount": 6000,
+      "uniqueSteps": 6000,
+      "firstStep": 0,
+      "lastStep": 5999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.19038031604051447
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.13288744783494622
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 5999,
+          "value": 0.19038031604051447
+        },
+        "lr": {
+          "step": 5999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 5999,
+          "value": 0.13288744783494622
+        }
+      },
+      "extents": {
+        "loss": [
+          0.028495290062161532,
+          1.8937870375217294
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13039321889139746,
+          0.8274314655334929
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-007",
+    "summary": {
+      "rowCount": 6000,
+      "uniqueSteps": 6000,
+      "firstStep": 0,
+      "lastStep": 5999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 12.484378528948874
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 8.620325333699583
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 5999,
+          "value": 12.484378528948874
+        },
+        "lr": {
+          "step": 5999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 5999,
+          "value": 8.620325333699583
+        }
+      },
+      "extents": {
+        "loss": [
+          0.4805430479090782,
+          12.4948885954077
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.5604408282229834,
+          8.62434803914283
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-008",
+    "summary": {
+      "rowCount": 5000,
+      "uniqueSteps": 5000,
+      "firstStep": 0,
+      "lastStep": 4999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.14835185351459168
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 2.1417495048977435
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 4999,
+          "value": 0.14835185351459168
+        },
+        "lr": {
+          "step": 4999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 4999,
+          "value": 2.1417495048977435
+        }
+      },
+      "extents": {
+        "loss": [
+          0.12728868502057553,
+          1.8067503906378988
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          1.7500985097140074,
+          30
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-009",
+    "summary": {
+      "rowCount": 4000,
+      "uniqueSteps": 4000,
+      "firstStep": 0,
+      "lastStep": 3999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 3,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "nan",
+          "value": null
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.18785429400391876
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 3998,
+          "value": 0.1390201094206362
+        },
+        "lr": {
+          "step": 3999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 3999,
+          "value": 0.18785429400391876
+        }
+      },
+      "extents": {
+        "loss": [
+          0.12656959975628512,
+          1.8048247404803988
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13105944365967775,
+          0.8142680586758986
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-010",
+    "summary": {
+      "rowCount": 4000,
+      "uniqueSteps": 4000,
+      "firstStep": 0,
+      "lastStep": 3999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 2,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.13755075634600453
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.1608380789635703
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 3999,
+          "value": 0.13755075634600453
+        },
+        "lr": {
+          "step": 3999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 3999,
+          "value": 0.1608380789635703
+        }
+      },
+      "extents": {
+        "loss": [
+          0.12811515297718254,
+          1.8043148917148901
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13307017179789626,
+          0.8240324951647506
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-011",
+    "summary": {
+      "rowCount": 4003,
+      "uniqueSteps": 4000,
+      "firstStep": 0,
+      "lastStep": 3999,
+      "duplicateRows": 3,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": true,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.1377975025729169
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.15994686883408576
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 3999,
+          "value": 0.1377975025729169
+        },
+        "lr": {
+          "step": 3999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 3999,
+          "value": 0.15994686883408576
+        }
+      },
+      "extents": {
+        "loss": [
+          0.12789730863377335,
+          1.812290701904567
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13275568975854915,
+          0.8222841479244619
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-012",
+    "summary": {
+      "rowCount": 4003,
+      "uniqueSteps": 4000,
+      "firstStep": 0,
+      "lastStep": 3999,
+      "duplicateRows": 3,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": true,
+      "invalidCounts": {
+        "loss": 1,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 2,
+        "lr": 0,
+        "grad_norm": 1
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.13247977131888128
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "conflict",
+          "value": null
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 3999,
+          "value": 0.13247977131888128
+        },
+        "lr": {
+          "step": 3999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 3998,
+          "value": 0.1498582179725275
+        }
+      },
+      "extents": {
+        "loss": [
+          0.12733597817988757,
+          12
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13273728945528182,
+          25
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-013",
+    "summary": {
+      "rowCount": 4096,
+      "uniqueSteps": 4096,
+      "firstStep": 0,
+      "lastStep": 4095,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": true,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.12814522448371954
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.18465575355105102
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 4095,
+          "value": 0.12814522448371954
+        },
+        "lr": {
+          "step": 4095,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 4095,
+          "value": 0.18465575355105102
+        }
+      },
+      "extents": {
+        "loss": [
+          0.12781127968474246,
+          1.7995708960603245
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13069329327304607,
+          0.8224911635726315
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-014",
+    "summary": {
+      "rowCount": 4000,
+      "uniqueSteps": 4000,
+      "firstStep": 0,
+      "lastStep": 4069,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 2,
+      "missingSteps": 70,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.14028056971639252
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.137306169802323
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 4069,
+          "value": 0.14028056971639252
+        },
+        "lr": {
+          "step": 4069,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 4069,
+          "value": 0.137306169802323
+        }
+      },
+      "extents": {
+        "loss": [
+          0.12674065880202398,
+          1.8040908745393494
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13205740635678992,
+          0.8254790422662753
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-015",
+    "summary": {
+      "rowCount": 4004,
+      "uniqueSteps": 4000,
+      "firstStep": 0,
+      "lastStep": 4034,
+      "duplicateRows": 4,
+      "rejectedRows": 0,
+      "gapCount": 2,
+      "missingSteps": 35,
+      "outOfOrder": true,
+      "invalidCounts": {
+        "loss": 3,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 1,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 2,
+        "lr": 0,
+        "grad_norm": 1
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.1333172448028703
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.13684533674735577
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 4034,
+          "value": 0.1333172448028703
+        },
+        "lr": {
+          "step": 4034,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 4034,
+          "value": 0.13684533674735577
+        }
+      },
+      "extents": {
+        "loss": [
+          0.12714853584295954,
+          18
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.1310731233750444,
+          22
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-016",
+    "summary": {
+      "rowCount": 4000,
+      "uniqueSteps": 4000,
+      "firstStep": 0,
+      "lastStep": 3999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.14979376851025827
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.1614097858639434
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 3999,
+          "value": 0.14979376851025827
+        },
+        "lr": {
+          "step": 3999,
+          "value": 0
+        },
+        "grad_norm": {
+          "step": 3999,
+          "value": 0.1614097858639434
+        }
+      },
+      "extents": {
+        "loss": [
+          0,
+          1.8121260666346644
+        ],
+        "lr": [
+          0,
+          0.001
+        ],
+        "grad_norm": [
+          0,
+          0.8296613319404423
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-017",
+    "summary": {
+      "rowCount": 4000,
+      "uniqueSteps": 4000,
+      "firstStep": 0,
+      "lastStep": 3999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": -0.7994341982947663
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.18981410605367274
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 3999,
+          "value": -0.7994341982947663
+        },
+        "lr": {
+          "step": 3999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 3999,
+          "value": 0.18981410605367274
+        }
+      },
+      "extents": {
+        "loss": [
+          -0.8027346762548562,
+          0.8041963580412866
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13192325264158355,
+          0.8267429352193733
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-018",
+    "summary": {
+      "rowCount": 3000,
+      "uniqueSteps": 3000,
+      "firstStep": 0,
+      "lastStep": 2999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.75
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.001
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.5
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 2999,
+          "value": 0.75
+        },
+        "lr": {
+          "step": 2999,
+          "value": 0.001
+        },
+        "grad_norm": {
+          "step": 2999,
+          "value": 0.5
+        }
+      },
+      "extents": {
+        "loss": [
+          0.75,
+          0.75
+        ],
+        "lr": [
+          0.001,
+          0.001
+        ],
+        "grad_norm": [
+          0.5,
+          0.5
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-019",
+    "summary": {
+      "rowCount": 3000,
+      "uniqueSteps": 3000,
+      "firstStep": 0,
+      "lastStep": 2999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 3000,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "nan",
+          "value": null
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.15837422063574194
+        }
+      },
+      "lastFinite": {
+        "loss": null,
+        "lr": {
+          "step": 2999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 2999,
+          "value": 0.15837422063574194
+        }
+      },
+      "extents": {
+        "loss": null,
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.1339702593990492,
+          0.8287136075552554
+        ]
+      }
+    }
+  },
+  {
+    "id": "run-020",
+    "summary": {
+      "rowCount": 1000000,
+      "uniqueSteps": 1000000,
+      "firstStep": 0,
+      "lastStep": 999999,
+      "duplicateRows": 0,
+      "rejectedRows": 0,
+      "gapCount": 0,
+      "missingSteps": 0,
+      "outOfOrder": false,
+      "invalidCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "missingCounts": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "conflictSteps": {
+        "loss": 0,
+        "lr": 0,
+        "grad_norm": 0
+      },
+      "latest": {
+        "loss": {
+          "kind": "finite",
+          "value": 0.13369214665055132
+        },
+        "lr": {
+          "kind": "finite",
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "kind": "finite",
+          "value": 0.18781498877331615
+        }
+      },
+      "lastFinite": {
+        "loss": {
+          "step": 999999,
+          "value": 0.13369214665055132
+        },
+        "lr": {
+          "step": 999999,
+          "value": 0.00009999999999999998
+        },
+        "grad_norm": {
+          "step": 999999,
+          "value": 0.18781498877331615
+        }
+      },
+      "extents": {
+        "loss": [
+          0.12604390282337702,
+          12
+        ],
+        "lr": [
+          0.00009999999999999998,
+          0.001
+        ],
+        "grad_norm": [
+          0.13007768054145433,
+          0.8286345596246573
+        ]
+      }
+    }
+  }
+]

@@ -46,7 +46,13 @@ interface SessionOptions {
   onState(state: RunState): void;
   nextRequestId?: () => number;
   now?: () => string;
+  /** No correlated response within this interval stops the session for manual retry. */
+  requestTimeoutMs?: number;
+  /** Schedule once after the delay and return a cancellation function. */
+  scheduleTimeout?: (callback: () => void, delayMs: number) => () => void;
 }
+
+const DEFAULT_REQUEST_TIMEOUT_MS = 30_000;
 
 export function loadingState(runId: string, previous?: RunState): RunState {
   if (previous?.runId === runId && previous.frame) {
@@ -73,6 +79,14 @@ function sameViewport(a: Viewport, b: Viewport): boolean {
 export function createRunSession(options: SessionOptions): RunSession {
   const { runId, sourceVersion } = options;
   const now = options.now ?? (() => new Date().toISOString());
+  const requestTimeoutMs = typeof options.requestTimeoutMs === "number" && Number.isFinite(options.requestTimeoutMs) &&
+    options.requestTimeoutMs >= 1 && options.requestTimeoutMs <= 2_147_483_647
+    ? options.requestTimeoutMs : DEFAULT_REQUEST_TIMEOUT_MS;
+  const scheduleTimeout = options.scheduleTimeout ?? ((callback: () => void, delayMs: number) => {
+    const timer = setTimeout(callback, delayMs);
+    return () => clearTimeout(timer);
+  });
+  const deadlines = new Map<number, () => void>();
   let sequence = 0;
   const nextRequestId = options.nextRequestId ?? (() => ++sequence);
   let width = drawableWidth(options.width);
@@ -109,9 +123,28 @@ export function createRunSession(options: SessionOptions): RunSession {
     session.cancel();
   }
 
+  function clearDeadline(requestId: number | null) {
+    if (requestId === null) return;
+    const cancel = deadlines.get(requestId);
+    deadlines.delete(requestId);
+    cancel?.();
+  }
+
+  function startDeadline(request: RunWorkerRequest) {
+    const cancel = scheduleTimeout(() => {
+      // A canceled timer may already be queued; identity still decides whether
+      // it can stop the session. New queued work cannot extend a stalled request.
+      if (!active || !deadlines.has(request.requestId)) return;
+      deadlines.delete(request.requestId);
+      halt("Run processing did not respond. Reload the run to try again.");
+    }, requestTimeoutMs);
+    deadlines.set(request.requestId, cancel);
+  }
+
   function send(request: RunWorkerRequest) {
     if (!active || !worker) return;
     try {
+      startDeadline(request);
       worker.postMessage(request);
     } catch (error) {
       halt(error instanceof Error ? error.message : "Unable to send the run request. Reload this run.");
@@ -163,6 +196,7 @@ export function createRunSession(options: SessionOptions): RunSession {
       // Discard inspection work tied to the previous geometry without blocking
       // future inspection on a reply that may never arrive.
       wantedInspection = null;
+      clearDeadline(inspectionInFlight);
       inspectionInFlight = null;
       publish({
         updating: true, error: null,
@@ -191,6 +225,8 @@ export function createRunSession(options: SessionOptions): RunSession {
       if (!active) return;
       active = false;
       wantedViewport = wantedInspection = null;
+      for (const cancel of deadlines.values()) cancel();
+      deadlines.clear();
       worker?.terminate();
     },
   };
@@ -203,6 +239,7 @@ export function createRunSession(options: SessionOptions): RunSession {
     const isViewport = message.requestId === viewportInFlight;
     const isInspection = message.requestId === inspectionInFlight;
     if (!isLoad && !isViewport && !isInspection) return;
+    clearDeadline(message.requestId as number);
     // Superseded replies release their queue slot, regardless of payload shape.
     // Validate only the result that can become the current visible state.
     if (isViewport && message.requestId !== wantedViewport?.requestId) {

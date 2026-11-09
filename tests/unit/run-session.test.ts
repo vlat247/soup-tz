@@ -13,6 +13,23 @@ const SOURCE_VERSION = "unchanged-historical-fixture-v1";
 const FIRST_LOAD = "2026-11-10T12:00:00.000Z";
 const SECOND_LOAD = "2026-11-10T12:05:00.000Z";
 
+class FakeDeadlines {
+  elapsed = 0;
+  pending = new Set<{ at: number; callback: () => void }>();
+  schedule = (callback: () => void, delay: number) => {
+    const task = { at: this.elapsed + delay, callback };
+    this.pending.add(task);
+    return () => { this.pending.delete(task); };
+  };
+  advance(delay: number) {
+    this.elapsed += delay;
+    for (const task of [...this.pending].sort((a, b) => a.at - b.at)) {
+      if (task.at > this.elapsed || !this.pending.delete(task)) continue;
+      task.callback();
+    }
+  }
+}
+
 class FakeWorker implements RunTransport {
   sent: RunWorkerRequest[] = [];
   terminated = 0;
@@ -90,16 +107,18 @@ function inspected(request: Request<"inspect">, sourceCount = 1): StepInspection
   return result;
 }
 
-function setup(options: { runId?: string; width?: number; previous?: RunState; now?: string; worker?: FakeWorker } = {}) {
+function setup(options: { runId?: string; width?: number; previous?: RunState; now?: string; worker?: FakeWorker; requestTimeoutMs?: number } = {}) {
   const worker = options.worker ?? new FakeWorker();
+  const deadlines = new FakeDeadlines();
   const states: RunState[] = [];
   let clock = options.now ?? FIRST_LOAD;
   const session = createRunSession({
     runId: options.runId ?? "run-a", sourceVersion: SOURCE_VERSION, width: options.width ?? 800,
     previous: options.previous, createWorker: () => worker,
     onState: (state) => states.push(state), now: () => clock,
+    requestTimeoutMs: options.requestTimeoutMs, scheduleTimeout: deadlines.schedule,
   });
-  return { worker, session, states, setNow: (value: string) => { clock = value; } };
+  return { worker, session, states, deadlines, setNow: (value: string) => { clock = value; } };
 }
 
 type Harness = ReturnType<typeof setup>;
@@ -484,5 +503,140 @@ describe("worker response contract", () => {
     expect(h.worker.latest("viewport").viewport).toMatchObject({ start: 20, end: 70 });
     finishFrame(h);
     expect(h.session.getState().status).toBe("ready");
+  });
+});
+
+describe("bounded worker response waits", () => {
+  it("ends a silent load after 30 seconds without fabricating data or retrying", () => {
+    const h = setup();
+    h.deadlines.advance(29_999);
+    expect(h.session.getState().status).toBe("loading");
+    h.deadlines.advance(1);
+    expect(h.session.getState()).toMatchObject({ status: "error", frame: null, summary: null, loadedAt: null, updating: false });
+    expect(h.session.getState().error).toContain("did not respond");
+    expect(h.worker.sent).toHaveLength(1);
+    expect(h.worker.terminated).toBe(1);
+    const failed = h.session.getState();
+    finishLoad(h);
+    h.deadlines.advance(60_000);
+    expect(h.session.getState()).toBe(failed);
+    expect(h.deadlines.pending.size).toBe(0);
+  });
+
+  it.each([null, "unreadable", {}, { runId: "wrong-run", requestId: 1 }, { runId: "run-a", requestId: 999 }])(
+    "does not let an uncorrelated message %j extend the wait",
+    (message) => {
+      const h = setup({ requestTimeoutMs: 100 });
+      h.deadlines.advance(99);
+      h.worker.handlers?.message(message);
+      h.deadlines.advance(1);
+      expect(h.session.getState().status).toBe("error");
+      expect(h.worker.terminated).toBe(1);
+    },
+  );
+
+  it("cancels successful request deadlines instead of expiring an idle session", () => {
+    const h = setup({ requestTimeoutMs: 100 });
+    h.deadlines.advance(99);
+    finishLoad(h);
+    h.deadlines.advance(99);
+    const result = finishInspection(h);
+    expect(h.deadlines.pending.size).toBe(0);
+    h.deadlines.advance(60_000);
+    expect(h.session.getState()).toMatchObject({ status: "ready", inspection: result, error: null });
+    expect(h.worker.terminated).toBe(0);
+  });
+
+  it("retains the old snapshot and successful retrieval time when refresh never responds", () => {
+    const original = setup();
+    finishLoad(original);
+    const retained = original.session.getState();
+    original.session.cancel();
+    const refresh = setup({ previous: retained, now: SECOND_LOAD, requestTimeoutMs: 100 });
+    refresh.deadlines.advance(100);
+    expect(refresh.session.getState()).toMatchObject({
+      status: "error", summary: retained.summary, frame: retained.frame,
+      loadedAt: FIRST_LOAD, isPreviousSnapshot: true, updating: false,
+    });
+    const retry = setup({ previous: refresh.session.getState(), now: SECOND_LOAD });
+    finishLoad(retry);
+    expect(retry.session.getState()).toMatchObject({ status: "ready", loadedAt: SECOND_LOAD, isPreviousSnapshot: false });
+  });
+
+  it.each(["viewport", "inspect"] as const)("bounds a stalled %s queue even when newer work keeps arriving", (type) => {
+    const h = setup({ requestTimeoutMs: 100 });
+    const original = finishLoad(h);
+    finishInspection(h);
+    if (type === "viewport") h.session.setViewport(10, 80);
+    else h.session.inspect(10);
+    h.deadlines.advance(99);
+    if (type === "viewport") h.session.setViewport(20, 70);
+    else h.session.inspect(20);
+    h.deadlines.advance(1);
+    expect(h.session.getState()).toMatchObject({ status: "error", frame: original, loadedAt: FIRST_LOAD, updating: false });
+    expect(h.worker.terminated).toBe(1);
+    expect(h.deadlines.pending.size).toBe(0);
+  });
+
+  it("starts the queued viewport deadline when sent, not when first requested", () => {
+    const h = setup({ requestTimeoutMs: 100 });
+    finishLoad(h);
+    finishInspection(h);
+    h.session.setViewport(10, 80);
+    const old = h.worker.latest("viewport");
+    h.session.setViewport(20, 70);
+    h.deadlines.advance(99);
+    finishFrame(h, old);
+    h.deadlines.advance(99);
+    const current = finishFrame(h);
+    h.deadlines.advance(100);
+    expect(h.session.getState()).toMatchObject({ status: "ready", frame: current, error: null });
+  });
+
+  it("cancels an abandoned inspection deadline when zoom replaces its geometry", () => {
+    const h = setup({ requestTimeoutMs: 100 });
+    finishLoad(h);
+    const abandoned = h.worker.latest("inspect");
+    const oldCallback = [...h.deadlines.pending][0]?.callback;
+    expect(oldCallback).toBeTypeOf("function");
+    h.deadlines.advance(99);
+    h.session.setViewport(10, 30);
+    const current = finishFrame(h);
+    h.deadlines.advance(1);
+    oldCallback?.();
+    finishInspection(h, abandoned);
+    expect(h.session.getState()).toMatchObject({ status: "ready", frame: current, error: null });
+    expect(h.deadlines.pending.size).toBe(0);
+  });
+
+  it("cancels all deadlines when the run is left, including already queued callbacks", () => {
+    const h = setup({ requestTimeoutMs: 100 });
+    const callback = [...h.deadlines.pending][0]?.callback;
+    expect(callback).toBeTypeOf("function");
+    h.session.cancel();
+    callback?.();
+    h.deadlines.advance(100);
+    expect(h.states).toHaveLength(1);
+    expect(h.worker.terminated).toBe(1);
+    expect(h.deadlines.pending.size).toBe(0);
+  });
+
+  it.each([0, -1, 0.5, NaN, Infinity, 2_147_483_648])("uses the conservative default for invalid timeout %s", (requestTimeoutMs) => {
+    const h = setup({ requestTimeoutMs });
+    expect([...h.deadlines.pending].map((entry) => entry.at)).toEqual([30_000]);
+  });
+
+  it("clears deadlines when sending fails or a current worker error is received", () => {
+    const worker = new FakeWorker();
+    worker.throwOn = "load";
+    const broken = setup({ worker });
+    expect(broken.deadlines.pending.size).toBe(0);
+    const h = setup();
+    finishLoad(h);
+    h.session.setViewport(10, 20);
+    const request = h.worker.latest("viewport");
+    h.worker.reply({ type: "error", runId: request.runId, requestId: request.requestId, message: "Viewport failed" });
+    expect(h.deadlines.pending.size).toBe(0);
+    expect(h.session.getState()).toMatchObject({ status: "error", error: "Viewport failed" });
   });
 });

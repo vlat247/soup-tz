@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T21:51:39.700Z",
+  "environment": {
+    "node": "v24.13.1",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "source": {
+    "revision": "25d72c4014ee1d1c5f01ac3d2449d7a482c8a583",
+    "workingTreeDirty": true,
+    "datasetVersions": [
+      "soup-fixtures-v1"
+    ],
+    "generatorVersions": [
+      "1.0.0"
+    ]
+  },
+  "arguments": [
+    "--run",
+    "run-012",
+    "--seed",
+    "17"
+  ],
+  "passed": true,
+  "caseCounts": {
+    "attempted": 2,
+    "passed": 2,
+    "failed": 0
+  },
+  "completed": {
+    "fixtureRows": 4003,
+    "viewportChecks": 10,
+    "metricChecks": 30,
+    "fragmentedMetricFrames": 4,
+    "inspectionGroups": 115,
+    "inspectionPages": 115
+  },
+  "results": [
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-012"
+      },
+      "replay": "npm run data:validate -- --run run-012",
+      "status": "passed",
+      "audit": {
+        "id": "run-012",
+        "sourceRows": 4003,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 1,
+        "inspectionGroups": 35,
+        "inspectionPages": 35,
+        "rejectedRows": 0,
+        "sourceSha256": "459320bc74d75263e66299f50bae78009dd3ca9b7e764350d38c0c6edb9aa6a4"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 17
+      },
+      "replay": "npm run data:validate -- --seed 17",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 110,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "41f296a3b0e8f5867a33c3d2f02329263932eaccefabe4177961b340cb746056"
+      }
+    }
+  ],
+  "limitations": "Source and numerical engine validation only. Finite deterministic cases do not prove all inputs, painted chart geometry, async races, accessibility, browser performance, or memory budgets."
+}

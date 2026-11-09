@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { pathToFileURL } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { collectValidationResults, selectValidationCases } from "./validation-report";
 import { generateRun } from "../src/features/runs/data/generate";
 import {
   getRunDescriptor,
@@ -192,6 +194,72 @@ function referenceSummary(run: GeneratedRun, order: number[]): RunSummary {
   return summary;
 }
 
+function referenceViewport(summary: RunSummary, requested: Viewport): Viewport {
+  assert(
+    Number.isSafeInteger(requested.start) &&
+      Number.isSafeInteger(requested.end),
+  );
+  assert(requested.start <= requested.end);
+  assert(Number.isFinite(requested.width) && requested.width > 0);
+  const bound = (step: number) =>
+    step < summary.firstStep
+      ? summary.firstStep
+      : step > summary.lastStep
+        ? summary.lastStep
+        : step;
+  return {
+    start: bound(requested.start),
+    end: bound(requested.end),
+    width: Math.max(1, Math.min(16_384, Math.floor(requested.width))),
+  };
+}
+
+/** Exhaust small sources; sample large ones without making the audit quadratic. */
+function inspectionGroups(run: GeneratedRun, order: number[]) {
+  const selectedSteps = new Set<number>();
+  if (order.length) {
+    selectedSteps.add(run.columns.step[order[Math.floor(order.length / 2)]]);
+    for (let sample = 0; sample < 32; sample++) {
+      selectedSteps.add(
+        run.columns.step[order[Math.floor((order.length - 1) * sample / 31)]],
+      );
+    }
+  }
+  const groups: {
+    step: number;
+    start: number;
+    end: number;
+    previous: number | null;
+    next: number | null;
+  }[] = [];
+  let anomalyGroups = 0;
+  for (let start = 0; start < order.length;) {
+    const step = run.columns.step[order[start]];
+    let end = start + 1;
+    while (end < order.length && run.columns.step[order[end]] === step) end++;
+    const anomalous =
+      end - start > 1 ||
+      METRICS.some(
+        (metric) =>
+          run.columns.missing[metric][order[start]] === 1 ||
+          !Number.isFinite(run.columns[metric][order[start]]),
+      );
+    const includeAnomaly = anomalous && anomalyGroups < 16;
+    if (includeAnomaly) anomalyGroups++;
+    if (order.length <= 512 || selectedSteps.has(step) || includeAnomaly) {
+      groups.push({
+        step,
+        start,
+        end,
+        previous: start > 0 ? run.columns.step[order[start - 1]] : null,
+        next: end < order.length ? run.columns.step[order[end]] : null,
+      });
+    }
+    start = end;
+  }
+  return groups;
+}
+
 type Point = [number, number];
 const pointKey = ([step, value]: Point) => `${step}:${value}`;
 // +0 and -0 share a numeric chart coordinate. Source-byte hashing separately
@@ -260,8 +328,20 @@ export function auditRun(run: GeneratedRun, viewports: Viewport[]) {
   let metricChecks = 0;
   let rangeFrames = 0;
   for (const requested of viewports) {
+    const expectedViewport = referenceViewport(expectedSummary, requested);
     const frame = buildFrame(prepared, requested);
-    const { start, end, width } = frame.viewport;
+    assert.equal(frame.runId, run.descriptor.id, "frame run identity");
+    assert.equal(
+      frame.sourceVersion,
+      run.descriptor.sourceVersion,
+      "frame source version",
+    );
+    assert.deepEqual(
+      frame.viewport,
+      expectedViewport,
+      "independently clamped requested viewport",
+    );
+    const { start, end, width } = expectedViewport;
     const visible = order.filter(
       (index) =>
         run.columns.step[index] >= start && run.columns.step[index] <= end,
@@ -466,22 +546,51 @@ export function auditRun(run: GeneratedRun, viewports: Viewport[]) {
       metricChecks++;
     }
   }
-  if (order.length) {
-    for (const step of [expectedSummary.firstStep, expectedSummary.lastStep]) {
-      const expectedIndexes = order.filter(
-        (index) => run.columns.step[index] === step,
+  const selectedGroups = inspectionGroups(run, order);
+  let inspectionPages = 0;
+  for (const group of selectedGroups) {
+    const indexes = order.slice(group.start, group.end);
+    const expectedReadings = Object.fromEntries(
+      METRICS.map((metric) => [
+        metric,
+        referenceGroup(run, indexes, metric).reading,
+      ]),
+    );
+    const pageCount = Math.ceil(indexes.length / 20);
+    const pageNumbers =
+      indexes.length <= 512
+        ? Array.from({ length: pageCount }, (_, page) => page)
+        : [...new Set([0, Math.floor(pageCount / 2), pageCount - 1])];
+    for (const pageNumber of pageNumbers) {
+      const offset = pageNumber * 20;
+      const page = inspectStep(prepared, group.step, offset);
+      const expectedRows = indexes.slice(offset, offset + 20).map(
+        (sourceIndex) => ({
+          sourceIndex,
+          readings: Object.fromEntries(
+            METRICS.map((metric) => [
+              metric,
+              referenceReading(run, sourceIndex, metric),
+            ]),
+          ),
+        }),
       );
-      const inspected: number[] = [];
-      for (let offset = 0; offset < expectedIndexes.length; offset += 20) {
-        const page = inspectStep(prepared, step, offset);
-        assert.equal(page.sourceOffset, offset);
-        inspected.push(...page.sourceRows.map((row) => row.sourceIndex));
-      }
       assert.deepEqual(
-        inspected,
-        expectedIndexes,
-        "every duplicate remains reachable by paging",
+        page,
+        {
+          requestedStep: group.step,
+          step: group.step,
+          previousStep: group.previous,
+          nextStep: group.next,
+          inGap: false,
+          readings: expectedReadings,
+          sourceRows: expectedRows,
+          sourceCount: indexes.length,
+          sourceOffset: offset,
+        },
+        `${run.descriptor.id}: exact inspection at step ${group.step}, source offset ${offset}`,
       );
+      inspectionPages++;
     }
   }
   assert.equal(
@@ -495,6 +604,8 @@ export function auditRun(run: GeneratedRun, viewports: Viewport[]) {
     viewports: viewports.length,
     metricChecks,
     rangeFrames,
+    inspectionGroups: selectedGroups.length,
+    inspectionPages,
     rejectedRows: rejected.length,
     sourceSha256: before,
   };
@@ -570,37 +681,45 @@ export function adversarialSource(seed: number): GeneratedRun {
 }
 
 export function main() {
-  const reports = RUN_MANIFEST.map(({ id }) => {
-    const run = generateRun(id);
-    return auditRun(run, fixtureViewports(run));
-  });
-  const adversarial = Array.from({ length: 40 }, (_, index) => {
-    const run = adversarialSource(index + 1);
+  const args = process.argv.slice(2);
+  if (args.length === 1 && args[0] === "--help") {
+    console.log([
+      "Usage: npm run data:validate -- [--run <run-id>] [--seed <uint32>]",
+      "Without selectors: validate all 20 fixtures and adversarial seeds 1–40.",
+      "With selectors: validate only the specified cases; flags may repeat or combine.",
+      "Each result includes a replay command. Any failed case produces exit status 1.",
+    ].join("\n"));
+    return;
+  }
+  const selected = selectValidationCases(args, RUN_MANIFEST.map(({ id }) => id));
+  let revision: string | null = null;
+  let workingTreeDirty: boolean | null = null;
+  try {
+    const options = { cwd: fileURLToPath(new URL("..", import.meta.url)), encoding: "utf8" as const, stdio: ["ignore", "pipe", "ignore"] as ["ignore", "pipe", "ignore"] };
+    revision = execFileSync("git", ["rev-parse", "HEAD"], options).trim();
+    workingTreeDirty = execFileSync("git", ["status", "--porcelain"], options).length > 0;
+  } catch {
+    // Source archives can be validated without Git; unavailable metadata stays explicit.
+  }
+  const report = collectValidationResults(selected, (selection) => {
+    const run = selection.kind === "fixture"
+      ? generateRun(selection.id)
+      : adversarialSource(selection.seed);
     return auditRun(run, fixtureViewports(run));
   });
   console.log(
     JSON.stringify(
       {
-        passed: true,
-        fixtures: reports,
-        fixtureRows: reports.reduce(
-          (sum, report) => sum + report.sourceRows,
-          0,
-        ),
-        adversarialSeeds: [1, 40],
-        adversarialCases: adversarial.length,
-        viewportChecks: [...reports, ...adversarial].reduce(
-          (sum, report) => sum + report.viewports,
-          0,
-        ),
-        metricChecks: [...reports, ...adversarial].reduce(
-          (sum, report) => sum + report.metricChecks,
-          0,
-        ),
-        fragmentedMetricFrames: [...reports, ...adversarial].reduce(
-          (sum, report) => sum + report.rangeFrames,
-          0,
-        ),
+        schemaVersion: 2,
+        generatedAt: new Date().toISOString(),
+        environment: { node: process.version, platform: process.platform, arch: process.arch },
+        source: {
+          revision, workingTreeDirty,
+          datasetVersions: [...new Set(RUN_MANIFEST.map((run) => run.sourceVersion))],
+          generatorVersions: [...new Set(RUN_MANIFEST.map((run) => run.generatorVersion))],
+        },
+        arguments: args,
+        ...report,
         limitations:
           "Source and numerical engine validation only. Finite deterministic cases do not prove all inputs, painted chart geometry, async races, accessibility, browser performance, or memory budgets.",
       },
@@ -608,6 +727,7 @@ export function main() {
       2,
     ),
   );
+  process.exitCode = report.passed ? 0 : 1;
 }
 
 if (

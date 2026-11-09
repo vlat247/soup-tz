@@ -1,0 +1,77 @@
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+ ❯ tests/unit/validation-oracle.test.ts (18 tests | 15 failed) 15ms
+   ❯ independent audit rejects coherent but incorrect worker data (18)
+     × rejects corrupted frame interval 6ms
+     × rejects corrupted frame width 1ms
+     × rejects corrupted frame identity 0ms
+     × rejects corrupted frame version 0ms
+     × rejects corrupted inspection requested-step 0ms
+     × rejects corrupted inspection step 3ms
+     × rejects corrupted inspection previous 0ms
+     × rejects corrupted inspection next 0ms
+     × rejects corrupted inspection gap 0ms
+     × rejects corrupted inspection count 0ms
+     × rejects corrupted inspection source-value 0ms
+     × rejects corrupted inspection source-classification 0ms
+     × rejects corrupted inspection group-classification 0ms
+     × rejects corrupted inspection interior 0ms
+     × checks original signed-zero representation in source inspection 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 15 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted frame interval
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted frame width
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted frame identity
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted frame version
+AssertionError: expected [Function] to throw an error
+ ❯ tests/unit/validation-oracle.test.ts:57:75
+     55|     "rejects corrupted frame %s", (fault) => {
+     56|       faults.frame = fault;
+     57|       expect(() => auditRun(source(), [{ start: 1, end: 2, width: 10 }…
+       |                                                                           ^
+     58|     },
+     59|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/15]⎯
+
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted inspection requested-step
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted inspection step
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted inspection previous
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted inspection next
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted inspection gap
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted inspection count
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted inspection source-value
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted inspection source-classification
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted inspection group-classification
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > rejects corrupted inspection interior
+AssertionError: expected [Function] to throw an error
+ ❯ tests/unit/validation-oracle.test.ts:64:44
+     62|     "rejects corrupted inspection %s", (fault) => {
+     63|       faults.inspection = fault;
+     64|       expect(() => auditRun(source(), [])).toThrow();
+       |                                            ^
+     65|     },
+     66|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/15]⎯
+
+ FAIL  tests/unit/validation-oracle.test.ts > independent audit rejects coherent but incorrect worker data > checks original signed-zero representation in source inspection
+AssertionError: expected [Function] to throw an error
+ ❯ tests/unit/validation-oracle.test.ts:70:75
+     68|   it("checks original signed-zero representation in source inspection"…
+     69|     faults.inspection = "signed-zero";
+     70|     expect(() => auditRun(validationSource([{ step: 0, loss: -0 }]), […
+       |                                                                           ^
+     71|   });
+     72|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/15]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  15 failed | 3 passed (18)
+   Start at  02:48:01
+   Duration  210ms (transform 56%, tests 21%, import 21%, worker 3%)
+

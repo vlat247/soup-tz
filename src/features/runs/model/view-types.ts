@@ -1,6 +1,12 @@
 import type { Metric } from "./types";
 
-export type ReadingKind = "finite" | "nan" | "positive-infinity" | "negative-infinity" | "missing" | "conflict";
+export type ReadingKind =
+  | "finite"
+  | "nan"
+  | "positive-infinity"
+  | "negative-infinity"
+  | "missing"
+  | "conflict";
 export interface Reading {
   kind: ReadingKind;
   value: number | null;
@@ -24,7 +30,11 @@ export interface RunSummary {
   extents: Record<Metric, [number, number] | null>;
 }
 
-export interface Viewport { start: number; end: number; width: number }
+export interface Viewport {
+  start: number;
+  end: number;
+  width: number;
+}
 export interface MetricFrame {
   points: [number, number | null][];
   conflicts: [number, number][];
@@ -55,17 +65,38 @@ export interface StepInspection {
   readings: Record<Metric, Reading>;
   sourceRows: { sourceIndex: number; readings: Record<Metric, Reading> }[];
   sourceCount: number;
+  sourceOffset: number;
 }
 
-export interface CatalogEntry { id: string; summary: RunSummary }
+export interface CatalogEntry {
+  id: string;
+  summary: RunSummary;
+}
 
 export type RunWorkerRequest =
   | { type: "load"; runId: string; requestId: number; width: number }
   | { type: "viewport"; runId: string; requestId: number; viewport: Viewport }
-  | { type: "inspect"; runId: string; requestId: number; step: number };
+  | {
+      type: "inspect";
+      runId: string;
+      requestId: number;
+      step: number;
+      sourceOffset?: number;
+    };
 
 export type RunWorkerResponse =
-  | { type: "loaded"; runId: string; requestId: number; summary: RunSummary; frame: RunFrame }
+  | {
+      type: "loaded";
+      runId: string;
+      requestId: number;
+      summary: RunSummary;
+      frame: RunFrame;
+    }
   | { type: "frame"; runId: string; requestId: number; frame: RunFrame }
-  | { type: "inspection"; runId: string; requestId: number; inspection: StepInspection }
+  | {
+      type: "inspection";
+      runId: string;
+      requestId: number;
+      inspection: StepInspection;
+    }
   | { type: "error"; runId: string; requestId: number; message: string };

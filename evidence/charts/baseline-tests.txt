@@ -1,0 +1,13 @@
+
+> soup-training-monitor@0.1.0 test
+> vitest run tests/unit
+
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+
+ Test Files  2 passed (2)
+      Tests  109 passed (109)
+   Start at  01:50:50
+   Duration  2.88s (tests 98%, transform 1%, import 1%)
+

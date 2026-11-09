@@ -10,7 +10,9 @@ export interface IndexedRun {
   rejectedSourceIndexes: Uint32Array;
 }
 
-export interface PreparedRun extends IndexedRun { summary: RunSummary }
+export interface PreparedRun extends IndexedRun {
+  summary: RunSummary;
+}
 
 export interface GroupStats {
   kind: ReadingKind;
@@ -23,10 +25,22 @@ export interface GroupStats {
 }
 
 export function emptyGroupStats(): GroupStats {
-  return { kind: "missing", value: null, minimum: Infinity, maximum: -Infinity, finiteCount: 0, invalidCount: 0, missingCount: 0 };
+  return {
+    kind: "missing",
+    value: null,
+    minimum: Infinity,
+    maximum: -Infinity,
+    finiteCount: 0,
+    invalidCount: 0,
+    missingCount: 0,
+  };
 }
 
-function readingKind(run: GeneratedRun, index: number, metric: Metric): ReadingKind {
+function readingKind(
+  run: GeneratedRun,
+  index: number,
+  metric: Metric,
+): ReadingKind {
   if (run.columns.missing[metric][index]) return "missing";
   const value = run.columns[metric][index];
   if (Number.isNaN(value)) return "nan";
@@ -35,7 +49,11 @@ function readingKind(run: GeneratedRun, index: number, metric: Metric): ReadingK
   return "finite";
 }
 
-export function readingAt(run: GeneratedRun, index: number, metric: Metric): Reading {
+export function readingAt(
+  run: GeneratedRun,
+  index: number,
+  metric: Metric,
+): Reading {
   const kind = readingKind(run, index, metric);
   return { kind, value: kind === "finite" ? run.columns[metric][index] : null };
 }
@@ -45,7 +63,12 @@ export function groupStep(run: IndexedRun, group: number): number {
 }
 
 /** Reuses a caller-owned scratch record instead of allocating a record per row. */
-export function scanGroup(run: IndexedRun, group: number, metric: Metric, result: GroupStats): void {
+export function scanGroup(
+  run: IndexedRun,
+  group: number,
+  metric: Metric,
+  result: GroupStats,
+): void {
   const first = run.order[run.groupStarts[group]];
   const firstKind = readingKind(run.source, first, metric);
   const firstValue = run.source.columns[metric][first];
@@ -54,7 +77,11 @@ export function scanGroup(run: IndexedRun, group: number, metric: Metric, result
   result.minimum = Infinity;
   result.maximum = -Infinity;
   result.finiteCount = result.invalidCount = result.missingCount = 0;
-  for (let position = run.groupStarts[group]; position < run.groupStarts[group + 1]; position++) {
+  for (
+    let position = run.groupStarts[group];
+    position < run.groupStarts[group + 1];
+    position++
+  ) {
     const index = run.order[position];
     const kind = readingKind(run.source, index, metric);
     const value = run.source.columns[metric][index];
@@ -74,7 +101,11 @@ export function scanGroup(run: IndexedRun, group: number, metric: Metric, result
   }
 }
 
-export function groupReading(run: IndexedRun, group: number, metric: Metric): Reading {
+export function groupReading(
+  run: IndexedRun,
+  group: number,
+  metric: Metric,
+): Reading {
   const stats = emptyGroupStats();
   scanGroup(run, group, metric, stats);
   return { kind: stats.kind, value: stats.value };
@@ -95,7 +126,11 @@ function summarize(run: IndexedRun, outOfOrder: boolean): RunSummary {
     invalidCounts: { loss: 0, lr: 0, grad_norm: 0 },
     missingCounts: { loss: 0, lr: 0, grad_norm: 0 },
     conflictSteps: { loss: 0, lr: 0, grad_norm: 0 },
-    latest: { loss: { kind: "missing", value: null }, lr: { kind: "missing", value: null }, grad_norm: { kind: "missing", value: null } },
+    latest: {
+      loss: { kind: "missing", value: null },
+      lr: { kind: "missing", value: null },
+      grad_norm: { kind: "missing", value: null },
+    },
     lastFinite: { loss: null, lr: null, grad_norm: null },
     extents: { loss: null, lr: null, grad_norm: null },
   };
@@ -125,8 +160,13 @@ function summarize(run: IndexedRun, outOfOrder: boolean): RunSummary {
         lastFiniteValue = stats.value!;
       }
     }
-    if (count) summary.latest[metric] = { kind: stats.kind, value: stats.value };
-    if (lastFiniteStep >= 0) summary.lastFinite[metric] = { step: lastFiniteStep, value: lastFiniteValue };
+    if (count)
+      summary.latest[metric] = { kind: stats.kind, value: stats.value };
+    if (lastFiniteStep >= 0)
+      summary.lastFinite[metric] = {
+        step: lastFiniteStep,
+        value: lastFiniteValue,
+      };
     if (minimum !== Infinity) summary.extents[metric] = [minimum, maximum];
   }
   return summary;
@@ -135,13 +175,36 @@ function summarize(run: IndexedRun, outOfOrder: boolean): RunSummary {
 export function prepareRun(source: GeneratedRun): PreparedRun {
   const { columns, descriptor } = source;
   const length = columns.step.length;
-  if (length > 0xffff_ffff) throw new RangeError("Source exceeds 32-bit provenance capacity");
-  if (!Number.isSafeInteger(descriptor.expectedStepInterval) || descriptor.expectedStepInterval <= 0) {
-    throw new RangeError("Expected step interval must be a positive safe integer");
+  if (length > 0xffff_ffff)
+    throw new RangeError("Source exceeds 32-bit provenance capacity");
+  if (
+    !Number.isSafeInteger(descriptor.rowCount) ||
+    descriptor.rowCount !== length
+  ) {
+    throw new RangeError(
+      "Declared source row count must match the source columns",
+    );
+  }
+  if (
+    !Number.isSafeInteger(descriptor.expectedStepInterval) ||
+    descriptor.expectedStepInterval <= 0
+  ) {
+    throw new RangeError(
+      "Expected step interval must be a positive safe integer",
+    );
   }
   for (const metric of METRICS) {
-    if (columns[metric].length !== length || columns.missing[metric].length !== length) {
+    if (
+      columns[metric].length !== length ||
+      columns.missing[metric].length !== length
+    ) {
       throw new RangeError("Source columns must have equal lengths");
+    }
+    for (let index = 0; index < length; index++) {
+      const missing = columns.missing[metric][index];
+      if (missing !== 0 && missing !== 1) {
+        throw new RangeError("Missing-value masks must contain only 0 or 1");
+      }
     }
   }
   let validCount = 0;
@@ -163,23 +226,41 @@ export function prepareRun(source: GeneratedRun): PreparedRun {
     if (Number.isSafeInteger(step) && step >= 0) order[valid++] = index;
     else rejectedSourceIndexes[rejected++] = index;
   }
-  if (outOfOrder) order.sort((a, b) => columns.step[a] - columns.step[b] || a - b);
+  if (outOfOrder)
+    order.sort((a, b) => columns.step[a] - columns.step[b] || a - b);
   let groupCount = 0;
   for (let position = 0; position < order.length; position++) {
-    if (!position || columns.step[order[position]] !== columns.step[order[position - 1]]) groupCount++;
+    if (
+      !position ||
+      columns.step[order[position]] !== columns.step[order[position - 1]]
+    )
+      groupCount++;
   }
   const groupStarts = new Uint32Array(groupCount + 1);
   let group = 0;
   for (let position = 0; position < order.length; position++) {
-    if (!position || columns.step[order[position]] !== columns.step[order[position - 1]]) groupStarts[group++] = position;
+    if (
+      !position ||
+      columns.step[order[position]] !== columns.step[order[position - 1]]
+    )
+      groupStarts[group++] = position;
   }
   groupStarts[groupCount] = order.length;
-  const indexed: IndexedRun = { source, order, groupStarts, rejectedSourceIndexes };
+  const indexed: IndexedRun = {
+    source,
+    order,
+    groupStarts,
+    rejectedSourceIndexes,
+  };
   return { ...indexed, summary: summarize(indexed, outOfOrder) };
 }
 
 /** First group with a step >= target (or > target when strict is true). */
-export function lowerBound(run: IndexedRun, target: number, strict = false): number {
+export function lowerBound(
+  run: IndexedRun,
+  target: number,
+  strict = false,
+): number {
   let low = 0;
   let high = run.groupStarts.length - 1;
   while (low < high) {

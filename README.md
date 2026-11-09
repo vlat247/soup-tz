@@ -2,9 +2,9 @@
 
 Next.js training-run monitor for the Soup Frontend Engineer take-home task, with explicit data-quality handling and source-based chart reduction.
 
-The dashboard includes a searchable, sortable run browser; loss, learning-rate, and gradient-norm charts; whole-run summaries; data-quality details; shared zoom controls; and an exact observation inspector. Twenty deterministic synthetic runs include broken telemetry and a million-point spike case. Apache ECharts renders linear, unsmoothed plots from independently reduced data, while a dedicated worker retains the full source observations.
+The dashboard includes a searchable, sortable run browser; loss, learning-rate, and gradient-norm charts; whole-run summaries; data-quality details; shared zoom controls; and exact observation and reduction-column inspection. Twenty deterministic synthetic runs include broken telemetry and a million-point spike case. Apache ECharts renders linear, unsmoothed plots from independently reduced data, while a dedicated worker retains the full source observations.
 
-Independent source validation checks summaries, domains, provenance, segment breaks, and retained extrema against raw-column scans. Deterministic fake-worker tests cover run changes, overlapping zoom/resize/inspection, failures, retry, and retained snapshots. Chart-model tests exercise the installed ECharts coordinate engine with tiny, adjacent, and extreme finite values. The [chart verification record](evidence/charts/verification.md) includes the passing integration check, targeted 360/768/1440px browser observations, pagination, production smoke checks, and reviewed diagnostic screenshots, alongside earlier [dashboard verification](evidence/dashboard-ui/verification.md). These checks are not a release certification: a browser baseline renderer, matched before/after traces at 4x CPU throttling, tab-memory measurements, full browser fault injection and assistive-technology coverage, and deployment remain outstanding.
+Independent source validation checks summaries, domains, provenance, segment breaks, and retained extrema against raw-column scans. Deterministic fake-worker tests cover run changes, overlapping zoom/resize/inspection, failures, retry, and retained snapshots. Chart-model tests exercise the installed ECharts coordinate engine with tiny, adjacent, and extreme finite values. The latest [downsampling verification record](evidence/downsampling/verification.md) covers exact integer bucket boundaries, original column extrema/quality counts, 525 passing tests across 14 files, the production build, 60 independent audit cases and targeted production browser checks. Its Node-only benchmark retains both improvements and a tail regression; it does not measure browser performance. Earlier [chart](evidence/charts/verification.md) and [dashboard](evidence/dashboard-ui/verification.md) checks remain historical evidence. A browser baseline renderer, matched before/after traces at 4x CPU throttling, tab-memory measurements, full browser fault injection and assistive-technology coverage, and deployment remain outstanding.
 
 ## Requirements documents
 
@@ -41,6 +41,7 @@ Open [localhost:3000](http://localhost:3000). The application opens `/runs/run-0
 | `npm run test:watch` | Run unit tests in watch mode. |
 | `npm run data:inspect` | Inspect all 20 runs; add `-- run-015` for exact anomaly source positions. |
 | `npm run data:validate` | Audit all 20 fixtures and adversarial seeds 1–40; retain each case result in a versioned JSON report and exit nonzero on failure. |
+| `npm run bench:reduction` | Record Node-only reduction samples and raw/reduced output counts; excludes generation, browser rendering and worker messaging. |
 | `npm run data:catalog` | Regenerate the compact run-list catalog from exact source summaries. |
 | `npm run data:catalog:check` | Fail if the committed catalog differs from regenerated summaries. |
 | `npm run build` | Create a production build. |
@@ -51,13 +52,15 @@ Unit tests establish numerical properties within their tested cases. They do not
 
 Replay a particular case with `npm run data:validate -- --run run-012` or `npm run data:validate -- --seed 17`. Selectors can repeat or combine; supplying them runs only those cases. Use `npm run --silent data:validate > report.json` for machine-readable output. Reports include exact case selectors, replay commands, source fingerprints, source/generator versions, Node/platform information and Git revision/dirty state when available. A failed case stays in the report while later cases continue; totals count only completed audits.
 
-The [data-validation record](evidence/data-validation/verification.md) covers source-contract checks, malformed worker replies and stronger independent oracles. Structural errors are rejected without coercion; NaN, infinities, missing readings, duplicate conflicts and rejected numeric steps remain preserved telemetry. The original 20 fixtures are unchanged.
+The earlier [data-validation record](evidence/data-validation/verification.md) covers source-contract checks, malformed worker replies and stronger independent oracles. Structural errors are rejected without coercion; NaN, infinities, missing readings, duplicate conflicts and rejected numeric steps remain preserved telemetry. The latest downsampling audit passes 300 viewport checks, 900 metric checks and 3,891 exact inspection groups/pages. All 20 fixture fingerprints are unchanged.
 
 ## Dashboard controls
 
 Choose a run from the sidebar, or open the run drawer on a narrow screen. Search by name/ID, filter by status or source-data quality, and sort by name, last step, or last valid loss. Sorting by loss displays the step of the earlier valid reading when necessary.
 
 All three charts share a step range. Use the range presets, explicit start/end inputs, zoom buttons, or Alt + mouse wheel over a chart. Whole-run summary cards stay unchanged by zoom; each chart labels its **Visible max** separately. The observation inspector reads original source rows, including conflicting duplicates and invalid values. Expand **Exact source readings** for full precision and use its previous/next page buttons for groups larger than 20 rows. Pages retain original source indexes.
+
+Expand **Samples in this chart column** to inspect the raw minimum/maximum and quality counts in the selected reduction column. Click an extremum to inspect its original step. The column uses the current range and shared drawing budget; it can span more than one physical pixel on a wider chart. It includes finite conflicting readings, preserves empty columns and reports intersecting missing intervals separately from missing metric values. Exact source inspection still works outside the visible range, where no column summary is shown.
 
 Open the snapshot disclosure to compare the fixed source timestamp/version with **Last successful load**. Reloading a synthetic snapshot does not make its source newer. While reloading, the prior complete snapshot and its load time remain visible; the replacement summary, frame, and load time commit together. **Export summary** includes the descriptor, tagged whole-run summary, and successful load time.
 

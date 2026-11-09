@@ -1,0 +1,8 @@
+Browser tab: 9, Title: "Million-point isolated spike · soup", URL: "http://127.0.0.1:3001/runs/run-020".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 134
++				249 text Step 500000. Loss 12. Learning rate 5.50e-4. Gradient norm 0.2724
+~					137 text 500,000
+~					143 text 12
+~					147 text 0.2724
+The focused UI element is 195 button Description: Inspect Loss maximum 12 at step 500000, source row 500000, Help: 12 · source row 500000

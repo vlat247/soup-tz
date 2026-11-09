@@ -1,0 +1,895 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-09T22:04:52.349Z",
+  "completedAt": "2026-11-09T22:04:59.495Z",
+  "revision": "a14e4c6d684e2a6c8f3dfa8225a7b1f0a99d2866",
+  "workingTreeDirty": true,
+  "reducerSha256": "404076d81fe895a2a7c0070efb4627340d0533d46ea394ea641de67b531c7c9d",
+  "environment": {
+    "node": "v24.13.1",
+    "platform": "darwin",
+    "arch": "arm64",
+    "osRelease": "25.5.0",
+    "cpuModel": "Apple M2",
+    "logicalCpus": 8,
+    "hostRamBytes": 8589934592
+  },
+  "protocol": {
+    "timingScope": "Synchronous buildFrame only; generation, prepareRun, hashing and report construction excluded",
+    "reducedWarmupsPerCase": 3,
+    "reducedSamplesPerCase": 12,
+    "rawWarmupsPerCase": 0,
+    "rawSamplesPerCase": 1,
+    "order": "All reduced cases first, then one raw allocation per case; order recorded below",
+    "p95": "nearest rank; with 12 samples the p95 is the maximum",
+    "forcedGc": false,
+    "cpuThrottling": "none",
+    "limitations": "Node numerical-engine timings only, not browser input-to-paint, worker messaging, 4x CPU traces, chart rendering, tab memory, or a release performance verdict. Raw timings are single observations, not reliable percentiles. The machine was not reserved or verified idle."
+  },
+  "sources": [
+    {
+      "id": "run-020",
+      "rows": 1000000,
+      "seed": 1020,
+      "datasetVersion": "soup-fixtures-v1",
+      "generatorVersion": "1.0.0",
+      "sourceSha256": "999bfffb32f9f135ae0880bbbc39f21bf56eac432efb52498ed24ccec5f813d3"
+    },
+    {
+      "id": "benchmark-fragmented",
+      "rows": 60000,
+      "seed": 20261110,
+      "datasetVersion": "soup-fixtures-v1",
+      "generatorVersion": "1.0.0",
+      "sourceSha256": "497885845f1ad3d7dbf4869920e1d5e8f4c4a6c1b84dfb3765576280b0cb0582"
+    }
+  ],
+  "cases": [
+    {
+      "id": "million-full-320",
+      "runId": "run-020",
+      "viewport": {
+        "start": 0,
+        "end": 999999,
+        "width": 320
+      },
+      "sourceCount": 1000000,
+      "reduced": {
+        "samplesMs": [
+          190.66816700000004,
+          178.13850000000002,
+          178.94425,
+          178.29733299999998,
+          174.21125000000006,
+          178.32283399999983,
+          182.50879200000008,
+          177.4295000000002,
+          174.78083400000014,
+          177.24020900000005,
+          186.88791700000002,
+          174.5595830000002
+        ],
+        "medianMs": 178.2179165,
+        "p95Ms": 190.66816700000004,
+        "minimumMs": 174.21125000000006,
+        "maximumMs": 190.66816700000004,
+        "primitives": {
+          "total": 3196,
+          "metrics": {
+            "loss": {
+              "mode": "line",
+              "points": 1277,
+              "conflicts": 0,
+              "finiteCount": 1000000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.12604390282337702,
+                12
+              ],
+              "peak": {
+                "step": 500000,
+                "value": 12
+              }
+            },
+            "lr": {
+              "mode": "line",
+              "points": 640,
+              "conflicts": 0,
+              "finiteCount": 1000000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.00009999999999999998,
+                0.001
+              ],
+              "peak": {
+                "step": 0,
+                "value": 0.001
+              }
+            },
+            "grad_norm": {
+              "mode": "line",
+              "points": 1279,
+              "conflicts": 0,
+              "finiteCount": 1000000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.13007768054145433,
+                0.8286345596246573
+              ],
+              "peak": {
+                "step": 31,
+                "value": 0.8286345596246573
+              }
+            }
+          }
+        }
+      },
+      "raw": {
+        "samplesMs": [
+          330.8740830000006
+        ],
+        "primitives": {
+          "total": 3000000,
+          "metrics": {
+            "loss": {
+              "mode": "line",
+              "points": 1000000,
+              "conflicts": 0,
+              "finiteCount": 1000000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.12604390282337702,
+                12
+              ],
+              "peak": {
+                "step": 500000,
+                "value": 12
+              }
+            },
+            "lr": {
+              "mode": "line",
+              "points": 1000000,
+              "conflicts": 0,
+              "finiteCount": 1000000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.00009999999999999998,
+                0.001
+              ],
+              "peak": {
+                "step": 0,
+                "value": 0.001
+              }
+            },
+            "grad_norm": {
+              "mode": "line",
+              "points": 1000000,
+              "conflicts": 0,
+              "finiteCount": 1000000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.13007768054145433,
+                0.8286345596246573
+              ],
+              "peak": {
+                "step": 31,
+                "value": 0.8286345596246573
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "million-zoom-320",
+      "runId": "run-020",
+      "viewport": {
+        "start": 499000,
+        "end": 501000,
+        "width": 320
+      },
+      "sourceCount": 2001,
+      "reduced": {
+        "samplesMs": [
+          0.60024999999996,
+          0.5292919999997139,
+          0.5302920000003724,
+          0.7008749999999964,
+          0.5321659999999611,
+          0.5316250000000764,
+          0.5269579999999223,
+          0.527791999999863,
+          0.5378339999997479,
+          0.6997499999997672,
+          0.5302910000000338,
+          0.5309170000000449
+        ],
+        "medianMs": 0.5312710000000607,
+        "p95Ms": 0.7008749999999964,
+        "minimumMs": 0.5269579999999223,
+        "maximumMs": 0.7008749999999964,
+        "primitives": {
+          "total": 2797,
+          "metrics": {
+            "loss": {
+              "mode": "line",
+              "points": 1085,
+              "conflicts": 0,
+              "finiteCount": 2001,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.24427552687765478,
+                12
+              ],
+              "peak": {
+                "step": 500000,
+                "value": 12
+              }
+            },
+            "lr": {
+              "mode": "line",
+              "points": 640,
+              "conflicts": 0,
+              "finiteCount": 2001,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.0005490995490995492,
+                0.0005508995508995509
+              ],
+              "peak": {
+                "step": 499000,
+                "value": 0.0005508995508995509
+              }
+            },
+            "grad_norm": {
+              "mode": "line",
+              "points": 1072,
+              "conflicts": 0,
+              "finiteCount": 2001,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.23637213431077964,
+                0.2967431492835584
+              ],
+              "peak": {
+                "step": 499075,
+                "value": 0.2967431492835584
+              }
+            }
+          }
+        }
+      },
+      "raw": {
+        "samplesMs": [
+          0.4883330000002388
+        ],
+        "primitives": {
+          "total": 6003,
+          "metrics": {
+            "loss": {
+              "mode": "line",
+              "points": 2001,
+              "conflicts": 0,
+              "finiteCount": 2001,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.24427552687765478,
+                12
+              ],
+              "peak": {
+                "step": 500000,
+                "value": 12
+              }
+            },
+            "lr": {
+              "mode": "line",
+              "points": 2001,
+              "conflicts": 0,
+              "finiteCount": 2001,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.0005490995490995492,
+                0.0005508995508995509
+              ],
+              "peak": {
+                "step": 499000,
+                "value": 0.0005508995508995509
+              }
+            },
+            "grad_norm": {
+              "mode": "line",
+              "points": 2001,
+              "conflicts": 0,
+              "finiteCount": 2001,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.23637213431077964,
+                0.2967431492835584
+              ],
+              "peak": {
+                "step": 499075,
+                "value": 0.2967431492835584
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "fragmented-full-320",
+      "runId": "benchmark-fragmented",
+      "viewport": {
+        "start": 0,
+        "end": 60412,
+        "width": 320
+      },
+      "sourceCount": 60000,
+      "reduced": {
+        "samplesMs": [
+          10.726084000000355,
+          10.840291000000434,
+          10.797125000000051,
+          10.92816700000003,
+          10.986540999999761,
+          10.730583000000024,
+          10.913500000000113,
+          11.108582999999726,
+          10.757791999999881,
+          10.915583000000424,
+          17.31295799999998,
+          15.359207999999853
+        ],
+        "medianMs": 10.914541500000269,
+        "p95Ms": 17.31295799999998,
+        "minimumMs": 10.726084000000355,
+        "maximumMs": 17.31295799999998,
+        "primitives": {
+          "total": 3119,
+          "metrics": {
+            "loss": {
+              "mode": "ranges",
+              "points": 1280,
+              "conflicts": 0,
+              "finiteCount": 30000,
+              "invalidCount": 30000,
+              "missingCount": 0,
+              "domain": [
+                0,
+                0.996
+              ],
+              "peak": {
+                "step": 996,
+                "value": 0.996
+              }
+            },
+            "lr": {
+              "mode": "ranges",
+              "points": 640,
+              "conflicts": 0,
+              "finiteCount": 54545,
+              "invalidCount": 0,
+              "missingCount": 5455,
+              "domain": [
+                0.001,
+                0.001
+              ],
+              "peak": {
+                "step": 1,
+                "value": 0.001
+              }
+            },
+            "grad_norm": {
+              "mode": "line",
+              "points": 1199,
+              "conflicts": 0,
+              "finiteCount": 60000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0,
+                498
+              ],
+              "peak": {
+                "step": 498,
+                "value": 498
+              }
+            }
+          }
+        }
+      },
+      "raw": {
+        "samplesMs": [
+          12.826624999999694
+        ],
+        "primitives": {
+          "total": 180177,
+          "metrics": {
+            "loss": {
+              "mode": "line",
+              "points": 60059,
+              "conflicts": 0,
+              "finiteCount": 30000,
+              "invalidCount": 30000,
+              "missingCount": 0,
+              "domain": [
+                0,
+                0.996
+              ],
+              "peak": {
+                "step": 996,
+                "value": 0.996
+              }
+            },
+            "lr": {
+              "mode": "line",
+              "points": 60059,
+              "conflicts": 0,
+              "finiteCount": 54545,
+              "invalidCount": 0,
+              "missingCount": 5455,
+              "domain": [
+                0.001,
+                0.001
+              ],
+              "peak": {
+                "step": 1,
+                "value": 0.001
+              }
+            },
+            "grad_norm": {
+              "mode": "line",
+              "points": 60059,
+              "conflicts": 0,
+              "finiteCount": 60000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0,
+                498
+              ],
+              "peak": {
+                "step": 498,
+                "value": 498
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "million-full-1024",
+      "runId": "run-020",
+      "viewport": {
+        "start": 0,
+        "end": 999999,
+        "width": 1024
+      },
+      "sourceCount": 1000000,
+      "reduced": {
+        "samplesMs": [
+          196.01908400000002,
+          233.87245799999982,
+          197.82691599999998,
+          190.03008299999965,
+          191.2447919999995,
+          197.08879100000013,
+          204.98854200000005,
+          198.80333399999927,
+          204.68887499999983,
+          203.51354099999935,
+          195.33770899999945,
+          188.6672499999995
+        ],
+        "medianMs": 197.45785350000006,
+        "p95Ms": 233.87245799999982,
+        "minimumMs": 188.6672499999995,
+        "maximumMs": 233.87245799999982,
+        "primitives": {
+          "total": 10221,
+          "metrics": {
+            "loss": {
+              "mode": "line",
+              "points": 4085,
+              "conflicts": 0,
+              "finiteCount": 1000000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.12604390282337702,
+                12
+              ],
+              "peak": {
+                "step": 500000,
+                "value": 12
+              }
+            },
+            "lr": {
+              "mode": "line",
+              "points": 2048,
+              "conflicts": 0,
+              "finiteCount": 1000000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.00009999999999999998,
+                0.001
+              ],
+              "peak": {
+                "step": 0,
+                "value": 0.001
+              }
+            },
+            "grad_norm": {
+              "mode": "line",
+              "points": 4088,
+              "conflicts": 0,
+              "finiteCount": 1000000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.13007768054145433,
+                0.8286345596246573
+              ],
+              "peak": {
+                "step": 31,
+                "value": 0.8286345596246573
+              }
+            }
+          }
+        }
+      },
+      "raw": {
+        "samplesMs": [
+          276.29629099999966
+        ],
+        "primitives": {
+          "total": 3000000,
+          "metrics": {
+            "loss": {
+              "mode": "line",
+              "points": 1000000,
+              "conflicts": 0,
+              "finiteCount": 1000000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.12604390282337702,
+                12
+              ],
+              "peak": {
+                "step": 500000,
+                "value": 12
+              }
+            },
+            "lr": {
+              "mode": "line",
+              "points": 1000000,
+              "conflicts": 0,
+              "finiteCount": 1000000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.00009999999999999998,
+                0.001
+              ],
+              "peak": {
+                "step": 0,
+                "value": 0.001
+              }
+            },
+            "grad_norm": {
+              "mode": "line",
+              "points": 1000000,
+              "conflicts": 0,
+              "finiteCount": 1000000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.13007768054145433,
+                0.8286345596246573
+              ],
+              "peak": {
+                "step": 31,
+                "value": 0.8286345596246573
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "million-zoom-1024",
+      "runId": "run-020",
+      "viewport": {
+        "start": 499000,
+        "end": 501000,
+        "width": 1024
+      },
+      "sourceCount": 2001,
+      "reduced": {
+        "samplesMs": [
+          0.8517919999994774,
+          0.8292090000004464,
+          0.8360419999999067,
+          0.8321670000004815,
+          0.8861660000002303,
+          0.8525419999996302,
+          1.2327089999998861,
+          0.8241250000000946,
+          0.8360830000001442,
+          0.8507499999996071,
+          0.8602499999997235,
+          0.8914169999998194
+        ],
+        "medianMs": 0.8512709999995423,
+        "p95Ms": 1.2327089999998861,
+        "minimumMs": 0.8241250000000946,
+        "maximumMs": 1.2327089999998861,
+        "primitives": {
+          "total": 6003,
+          "metrics": {
+            "loss": {
+              "mode": "line",
+              "points": 2001,
+              "conflicts": 0,
+              "finiteCount": 2001,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.24427552687765478,
+                12
+              ],
+              "peak": {
+                "step": 500000,
+                "value": 12
+              }
+            },
+            "lr": {
+              "mode": "line",
+              "points": 2001,
+              "conflicts": 0,
+              "finiteCount": 2001,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.0005490995490995492,
+                0.0005508995508995509
+              ],
+              "peak": {
+                "step": 499000,
+                "value": 0.0005508995508995509
+              }
+            },
+            "grad_norm": {
+              "mode": "line",
+              "points": 2001,
+              "conflicts": 0,
+              "finiteCount": 2001,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.23637213431077964,
+                0.2967431492835584
+              ],
+              "peak": {
+                "step": 499075,
+                "value": 0.2967431492835584
+              }
+            }
+          }
+        }
+      },
+      "raw": {
+        "samplesMs": [
+          0.5433750000001965
+        ],
+        "primitives": {
+          "total": 6003,
+          "metrics": {
+            "loss": {
+              "mode": "line",
+              "points": 2001,
+              "conflicts": 0,
+              "finiteCount": 2001,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.24427552687765478,
+                12
+              ],
+              "peak": {
+                "step": 500000,
+                "value": 12
+              }
+            },
+            "lr": {
+              "mode": "line",
+              "points": 2001,
+              "conflicts": 0,
+              "finiteCount": 2001,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.0005490995490995492,
+                0.0005508995508995509
+              ],
+              "peak": {
+                "step": 499000,
+                "value": 0.0005508995508995509
+              }
+            },
+            "grad_norm": {
+              "mode": "line",
+              "points": 2001,
+              "conflicts": 0,
+              "finiteCount": 2001,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0.23637213431077964,
+                0.2967431492835584
+              ],
+              "peak": {
+                "step": 499075,
+                "value": 0.2967431492835584
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "fragmented-full-1024",
+      "runId": "benchmark-fragmented",
+      "viewport": {
+        "start": 0,
+        "end": 60412,
+        "width": 1024
+      },
+      "sourceCount": 60000,
+      "reduced": {
+        "samplesMs": [
+          12.62225000000035,
+          12.332124999999905,
+          12.802458000000115,
+          14.024583000000348,
+          16.524333999999726,
+          14.63458399999945,
+          13.09216699999979,
+          13.315416999999798,
+          13.135166999999456,
+          12.19775000000027,
+          13.563083999999435,
+          12.461250000000291
+        ],
+        "medianMs": 13.113666999999623,
+        "p95Ms": 16.524333999999726,
+        "minimumMs": 12.19775000000027,
+        "maximumMs": 16.524333999999726,
+        "primitives": {
+          "total": 9474,
+          "metrics": {
+            "loss": {
+              "mode": "ranges",
+              "points": 4096,
+              "conflicts": 0,
+              "finiteCount": 30000,
+              "invalidCount": 30000,
+              "missingCount": 0,
+              "domain": [
+                0,
+                0.996
+              ],
+              "peak": {
+                "step": 996,
+                "value": 0.996
+              }
+            },
+            "lr": {
+              "mode": "ranges",
+              "points": 2048,
+              "conflicts": 0,
+              "finiteCount": 54545,
+              "invalidCount": 0,
+              "missingCount": 5455,
+              "domain": [
+                0.001,
+                0.001
+              ],
+              "peak": {
+                "step": 1,
+                "value": 0.001
+              }
+            },
+            "grad_norm": {
+              "mode": "line",
+              "points": 3330,
+              "conflicts": 0,
+              "finiteCount": 60000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0,
+                498
+              ],
+              "peak": {
+                "step": 498,
+                "value": 498
+              }
+            }
+          }
+        }
+      },
+      "raw": {
+        "samplesMs": [
+          13.892041999999492
+        ],
+        "primitives": {
+          "total": 180177,
+          "metrics": {
+            "loss": {
+              "mode": "line",
+              "points": 60059,
+              "conflicts": 0,
+              "finiteCount": 30000,
+              "invalidCount": 30000,
+              "missingCount": 0,
+              "domain": [
+                0,
+                0.996
+              ],
+              "peak": {
+                "step": 996,
+                "value": 0.996
+              }
+            },
+            "lr": {
+              "mode": "line",
+              "points": 60059,
+              "conflicts": 0,
+              "finiteCount": 54545,
+              "invalidCount": 0,
+              "missingCount": 5455,
+              "domain": [
+                0.001,
+                0.001
+              ],
+              "peak": {
+                "step": 1,
+                "value": 0.001
+              }
+            },
+            "grad_norm": {
+              "mode": "line",
+              "points": 60059,
+              "conflicts": 0,
+              "finiteCount": 60000,
+              "invalidCount": 0,
+              "missingCount": 0,
+              "domain": [
+                0,
+                498
+              ],
+              "peak": {
+                "step": 498,
+                "value": 498
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

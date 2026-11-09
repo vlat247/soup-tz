@@ -1,8 +1,8 @@
 # Soup Training Run Monitor Technical Requirements
 
-Version 1.3 · 10 November 2026 · Status: dashboard, chart model, and async sessions implemented; verification and delivery incomplete
+Version 1.4 · 10 November 2026 · Status: dashboard, exact viewport reduction, source column inspection and async sessions implemented; verification and delivery incomplete
 
-This specification defines how to implement and verify a training-run monitor whose charts remain trustworthy when records are malformed or too numerous to draw individually. The current application includes the dashboard, [deterministic fixtures](MOCK_DATA.md), typed-array preparation and exact summaries, per-metric viewport reduction, worker queries, generated catalog, paginated source inspection, and independent source validation. Apache ECharts renders results through a pure linear coordinate model; a separately tested async session controls frame and inspection commits. Targeted browser diagnostic evidence is retained. A browser baseline renderer, comparable before/after traces at 4x CPU throttling, tab-memory measurements, full browser fault injection and assistive-technology coverage, and deployment remain outstanding. The requirements below include those remaining acceptance checks; implemented behavior is not a claim that every release gate has passed.
+This specification defines how to implement and verify a training-run monitor whose charts remain trustworthy when records are malformed or too numerous to draw individually. The current application includes the dashboard, [deterministic fixtures](MOCK_DATA.md), typed-array preparation and exact summaries, per-metric viewport reduction with exact integer bucket boundaries, worker queries, generated catalog, paginated source and column inspection, and independent source validation. Apache ECharts renders results through a pure linear coordinate model; a separately tested async session controls frame and inspection commits. The latest [downsampling checkpoint](../evidence/downsampling/verification.md) retains 525 passing tests, the independent audit, targeted production browser checks and an isolated Node engine comparison. A browser baseline renderer, comparable before/after traces at 4x CPU throttling, tab-memory measurements, full browser fault injection and assistive-technology coverage, and deployment remain outstanding. The requirements below include those remaining acceptance checks; implemented behavior is not a claim that every release gate has passed.
 
 The product behavior and release criteria are in [PRD.md](./PRD.md). Assignment requirements come from *Soup-Task-05-Frontend-Engineer(1).pdf*, page 1, supplied at `/Users/vlat247/Downloads/Soup-Task-05-Frontend-Engineer(1).pdf`. Architecture, data policies, fixture allocation, and performance budgets below are engineering decisions, rather than constraints prescribed by the assignment.
 
@@ -30,7 +30,7 @@ The application supports inspection, not actual training termination. Authentica
 | Tests | Vitest covers fixtures, independent source checks, numerical queries, worker boundaries, pure sessions, and ECharts coordinate geometry; browser automation and axe integration remain planned | Controlled session and SVG coordinate checks complement targeted Canvas observations, without certifying all browser interactions or accessibility. |
 | Deployment target | Vercel | Direct fit for this Next.js setup. GitHub Pages would require a separate static-export routing decision. |
 
-`package.json` and the lockfile are authoritative for installed versions. `/` and `/runs` redirect to `/runs/run-001`; `/runs/[runId]` validates the manifest ID and renders the dashboard in its shared run-browser layout. Commands include `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `test:watch`, `data:inspect`, `data:validate`, `data:catalog`, `data:catalog:check`, and `check`. `data:validate` emits the independent source-audit report; related assertions also run in the unit suite. The dashboard includes loading/error feedback, a no-results state, shared viewport controls, a quality view, paginated source inspection, and a summary export.
+`package.json` and the lockfile are authoritative for installed versions. `/` and `/runs` redirect to `/runs/run-001`; `/runs/[runId]` validates the manifest ID and renders the dashboard in its shared run-browser layout. Commands include `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `test:watch`, `data:inspect`, `data:validate`, `bench:reduction`, `data:catalog`, `data:catalog:check`, and `check`. `data:validate` emits the independent source-audit report; related assertions also run in the unit suite. `bench:reduction` records synchronous Node engine timings and output counts, excluding browser work. The dashboard includes loading/error feedback, a no-results state, shared viewport controls, a quality view, paginated source and column inspection, and a summary export.
 
 App Router configuration follows the [official Next.js installation guide](https://nextjs.org/docs/app/getting-started/installation). Keep browser APIs in client components or workers, not module initialization shared with server rendering. Do not fetch remote fonts during builds.
 
@@ -68,6 +68,7 @@ src/
   features/dashboard/
     dashboard-shell.tsx            search, filters, sorting, navigation
     run-dashboard.tsx              summaries, controls, quality, inspection
+    column-inspection.tsx          source column disclosure and extremum actions
   features/runs/
     data/manifest.ts              20 fixture descriptors
     data/catalog.json             generated small list summaries
@@ -75,8 +76,11 @@ src/
     model/types.ts                 source contracts
     model/view-types.ts            summaries, frames, inspection, worker protocol
     model/prepare.ts               sorted source indexes, groups, exact summaries
+    model/buckets.ts               shared normalized viewport and exact integer buckets
     model/reduce.ts                viewport buckets and segment breaks
     model/inspect.ts               nearest source group and paginated raw readings
+    model/inspect-column.ts        original column extrema, counts and gap intersections
+    model/validate-column.ts       bounded column reply consistency checks
     model/format.ts                shared numeric and timestamp formatters
     worker/run.worker.ts           computation and query dispatcher
     hooks/use-run.ts               React lifecycle and native worker transport
@@ -91,10 +95,13 @@ scripts/
   inspect-runs.ts                  source fixture diagnostics
   validate-runs.ts                 independent raw-source oracle and report
   generate-run-catalog.ts          reproducible metadata generation
+  benchmark-reduction.ts           synchronous Node engine samples and output counts
 evidence/
   mock-data/                      retained source-fixture verification
   dashboard-ui/                   earlier dashboard checks and browser observations
   charts/                         source/session/renderer checks and diagnostic evidence
+  data-validation/                earlier runtime contracts and independent audit checkpoint
+  downsampling/                   exact buckets, column inspection, Node and browser evidence
 ```
 
 Create browser-test, performance, and submission artifacts as those checks are performed. Their absence must not be replaced with generated pass claims or invented results. Loading, empty-metric, and worker error states currently live in the dashboard/chart components rather than separate route files.
@@ -211,7 +218,7 @@ The implemented chart component reports its actual container width minus the gri
 
 1. Binary-search the normalized steps for the visible interval. Query at most one neighboring group on each side to support edge geometry; these neighbors cannot cross a gap or influence visible-only summary labels.
 2. Derive each y-domain from all visible raw finite values, including conflict extrema, before reduction. Apply explicit padding and a stable constant-domain rule. Never take the domain from a lossy sample.
-3. Assign visible samples to pixel columns with `floor((step - start) / (end - start) * W)`, clamped to `[0, W - 1]`. This includes the rightmost step. Single-step viewports use a centered marker.
+3. Assign visible integer samples to the exact rational column `floor((step - start) * W / (end - start))`, clamped to `[0, W - 1]`. Do not trust a rounded floating division/multiplication at an integer boundary. With span `S = qW + r`, column `c` starts at offset `c*q + ceil(c*r/W)`; these intermediates remain safe for supported widths. `createBuckets` corrects an approximate index against these thresholds and supplies the same inclusive integer bounds to inspection. The right endpoint belongs to the last column; single-step viewports use a centered marker. Fractional pointer coordinates use floating projection, while membership of integer source rows remains exact.
 4. Reduce each metric independently; do not reuse loss-selected indexes for learning rate or gradient norm. Within each continuous valid segment and column retain first, minimum, maximum, and last sample indexes. Deduplicate repeated indexes and emit in original step order. Never emit in the artificial order first/min/max/last when the maximum occurred before the minimum.
 5. Emit explicit path-break commands at every invalid, missing, gap, or conflicting group. Emit conflict extrema and quality annotations separately. Draw straight connections only within continuous finite segments; no smoothing curve or trend filter.
 6. Clip paths to the plot area, but keep edge markers fully visible using plot inset or marker-aware clipping. Bound y-padding so large finite values do not overflow; reject a nonfinite computed transform rather than drawing misleading coordinates.
@@ -238,7 +245,9 @@ Map the cursor to a raw step, then query the worker for the nearest unique sourc
 
 Pointer conversion decodes the chart's normalized x coordinate back to the source interval without rounding before nearest-step selection. The selected-step guide uses the same model's forward mapping and grid margins. Integer wheel-zoom calculations are tested separately for narrow ranges and singleton boundaries.
 
-The remaining column-inspection requirement is to expose finite extrema and invalid/conflict counts when multiple observations share a pixel. This would make a retained peak discoverable even when its exact x coordinate cannot be targeted with the mouse. Current keyboard controls and a step input provide exact sample access, and the raw table is paginated; they do not implement the per-column query.
+`inspectColumn` exposes original finite extrema (including conflicts) with source step/index, raw finite/invalid/missing counts, conflicting step counts, duplicates and intersecting known missing intervals. Tied extrema select the earliest step then original source index. It binary-searches the column's integer interval and scans its source groups; neighboring groups reveal gaps in empty columns. Missing intervals intersect the continuous column band and remain distinct from absent metric readings. A column may have no integer steps, zero rows and still intersect a known gap. An exact query outside the committed viewport returns null column context, rather than substituting a nearby column.
+
+The dashboard's collapsed column disclosure complements the exact observation inspector. Each minimum/maximum is a button to its original step. The shared budget uses the narrowest chart, so a reduction column is not claimed to equal one physical screen pixel in every chart. No source values are averaged or taken from reduced output; the column reply contains a constant number of records regardless of source size.
 
 ## 7 Worker protocol and asynchronous state
 
@@ -248,9 +257,9 @@ The implemented protocol in `model/view-types.ts` carries `runId` and a monotoni
 | --- | --- | --- |
 | `load` | `loaded` or `error` | Exact whole-run summary and initial full-range frame; raw columns stay in worker. |
 | `viewport` | `frame` or `error` | Interval/width, raw domains, points, null breaks, conflict extrema, representation mode, quality counts. |
-| `inspect` | `inspection` or `error` | Requested step and optional `sourceOffset`; nearest group with lower-step tie rule, previous/next recorded steps, source provenance, normalized offset, and at most 20 raw readings with the full source count. |
+| `inspect` | `inspection` or `error` | Requested step, optional `sourceOffset` and committed `viewport`; nearest group with lower-step tie rule, previous/next steps, provenance and at most 20 raw rows. When viewport is supplied, also return original column facts or null outside the range. |
 
-`inspectStep(prepared, requestedStep, sourceOffset = 0)` accepts only a nonnegative safe-integer offset. It rounds down to a multiple of 20 and clamps to the last page of the selected group. `sourceOffset`, `sourceCount`, and original `sourceIndex` values let the UI show the current range and navigate every source row without unbounded DOM output. A 45-row group is covered by three pages in unit and diagnostic checks. Step/page requests share one latest-inspection identity; old pages cannot replace a newer selection. An explicit pixel-column inspection request remains future work.
+`inspectStep(prepared, requestedStep, sourceOffset = 0)` accepts only a nonnegative safe-integer offset. It rounds down to a multiple of 20 and clamps to the last page of the selected group. `sourceOffset`, `sourceCount`, and original `sourceIndex` values let the UI show the current range and navigate every source row without unbounded DOM output. A 45-row group is covered by three pages in unit and diagnostic checks. Step/page and column facts share one latest-inspection identity and queue. The session attaches its committed viewport and validates returned column identity, bounds, counts and extrema. Zoom/resize clears prior column context before requesting new geometry; old replies cannot restore it. Legacy worker inspections without a viewport retain their exact-step-only response shape.
 
 Validate payload discriminants and ranges at the worker boundary. Return a bounded error record rather than serializing an entire exception or dataset. Keep complete source arrays in the worker and transfer only temporary result buffers; transferring an `ArrayBuffer` detaches the sender's view, so a persistent source buffer must never be transferred accidentally. See [MDN transferable objects](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
 
@@ -292,7 +301,9 @@ Tick labels must be produced from the exact tick values used by the scale. Disti
 
 ### Automated data and rendering checks
 
-Implemented coverage includes the original fixture/numerical tests, `run-validation.test.ts`, `run-worker.test.ts`, `run-session.test.ts`, and `chart-model.test.ts`. The independent validator uses ordinary sorted source indexes and reading identities to compute expected facts without calling the production numerical helpers as its oracle. It checks raw summaries/domains, required retained source points, continuity and conflicts, provenance, and a before/after source-byte SHA-256. The retained [source validation report](../evidence/charts/source-validation.json) covers all 20 fixtures and adversarial seeds 1–40; generated million-point viewport assertions are saved in the test source. Session logs, geometry checks, diagnostic screenshots, and earlier failures remain under `evidence/charts/`. The [current verification record](../evidence/charts/verification.md) links the passing integration output, targeted browser observations, 20-run source/DOM comparison, and production smoke checks. Passing cases do not imply release completion.
+The latest [integration check](../evidence/downsampling/check-final.stdout) at `f877330` passes 525 tests across 14 files, lint, strict types, catalog consistency and the production build. Coverage includes fixtures, source/reply contracts, independent numerical oracles, exact integer bucket boundaries, column extrema/quality/provenance, worker/session identity and ECharts coordinates. Column checks include 600 compatible queries over 40 adversarial sources, empty integer columns, safe-integer limits, signed zero, conflict extremes, gaps and malformed replies. The independent validator uses sorted source indexes and reading identities to compute expected facts without calling production numerical helpers; exact BigInt division supplies expected bucket membership independently of production quotient/remainder thresholds.
+
+The retained [source validation report](../evidence/downsampling/source-validation.json) passes 60 cases covering all 20 fixtures and adversarial seeds 1–40, 300 viewports, 900 metric results and 3,891 exact inspection groups/pages. All 20 source fingerprints match the preceding checkpoint. The [current verification record](../evidence/downsampling/verification.md) preserves the initial bucket/oracle failures, follow-up passes and targeted production checks for the million-point column maximum, keyboard extremum selection, zoom context reset, conflicts, mobile gap inspection and out-of-range exact inspection. Later singular-label corrections have focused lint; the observation label also has a development browser check. Earlier chart/session logs and screenshots remain historical evidence. Passing cases do not imply release completion.
 
 The table below remains the full acceptance plan. In particular, T09 browser fault injection, the full T10 browser/DPR matrix, T11 assistive-technology coverage, and the locale/time-zone matrix are not closed by pure tests or targeted screenshots.
 
@@ -351,6 +362,12 @@ The assignment requires measured first render, zoom response, and hover response
 The numerical engine exposes `buildFrame(prepared, viewport, "raw")`, but the current UI uses reduced worker frames. A main-thread raw browser baseline and its traces have not been implemented or captured. Before claiming an optimization result, connect a correctness-preserving baseline using the same generated columns, normalization policies, viewport, and ECharts Canvas renderer, with raw finite segments drawn on the main thread without reduction. Baseline execution may be slow; impose a documented timeout and retain an honest timeout/crash result rather than substituting a smaller dataset. Do not use a deliberately incorrect every-Nth sample as a performance baseline.
 
 Then compare the worker-owned dataset and segment-aware viewport reducer. Preserve a baseline source revision or controlled benchmark mode with both implementations and identical fixtures. Ensure screenshot geometry and truth tests still pass after the optimization; changed behavior invalidates the comparison.
+
+### Isolated Node engine evidence
+
+The [downsampling benchmark](../evidence/downsampling/verification.md) compares the old and new singleton `scanGroup` implementations with the same exact-bucket reducer. `npm run bench:reduction` times synchronous `buildFrame` only; generation, preparation, hashing, worker messaging, chart rendering and input-to-paint are excluded. Each reduced case has 3 warmups and 12 retained samples without CPU throttling or forced GC; the reported nearest-rank p95 is the maximum of those 12 samples. The machine was not reserved or verified idle. Raw-mode timings are single observations.
+
+Full-million medians change from 234.0 to 172.4 ms at width 320 and from 228.6 to 164.8 ms at width 1024. The fragmented width-320 p95 regresses from 14.78 to 17.82 ms and is retained with the other samples. These results support the smaller singleton scan path; they are neither a measured browser improvement nor a net comparison against the earlier branch, whose bucket behavior differed. They do not close PERF-01–05 or replace the measurement procedure below.
 
 ### Measurement procedure
 

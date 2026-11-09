@@ -1,0 +1,67 @@
+{
+  "scope": "Original versus optimized scanGroup with the same current reducer and bucket helper; Node-only warm engine timings",
+  "originalScanGroupFrom": "a14e4c6",
+  "reducerSha256": "1c99dd92e2d0dabf459ad0ab557161214cdcb1590403be3e36c2541c05e032a6",
+  "bucketsSha256": "631452892154858838db0f4dbddec6833f797dbfd05efda99f612cb8c00089d3",
+  "baselinePreparationSha256": "3cff85938a411b73991050733db52bcf6125af55475f7c724dbae2e1f2b68ffe",
+  "optimizedPreparationSha256": "877915ecb2e77e3a0ecd8fcb4d761be82c12a4f5ea007ccdc1e23b5267975da3",
+  "restoredOptimizedBytes": true,
+  "fixtureBytesAndReturnedFactsUnchanged": true,
+  "limitations": "Node numerical-engine timings only, not browser input-to-paint, worker messaging, 4x CPU traces, chart rendering, tab memory, or a release performance verdict. Raw timings are single observations, not reliable percentiles. The machine was not reserved or verified idle.",
+  "cases": [
+    {
+      "id": "million-full-320",
+      "beforeMedianMs": 233.9924370000001,
+      "afterMedianMs": 172.3622079999999,
+      "medianChangePercent": -26.338555976490895,
+      "beforeP95Ms": 279.77199999999993,
+      "afterP95Ms": 196.2352910000002,
+      "primitiveFactsUnchanged": true
+    },
+    {
+      "id": "million-zoom-320",
+      "beforeMedianMs": 0.6448330000000624,
+      "afterMedianMs": 0.5290835000000698,
+      "medianChangePercent": -17.950306513466497,
+      "beforeP95Ms": 0.8310420000002523,
+      "afterP95Ms": 0.743750000000091,
+      "primitiveFactsUnchanged": true
+    },
+    {
+      "id": "fragmented-full-320",
+      "beforeMedianMs": 14.084458500000437,
+      "afterMedianMs": 10.15581249999991,
+      "medianChangePercent": -27.893482734891116,
+      "beforeP95Ms": 14.779166999999688,
+      "afterP95Ms": 17.82199999999966,
+      "primitiveFactsUnchanged": true
+    },
+    {
+      "id": "million-full-1024",
+      "beforeMedianMs": 228.59412500000008,
+      "afterMedianMs": 164.79929149999998,
+      "medianChangePercent": -27.907468531835654,
+      "beforeP95Ms": 232.33466700000008,
+      "afterP95Ms": 166.04354200000034,
+      "primitiveFactsUnchanged": true
+    },
+    {
+      "id": "million-zoom-1024",
+      "beforeMedianMs": 0.9115620000002309,
+      "afterMedianMs": 0.7494375000001128,
+      "medianChangePercent": -17.785350859302717,
+      "beforeP95Ms": 2.9766249999993306,
+      "afterP95Ms": 0.9796660000001793,
+      "primitiveFactsUnchanged": true
+    },
+    {
+      "id": "fragmented-full-1024",
+      "beforeMedianMs": 14.19925000000012,
+      "afterMedianMs": 10.500041499999952,
+      "medianChangePercent": -26.052140077821974,
+      "beforeP95Ms": 14.581417000000329,
+      "afterP95Ms": 10.985250000000633,
+      "primitiveFactsUnchanged": true
+    }
+  ]
+}

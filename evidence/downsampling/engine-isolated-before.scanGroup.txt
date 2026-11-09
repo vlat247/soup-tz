@@ -1,0 +1,37 @@
+export function scanGroup(
+  run: IndexedRun,
+  group: number,
+  metric: Metric,
+  result: GroupStats,
+): void {
+  const first = run.order[run.groupStarts[group]];
+  const firstKind = readingKind(run.source, first, metric);
+  const firstValue = run.source.columns[metric][first];
+  result.kind = firstKind;
+  result.value = firstKind === "finite" ? firstValue : null;
+  result.minimum = Infinity;
+  result.maximum = -Infinity;
+  result.finiteCount = result.invalidCount = result.missingCount = 0;
+  for (
+    let position = run.groupStarts[group];
+    position < run.groupStarts[group + 1];
+    position++
+  ) {
+    const index = run.order[position];
+    const kind = readingKind(run.source, index, metric);
+    const value = run.source.columns[metric][index];
+    if (kind !== firstKind || (kind === "finite" && value !== firstValue)) {
+      result.kind = "conflict";
+      result.value = null;
+    }
+    if (kind === "finite") {
+      result.finiteCount++;
+      if (value < result.minimum) result.minimum = value;
+      if (value > result.maximum) result.maximum = value;
+    } else if (kind === "missing") {
+      result.missingCount++;
+    } else {
+      result.invalidCount++;
+    }
+  }
+}

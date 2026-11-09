@@ -1,0 +1,120 @@
+Browser tab: 9, Title: "Missing step intervals · soup", URL: "http://127.0.0.1:3001/runs/run-014".
+1 AXWebArea Missing step intervals · soup, URL: 127.0.0.1:3001/runs/run-014
+	2 link Description: Skip to run details, Value: 127.0.0.1:3001/runs/run-014#run-content
+	3 container
+		4 pop up button Open run navigation
+		5 link Description: Soup training runs, Value: 127.0.0.1:3001/runs
+		6 pop up button Synthetic data
+	7 container run-content
+		8 text run-014
+		9 image
+		10 text Running
+		11 heading Missing step intervals, Value: 1
+			12 text Missing step intervals
+		13 button (collapsed) Snapshot Nov 1, 12:00 UTC, Secondary Actions: Expand
+			14 image
+			15 text Snapshot 
+			16 text Nov 1, 12:00 UTC
+			17 image
+		18 text /
+		19 text 4,000
+		20 text  observations
+		21 button Reload, Help: Reload the same source snapshot
+			22 image
+			23 text Reload
+		24 button Export summary
+			25 image
+			26 text Export summary
+		27 container Whole-run latest readings
+			28 text Latest step
+			29 text 4,069
+			30 container
+				31 text Latest  loss
+			32 text 0.1403
+			33 container
+				34 text Latest  learning rate
+			35 text 1.00e-4
+			36 container
+				37 text Latest  gradient norm
+			38 text 0.1373
+		39 tab group Run view
+			40 tab (selected, settable, boolean) Metrics, ID: metrics-tab, Value: 1
+Metrics
+			41 tab (selectable, settable, boolean) Data quality 2, ID: quality-tab, Value: 0
+Data quality
+2
+		42 container Description: Metrics, ID: metrics-panel
+			43 button All steps
+			44 button Last 25%
+			45 button Last 10%
+			113 container
+				114 button (collapsed) 590 — 630, Secondary Actions: Expand
+					115 image
+					116 text 590
+					117 text —
+					118 text 630
+					119 image
+			52 button Zoom out
+				53 image
+			54 button Zoom in
+				55 image
+			56 image
+			57 text Data quality issues  · 2 gaps  — across the whole run
+			58 button Review
+				59 text Review
+				60 image
+			61 container Loss
+				62 heading Loss, Value: 2, ID: loss-title
+					63 text Loss
+				64 text Visible max
+				65 text 0.6683
+				66 container Loss from step 590 to 630. 21 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				67 text Training step
+			68 container Learning rate
+				69 heading Learning rate, Value: 2, ID: lr-title
+					70 text Learning rate
+				71 text Visible max
+				72 text 8.70e-4
+				73 container Learning rate from step 590 to 630. 21 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				74 text Training step
+			75 container Gradient norm
+				76 heading Gradient norm, Value: 2, ID: grad_norm-title
+					77 text Gradient norm
+				78 text Visible max
+				79 text 0.5234
+				80 container Gradient norm from step 590 to 630. 21 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				81 text Training step
+			82 container Original observation inspector
+				83 image
+				84 heading Observation inspector, Value: 2
+					85 text Observation inspector
+				86 container
+					87 text Step
+					88 stepper (settable, integer) Step, Value: 700, ID: inspect-step
+					89 button Inspect
+				120 text Step 700. Loss 0.5922. Learning rate 8.45e-4. Gradient norm 0.4519
+				90 container Selected observation; use left and right arrow keys to move between recorded steps
+					91 text Step
+					92 text 700
+					93 button Previous observation
+						94 image
+					95 button Next observation
+						96 image
+					97 text Loss
+					98 text 0.5922
+					99 text Learning rate
+					100 text 8.45e-4
+					101 text Gradient norm
+					102 text 0.4519
+				103 button (collapsed) Exact source readings 1 row, Secondary Actions: Expand
+					104 text Exact source readings
+					105 text 1
+					106 text row
+					107 image
+		108 container
+			109 text 21 observations in view
+			110 button (collapsed) How points are shown, Secondary Actions: Expand
+				111 text How points are shown
+		112 text Missing step intervals loaded. 4000 source observations.
+
+The focused UI element is 89 button Inspect

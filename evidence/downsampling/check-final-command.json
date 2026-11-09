@@ -1,0 +1,16 @@
+{
+  "command": [
+    "npm",
+    "run",
+    "check"
+  ],
+  "startedAt": "2026-11-09T22:20:25.482Z",
+  "finishedAt": "2026-11-09T22:20:47.506Z",
+  "node": "v24.13.1",
+  "platform": "darwin",
+  "arch": "arm64",
+  "revision": "f877330c4a51e447ace3207c7abbce54519e04d8",
+  "exitCode": 0,
+  "signal": null,
+  "error": null
+}

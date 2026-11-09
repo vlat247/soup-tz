@@ -1,0 +1,15 @@
+Browser tab: 9, Title: "Million-point isolated spike · soup", URL: "http://127.0.0.1:3001/runs/run-020".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 162-248, 250-253
+~				95 button (collapsed) 501,000 — 502,000, Secondary Actions: Expand
+~					97 text 501,000
+~					99 text 502,000
+~			101 button Zoom out
+~				109 text 0.2691
+~				110 container Loss from step 501000 to 502000. 1001 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+~				116 text 5.49e-4
+~				117 container Learning rate from step 501000 to 502000. 1001 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+~				123 text 0.2962
+~				124 container Gradient norm from step 501000 to 502000. 1001 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+~			159 text 1,001 observations in view
+The focused UI element is 95 button (collapsed) 501,000 — 502,000, Secondary Actions: Expand

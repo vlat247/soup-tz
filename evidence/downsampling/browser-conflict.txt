@@ -1,0 +1,258 @@
+Browser tab: 9, Title: "Conflicting duplicate steps · soup", URL: "http://127.0.0.1:3001/runs/run-012".
+1 AXWebArea Conflicting duplicate steps · soup, URL: 127.0.0.1:3001/runs/run-012
+	2 link Description: Skip to run details, Value: 127.0.0.1:3001/runs/run-012#run-content
+	3 container Run navigation
+		4 link Description: Soup training runs, Value: 127.0.0.1:3001/runs
+		5 text Training runs 20
+		6 text Find a run
+		7 text field (settable) Find a run
+		8 container Data quality filter
+			9 checkbox All, Value: 1
+			10 checkbox With issues, Value: 0
+			11 checkbox Clean, Value: 0
+		12 container
+			13 text Filter by run status
+			14 pop up button (collapsed, settable) Filter by run status, Value: All statuses, Secondary Actions: Expand
+				15 menu
+					16 (selected) All statuses
+					17 Running
+					18 Completed
+					19 Failed
+		20 container
+			21 text Sort runs
+			22 pop up button (collapsed, settable) Sort runs, Value: Run ID, Secondary Actions: Expand
+				23 menu
+					24 (selected) Run ID
+					25 Name
+					26 Last step ↓
+					27 Valid loss ↑
+		28 container Training runs
+			29 link Description: completed Steady convergence run-001 · Step 5,999 Loss 0.1316, Value: 127.0.0.1:3001/runs/run-001
+			30 link Description: completed Fast convergence run-002 · Step 4,999 Loss 0.0419, Value: 127.0.0.1:3001/runs/run-002
+			31 link Description: running Slow progress run-003 · Step 7,999 Loss 0.6003, Value: 127.0.0.1:3001/runs/run-003
+			32 link Description: completed Early plateau run-004 · Step 3,999 Loss 0.6314, Value: 127.0.0.1:3001/runs/run-004
+			33 link Description: running Oscillating loss run-005 · Step 3,999 Loss 0.5144, Value: 127.0.0.1:3001/runs/run-005
+			34 link Description: completed Noisy convergence run-006 · Step 5,999 Loss 0.1904, Value: 127.0.0.1:3001/runs/run-006
+			35 link Description: failed Loss divergence run-007 · Step 5,999 Loss 12.4844, Value: 127.0.0.1:3001/runs/run-007
+			36 link Description: running Unstable gradients run-008 · Step 4,999 Loss 0.1484, Value: 127.0.0.1:3001/runs/run-008
+			37 link Description: failed NaN loss readings run-009 · Step 3,999 Loss NaN Issues, Value: 127.0.0.1:3001/runs/run-009
+			38 link Description: failed Infinite loss readings run-010 · Step 3,999 Loss 0.1376 Issues, Value: 127.0.0.1:3001/runs/run-010
+			39 link Description: completed Repeated identical observations run-011 · Step 3,999 Loss 0.1378 Issues, Value: 127.0.0.1:3001/runs/run-011
+			40 link Description: failed Conflicting duplicate steps run-012 · Step 3,999 Loss 0.1325 Issues, Value: 127.0.0.1:3001/runs/run-012
+			41 link Description: completed Out-of-order observations run-013 · Step 4,095 Loss 0.1281 Issues, Value: 127.0.0.1:3001/runs/run-013
+			42 link Description: running Missing step intervals run-014 · Step 4,069 Loss 0.1403 Issues, Value: 127.0.0.1:3001/runs/run-014
+			43 link Description: failed Mixed telemetry defects run-015 · Step 4,034 Loss 0.1333 Issues, Value: 127.0.0.1:3001/runs/run-015
+			44 link Description: completed Valid zero readings run-016 · Step 3,999 Loss 0.1498, Value: 127.0.0.1:3001/runs/run-016
+			45 link Description: completed Negative loss values run-017 · Step 3,999 Loss -0.7994, Value: 127.0.0.1:3001/runs/run-017
+			46 link Description: completed Constant metrics run-018 · Step 2,999 Loss 0.75, Value: 127.0.0.1:3001/runs/run-018
+			47 link Description: failed No finite loss run-019 · Step 2,999 Loss NaN Issues, Value: 127.0.0.1:3001/runs/run-019
+			48 link Description: completed Million-point isolated spike run-020 · Step 999,999 Loss 0.1337, Value: 127.0.0.1:3001/runs/run-020
+		49 container
+			50 text 20  of  20  runs
+		51 pop up button Synthetic data
+	52 container run-content
+		53 text run-012
+		54 image
+		55 text Failed
+		56 heading Conflicting duplicate steps, Value: 1
+			57 text Conflicting duplicate steps
+		58 button (collapsed) Snapshot Nov 1, 12:00 UTC, Secondary Actions: Expand
+			59 image
+			60 text Snapshot 
+			61 text Nov 1, 12:00 UTC
+			62 image
+		63 text /
+		64 text 4,003
+		65 text  observations
+		66 button Reload, Help: Reload the same source snapshot
+			67 image
+			68 text Reload
+		69 button Export summary
+			70 image
+			71 text Export summary
+		72 container Whole-run latest readings
+			73 text Latest step
+			74 text 3,999
+			75 container
+				76 text Latest  loss
+			77 text 0.1325
+			78 container
+				79 text Latest  learning rate
+			80 text 1.00e-4
+			81 container
+				82 text Latest  gradient norm
+			83 text Conflicting
+			84 text Last valid 0.1499 at 3,998
+		85 tab group Run view
+			86 tab (selected, settable, boolean) Metrics, ID: metrics-tab, Value: 1
+Metrics
+			87 tab (selectable, settable, boolean) Data quality 5, ID: quality-tab, Value: 0
+Data quality
+5
+		90 container Description: Metrics, ID: metrics-panel
+			91 button All steps
+			92 button Last 25%
+			93 button Last 10%
+			150 container
+				151 button (collapsed) 0 — 3,999, Secondary Actions: Expand
+					152 image
+					153 text 0
+					154 text —
+					155 text 3,999
+					156 image
+			100 button (disabled) Zoom out
+				101 image
+			102 button Zoom in
+				103 image
+			104 image
+			105 text 1 invalid reading  · 3 duplicate rows  — across the whole run
+			106 button Review
+				107 text Review
+				108 image
+			109 container Loss
+				110 heading Loss, Value: 2, ID: loss-title
+					111 text Loss
+				112 text Visible max
+				113 text 12
+				114 container
+					115 container Loss from step 0 to 3999. 4002 finite readings; 1 invalid, 0 missing, 2 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+					116 text Conflict min / max
+				117 text Training step
+			118 container Learning rate
+				119 heading Learning rate, Value: 2, ID: lr-title
+					120 text Learning rate
+				121 text Visible max
+				122 text 1.00e-3
+				123 container Learning rate from step 0 to 3999. 4003 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				124 text Training step
+			125 container Gradient norm
+				126 heading Gradient norm, Value: 2, ID: grad_norm-title
+					127 text Gradient norm
+				128 text Visible max
+				129 text 25
+				130 container
+					131 container Gradient norm from step 0 to 3999. 4003 finite readings; 0 invalid, 0 missing, 1 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+					132 text Conflict min / max
+				133 text Training step
+			134 container Original observation inspector
+				135 image
+				136 heading Observation inspector, Value: 2
+					137 text Observation inspector
+				138 container
+					139 text Step
+					140 stepper (settable, integer) Step, Value: 700, ID: inspect-step
+					141 button Inspect
+				157 text Step 700. Loss Conflicting. Learning rate 8.42e-4. Gradient norm 0.4689
+				142 container Selected observation; use left and right arrow keys to move between recorded steps
+					158 text Step
+					159 text 700
+					160 button Previous observation
+						161 image
+					162 button Next observation
+						163 image
+					164 text Loss
+					165 text Conflicting
+					166 text Learning rate
+					167 text 8.42e-4
+					168 text Gradient norm
+					169 text 0.4689
+				143 button (collapsed) Exact source readings 2 rows, Secondary Actions: Expand
+					170 text Exact source readings
+					171 text 2
+					172 text rows
+					144 image
+				173 container
+					174 button (expanded) Samples in this chart column 12 observations, Secondary Actions: Collapse
+						175 text Samples in this chart column
+						176 text 12
+						177 text  observations
+						178 image
+					179 text Steps 691–701  · 1 duplicate rows
+					180 container Chart column source statistics
+						181 table
+							182 row
+								183 cell
+									184 text Metric
+								185 cell
+									186 text Minimum · step
+								187 cell
+									188 text Maximum · step
+								189 cell
+									190 text Finite
+								191 cell
+									192 text Invalid
+								193 cell
+									194 text Missing
+								195 cell
+									196 text Conflicting steps
+							197 row
+								198 cell
+									199 text Loss
+								200 cell
+									201 button Description: Inspect Loss minimum 0.5733194386479052 at step 696, source row 696, Help: 0.5733194386479052 · source row 696
+										202 text 0.5733
+										203 text at 
+										204 text 696
+								205 cell
+									206 button Description: Inspect Loss maximum 12 at step 700, source row 4000, Help: 12 · source row 4000
+										207 text 12
+										208 text at 
+										209 text 700
+								210 cell
+									211 text 12
+								212 cell
+									213 text 0
+								214 cell
+									215 text 0
+								216 cell
+									217 text 1
+							218 row
+								219 cell
+									220 text Learning rate
+								221 cell
+									222 button Description: Inspect Learning rate minimum 0.0008422355588897225 at step 701, source row 701, Help: 0.0008422355588897225 · source row 701
+										223 text 8.42e-4
+										224 text at 
+										225 text 701
+								226 cell
+									227 button Description: Inspect Learning rate maximum 0.0008444861215303826 at step 691, source row 691, Help: 0.0008444861215303826 · source row 691
+										228 text 8.44e-4
+										229 text at 
+										230 text 691
+								231 cell
+									232 text 12
+								233 cell
+									234 text 0
+								235 cell
+									236 text 0
+								237 cell
+									238 text 0
+							239 row
+								240 cell
+									241 text Gradient norm
+								242 cell
+									243 button Description: Inspect Gradient norm minimum 0.4440253235275245 at step 696, source row 696, Help: 0.4440253235275245 · source row 696
+										244 text 0.444
+										245 text at 
+										246 text 696
+								247 cell
+									248 button Description: Inspect Gradient norm maximum 0.49478354638697697 at step 697, source row 697, Help: 0.49478354638697697 · source row 697
+										249 text 0.4948
+										250 text at 
+										251 text 697
+								252 cell
+									253 text 12
+								254 cell
+									255 text 0
+								256 cell
+									257 text 0
+								258 cell
+									259 text 0
+					260 text Extrema include finite conflicting readings.
+		145 container
+			146 text 4,003 observations in view
+			147 button (collapsed) How points are shown, Secondary Actions: Expand
+				148 text How points are shown
+		149 text Conflicting duplicate steps loaded. 4003 source observations.
+
+The focused UI element is 174 button (expanded) Samples in this chart column 12 observations, Secondary Actions: Collapse

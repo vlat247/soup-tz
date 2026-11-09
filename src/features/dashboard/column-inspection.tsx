@@ -25,10 +25,10 @@ export function ColumnInspection({ column, disabled, onInspect }: {
   }
   return (
     <details className={styles.details}>
-      <summary>Samples in this chart column <span>{formatCount(column.sourceCount)} observations</span><CaretDown size={11} /></summary>
+      <summary>Samples in this chart column <span>{formatCount(column.sourceCount)} {column.sourceCount === 1 ? "observation" : "observations"}</span><CaretDown size={11} /></summary>
       <p className={styles.scope}>
         {column.stepRange ? `Steps ${formatCount(column.stepRange[0])}–${formatCount(column.stepRange[1])}` : "No integer steps in this column"}
-        {column.duplicateRows > 0 && ` · ${formatCount(column.duplicateRows)} duplicate rows`}
+        {column.duplicateRows > 0 && ` · ${formatCount(column.duplicateRows)} duplicate ${column.duplicateRows === 1 ? "row" : "rows"}`}
         {column.gapCount > 0 && ` · ${formatCount(column.gapCount)} missing ${column.gapCount === 1 ? "interval" : "intervals"}`}
       </p>
       <div className={styles.table} role="region" aria-label="Chart column source statistics" tabIndex={0}>

@@ -1,0 +1,44 @@
+{
+  "viewport": {
+    "start": 0,
+    "end": 66,
+    "width": 22
+  },
+  "mathematicalBucket14Steps": [
+    42,
+    43,
+    44
+  ],
+  "mathematicalBucket15FirstStep": 45,
+  "floatingBucketAt45": 14,
+  "mathematicalBucketAt45": 15,
+  "retainedNearBoundary": [
+    [
+      41,
+      0
+    ],
+    [
+      42,
+      0
+    ],
+    [
+      43,
+      10
+    ],
+    [
+      45,
+      6
+    ],
+    [
+      46,
+      0
+    ],
+    [
+      47,
+      0
+    ]
+  ],
+  "requiredBucket14LastRetained": false,
+  "existingAuditPassed": true,
+  "note": "The floating bucket moves step45 into bucket14 and omits its actual prior last point step44; the existing oracle uses the same floating quotient and accepts it."
+}

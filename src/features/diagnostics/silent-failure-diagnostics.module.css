@@ -1,0 +1,10 @@
+.lab { max-width: 1440px; margin: auto; }
+.controls { padding: 24px 32px; border-bottom: 1px solid var(--line); }
+.controls h1 { margin: 24px 0 12px; font-size: 26px; font-weight: 500; }
+.controls p, .controls li { color: var(--text-secondary); line-height: 1.6; }
+.controls nav, .buttons { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.controls button { min-height: 36px; padding: 8px 12px; color: var(--text); background: var(--chart-surface); border: 1px solid var(--control-border); border-radius: 4px; }
+.controls button[aria-pressed="true"] { border-color: var(--accent); }
+.controls button:disabled { opacity: 0.4; }
+.controls summary { cursor: pointer; }
+@media (max-width: 600px) { .controls { padding: 20px 16px; } }

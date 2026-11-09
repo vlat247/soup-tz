@@ -7,7 +7,7 @@ import {
   type RunSession, type RunState, type RunTransport,
 } from "./run-session";
 
-function createWorkerTransport(): RunTransport {
+export function createWorkerTransport(): RunTransport {
   const worker = new Worker(new URL("../worker/run.worker.ts", import.meta.url), {
     type: "module",
   });
@@ -26,7 +26,13 @@ function createWorkerTransport(): RunTransport {
 }
 
 /** Full source stays in one worker; only complete frames reach React state. */
-export function useRun(runId: string, width: number) {
+export interface RunEnvironment {
+  createTransport?: () => RunTransport;
+  requestTimeoutMs?: number;
+}
+
+export function useRun(runId: string, width: number, environment: RunEnvironment = {}) {
+  const { createTransport = createWorkerTransport, requestTimeoutMs } = environment;
   const [state, setState] = useState<RunState>(() => loadingState(runId));
   const [refreshVersion, setRefreshVersion] = useState(0);
   const stateRef = useRef(state);
@@ -47,7 +53,8 @@ export function useRun(runId: string, width: number) {
       sourceVersion: getRunDescriptor(runId).sourceVersion,
       width: widthRef.current,
       previous: stateRef.current,
-      createWorker: createWorkerTransport,
+      createWorker: createTransport,
+      requestTimeoutMs,
       nextRequestId: () => ++sequenceRef.current,
       onState(next) {
         stateRef.current = next;
@@ -59,7 +66,7 @@ export function useRun(runId: string, width: number) {
       session.cancel();
       if (sessionRef.current === session) sessionRef.current = null;
     };
-  }, [runId, refreshVersion]);
+  }, [runId, refreshVersion, createTransport, requestTimeoutMs]);
 
   const setViewport = useCallback((start: number, end: number) => {
     sessionRef.current?.setViewport(start, end);

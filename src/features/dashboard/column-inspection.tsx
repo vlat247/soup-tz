@@ -1,6 +1,6 @@
 import { CaretDown } from "@phosphor-icons/react";
 import { METRICS, type Metric } from "../runs/model/types";
-import { formatCount, formatValue, METRIC_LABELS } from "../runs/model/format";
+import { formatCount, formatExactValue, formatValue, METRIC_LABELS } from "../runs/model/format";
 import type { ColumnInspection as ColumnFacts, SourceExtremum } from "../runs/model/view-types";
 import styles from "./column-inspection.module.css";
 
@@ -15,8 +15,8 @@ export function ColumnInspection({ column, disabled, onInspect }: {
       <button
         type="button"
         disabled={disabled}
-        title={`${value.value.toString()} · source row ${value.sourceIndex}`}
-        aria-label={`Inspect ${METRIC_LABELS[metric]} ${kind} ${value.value.toString()} at step ${value.step}, source row ${value.sourceIndex}`}
+        title={`${formatExactValue(value.value)} · source row ${value.sourceIndex}`}
+        aria-label={`Inspect ${METRIC_LABELS[metric]} ${kind} ${formatExactValue(value.value)} at step ${value.step}, source row ${value.sourceIndex}`}
         onClick={() => onInspect(value.step)}
       >
         {formatValue(value.value, metric)} <span>at {formatCount(value.step)}</span>

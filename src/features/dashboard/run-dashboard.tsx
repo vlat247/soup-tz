@@ -27,12 +27,14 @@ import {
 } from "@phosphor-icons/react";
 import { MetricChart } from "../charts/metric-chart";
 import { ColumnInspection } from "./column-inspection";
-import { useRun } from "../runs/hooks/use-run";
+import { useRun, type RunEnvironment } from "../runs/hooks/use-run";
+import type { ChartRendererFactory } from "../charts/chart-renderer";
 import { getRunDescriptor } from "../runs/data/manifest";
 import { METRICS, type Metric } from "../runs/model/types";
 import type { RunSummary, Viewport } from "../runs/model/view-types";
 import {
   formatCount,
+  formatExactValue,
   formatReading,
   formatSnapshot,
   formatValue,
@@ -40,6 +42,7 @@ import {
   METRIC_LABELS,
   qualityCount,
 } from "../runs/model/format";
+import { serializeSummaryExport } from "../runs/model/export-summary";
 import styles from "./run-dashboard.module.css";
 
 function RangePicker({
@@ -222,7 +225,11 @@ function QualityView({
   );
 }
 
-export function RunDashboard({ runId }: { runId: string }) {
+export function RunDashboard({ runId, environment, createRenderer }: {
+  runId: string;
+  environment?: RunEnvironment;
+  createRenderer?: ChartRendererFactory;
+}) {
   const descriptor = getRunDescriptor(runId);
   const plotWidths = useRef<Partial<Record<Metric, number>>>({});
   const [width, setWidth] = useState(420);
@@ -232,6 +239,7 @@ export function RunDashboard({ runId }: { runId: string }) {
   const metricsTab = useRef<HTMLButtonElement>(null);
   const qualityTab = useRef<HTMLButtonElement>(null);
   const [inputError, setInputError] = useState("");
+  const [exportError, setExportError] = useState<string | null>(null);
   const {
     status,
     summary,
@@ -244,7 +252,7 @@ export function RunDashboard({ runId }: { runId: string }) {
     setViewport,
     inspect,
     refresh,
-  } = useRun(runId, width);
+  } = useRun(runId, width, environment);
 
   const measurePlot = useCallback((metric: Metric, drawableWidth: number) => {
     plotWidths.current[metric] = drawableWidth;
@@ -284,25 +292,20 @@ export function RunDashboard({ runId }: { runId: string }) {
 
   function exportSummary() {
     if (!summary) return;
-    const data = JSON.stringify(
-      {
-        descriptor,
-        summary,
-        loadedAt,
-        scope:
-          "Whole-run source summary; finite extrema include duplicate conflicts. Nonfinite readings are explicitly tagged.",
-      },
-      null,
-      2,
-    );
-    const url = URL.createObjectURL(
-      new Blob([data], { type: "application/json" }),
-    );
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${runId}-summary.json`;
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setExportError(null);
+    let url: string | null = null;
+    try {
+      const data = serializeSummaryExport(descriptor, summary, loadedAt);
+      url = URL.createObjectURL(new Blob([data], { type: "application/json" }));
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${runId}-summary.json`;
+      link.click();
+    } catch {
+      setExportError("The summary could not be exported. Try Export summary again.");
+    } finally {
+      if (url) { const createdUrl = url; setTimeout(() => URL.revokeObjectURL(createdUrl), 1000); }
+    }
   }
 
   function zoom(factor: number) {
@@ -511,6 +514,7 @@ export function RunDashboard({ runId }: { runId: string }) {
         )}
       </div>
 
+      {exportError && <p className={styles.errorNotice} role="alert">{exportError}</p>}
       {error && (
         <div className={styles.errorNotice} role="alert">
           <WarningCircle size={19} />
@@ -639,6 +643,7 @@ export function RunDashboard({ runId }: { runId: string }) {
               </div>
               <MetricChart
                 metric="loss"
+                createRenderer={createRenderer}
                 data={frame.metrics.loss}
                 viewport={frame.viewport}
                 color={METRIC_COLORS.loss}
@@ -794,7 +799,7 @@ export function RunDashboard({ runId }: { runId: string }) {
                       <div key={metric}>
                         <span>{METRIC_LABELS[metric]}</span>
                         <strong
-                          title={inspection.readings[metric].value?.toString()}
+                          title={formatExactValue(inspection.readings[metric].value)}
                           className={
                             inspection.readings[metric].kind !== "finite"
                               ? styles.warningText
@@ -843,7 +848,7 @@ export function RunDashboard({ runId }: { runId: string }) {
                               {METRICS.map((metric) => (
                                 <td key={metric}>
                                   {row.readings[metric].kind === "finite"
-                                    ? row.readings[metric].value?.toString()
+                                    ? formatExactValue(row.readings[metric].value)
                                     : formatReading(
                                         row.readings[metric],
                                         metric,

@@ -1,8 +1,22 @@
 :root {
-  color-scheme: light;
-  background: #faf8f5;
-  color: #292524;
-  font-family: ui-sans-serif, system-ui, sans-serif;
+  color-scheme: dark;
+  --canvas: #111413;
+  --sidebar: #0d100f;
+  --surface: #171b19;
+  --surface-hover: #1e2420;
+  --line: #2a312c;
+  --line-soft: #222923;
+  --text: #edf0ec;
+  --text-secondary: #b5bdb6;
+  --muted: #8b968d;
+  --accent: #b6e6bd;
+  --accent-soft: #23372a;
+  --warning: #e9c485;
+  --danger: #edaaa0;
+  --font-mono: "IBM Plex Mono", monospace;
+  background: var(--canvas);
+  color: var(--text);
+  font-family: "Geist Variable", system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -14,14 +28,61 @@
 
 body {
   margin: 0;
+  font-size: 14px;
 }
 
-code {
-  font-family: ui-monospace, monospace;
-  font-size: 0.95em;
+button, input, select {
+  font: inherit;
+}
+
+button, a, input, select, summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, select, summary {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button, a {
+  touch-action: manipulation;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+code, .mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+button, input, select {
+  border-radius: 6px;
 }
 
 ::selection {
-  background: #fde6bf;
-  color: #292524;
+  background: #b6e6bd;
+  color: #111413;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3b463e transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

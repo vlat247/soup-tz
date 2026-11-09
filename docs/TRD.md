@@ -6,7 +6,7 @@ This specification defines how to implement and verify a training-run monitor wh
 
 The product behavior and release criteria are in [PRD.md](./PRD.md). Assignment requirements come from *Soup-Task-05-Frontend-Engineer(1).pdf*, page 1, supplied at `/Users/vlat247/Downloads/Soup-Task-05-Frontend-Engineer(1).pdf`. Architecture, data policies, fixture allocation, and performance budgets below are engineering decisions, rather than constraints prescribed by the assignment.
 
-Start implementation with [BUILD_APPROACH.md](./BUILD_APPROACH.md), which records the current direction and build sequence. Use ordinary numerical helpers, first/minimum/maximum/last reduction, Canvas 2D, and linear-only unsmoothed plots initially. Preserve a truthful baseline before adding the worker and reduction optimizations; add further indexing only when measurements justify it. The contracts below define the edge cases that this simple implementation must preserve.
+Start implementation with [BUILD_APPROACH.md](./BUILD_APPROACH.md), which records the current direction and build sequence. Use ordinary numerical helpers, first/minimum/maximum/last reduction, Apache ECharts with its Canvas renderer, and linear-only unsmoothed plots initially. The user selected ECharts on 10 November 2026. Retain a truthful raw rendering mode for baseline comparison; add further indexing only when measurements justify it. The contracts below define the edge cases that this simple implementation must preserve.
 
 ## 1 Engineering objectives
 
@@ -25,7 +25,7 @@ The application supports inspection, not actual training termination. Authentica
 | Runtime and package management | Node.js 24.x and npm; committed `package-lock.json` | Makes local and deployment installations reproducible. |
 | Styling | Global tokens and CSS Modules | Small dependency surface; no component library required for this task. |
 | Quality checks | ESLint, TypeScript, production build | Establishes a working baseline before feature development. |
-| Planned chart renderer | Canvas 2D lines and markers; HTML or SVG axes and controls | Keeps element count bounded while retaining accessible surrounding UI. |
+| Chart renderer | Apache ECharts Canvas renderer, tree-shaken line/scatter/grid components; HTML controls and inspection | User-selected visualization library; application controls sampling, gaps, raw axes, and exact inspection. |
 | Planned computation | Dedicated Web Worker with typed arrays | Keeps generation, normalization, and reduction off the UI thread. |
 | Tests | Vitest is installed for fixture verification; Playwright and axe integration are planned for browser behavior | Covers source data now; chart and interaction checks follow during monitor implementation. |
 | Deployment target | Vercel | Direct fit for this Next.js setup. GitHub Pages would require a separate static-export routing decision. |

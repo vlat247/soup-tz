@@ -13,7 +13,7 @@ The project currently contains a Next.js scaffold, specifications, and a determi
 - Preserve NaN, infinity, missing-value, and known-cadence gap semantics. Break the affected line; never turn invalid values into zero or reconnect through a removed invalid reading.
 - Reduce each metric separately using first/minimum/maximum/last per continuous segment and visible pixel bucket. Keep original steps/values and chronological order. Recompute from source on zoom/resize.
 - Use raw data for exact summaries, axis bounds, and inspection. Keep latest invalid/conflict states distinct from an earlier valid reading.
-- Start with Canvas 2D, linear axes, no smoothing, and accessible HTML controls/inspection. Use a worker for the final million-point path after preserving a truthful baseline. Keep full datasets out of React state.
+- Use Apache ECharts with its Canvas renderer (user decision on 10 November 2026), linear axes, no smoothing, and accessible HTML controls/inspection. Disable built-in lossy sampling and feed our independently reduced points with explicit breaks. Use a worker for the million-point path and retain a truthful raw rendering mode for baseline comparisons. Keep full datasets out of React state.
 - Guard async results with run/version/request identity, including viewport and hover revisions. Plot-width changes also increment the viewport revision. Keep axes and plotted data in the same revision.
 - Preserve correctness evidence, failed results, production traces at 4x CPU throttling, and real tab-memory measurements. Never invent results or claim all local peaks survive reduction.
 

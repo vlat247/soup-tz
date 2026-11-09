@@ -11,7 +11,7 @@ Status: the Next.js scaffold, specifications, and deterministic 20-run fixture g
 - Use the existing Next.js App Router, TypeScript, npm, and CSS Modules setup.
 - Generate exactly 20 repeatable synthetic runs. `run-020` has exactly 1,000,000 rows and a known isolated loss spike at step 500,000. The TRD defines the smaller anomaly fixtures.
 - Provide a sortable/filterable run list and a detail view with loss, learning-rate, and gradient-norm charts, summary cards, data-quality notices, and loading/empty/error states.
-- Use Canvas 2D for the plot and ordinary HTML controls, labels, and a textual data inspector. Draw straight lines with linear axes. The first version has no smoothing or logarithmic mode; the zero/negative-value check verifies that these readings remain valid on a linear scale.
+- Use Apache ECharts with the Canvas renderer for plots, as requested on 10 November 2026, and ordinary HTML controls, labels, and a textual data inspector. Supply our reduced points with explicit breaks and disable built-in lossy sampling. Draw straight lines with linear axes. The first version has no smoothing or logarithmic mode; the zero/negative-value check verifies that these readings remain valid on a linear scale.
 - Share the visible step range across all three charts. Start with keyboard-accessible zoom in/out/reset buttons, step-range inputs, and exact step inspection. Pointer inspection is included; elaborate drag gestures are optional.
 
 ## One data pipeline

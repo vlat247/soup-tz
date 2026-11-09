@@ -1,10 +1,10 @@
 # Soup Training Run Monitor Product Requirements
 
-**Version:** 1.1
+**Version:** 1.2
 
 **Date:** 2026-11-10
 
-**Status:** Implementation specification; product acceptance is pending.
+**Status:** Core dashboard implemented; verification and delivery acceptance remain incomplete.
 
 **Companion specification:** [Technical requirements](TRD.md)
 
@@ -12,7 +12,7 @@
 
 The monitor helps an engineer decide whether a training run is behaving well enough to continue spending compute. It must expose uncertainty, invalid observations, and divergence instead of presenting a reassuring but misleading chart. The evaluation scenario is a person deciding whether to stop a $500 run; the application provides evidence for that decision and does not control real training infrastructure.
 
-The current delivery includes the Next.js project, its requirements, and the [20-run fixture generator with source-data tests](MOCK_DATA.md). The monitor interface, chart implementation, product interaction tests, performance evidence, deployment, and final submission are subsequent implementation work. Requirements below describe the intended complete product.
+The current delivery includes the Next.js dashboard, [20 deterministic fixtures](MOCK_DATA.md), three Apache ECharts plots, source-based summaries and reduction, worker processing, run search/filter/sort, shared range controls, and exact observation inspection. The saved final check passes 109 unit tests, lint, strict typing, catalog consistency, and the production build; targeted desktop/mobile browser checks are recorded. Several UI details, controlled failure/rendering tests, performance and memory evidence, deployment, and submission artifacts remain incomplete. See the [requirement-by-requirement progress audit](PRD_AUDIT.md) for the implementation at commit `bfe1ee3`. Requirements below remain the intended complete product; this status update does not waive them.
 
 ## 1. Source and decision boundaries
 

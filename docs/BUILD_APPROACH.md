@@ -13,6 +13,7 @@ Status: the dashboard, deterministic fixtures, typed-array preparation and exact
 - Provide a sortable/filterable run list and a detail view with loss, learning-rate, and gradient-norm charts, summary cards, data-quality notices, and loading/empty/error states.
 - Use Apache ECharts with the Canvas renderer for plots, as requested on 10 November 2026, and ordinary HTML controls, labels, and a textual data inspector. Supply our reduced points with explicit breaks and disable built-in lossy sampling. Draw straight lines with linear axes. The first version has no smoothing or logarithmic mode; the zero/negative-value check verifies that these readings remain valid on a linear scale.
 - Share the visible step range across all three charts. Start with keyboard-accessible zoom in/out/reset buttons, step-range inputs, and exact step inspection. Pointer inspection is included; elaborate drag gestures are optional.
+- Retain the three separate metric charts. After reviewing the rainfall/flow example on 10 November 2026, no additional rainfall timeline or dual-axis area overlay is planned for this iteration. Introduce another visualization only when it resolves a concrete investigation need. Finish the gaps recorded in [PRD_AUDIT.md](PRD_AUDIT.md) first.
 
 ## One data pipeline
 

@@ -26,6 +26,7 @@ import {
   Crosshair,
 } from "@phosphor-icons/react";
 import { MetricChart } from "../charts/metric-chart";
+import { ColumnInspection } from "./column-inspection";
 import { useRun } from "../runs/hooks/use-run";
 import { getRunDescriptor } from "../runs/data/manifest";
 import { METRICS, type Metric } from "../runs/model/types";
@@ -892,6 +893,9 @@ export function RunDashboard({ runId }: { runId: string }) {
                       </div>
                     )}
                   </details>
+                  {inspection.column !== undefined && (
+                    <ColumnInspection column={inspection.column} disabled={updating} onInspect={inspectExplicitly} />
+                  )}
                 </>
               ) : (
                 <p className={styles.inspectHint}>

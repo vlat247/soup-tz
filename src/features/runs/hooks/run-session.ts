@@ -2,6 +2,7 @@ import type {
   RunFrame, RunSummary, RunWorkerRequest,
   StepInspection, Viewport,
 } from "../model/view-types";
+import { isColumnInspection } from "../model/validate-column";
 import { isRunFrame, isRunSummary, isStepInspection } from "../model/validate-view";
 
 export interface RunState {
@@ -163,7 +164,10 @@ export function createRunSession(options: SessionOptions): RunSession {
       // future inspection on a reply that may never arrive.
       wantedInspection = null;
       inspectionInFlight = null;
-      publish({ updating: true, error: null });
+      publish({
+        updating: true, error: null,
+        inspection: state.inspection ? { ...state.inspection, column: undefined } : null,
+      });
       sendViewport();
     },
     inspect(step, sourceOffset = 0) {
@@ -172,6 +176,7 @@ export function createRunSession(options: SessionOptions): RunSession {
       wantedInspection = {
         type: "inspect", runId, requestId: nextRequestId(),
         step: Math.max(summary.firstStep, Math.min(summary.lastStep, step)), sourceOffset,
+        ...(currentViewport && { viewport: { ...currentViewport } }),
       };
       sendInspection();
     },
@@ -259,6 +264,12 @@ export function createRunSession(options: SessionOptions): RunSession {
         const expectedOffset = Math.min(Math.floor((wantedInspection.sourceOffset ?? 0) / 20) * 20, Math.floor((inspection.sourceCount - 1) / 20) * 20);
         if (inspection.requestedStep !== wantedInspection.step || inspection.sourceOffset !== expectedOffset) {
           halt("The observation does not match the requested step or source page. Reload this run.");
+          return;
+        }
+        if (wantedInspection.viewport && !isColumnInspection(
+          inspection.column, summary, wantedInspection.viewport, wantedInspection.step,
+        )) {
+          halt("The chart column does not match the selected data and range. Reload this run.");
           return;
         }
         wantedInspection = null;

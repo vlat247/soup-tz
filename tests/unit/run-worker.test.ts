@@ -23,6 +23,31 @@ function send(request: unknown): RunWorkerResponse {
 }
 
 describe("worker request boundary", () => {
+  it("returns a column peak from source even when the nearest observation is not the peak", () => {
+    send({ type: "load", runId: "run-020", requestId: 1, width: 300 });
+    const result = send({ type: "inspect", runId: "run-020", requestId: 2, step: 500001,
+      viewport: { start: 0, end: 999999, width: 300 } });
+    if (result.type !== "inspection") throw new Error("Expected column inspection");
+    expect(result.inspection.step).toBe(500001);
+    expect(result.inspection.readings.loss.value).toBeLessThan(2);
+    expect(result.inspection.column?.metrics.loss.maximum).toEqual({ step: 500000, value: 12, sourceIndex: 500000 });
+    expect(result.inspection.column?.sourceCount).toBeGreaterThan(3000);
+    const outside = send({ type: "inspect", runId: "run-020", requestId: 3, step: 500000,
+      viewport: { start: 0, end: 100, width: 300 } });
+    if (outside.type !== "inspection") throw new Error("Expected exact inspection outside viewport");
+    expect(outside.inspection.readings.loss.value).toBe(12);
+    expect(outside.inspection.column).toBeNull();
+  });
+
+  it("keeps finite conflicting extrema and raw counts in a one-column query", () => {
+    send({ type: "load", runId: "run-012", requestId: 1, width: 120 });
+    const result = send({ type: "inspect", runId: "run-012", requestId: 2, step: 700,
+      viewport: { start: 699, end: 701, width: 1 } });
+    if (result.type !== "inspection") throw new Error("Expected column inspection");
+    expect(result.inspection.column).toMatchObject({ sourceCount: 4, uniqueSteps: 3, duplicateRows: 1,
+      metrics: { loss: { finiteCount: 4, conflictSteps: 1, maximum: { step: 700, value: 12, sourceIndex: 4000 } } } });
+  });
+
   it.each([
     null,
     {},
@@ -95,6 +120,7 @@ describe("worker request boundary", () => {
       { type: "inspect", step: NaN },
       { type: "inspect", step: 0, sourceOffset: -1 },
       { type: "inspect", step: 0, sourceOffset: 0.5 },
+      { type: "inspect", step: 0, viewport: { start: 0, end: 10, width: 0 } },
       { type: "unsupported" },
     ];
     for (const [index, request] of requests.entries()) {

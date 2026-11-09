@@ -1,5 +1,6 @@
 import { generateRun } from "../data/generate";
 import { inspectStep } from "../model/inspect";
+import { inspectColumn } from "../model/inspect-column";
 import { prepareRun, type PreparedRun } from "../model/prepare";
 import { buildFrame } from "../model/reduce";
 import type { RunWorkerRequest, RunWorkerResponse } from "../model/view-types";
@@ -47,11 +48,14 @@ self.onmessage = (event: MessageEvent<RunWorkerRequest>) => {
         frame: buildFrame(current, request.viewport),
       });
     } else if (request.type === "inspect") {
+      const inspection = inspectStep(current, request.step, request.sourceOffset);
+      if (request.viewport !== undefined)
+        inspection.column = inspectColumn(current, request.step, request.viewport);
       reply({
         type: "inspection",
         runId: request.runId,
         requestId: request.requestId,
-        inspection: inspectStep(current, request.step, request.sourceOffset),
+        inspection,
       });
     } else {
       throw new RangeError("Unknown worker request type");

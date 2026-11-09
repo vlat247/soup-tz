@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { createBuckets } from "../../src/features/runs/model/buckets";
 import {
   createRunSession, type RunState, type RunTransport,
 } from "../../src/features/runs/hooks/run-session";
@@ -63,13 +64,30 @@ function inspected(request: Request<"inspect">, sourceCount = 1): StepInspection
   const sourceOffset = Math.min(Math.floor((request.sourceOffset ?? 0) / 20) * 20, Math.floor((sourceCount - 1) / 20) * 20);
   const step = Math.round(request.step);
   const readings = { loss: finite(), lr: finite(), grad_norm: finite() };
-  return {
+  const result: StepInspection = {
     requestedStep: request.step, step, previousStep: step > 0 ? step - 1 : null,
     nextStep: step < 99 ? step + 1 : null, inGap: false, readings, sourceOffset, sourceCount,
     sourceRows: Array.from({ length: Math.min(20, sourceCount - sourceOffset) }, (_, index) => ({
       sourceIndex: sourceOffset + index, readings,
     })),
   };
+  if (request.viewport) {
+    const viewport = request.viewport;
+    result.column = null;
+    if (request.step >= viewport.start && request.step <= viewport.end) {
+      const buckets = createBuckets(viewport);
+      const column = buckets.index(request.step);
+      const stepRange = buckets.range(column);
+      const included = !!stepRange && step >= stepRange[0] && step <= stepRange[1];
+      const extent = included ? { step, value: 1, sourceIndex: 0 } : null;
+      const metric = { finiteCount: included ? sourceCount : 0, invalidCount: 0, missingCount: 0,
+        conflictSteps: 0, minimum: extent, maximum: extent };
+      result.column = { viewport, column, stepRange, sourceCount: included ? sourceCount : 0,
+        uniqueSteps: included ? 1 : 0, duplicateRows: included ? sourceCount - 1 : 0, gapCount: 0,
+        metrics: { loss: metric, lr: { ...metric }, grad_norm: { ...metric } } };
+    }
+  }
+  return result;
 }
 
 function setup(options: { runId?: string; width?: number; previous?: RunState; now?: string; worker?: FakeWorker } = {}) {
@@ -89,6 +107,8 @@ type Harness = ReturnType<typeof setup>;
 function finishLoad(harness: Harness, sourceSummary = summary()) {
   const request = harness.worker.latest("load");
   const loadedFrame = frame(request.runId, { start: sourceSummary.firstStep, end: sourceSummary.lastStep, width: request.width });
+  loadedFrame.sourceCount = sourceSummary.rowCount - sourceSummary.rejectedRows;
+  for (const metric of Object.values(loadedFrame.metrics)) metric.finiteCount = loadedFrame.sourceCount;
   harness.worker.reply({ type: "loaded", runId: request.runId, requestId: request.requestId, summary: sourceSummary, frame: loadedFrame });
   return loadedFrame;
 }
@@ -243,7 +263,7 @@ describe("viewport and inspection races", () => {
 
   it("keeps only the newest inspection step/page and rejects late page results", () => {
     const h = setup();
-    finishLoad(h);
+    finishLoad(h, { ...summary(), rowCount: 144, duplicateRows: 44 });
     finishInspection(h);
     h.session.inspect(10, 0);
     const first = h.worker.latest("inspect");
@@ -261,7 +281,7 @@ describe("viewport and inspection races", () => {
 
   it("accepts documented page-boundary normalization and clamping", () => {
     const h = setup();
-    finishLoad(h);
+    finishLoad(h, { ...summary(), rowCount: 144, duplicateRows: 44 });
     finishInspection(h);
     for (const [offset, expected] of [[1, 0], [21, 20], [999, 40]]) {
       h.session.inspect(10, offset);
@@ -273,7 +293,7 @@ describe("viewport and inspection races", () => {
 
   it.each(["step", "page", "invalid-count"])("rejects an invalid inspection %s even with the current request ID", (mismatch) => {
     const h = setup();
-    finishLoad(h);
+    finishLoad(h, { ...summary(), rowCount: 144, duplicateRows: 44 });
     finishInspection(h);
     h.session.inspect(10, 20);
     const request = h.worker.latest("inspect");
@@ -376,6 +396,35 @@ describe("worker failures, reloads, and historical snapshots", () => {
 });
 
 describe("worker response contract", () => {
+  it("attaches committed geometry and invalidates column facts immediately on zoom", () => {
+    const h = setup();
+    finishLoad(h);
+    expect(h.worker.latest("inspect").viewport).toEqual({ start: 0, end: 99, width: 800 });
+    finishInspection(h);
+    expect(h.session.getState().inspection?.column).toBeTruthy();
+    h.session.setViewport(20, 80);
+    expect(h.session.getState().inspection?.column).toBeUndefined();
+    finishFrame(h);
+    h.session.inspect(50);
+    expect(h.worker.latest("inspect").viewport).toEqual({ start: 20, end: 80, width: 800 });
+  });
+
+  it.each(["missing", "width", "column", "counts", "extremum"])("rejects a malformed current column %s", (failure) => {
+    const h = setup();
+    finishLoad(h);
+    const request = h.worker.latest("inspect");
+    const result = structuredClone(inspected(request));
+    if (!result.column) throw new Error("Expected a column");
+    if (failure === "missing") delete result.column;
+    else if (failure === "width") result.column.viewport.width++;
+    else if (failure === "column") result.column.column--;
+    else if (failure === "counts") result.column.sourceCount++;
+    else result.column.metrics.loss.maximum!.value = Infinity;
+    h.worker.reply({ type: "inspection", runId: request.runId, requestId: request.requestId, inspection: result });
+    expect(h.session.getState().status).toBe("error");
+    expect(h.worker.terminated).toBe(1);
+  });
+
   it("rejects a finite-tagged NaN summary instead of publishing it", () => {
     const h = setup();
     const sourceSummary = summary();

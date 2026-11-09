@@ -202,6 +202,10 @@
   background: var(--surface-hover);
 }
 
+.run:focus-visible {
+  outline-offset: -3px;
+}
+
 .run.selected {
   border-left-color: var(--accent);
   background: var(--surface-hover);

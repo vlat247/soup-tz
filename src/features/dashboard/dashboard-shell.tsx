@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useId, useRef, useState, type ReactNode } from "react";
+import { useId, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   MagnifyingGlass,
   CaretDown,
@@ -14,9 +14,10 @@ import {
   WarningCircle,
   CircleNotch,
 } from "@phosphor-icons/react";
-import { RUN_MANIFEST } from "../runs/data/manifest";
+import { getRunDescriptor } from "../runs/data/manifest";
 import catalog from "../runs/data/catalog.json";
 import type { CatalogEntry } from "../runs/model/view-types";
+import { selectRunList, type BrowserFilters, type RunListEntry, type RunSort } from "../runs/model/run-list";
 import {
   formatCount,
   formatReading,
@@ -25,58 +26,30 @@ import {
 } from "../runs/model/format";
 import styles from "./dashboard-shell.module.css";
 
-const entries = catalog as CatalogEntry[];
-const summaries = new Map(entries.map((entry) => [entry.id, entry.summary]));
-
-interface BrowserFilters {
-  search: string;
-  quality: string;
-  sort: string;
-  status: string;
-}
+const defaultCatalog = catalog as CatalogEntry[];
 
 function RunBrowser({
   filters,
   onFilterChange,
   onNavigate,
+  entries,
 }: {
   filters: BrowserFilters;
   onFilterChange: (change: Partial<BrowserFilters>) => void;
   onNavigate?: () => void;
+  entries: readonly RunListEntry[];
 }) {
   const pathname = usePathname();
   const searchId = useId();
+  const searchInput = useRef<HTMLInputElement>(null);
   const { search, quality: filter, sort, status } = filters;
-  const visible = RUN_MANIFEST.filter((run) => {
-    const matchesText = `${run.name} ${run.id}`
-      .toLowerCase()
-      .includes(search.toLowerCase().trim());
-    const issues = qualityCount(summaries.get(run.id)!) > 0;
-    return (
-      matchesText &&
-      (filter === "all" || (filter === "issues" ? issues : !issues)) &&
-      (status === "all" || run.status === status)
-    );
-  }).toSorted((a, b) => {
-    if (sort === "name") return a.name.localeCompare(b.name, "en-US");
-    if (sort === "steps")
-      return (
-        summaries.get(b.id)!.lastStep - summaries.get(a.id)!.lastStep ||
-        a.id.localeCompare(b.id)
-      );
-    if (sort === "loss") {
-      const left = summaries.get(a.id)!.lastFinite.loss?.value ?? Infinity;
-      const right = summaries.get(b.id)!.lastFinite.loss?.value ?? Infinity;
-      return left - right || a.id.localeCompare(b.id);
-    }
-    return a.id.localeCompare(b.id);
-  });
+  const visible = selectRunList(entries, filters);
 
   return (
     <>
       <div className={styles.browserHeading}>
         <span>Training runs</span>
-        <span className={styles.count}>{RUN_MANIFEST.length}</span>
+        <span className={styles.count}>{entries.length}</span>
       </div>
       <div className={styles.search}>
         <MagnifyingGlass size={16} aria-hidden="true" />
@@ -84,6 +57,7 @@ function RunBrowser({
           Find a run
         </label>
         <input
+          ref={searchInput}
           id={searchId}
           value={search}
           onChange={(event) => onFilterChange({ search: event.target.value })}
@@ -93,7 +67,10 @@ function RunBrowser({
         {search && (
           <button
             aria-label="Clear search"
-            onClick={() => onFilterChange({ search: "" })}
+            onClick={() => {
+              onFilterChange({ search: "" });
+              searchInput.current?.focus();
+            }}
           >
             <X size={13} />
           </button>
@@ -136,19 +113,19 @@ function RunBrowser({
           <span className={styles.srOnly}>Sort runs</span>
           <select
             value={sort}
-            onChange={(event) => onFilterChange({ sort: event.target.value })}
+            onChange={(event) => onFilterChange({ sort: event.target.value as RunSort })}
           >
             <option value="id">Run ID</option>
             <option value="name">Name</option>
             <option value="steps">Last step ↓</option>
             <option value="loss">Valid loss ↑</option>
+            <option value="loss-desc">Valid loss ↓</option>
           </select>
           <CaretDown size={10} aria-hidden="true" />
         </label>
       </div>
       <nav className={styles.runList} aria-label="Training runs">
-        {visible.map((run) => {
-          const summary = summaries.get(run.id)!;
+        {visible.map(({ run, summary }) => {
           const selected = pathname === `/runs/${run.id}`;
           const issues = qualityCount(summary) > 0;
           const Icon =
@@ -182,7 +159,7 @@ function RunBrowser({
                   <span>Loss {formatReading(summary.latest.loss)}</span>
                   {issues && <span className={styles.qualityFlag}>Issues</span>}
                 </span>
-                {sort === "loss" && summary.latest.loss.kind !== "finite" && (
+                {(sort === "loss" || sort === "loss-desc") && summary.latest.loss.kind !== "finite" && (
                   <span className={styles.sortValue}>
                     Last valid{" "}
                     {formatValue(summary.lastFinite.loss?.value ?? null)}
@@ -194,7 +171,12 @@ function RunBrowser({
             </Link>
           );
         })}
-        {!visible.length && (
+        {!entries.length ? (
+          <div className={styles.noResults} role="status">
+            <strong>No training runs</strong>
+            <p>This dataset has no runs yet.</p>
+          </div>
+        ) : !visible.length && (
           <div className={styles.noResults}>
             <MagnifyingGlass size={23} weight="light" />
             <strong>No matching runs</strong>
@@ -202,6 +184,7 @@ function RunBrowser({
             <button
               onClick={() => {
                 onFilterChange({ search: "", quality: "all", status: "all" });
+                searchInput.current?.focus();
               }}
             >
               Reset filters
@@ -209,8 +192,8 @@ function RunBrowser({
           </div>
         )}
       </nav>
-      <div className={styles.listFooter}>
-        {visible.length} of {RUN_MANIFEST.length} runs
+      <div className={styles.listFooter} role="status" aria-atomic="true">
+        {visible.length} of {entries.length} runs
       </div>
     </>
   );
@@ -230,7 +213,13 @@ function Brand({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-export function DashboardShell({ children }: { children: ReactNode }) {
+export function DashboardShell({ children, catalogEntries = defaultCatalog }: {
+  children: ReactNode;
+  catalogEntries?: readonly CatalogEntry[];
+}) {
+  const entries = useMemo(() => catalogEntries.map((entry) => ({
+    run: getRunDescriptor(entry.id), summary: entry.summary,
+  })), [catalogEntries]);
   const drawer = useRef<HTMLDialogElement>(null);
   const about = useRef<HTMLDialogElement>(null);
   const [filters, setFilters] = useState<BrowserFilters>({
@@ -253,7 +242,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
         <div className={styles.brandRow}>
           <Brand />
         </div>
-        <RunBrowser filters={filters} onFilterChange={updateFilters} />
+        <RunBrowser entries={entries} filters={filters} onFilterChange={updateFilters} />
         <button
           className={styles.aboutButton}
           onClick={showAbout}
@@ -302,6 +291,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
           </button>
         </div>
         <RunBrowser
+          entries={entries}
           filters={filters}
           onFilterChange={updateFilters}
           onNavigate={() => drawer.current?.close()}

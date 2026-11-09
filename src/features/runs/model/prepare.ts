@@ -1,5 +1,6 @@
 import { METRICS, type GeneratedRun, type Metric } from "./types";
 import type { Reading, ReadingKind, RunSummary } from "./view-types";
+import { validateSource } from "./validate-source";
 
 export interface IndexedRun {
   source: GeneratedRun;
@@ -173,40 +174,9 @@ function summarize(run: IndexedRun, outOfOrder: boolean): RunSummary {
 }
 
 export function prepareRun(source: GeneratedRun): PreparedRun {
-  const { columns, descriptor } = source;
+  validateSource(source);
+  const { columns } = source;
   const length = columns.step.length;
-  if (length > 0xffff_ffff)
-    throw new RangeError("Source exceeds 32-bit provenance capacity");
-  if (
-    !Number.isSafeInteger(descriptor.rowCount) ||
-    descriptor.rowCount !== length
-  ) {
-    throw new RangeError(
-      "Declared source row count must match the source columns",
-    );
-  }
-  if (
-    !Number.isSafeInteger(descriptor.expectedStepInterval) ||
-    descriptor.expectedStepInterval <= 0
-  ) {
-    throw new RangeError(
-      "Expected step interval must be a positive safe integer",
-    );
-  }
-  for (const metric of METRICS) {
-    if (
-      columns[metric].length !== length ||
-      columns.missing[metric].length !== length
-    ) {
-      throw new RangeError("Source columns must have equal lengths");
-    }
-    for (let index = 0; index < length; index++) {
-      const missing = columns.missing[metric][index];
-      if (missing !== 0 && missing !== 1) {
-        throw new RangeError("Missing-value masks must contain only 0 or 1");
-      }
-    }
-  }
   let validCount = 0;
   let previous = -1;
   let outOfOrder = false;

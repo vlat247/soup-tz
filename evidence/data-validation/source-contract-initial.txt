@@ -1,0 +1,381 @@
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+ ❯ tests/unit/source-contract.test.ts (45 tests | 39 failed) 13ms
+   ❯ runtime source structure (17)
+     × rejects non-record source undefined with context 4ms
+     × rejects non-record source null with context 0ms
+     × rejects non-record source undefined with context 0ms
+     × rejects non-record source 7 with context 0ms
+     × rejects non-record source run with context 0ms
+     × rejects missing descriptor 0ms
+     × rejects missing columns 0ms
+     × rejects ordinary and lower-precision step columns without coercion 1ms
+     × rejects ordinary and lower-precision loss columns without coercion 0ms
+     × rejects ordinary and lower-precision lr columns without coercion 0ms
+     × rejects ordinary and lower-precision grad_norm columns without coercion 0ms
+     × rejects a missing mask container 0ms
+     × rejects non-byte loss masks even when their values look binary 0ms
+     × rejects non-byte lr masks even when their values look binary 0ms
+     × rejects non-byte grad_norm masks even when their values look binary 0ms
+     × rejects detached source buffers instead of treating them as an empty run 0ms
+   ❯ source identity and freshness metadata (27)
+     × requires a nonempty id string 0ms
+     × requires a nonempty name string 0ms
+     × requires a nonempty sourceVersion string 1ms
+     × requires a nonempty generatorVersion string 0ms
+     × requires a nonempty scenario string 0ms
+     × rejects unsupported run status unknown 0ms
+     × rejects unsupported run status null 0ms
+     × rejects unsupported run status 1 0ms
+     × rejects unreproducible seed -1 0ms
+     × rejects unreproducible seed 0.5 0ms
+     × rejects unreproducible seed NaN 0ms
+     × rejects unreproducible seed Infinity 0ms
+     × rejects unreproducible seed 4294967296 0ms
+     × rejects unreproducible seed 1 0ms
+     × rejects invalid or non-UTC snapshot metadata not a date 0ms
+     × rejects invalid or non-UTC snapshot metadata 2026-11-01 0ms
+     × rejects invalid or non-UTC snapshot metadata 2026-11-01T12:00:00 0ms
+     × rejects invalid or non-UTC snapshot metadata 2026-11-01T12:00:00+00:00 0ms
+     × rejects invalid or non-UTC snapshot metadata 2026-02-30T12:00:00.000Z 0ms
+     × rejects invalid or non-UTC snapshot metadata 2025-02-29T12:00:00.000Z 0ms
+     × rejects invalid or non-UTC snapshot metadata 2026-11-01T24:00:00.000Z 0ms
+     × rejects invalid or non-UTC snapshot metadata 1 0ms
+     × requires the synthetic-source declaration 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 39 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects non-record source undefined with context
+AssertionError: expected [Function] to throw error matching /Source must be an object/ but got 'Cannot destructure property \'columns…'
+
+- Expected:
+/Source must be an object/
+
++ Received:
+"Cannot destructure property 'columns' of 'source' as it is undefined."
+
+ ❯ tests/unit/source-contract.test.ts:12:41
+     10| describe("runtime source structure", () => {
+     11|   it.each([undefined, null, [], 7, "run"])("rejects non-record source …
+     12|     expect(() => prepareUnknown(value)).toThrow(/Source must be an obj…
+       |                                         ^
+     13|   });
+     14|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects non-record source null with context
+AssertionError: expected [Function] to throw error matching /Source must be an object/ but got 'Cannot destructure property \'columns…'
+
+- Expected:
+/Source must be an object/
+
++ Received:
+"Cannot destructure property 'columns' of 'source' as it is null."
+
+ ❯ tests/unit/source-contract.test.ts:12:41
+     10| describe("runtime source structure", () => {
+     11|   it.each([undefined, null, [], 7, "run"])("rejects non-record source …
+     12|     expect(() => prepareUnknown(value)).toThrow(/Source must be an obj…
+       |                                         ^
+     13|   });
+     14|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects non-record source undefined with context
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects non-record source 7 with context
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects non-record source run with context
+AssertionError: expected [Function] to throw error matching /Source must be an object/ but got 'Cannot read properties of undefined (…'
+
+- Expected:
+/Source must be an object/
+
++ Received:
+"Cannot read properties of undefined (reading 'step')"
+
+ ❯ tests/unit/source-contract.test.ts:12:41
+     10| describe("runtime source structure", () => {
+     11|   it.each([undefined, null, [], 7, "run"])("rejects non-record source …
+     12|     expect(() => prepareUnknown(value)).toThrow(/Source must be an obj…
+       |                                         ^
+     13|   });
+     14|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects missing descriptor
+AssertionError: expected [Function] to throw error matching /descriptor must be an object/ but got 'Cannot read properties of undefined (…'
+
+- Expected:
+/descriptor must be an object/
+
++ Received:
+"Cannot read properties of undefined (reading 'rowCount')"
+
+ ❯ tests/unit/source-contract.test.ts:17:42
+     15|   it.each(["descriptor", "columns"])("rejects missing %s", (field) => {
+     16|     const source = { ...oneRow(), [field]: undefined };
+     17|     expect(() => prepareUnknown(source)).toThrow(new RegExp(`${field} …
+       |                                          ^
+     18|   });
+     19|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects missing columns
+AssertionError: expected [Function] to throw error matching /columns must be an object/ but got 'Cannot read properties of undefined (…'
+
+- Expected:
+/columns must be an object/
+
++ Received:
+"Cannot read properties of undefined (reading 'step')"
+
+ ❯ tests/unit/source-contract.test.ts:17:42
+     15|   it.each(["descriptor", "columns"])("rejects missing %s", (field) => {
+     16|     const source = { ...oneRow(), [field]: undefined };
+     17|     expect(() => prepareUnknown(source)).toThrow(new RegExp(`${field} …
+       |                                          ^
+     18|   });
+     19|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects ordinary and lower-precision step columns without coercion
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects ordinary and lower-precision loss columns without coercion
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects ordinary and lower-precision lr columns without coercion
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects ordinary and lower-precision grad_norm columns without coercion
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/unit/source-contract.test.ts:24:10
+     22|       const source = oneRow();
+     23|       expect(() => prepareUnknown({ ...source, columns: { ...source.co…
+     24|         .toThrow(new RegExp(`columns.${field} must be a Float64Array`)…
+       |          ^
+     25|     }
+     26|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects a missing mask container
+AssertionError: expected [Function] to throw error matching /columns.missing must be an object/ but got 'Cannot read properties of null (readi…'
+
+- Expected:
+/columns.missing must be an object/
+
++ Received:
+"Cannot read properties of null (reading 'loss')"
+
+ ❯ tests/unit/source-contract.test.ts:31:8
+     29|     const source = oneRow();
+     30|     expect(() => prepareUnknown({ ...source, columns: { ...source.colu…
+     31|       .toThrow(/columns.missing must be an object/);
+       |        ^
+     32|   });
+     33|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects non-byte loss masks even when their values look binary
+AssertionError: expected [Function] to throw error matching /columns.missing.loss must be a Uint8A…/ but got 'Cannot read properties of undefined (…'
+
+- Expected:
+/columns.missing.loss must be a Uint8Array/
+
++ Received:
+"Cannot read properties of undefined (reading 'length')"
+
+ ❯ tests/unit/source-contract.test.ts:38:10
+     36|       const source = oneRow();
+     37|       expect(() => prepareUnknown({ ...source, columns: { ...source.co…
+     38|         .toThrow(new RegExp(`columns.missing.${metric} must be a Uint8…
+       |          ^
+     39|     }
+     40|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects non-byte lr masks even when their values look binary
+AssertionError: expected [Function] to throw error matching /columns.missing.lr must be a Uint8Arr…/ but got 'Cannot read properties of undefined (…'
+
+- Expected:
+/columns.missing.lr must be a Uint8Array/
+
++ Received:
+"Cannot read properties of undefined (reading 'length')"
+
+ ❯ tests/unit/source-contract.test.ts:38:10
+     36|       const source = oneRow();
+     37|       expect(() => prepareUnknown({ ...source, columns: { ...source.co…
+     38|         .toThrow(new RegExp(`columns.missing.${metric} must be a Uint8…
+       |          ^
+     39|     }
+     40|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects non-byte grad_norm masks even when their values look binary
+AssertionError: expected [Function] to throw error matching /columns.missing.grad_norm must be a U…/ but got 'Cannot read properties of undefined (…'
+
+- Expected:
+/columns.missing.grad_norm must be a Uint8Array/
+
++ Received:
+"Cannot read properties of undefined (reading 'length')"
+
+ ❯ tests/unit/source-contract.test.ts:38:10
+     36|       const source = oneRow();
+     37|       expect(() => prepareUnknown({ ...source, columns: { ...source.co…
+     38|         .toThrow(new RegExp(`columns.missing.${metric} must be a Uint8…
+       |          ^
+     39|     }
+     40|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > runtime source structure > rejects detached source buffers instead of treating them as an empty run
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/unit/source-contract.test.ts:45:38
+     43|     const source = validationSource([]);
+     44|     structuredClone(source.columns.step, { transfer: [source.columns.s…
+     45|     expect(() => prepareRun(source)).toThrow(/columns.step.*detached/);
+       |                                      ^
+     46|   });
+     47|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > requires a nonempty id string
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > requires a nonempty name string
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > requires a nonempty sourceVersion string
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > requires a nonempty generatorVersion string
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > requires a nonempty scenario string
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/unit/source-contract.test.ts:64:10
+     62|       const source = oneRow();
+     63|       expect(() => prepareUnknown({ ...source, descriptor: { ...source…
+     64|         .toThrow(new RegExp(`descriptor.${field} must be a nonempty st…
+       |          ^
+     65|     }
+     66|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects unsupported run status unknown
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects unsupported run status null
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects unsupported run status 1
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/unit/source-contract.test.ts:71:8
+     69|     const source = oneRow();
+     70|     expect(() => prepareUnknown({ ...source, descriptor: { ...source.d…
+     71|       .toThrow(/descriptor.status/);
+       |        ^
+     72|   });
+     73|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects unreproducible seed -1
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects unreproducible seed 0.5
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects unreproducible seed NaN
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects unreproducible seed Infinity
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects unreproducible seed 4294967296
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects unreproducible seed 1
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/unit/source-contract.test.ts:77:8
+     75|     const source = oneRow();
+     76|     expect(() => prepareUnknown({ ...source, descriptor: { ...source.d…
+     77|       .toThrow(/descriptor.seed/);
+       |        ^
+     78|   });
+     79|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects invalid or non-UTC snapshot metadata not a date
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects invalid or non-UTC snapshot metadata 2026-11-01
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects invalid or non-UTC snapshot metadata 2026-11-01T12:00:00
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects invalid or non-UTC snapshot metadata 2026-11-01T12:00:00+00:00
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects invalid or non-UTC snapshot metadata 2026-02-30T12:00:00.000Z
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects invalid or non-UTC snapshot metadata 2025-02-29T12:00:00.000Z
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects invalid or non-UTC snapshot metadata 2026-11-01T24:00:00.000Z
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > rejects invalid or non-UTC snapshot metadata 1
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/unit/source-contract.test.ts:86:8
+     84|     const source = oneRow();
+     85|     expect(() => prepareUnknown({ ...source, descriptor: { ...source.d…
+     86|       .toThrow(/descriptor.snapshotAt/);
+       |        ^
+     87|   });
+     88|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/39]⎯
+
+ FAIL  tests/unit/source-contract.test.ts > source identity and freshness metadata > requires the synthetic-source declaration
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/unit/source-contract.test.ts:98:8
+     96|     const source = oneRow();
+     97|     expect(() => prepareUnknown({ ...source, descriptor: { ...source.d…
+     98|       .toThrow(/descriptor.synthetic/);
+       |        ^
+     99|   });
+    100| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/39]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  39 failed | 6 passed (45)
+   Start at  02:46:07
+   Duration  271ms (transform 41%, tests 29%, import 25%, worker 4%)
+

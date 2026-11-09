@@ -1,0 +1,977 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-09T22:35:24.723Z",
+  "finishedAt": "2026-11-09T22:35:25.543Z",
+  "passed": true,
+  "environment": {
+    "node": "v24.13.1",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "source": {
+    "revision": "88812e8a8cf48df722cb8dca10a777fd5082a999",
+    "workingTreeDirty": true
+  },
+  "scope": "Nine independent Node subprocesses with verified default locale/time zone. Explicit en-US/UTC presentation and linear unsmoothed chart options are checked against fixed expectations. No browser locale overrides, hydration, painted Canvas, or numeric UI sort interaction is claimed.",
+  "counts": {
+    "attempted": 9,
+    "passed": 9,
+    "failed": 0
+  },
+  "results": [
+    {
+      "locale": "en-US",
+      "timeZone": "UTC",
+      "status": "passed",
+      "exitCode": 0,
+      "observed": {
+        "defaults": {
+          "locale": "en-US",
+          "timeZone": "UTC",
+          "numberExample": "1,234.5",
+          "januaryOffsetMinutes": 0,
+          "julyOffsetMinutes": 0
+        },
+        "output": {
+          "counts": [
+            "1,234,567",
+            "9,007,199,254,740,991"
+          ],
+          "values": [
+            "1,234.5679",
+            "-0.25",
+            "1.00e-12",
+            "1.7976931348623157e+308"
+          ],
+          "exact": [
+            "-0",
+            "5e-324",
+            "1.0000000000000002"
+          ],
+          "states": [
+            "NaN",
+            "+Infinity",
+            "−Infinity",
+            "Missing",
+            "Conflicting"
+          ],
+          "dates": [
+            "Jan 1, 00:15 UTC",
+            "Dec 31, 19:15 UTC",
+            "Jan 1, 07:45 UTC",
+            "Mar 8, 10:00 UTC",
+            "Nov 1, 09:00 UTC"
+          ]
+        },
+        "chart": {
+          "xScale": "value",
+          "yScale": "value",
+          "smooth": false,
+          "connectNulls": false,
+          "sampling": "none",
+          "originalPoints": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "xTicks": [
+            {
+              "value": 0,
+              "position": 0,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.5,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ],
+          "yTicks": [
+            {
+              "value": -1,
+              "position": 0,
+              "label": "-1"
+            },
+            {
+              "value": 0,
+              "position": 0.3333333333333333,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.6666666666666666,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "en-US",
+      "timeZone": "Asia/Almaty",
+      "status": "passed",
+      "exitCode": 0,
+      "observed": {
+        "defaults": {
+          "locale": "en-US",
+          "timeZone": "Asia/Almaty",
+          "numberExample": "1,234.5",
+          "januaryOffsetMinutes": -300,
+          "julyOffsetMinutes": -300
+        },
+        "output": {
+          "counts": [
+            "1,234,567",
+            "9,007,199,254,740,991"
+          ],
+          "values": [
+            "1,234.5679",
+            "-0.25",
+            "1.00e-12",
+            "1.7976931348623157e+308"
+          ],
+          "exact": [
+            "-0",
+            "5e-324",
+            "1.0000000000000002"
+          ],
+          "states": [
+            "NaN",
+            "+Infinity",
+            "−Infinity",
+            "Missing",
+            "Conflicting"
+          ],
+          "dates": [
+            "Jan 1, 00:15 UTC",
+            "Dec 31, 19:15 UTC",
+            "Jan 1, 07:45 UTC",
+            "Mar 8, 10:00 UTC",
+            "Nov 1, 09:00 UTC"
+          ]
+        },
+        "chart": {
+          "xScale": "value",
+          "yScale": "value",
+          "smooth": false,
+          "connectNulls": false,
+          "sampling": "none",
+          "originalPoints": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "xTicks": [
+            {
+              "value": 0,
+              "position": 0,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.5,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ],
+          "yTicks": [
+            {
+              "value": -1,
+              "position": 0,
+              "label": "-1"
+            },
+            {
+              "value": 0,
+              "position": 0.3333333333333333,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.6666666666666666,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "en-US",
+      "timeZone": "America/Los_Angeles",
+      "status": "passed",
+      "exitCode": 0,
+      "observed": {
+        "defaults": {
+          "locale": "en-US",
+          "timeZone": "America/Los_Angeles",
+          "numberExample": "1,234.5",
+          "januaryOffsetMinutes": 480,
+          "julyOffsetMinutes": 420
+        },
+        "output": {
+          "counts": [
+            "1,234,567",
+            "9,007,199,254,740,991"
+          ],
+          "values": [
+            "1,234.5679",
+            "-0.25",
+            "1.00e-12",
+            "1.7976931348623157e+308"
+          ],
+          "exact": [
+            "-0",
+            "5e-324",
+            "1.0000000000000002"
+          ],
+          "states": [
+            "NaN",
+            "+Infinity",
+            "−Infinity",
+            "Missing",
+            "Conflicting"
+          ],
+          "dates": [
+            "Jan 1, 00:15 UTC",
+            "Dec 31, 19:15 UTC",
+            "Jan 1, 07:45 UTC",
+            "Mar 8, 10:00 UTC",
+            "Nov 1, 09:00 UTC"
+          ]
+        },
+        "chart": {
+          "xScale": "value",
+          "yScale": "value",
+          "smooth": false,
+          "connectNulls": false,
+          "sampling": "none",
+          "originalPoints": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "xTicks": [
+            {
+              "value": 0,
+              "position": 0,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.5,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ],
+          "yTicks": [
+            {
+              "value": -1,
+              "position": 0,
+              "label": "-1"
+            },
+            {
+              "value": 0,
+              "position": 0.3333333333333333,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.6666666666666666,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "de-DE",
+      "timeZone": "UTC",
+      "status": "passed",
+      "exitCode": 0,
+      "observed": {
+        "defaults": {
+          "locale": "de-DE",
+          "timeZone": "UTC",
+          "numberExample": "1.234,5",
+          "januaryOffsetMinutes": 0,
+          "julyOffsetMinutes": 0
+        },
+        "output": {
+          "counts": [
+            "1,234,567",
+            "9,007,199,254,740,991"
+          ],
+          "values": [
+            "1,234.5679",
+            "-0.25",
+            "1.00e-12",
+            "1.7976931348623157e+308"
+          ],
+          "exact": [
+            "-0",
+            "5e-324",
+            "1.0000000000000002"
+          ],
+          "states": [
+            "NaN",
+            "+Infinity",
+            "−Infinity",
+            "Missing",
+            "Conflicting"
+          ],
+          "dates": [
+            "Jan 1, 00:15 UTC",
+            "Dec 31, 19:15 UTC",
+            "Jan 1, 07:45 UTC",
+            "Mar 8, 10:00 UTC",
+            "Nov 1, 09:00 UTC"
+          ]
+        },
+        "chart": {
+          "xScale": "value",
+          "yScale": "value",
+          "smooth": false,
+          "connectNulls": false,
+          "sampling": "none",
+          "originalPoints": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "xTicks": [
+            {
+              "value": 0,
+              "position": 0,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.5,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ],
+          "yTicks": [
+            {
+              "value": -1,
+              "position": 0,
+              "label": "-1"
+            },
+            {
+              "value": 0,
+              "position": 0.3333333333333333,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.6666666666666666,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "de-DE",
+      "timeZone": "Asia/Almaty",
+      "status": "passed",
+      "exitCode": 0,
+      "observed": {
+        "defaults": {
+          "locale": "de-DE",
+          "timeZone": "Asia/Almaty",
+          "numberExample": "1.234,5",
+          "januaryOffsetMinutes": -300,
+          "julyOffsetMinutes": -300
+        },
+        "output": {
+          "counts": [
+            "1,234,567",
+            "9,007,199,254,740,991"
+          ],
+          "values": [
+            "1,234.5679",
+            "-0.25",
+            "1.00e-12",
+            "1.7976931348623157e+308"
+          ],
+          "exact": [
+            "-0",
+            "5e-324",
+            "1.0000000000000002"
+          ],
+          "states": [
+            "NaN",
+            "+Infinity",
+            "−Infinity",
+            "Missing",
+            "Conflicting"
+          ],
+          "dates": [
+            "Jan 1, 00:15 UTC",
+            "Dec 31, 19:15 UTC",
+            "Jan 1, 07:45 UTC",
+            "Mar 8, 10:00 UTC",
+            "Nov 1, 09:00 UTC"
+          ]
+        },
+        "chart": {
+          "xScale": "value",
+          "yScale": "value",
+          "smooth": false,
+          "connectNulls": false,
+          "sampling": "none",
+          "originalPoints": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "xTicks": [
+            {
+              "value": 0,
+              "position": 0,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.5,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ],
+          "yTicks": [
+            {
+              "value": -1,
+              "position": 0,
+              "label": "-1"
+            },
+            {
+              "value": 0,
+              "position": 0.3333333333333333,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.6666666666666666,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "de-DE",
+      "timeZone": "America/Los_Angeles",
+      "status": "passed",
+      "exitCode": 0,
+      "observed": {
+        "defaults": {
+          "locale": "de-DE",
+          "timeZone": "America/Los_Angeles",
+          "numberExample": "1.234,5",
+          "januaryOffsetMinutes": 480,
+          "julyOffsetMinutes": 420
+        },
+        "output": {
+          "counts": [
+            "1,234,567",
+            "9,007,199,254,740,991"
+          ],
+          "values": [
+            "1,234.5679",
+            "-0.25",
+            "1.00e-12",
+            "1.7976931348623157e+308"
+          ],
+          "exact": [
+            "-0",
+            "5e-324",
+            "1.0000000000000002"
+          ],
+          "states": [
+            "NaN",
+            "+Infinity",
+            "−Infinity",
+            "Missing",
+            "Conflicting"
+          ],
+          "dates": [
+            "Jan 1, 00:15 UTC",
+            "Dec 31, 19:15 UTC",
+            "Jan 1, 07:45 UTC",
+            "Mar 8, 10:00 UTC",
+            "Nov 1, 09:00 UTC"
+          ]
+        },
+        "chart": {
+          "xScale": "value",
+          "yScale": "value",
+          "smooth": false,
+          "connectNulls": false,
+          "sampling": "none",
+          "originalPoints": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "xTicks": [
+            {
+              "value": 0,
+              "position": 0,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.5,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ],
+          "yTicks": [
+            {
+              "value": -1,
+              "position": 0,
+              "label": "-1"
+            },
+            {
+              "value": 0,
+              "position": 0.3333333333333333,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.6666666666666666,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "fr-FR",
+      "timeZone": "UTC",
+      "status": "passed",
+      "exitCode": 0,
+      "observed": {
+        "defaults": {
+          "locale": "fr-FR",
+          "timeZone": "UTC",
+          "numberExample": "1 234,5",
+          "januaryOffsetMinutes": 0,
+          "julyOffsetMinutes": 0
+        },
+        "output": {
+          "counts": [
+            "1,234,567",
+            "9,007,199,254,740,991"
+          ],
+          "values": [
+            "1,234.5679",
+            "-0.25",
+            "1.00e-12",
+            "1.7976931348623157e+308"
+          ],
+          "exact": [
+            "-0",
+            "5e-324",
+            "1.0000000000000002"
+          ],
+          "states": [
+            "NaN",
+            "+Infinity",
+            "−Infinity",
+            "Missing",
+            "Conflicting"
+          ],
+          "dates": [
+            "Jan 1, 00:15 UTC",
+            "Dec 31, 19:15 UTC",
+            "Jan 1, 07:45 UTC",
+            "Mar 8, 10:00 UTC",
+            "Nov 1, 09:00 UTC"
+          ]
+        },
+        "chart": {
+          "xScale": "value",
+          "yScale": "value",
+          "smooth": false,
+          "connectNulls": false,
+          "sampling": "none",
+          "originalPoints": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "xTicks": [
+            {
+              "value": 0,
+              "position": 0,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.5,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ],
+          "yTicks": [
+            {
+              "value": -1,
+              "position": 0,
+              "label": "-1"
+            },
+            {
+              "value": 0,
+              "position": 0.3333333333333333,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.6666666666666666,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "fr-FR",
+      "timeZone": "Asia/Almaty",
+      "status": "passed",
+      "exitCode": 0,
+      "observed": {
+        "defaults": {
+          "locale": "fr-FR",
+          "timeZone": "Asia/Almaty",
+          "numberExample": "1 234,5",
+          "januaryOffsetMinutes": -300,
+          "julyOffsetMinutes": -300
+        },
+        "output": {
+          "counts": [
+            "1,234,567",
+            "9,007,199,254,740,991"
+          ],
+          "values": [
+            "1,234.5679",
+            "-0.25",
+            "1.00e-12",
+            "1.7976931348623157e+308"
+          ],
+          "exact": [
+            "-0",
+            "5e-324",
+            "1.0000000000000002"
+          ],
+          "states": [
+            "NaN",
+            "+Infinity",
+            "−Infinity",
+            "Missing",
+            "Conflicting"
+          ],
+          "dates": [
+            "Jan 1, 00:15 UTC",
+            "Dec 31, 19:15 UTC",
+            "Jan 1, 07:45 UTC",
+            "Mar 8, 10:00 UTC",
+            "Nov 1, 09:00 UTC"
+          ]
+        },
+        "chart": {
+          "xScale": "value",
+          "yScale": "value",
+          "smooth": false,
+          "connectNulls": false,
+          "sampling": "none",
+          "originalPoints": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "xTicks": [
+            {
+              "value": 0,
+              "position": 0,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.5,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ],
+          "yTicks": [
+            {
+              "value": -1,
+              "position": 0,
+              "label": "-1"
+            },
+            {
+              "value": 0,
+              "position": 0.3333333333333333,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.6666666666666666,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "fr-FR",
+      "timeZone": "America/Los_Angeles",
+      "status": "passed",
+      "exitCode": 0,
+      "observed": {
+        "defaults": {
+          "locale": "fr-FR",
+          "timeZone": "America/Los_Angeles",
+          "numberExample": "1 234,5",
+          "januaryOffsetMinutes": 480,
+          "julyOffsetMinutes": 420
+        },
+        "output": {
+          "counts": [
+            "1,234,567",
+            "9,007,199,254,740,991"
+          ],
+          "values": [
+            "1,234.5679",
+            "-0.25",
+            "1.00e-12",
+            "1.7976931348623157e+308"
+          ],
+          "exact": [
+            "-0",
+            "5e-324",
+            "1.0000000000000002"
+          ],
+          "states": [
+            "NaN",
+            "+Infinity",
+            "−Infinity",
+            "Missing",
+            "Conflicting"
+          ],
+          "dates": [
+            "Jan 1, 00:15 UTC",
+            "Dec 31, 19:15 UTC",
+            "Jan 1, 07:45 UTC",
+            "Mar 8, 10:00 UTC",
+            "Nov 1, 09:00 UTC"
+          ]
+        },
+        "chart": {
+          "xScale": "value",
+          "yScale": "value",
+          "smooth": false,
+          "connectNulls": false,
+          "sampling": "none",
+          "originalPoints": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "xTicks": [
+            {
+              "value": 0,
+              "position": 0,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.5,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ],
+          "yTicks": [
+            {
+              "value": -1,
+              "position": 0,
+              "label": "-1"
+            },
+            {
+              "value": 0,
+              "position": 0.3333333333333333,
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "position": 0.6666666666666666,
+              "label": "1"
+            },
+            {
+              "value": 2,
+              "position": 1,
+              "label": "2"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

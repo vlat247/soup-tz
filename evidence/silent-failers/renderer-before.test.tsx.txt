@@ -1,0 +1,44 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
+const harness = vi.hoisted(() => ({ effects: [] as (() => void | (() => void))[], refs: 0,
+  host: { clientWidth: 400, clientHeight: 240, addEventListener() {}, removeEventListener() {} },
+  init: vi.fn(),
+}));
+vi.mock("react", () => ({
+  useMemo: (fn: () => unknown) => fn(),
+  useRef: (value: unknown) => ({ current: harness.refs++ === 0 ? harness.host : value }),
+  useEffect: (fn: () => void | (() => void)) => { harness.effects.push(fn); },
+}));
+vi.mock("echarts/core", () => ({ init: harness.init, use() {} }));
+vi.mock("echarts/charts", () => ({ LineChart: {}, ScatterChart: {} }));
+vi.mock("echarts/components", () => ({ AriaComponent: {}, GridComponent: {}, TooltipComponent: {} }));
+vi.mock("echarts/renderers", () => ({ CanvasRenderer: {} }));
+import { MetricChart } from "../../src/features/charts/metric-chart";
+
+beforeEach(() => {
+  harness.effects = []; harness.refs = 0; harness.host.clientWidth = 400; harness.init.mockReset();
+  vi.stubGlobal("ResizeObserver", class { observe() {} disconnect() {} });
+});
+function mount() {
+  MetricChart({ metric: "loss", color: "#FF794B", viewport: { start: 0, end: 1, width: 300 }, onInspect() {},
+    data: { points: [[0, 1], [1, 2]], domain: [1, 2], conflicts: [], finiteCount: 2,
+      invalidCount: 0, missingCount: 0, conflictCount: 0, mode: "line", peak: { step: 1, value: 2 } },
+  });
+}
+describe("original component failure reproduction", () => {
+  it("contains renderer initialization errors", () => {
+    harness.init.mockImplementation(() => { throw Error("injected initialization failure"); });
+    mount();
+    expect(() => harness.effects[1]()).not.toThrow();
+  });
+  it("contains a failed frame replacement", () => {
+    harness.init.mockReturnValue({ getZr: () => ({ on() {} }), setOption() { throw Error("injected draw failure"); } });
+    mount(); harness.effects[1]();
+    expect(() => harness.effects[2]()).not.toThrow();
+  });
+  it("defers renderer creation for a zero-width surface", () => {
+    harness.host.clientWidth = 0;
+    harness.init.mockReturnValue({ getZr: () => ({ on() {} }) });
+    mount(); harness.effects[1]();
+    expect(harness.init).not.toHaveBeenCalled();
+  });
+});

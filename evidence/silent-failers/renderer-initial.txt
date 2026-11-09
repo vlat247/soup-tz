@@ -1,0 +1,88 @@
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+ ❯ tests/unit/renderer-before.test.tsx (3 tests | 3 failed) 12ms
+   ❯ original component failure reproduction (3)
+     × contains renderer initialization errors 9ms
+     × contains a failed frame replacement 1ms
+     × defers renderer creation for a zero-width surface 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/renderer-before.test.tsx > original component failure reproduction > contains renderer initialization errors
+AssertionError: expected [Function] to not throw an error but 'Error: injected initialization failure' was thrown
+
+- Expected:
+undefined
+
++ Received:
+"Error: injected initialization failure"
+
+ ❯ tests/unit/renderer-before.test.tsx:31:44
+     29|     harness.init.mockImplementation(() => { throw Error("injected init…
+     30|     mount();
+     31|     expect(() => harness.effects[1]()).not.toThrow();
+       |                                            ^
+     32|   });
+     33|   it("contains a failed frame replacement", () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/unit/renderer-before.test.tsx > original component failure reproduction > contains a failed frame replacement
+AssertionError: expected [Function] to not throw an error but 'Error: injected draw failure' was thrown
+
+- Expected:
+undefined
+
++ Received:
+"Error: injected draw failure"
+
+ ❯ tests/unit/renderer-before.test.tsx:36:44
+     34|     harness.init.mockReturnValue({ getZr: () => ({ on() {} }), setOpti…
+     35|     mount(); harness.effects[1]();
+     36|     expect(() => harness.effects[2]()).not.toThrow();
+       |                                            ^
+     37|   });
+     38|   it("defers renderer creation for a zero-width surface", () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/unit/renderer-before.test.tsx > original component failure reproduction > defers renderer creation for a zero-width surface
+AssertionError: expected "vi.fn()" to not be called at all, but actually been called 1 times
+
+Received:
+
+  1st vi.fn() call:
+
+    Array [
+      Object {
+        "addEventListener": [Function addEventListener],
+        "clientHeight": 240,
+        "clientWidth": 0,
+        "removeEventListener": [Function removeEventListener],
+      },
+      undefined,
+      Object {
+        "renderer": "canvas",
+      },
+    ]
+
+
+Number of calls: 1
+
+ ❯ tests/unit/renderer-before.test.tsx:42:30
+     40|     harness.init.mockReturnValue({ getZr: () => ({ on() {} }) });
+     41|     mount(); harness.effects[1]();
+     42|     expect(harness.init).not.toHaveBeenCalled();
+       |                              ^
+     43|   });
+     44| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  03:33:32
+   Duration  236ms (transform 51%, import 38%, tests 9%, worker 2%)
+

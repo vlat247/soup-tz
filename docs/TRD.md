@@ -1,8 +1,10 @@
 # Soup Training Run Monitor Technical Requirements
 
-Version 1.4 · 10 November 2026 · Status: dashboard, exact viewport reduction, source column inspection and async sessions implemented; verification and delivery incomplete
+Version 1.5 · 10 November 2026 · Status: dashboard, source inspection and failure recovery implemented; verification and delivery incomplete
 
-This specification defines how to implement and verify a training-run monitor whose charts remain trustworthy when records are malformed or too numerous to draw individually. The current application includes the dashboard, [deterministic fixtures](MOCK_DATA.md), typed-array preparation and exact summaries, per-metric viewport reduction with exact integer bucket boundaries, worker queries, generated catalog, paginated source and column inspection, and independent source validation. Apache ECharts renders results through a pure linear coordinate model; a separately tested async session controls frame and inspection commits. The latest [downsampling checkpoint](../evidence/downsampling/verification.md) retains 525 passing tests, the independent audit, targeted production browser checks and an isolated Node engine comparison. A browser baseline renderer, comparable before/after traces at 4x CPU throttling, tab-memory measurements, full browser fault injection and assistive-technology coverage, and deployment remain outstanding. The requirements below include those remaining acceptance checks; implemented behavior is not a claim that every release gate has passed.
+This specification defines how to implement and verify a training-run monitor whose charts remain trustworthy with malformed or dense records. The application includes deterministic fixtures, typed-array preparation, exact summaries/reduction, worker queries, runtime contracts, a catalog and source/column inspection. The latest [silent-failure checkpoint](../evidence/silent-failers/verification.md) at `1aaeeca` records 585 passing tests, the independent source audit, nine Node locale/time-zone environments and targeted development-browser failure/recovery scenarios. Worker deadlines and renderer recovery now expose failures without relabelling stale content as current. Browser baseline/4x CPU traces, tab memory, full router/locale/accessibility and Canvas/DPR matrices, and deployment remain outstanding. Implemented behavior does not mean every release gate has passed.
+
+Local production smoke at `1aaeeca` verifies diagnostic routes return 404 without their controls, all-invalid loss remains tagged NaN in the downloaded summary, the million-point spike is visibly retained and exactly inspectable, and the 360px page has no horizontal overflow. This does not replace the full browser matrices or deployed-route check.
 
 The product behavior and release criteria are in [PRD.md](./PRD.md). Assignment requirements come from *Soup-Task-05-Frontend-Engineer(1).pdf*, page 1, supplied at `/Users/vlat247/Downloads/Soup-Task-05-Frontend-Engineer(1).pdf`. Architecture, data policies, fixture allocation, and performance budgets below are engineering decisions, rather than constraints prescribed by the assignment.
 
@@ -30,7 +32,7 @@ The application supports inspection, not actual training termination. Authentica
 | Tests | Vitest covers fixtures, independent source checks, numerical queries, worker boundaries, pure sessions, and ECharts coordinate geometry; browser automation and axe integration remain planned | Controlled session and SVG coordinate checks complement targeted Canvas observations, without certifying all browser interactions or accessibility. |
 | Deployment target | Vercel | Direct fit for this Next.js setup. GitHub Pages would require a separate static-export routing decision. |
 
-`package.json` and the lockfile are authoritative for installed versions. `/` and `/runs` redirect to `/runs/run-001`; `/runs/[runId]` validates the manifest ID and renders the dashboard in its shared run-browser layout. Commands include `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `test:watch`, `data:inspect`, `data:validate`, `bench:reduction`, `data:catalog`, `data:catalog:check`, and `check`. `data:validate` emits the independent source-audit report; related assertions also run in the unit suite. `bench:reduction` records synchronous Node engine timings and output counts, excluding browser work. The dashboard includes loading/error feedback, a no-results state, shared viewport controls, a quality view, paginated source and column inspection, and a summary export.
+`package.json` and the lockfile are authoritative for versions. `/` and `/runs` redirect to `/runs/run-001`; `/runs/[runId]` validates the manifest ID. Commands include `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `test:watch`, `data:inspect`, `data:validate`, `validate:presentation`, `bench:reduction`, `data:catalog`, `data:catalog:check` and `check`. The independent source audit and nine-process Node presentation matrix are separate commands; the latter is not browser environment coverage. The dashboard provides loading/error/recovery feedback, shared ranges, quality details, source/column inspection and guarded summary export.
 
 App Router configuration follows the [official Next.js installation guide](https://nextjs.org/docs/app/getting-started/installation). Keep browser APIs in client components or workers, not module initialization shared with server rendering. Do not fetch remote fonts during builds.
 
@@ -64,7 +66,8 @@ src/
     runs/layout.tsx                persistent run-browser shell
     runs/[runId]/page.tsx          validated run route
     runs/[runId]/not-found.tsx     unknown-run view
-    diagnostics/charts/page.tsx   development-only diagnostic route
+    diagnostics/charts/page.tsx   development-only chart cases
+    diagnostics/silent-failures/  development-only controlled faults
   features/dashboard/
     dashboard-shell.tsx            search, filters, sorting, navigation
     run-dashboard.tsx              summaries, controls, quality, inspection
@@ -82,6 +85,7 @@ src/
     model/inspect-column.ts        original column extrema, counts and gap intersections
     model/validate-column.ts       bounded column reply consistency checks
     model/format.ts                shared numeric and timestamp formatters
+    model/export-summary.ts        guarded tagged-summary serialization
     worker/run.worker.ts           computation and query dispatcher
     hooks/use-run.ts               React lifecycle and native worker transport
     hooks/run-session.ts           pure async controller and request identity checks
@@ -102,6 +106,7 @@ evidence/
   charts/                         source/session/renderer checks and diagnostic evidence
   data-validation/                earlier runtime contracts and independent audit checkpoint
   downsampling/                   exact buckets, column inspection, Node and browser evidence
+  silent-failers/                  deadlines, renderer recovery, presentation and fault checks
 ```
 
 Create browser-test, performance, and submission artifacts as those checks are performed. Their absence must not be replaced with generated pass claims or invented results. Loading, empty-metric, and worker error states currently live in the dashboard/chart components rather than separate route files.
@@ -148,7 +153,7 @@ Keep source row positions as provenance. The sorted index is an ordering over ra
 
 Generate points inside the worker from a small manifest and fixed integer PRNG. Formula, seed, anomaly locations, and generator version must reproduce the same data. Do not use ambient `Math.random()` or current time. Golden fixtures and manually specified expected values prevent tests from merely agreeing with the same faulty generator.
 
-Do not serialize nonfinite raw metrics using ordinary JSON: `NaN` and infinities become `null`. Generate them in memory; if export or network ingestion is added, use explicit tags such as `{ kind: "nan" }` and validate the schema on decode. See [MDN on JSON serialization](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify).
+Do not serialize nonfinite raw metrics using ordinary JSON: `NaN` and infinities become `null`. Generate them in memory; raw export/network ingestion would require explicit tags and decode validation. The implemented summary export serializes already-tagged Reading states, preserving NaN/positive-infinity/negative-infinity/missing/conflict distinctions. `serializeSummaryExport` rejects any unexpected untagged nonfinite numeric payload; serialization/download failures receive a visible UI error. It is a summary export, not a lossless raw-column archive.
 
 ### Fixture allocation
 
@@ -171,7 +176,7 @@ The identifiers and allocation below are implemented in the versioned fixture ma
 | `run-019` | 1 | All-invalid loss with usable learning-rate and gradient-norm series. |
 | `run-020` | 1 | Exactly 1,000,000 rows, steps 0 through 999,999; one isolated loss spike at step 500,000. |
 
-For `run-020`, the existing loss reading at step 500,000 is replaced with exactly `12`, while baseline loss remains below `2`. No extra row is inserted. The manifest declares the expected peak step/value, with independently specified checks in the fixture tests. Small empty, single-point, invalid-step, and extreme-magnitude cases are tested outside the 20 listed runs; applicable cases also appear on the development diagnostic page. Loading/error/race behavior is exercised through deterministic fake-worker replies and failures, without changing fixture mathematics. Full browser failure injection remains separate work.
+For `run-020`, the existing loss at step 500,000 is replaced with exactly `12`, while baseline loss stays below `2`; no row is added. Manifest and independent tests fix this oracle. Empty, singleton, invalid-step and extreme cases remain diagnostic/test-only outside the 20 fixtures. Controlled worker/renderer faults use the real dashboard without changing fixture mathematics.
 
 ## 5 Normalization and numerical policy
 
@@ -269,7 +274,9 @@ During same-run viewport updates, keep the last rendered frame and its matching 
 
 The implementation uses fixed `snapshotAt` and `sourceVersion` labels for the synthetic demo and records ISO `loadedAt` separately for the displayed successful retrieval. The snapshot disclosure shows both source time and last successful load in UTC; export includes the separate load time. A refresh retains the previous complete summary/frame/load time with `isPreviousSnapshot` until the replacement commits. If a resized initial frame is still pending, new summary and load time wait for that frame too. Failed refresh, zoom, and hover cannot make an old snapshot appear newer. No live-data promise or polling is implied. A future stale threshold would require a deliberate policy and injected clocks.
 
-Pure session tests supply a fake worker and clock to exercise A/B/A switches, late or replayed replies, coalesced zoom/resize/inspection, mismatched run/version/geometry, paginated inspection identity, worker construction and message failures, retry, and retained snapshot metadata. These controlled sequences are reproducible without React test dependencies. They do not replace browser-level fault injection or prove the absence of every race.
+Sent requests receive a 30-second response deadline through an injectable scheduler; queued work starts its timer when sent. Reply/stop cleanup cancels timers, and identity checks guard already-queued callbacks. A timeout halts the session, clears pending work and retains any complete previous snapshot with a visible error and manual retry. Irrelevant/replayed replies cannot extend deadlines. Browser suspension or background throttling can delay timer execution; this is a recovery policy, not a real-time guarantee.
+
+Pure session tests supply fake workers, clocks and schedulers for A/B/A switches, held/replayed replies, coalescing, malformed data, worker failures, deadlines and cleanup. Targeted development-browser fault scenarios complement these tests; full router races and scheduling coverage remain separate.
 
 `validate-view.ts` checks relevant current replies before publishing them: tagged reading states, summary accounting, metric containers, finite coordinates/domains, drawing budgets, full-range summary agreement, and bounded source pages. Finite inspection values must remain inside whole-run source extents; latest-step inspection must agree with the latest summary. Stale identities are discarded before deep validation. A malformed current payload stops that session without replacing a retained complete snapshot, and malformed error text receives a bounded fallback. These structural and consistency guards do not independently prove every returned value came from the source; the raw-source oracle provides separate evidence.
 
@@ -279,19 +286,21 @@ Pure session tests supply a fake worker and clock to exercise A/B/A switches, la
 
 `/runs/[runId]` validates membership in the manifest and returns a meaningful unknown-run state for invalid IDs. The detail view shows run metadata, whole-run summaries, quality notices, and separate loss, learning-rate, and gradient-norm plots sharing a step interval. It never claims that one y-axis unit applies to all three metrics.
 
-`/diagnostics/charts` is available only when `NODE_ENV` is `development`; other environments return not found. Handwritten cases reuse preparation, reduction, inspection, and the actual Canvas component for empty, singleton, constant, invalid, gap, conflict, zero/negative, tiny/adjacent/extreme, highly fragmented, and paginated duplicate data. This route is a correctness aid, not the main-thread raw baseline or a fault-injection harness.
+`/diagnostics/charts` is development-only and reuses the numerical pipeline/Canvas component for handwritten source edge cases. `/diagnostics/silent-failures` is also development-only: it wraps real worker replies and chart drawing with hold/fail/drop/corrupt controls, A/B component selection and hide/show controls, plus an event log and replay steps. It uses a 10-second diagnostic deadline. These are correctness aids, not a browser performance baseline or comprehensive router/browser automation.
 
 Provide zoom in/out/reset buttons and labelled start/end step inputs. Pointer wheel or drag zoom may be added, but the native controls remain sufficient. Arrow-key sample navigation, Home/End, and exact step inspection operate when the chart inspector has focus and must not hijack typing in form controls. Escape dismisses an inspector without losing focus. Shared viewport changes retain deliberate focus.
 
 Test layouts at 360, 768, and 1440 CSS-pixel widths, plus browser text zoom. Charts resize through `ResizeObserver`; redraw once per frame and recompute buckets for the actual plot width. Cap or manage backing-canvas DPR if memory measurements require it, and document the setting.
 
-Canvas has a textual alternative: metric name, interval, summary, quality description, and an accessible sample inspector. Use native buttons, inputs, table headings, `aria-sort`, visible focus, and concise live announcements for load/error/selection changes. Do not announce every pointer event. Target normal text contrast of at least 4.5:1 and necessary chart/control graphics of at least 3:1. Validate these against [W3C text contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html), [non-text contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html), and [keyboard guidance](https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html); automated checks alone do not establish accessibility conformance.
+The renderer controller publishes a model only after drawing succeeds. Creation, draw, resize or coordinate failures remove the failed surface and selection guide and expose Retry chart; other metrics and source inspection remain available. Zero-sized containers release the renderer and render the latest desired model after regaining size. Tests cover lifecycle and failure transitions; the development browser verifies loss-only draw failure, Enter-to-retry and hide/show recovery.
+
+Canvas has a textual alternative: metric name, interval, summary, quality description, and an accessible sample inspector. Use native buttons, inputs, table headings, `aria-sort`, visible focus, and concise live announcements for load/error/selection changes. Do not announce every pointer event. Target normal text contrast of at least 4.5:1 and necessary chart/control graphics of at least 3:1. Validate these against [W3C text contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html), [non-text contrast](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html), and [keyboard guidance](https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html); automated checks alone do not establish accessibility conformance.
 
 ## 9 Numeric formatting and scale behavior
 
-Use a consistent formatting policy for list values, summaries, ticks, and inspection. `model/format.ts` handles UI values; `chart-model.ts` uses tick spacing to choose enough precision for distinct axis labels. Positions and comparisons use raw numbers before the explicit display transform. Display rounded values with adequate significant digits and expose `Number.toString()` precision in exact inspection. Small learning rates must not become a misleading visible zero; use scientific notation when necessary. Show integer steps without treating them as dates.
+Use consistent numeric policy across lists, summaries, ticks and inspection. `format.ts` handles UI values; `chart-model.ts` chooses tick-spacing precision. Comparisons and positions use raw numbers. Compact scientific labels fall back to full precision when rounding would overflow a finite value. `formatExactValue` preserves full numeric text and signed zero, including exact table values and source titles. Small nonzero readings use scientific notation when needed; training steps remain integers, not dates.
 
-Use deterministic `en-US` and UTC defaults for the initial demo, with the timezone explicitly shown. If locale/timezone controls are added, pass explicit settings to all formatters and preserve numeric sort. Validate formatting with `en-US`, `de-DE`, and `fr-FR`, and instants near a date boundary in UTC, Asia/Almaty, and America/Los_Angeles. Do not parse localized labels back into numeric source values or allow server/client environment defaults to cause hydration differences.
+Use deterministic `en-US` and explicitly labelled UTC defaults. `validate:presentation` runs nine independent Node processes for en-US/de-DE/fr-FR × UTC/Asia-Almaty/Los-Angeles, verifies their actual defaults and winter/summer offsets, and checks fixed output near date/DST boundaries. It also checks source dimensions and linear/unsmoothed chart options. This is not a browser locale/hydration, painted Canvas or UI numeric-sort test. Future locale controls must pass explicit settings throughout; never parse localized labels back into source values.
 
 The first implementation uses linear scales only and verifies that zero and negative finite readings remain represented without an implicit log transform. If log controls are added later, disable them for a viewport containing any finite zero or negative raw reading, including duplicate conflicts, with an explanation. Never add epsilon, drop nonpositive samples silently, or relabel linear axes as logarithmic. Nonfinite values remain disclosed breaks. If panning a future log view reveals a nonpositive reading, switch visibly to linear with an announcement.
 
@@ -301,11 +310,11 @@ Tick labels must be produced from the exact tick values used by the scale. Disti
 
 ### Automated data and rendering checks
 
-The latest [integration check](../evidence/downsampling/check-final.stdout) at `f877330` passes 525 tests across 14 files, lint, strict types, catalog consistency and the production build. Coverage includes fixtures, source/reply contracts, independent numerical oracles, exact integer bucket boundaries, column extrema/quality/provenance, worker/session identity and ECharts coordinates. Column checks include 600 compatible queries over 40 adversarial sources, empty integer columns, safe-integer limits, signed zero, conflict extremes, gaps and malformed replies. The independent validator uses sorted source indexes and reading identities to compute expected facts without calling production numerical helpers; exact BigInt division supplies expected bucket membership independently of production quotient/remainder thresholds.
+The latest [integration check](../evidence/silent-failers/check-final.stdout) at `1aaeeca` passes 585 tests across 17 files, lint, strict types, catalog consistency and production build. Coverage includes source/reply contracts, independent numerical oracles, exact buckets/columns, session deadlines, renderer lifecycle/recovery, numeric/export formatting and fault-transport behavior. The independent validator derives expectations from source indexes/readings and BigInt bucket membership, separate from production helpers.
 
-The retained [source validation report](../evidence/downsampling/source-validation.json) passes 60 cases covering all 20 fixtures and adversarial seeds 1–40, 300 viewports, 900 metric results and 3,891 exact inspection groups/pages. All 20 source fingerprints match the preceding checkpoint. The [current verification record](../evidence/downsampling/verification.md) preserves the initial bucket/oracle failures, follow-up passes and targeted production checks for the million-point column maximum, keyboard extremum selection, zoom context reset, conflicts, mobile gap inspection and out-of-range exact inspection. Later singular-label corrections have focused lint; the observation label also has a development browser check. Earlier chart/session logs and screenshots remain historical evidence. Passing cases do not imply release completion.
+The retained [source audit](../evidence/silent-failers/source-validation.json) passes 60 cases, 300 viewports, 900 metric results and 3,891 exact inspection groups/pages with unchanged fixture fingerprints. The [verification record](../evidence/silent-failers/verification.md) retains initial failures, final passes, nine Node presentation environments and targeted development-browser checks. Those browser checks verify failed/stalled refresh, stale run/range/inspection rejection, malformed range failure, chart retry and zero-size recovery. Earlier chart/downsampling evidence remains historical.
 
-The table below remains the full acceptance plan. In particular, T09 browser fault injection, the full T10 browser/DPR matrix, T11 assistive-technology coverage, and the locale/time-zone matrix are not closed by pure tests or targeted screenshots.
+The table below remains the complete acceptance plan. T09 has targeted manual development-harness coverage using real dashboard components, but full router races/automation remain. T10 Canvas/DPR, T11 assistive technology and the browser locale/time-zone matrix are not closed by these checks.
 
 | Test ID | Case and oracle | Failure caught |
 | --- | --- | --- |

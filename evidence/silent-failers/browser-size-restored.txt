@@ -1,0 +1,126 @@
+Browser tab: 10, Title: "Silent failure diagnostics · soup", URL: "http://127.0.0.1:3000/diagnostics/silent-failures".
+0 AXWebArea Silent failure diagnostics · soup, URL: 127.0.0.1:3000/diagnostics/silent-failures
+	60 container
+		61 link Description: Back to runs, Value: 127.0.0.1:3000/runs
+		62 heading Silent failure diagnostics, Value: 1
+			63 text Silent failure diagnostics
+		64 text Development only. These controls wrap real worker replies and the real charts. Requests expire after 10 seconds here; the dashboard default is 30 seconds.
+		65 container Diagnostic run selection
+			66 checkbox Run A · steady, Value: 0
+			67 checkbox Run B · fast, Value: 1
+		68 button Hold next load
+		69 button Hold next range
+		70 button Hold next inspection
+		71 button Fail next load
+		72 button Drop next load
+		73 button Corrupt next range
+		74 button (disabled) Release oldest reply
+		75 button Fail next loss draw
+		76 checkbox Hide dashboard, Value: 0
+		77 container
+			78 text No transport fault armed. 0  held replies.
+		79 button (collapsed) Replay instructions and event log, Secondary Actions: Expand
+			80 text Replay instructions and event log
+		81 text run-002
+		82 image
+		83 text Completed
+		84 heading Fast convergence, Value: 1
+			85 text Fast convergence
+		86 button (collapsed) Snapshot Nov 1, 12:00 UTC, Secondary Actions: Expand
+			87 image
+			88 text Snapshot 
+			89 text Nov 1, 12:00 UTC
+			90 image
+		91 text / 5,000  observations
+		92 button Reload, Help: Reload the same source snapshot
+			93 image
+			94 text Reload
+		95 button Export summary
+			96 image
+			97 text Export summary
+		98 container Whole-run latest readings
+			99 text Latest step
+			100 text 4,999
+			101 container
+				102 text Latest  loss
+			103 text 0.0419
+			104 container
+				105 text Latest  learning rate
+			106 text 1.00e-4
+			107 container
+				108 text Latest  gradient norm
+			109 text 0.1897
+		110 tab group Run view
+			111 tab (selected, settable, boolean) Metrics, ID: metrics-tab, Value: 1
+Metrics
+			112 tab (selectable, settable, boolean) Data quality, ID: quality-tab, Value: 0
+Data quality
+		113 container Description: Metrics, ID: metrics-panel
+			114 button All steps
+			115 button Last 25%
+			116 button Last 10%
+			117 button (collapsed) 3,749 — 4,999, Secondary Actions: Expand
+				118 image
+				119 text 3,749
+				120 text —
+				121 text 4,999
+				122 image
+			123 button Zoom out
+				124 image
+			125 button Zoom in
+				126 image
+			127 container Loss
+				128 heading Loss, Value: 2, ID: loss-title
+					129 text Loss
+				130 text Visible max
+				131 text 0.0733
+				132 container Loss from step 3749 to 4999. 1251 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				133 text Training step
+			134 container Learning rate
+				135 heading Learning rate, Value: 2, ID: lr-title
+					136 text Learning rate
+				137 text Visible max
+				138 text 3.25e-4
+				139 container Learning rate from step 3749 to 4999. 1251 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				140 text Training step
+			141 container Gradient norm
+				142 heading Gradient norm, Value: 2, ID: grad_norm-title
+					143 text Gradient norm
+				144 text Visible max
+				145 text 0.2289
+				146 container Gradient norm from step 3749 to 4999. 1251 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				147 text Training step
+			148 container Original observation inspector
+				149 image
+				150 heading Observation inspector, Value: 2
+					151 text Observation inspector
+				152 container
+					153 text Step
+					154 stepper (settable, integer) Step, Value: 200, ID: inspect-step
+					155 button Inspect
+				156 container Selected observation; use left and right arrow keys to move between recorded steps
+					157 text Step
+					158 text 4,999
+					159 button Previous observation
+						160 image
+					161 button (disabled) Next observation
+						162 image
+					163 text Loss
+					164 text 0.0419
+					165 text Learning rate
+					166 text 1.00e-4
+					167 text Gradient norm
+					168 text 0.1897
+				169 button (collapsed) Exact source readings 1 row, Secondary Actions: Expand
+					170 text Exact source readings
+					171 text 1
+					172 text row
+					173 image
+		174 text 1,251 observations in view
+		175 button (collapsed) How points are shown, Secondary Actions: Expand
+			176 text How points are shown
+		177 text Fast convergence loaded. 5000 source observations.
+	58 pop up button (collapsed) Description: Open Next.js Dev Tools, ID: next-logo, Secondary Actions: Expand
+		59 image
+
+The focused UI element is 76 checkbox Hide dashboard, Value: 0

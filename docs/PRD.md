@@ -1,6 +1,6 @@
 # Soup Training Run Monitor Product Requirements
 
-**Version:** 1.3
+**Version:** 1.4
 
 **Date:** 2026-11-10
 
@@ -12,7 +12,9 @@
 
 The monitor helps an engineer decide whether a training run is behaving well enough to continue spending compute. It must expose uncertainty, invalid observations, and divergence instead of presenting a reassuring but misleading chart. The evaluation scenario is a person deciding whether to stop a $500 run; the application provides evidence for that decision and does not control real training infrastructure.
 
-The current delivery includes the Next.js dashboard, [20 deterministic fixtures](MOCK_DATA.md), three Apache ECharts plots, source-based summaries and reduction, worker processing, run search/filter/sort, shared range controls, and paginated exact observation inspection. `feature/downsampling` through `f877330` adds exact integer bucket boundaries, original column extrema/quality counts and a measured singleton scan fast path to the earlier runtime contracts and independent audits. The [saved integration check](../evidence/downsampling/check-final.stdout) passes 525 tests across 14 files, lint, strict typing, catalog consistency, and the production build. The latest [verification record](../evidence/downsampling/verification.md) records 60 audit cases, 300 viewports, 900 metric results and 3,891 exact inspection groups/pages with all 20 fixture fingerprints unchanged. Targeted production browser checks cover column spike/conflict/gap inspection, zoom and keyboard extrema selection; a Node-only engine comparison is separate from browser performance. Earlier [Canvas checks](../evidence/charts/verification.md) remain historical evidence. The full browser failure/accessibility matrix, 4x CPU performance and tab-memory evidence, deployment, and submission artifacts remain incomplete. See the [requirement-by-requirement progress audit](PRD_AUDIT.md). Requirements below remain the intended complete product; this status update does not waive them.
+The current delivery includes the Next.js dashboard, [20 deterministic fixtures](MOCK_DATA.md), three ECharts plots, source-based summaries/reduction, worker processing, run search/filter/sort, shared ranges, and exact source/column inspection. `fix/silent-failers` through `1aaeeca` adds request deadlines, renderer recovery, finite-label/exact-value fixes, guarded export and controlled browser faults. The [integration check](../evidence/silent-failers/check-final.stdout) passes 585 tests across 17 files, lint, strict typing, catalog consistency and production build. The [verification record](../evidence/silent-failers/verification.md) records 60 audit cases with unchanged fixture fingerprints, nine Node locale/time-zone cases and targeted development-browser recovery/race checks. Those checks use the actual dashboard but do not close the full router-race, browser locale/accessibility or Canvas/DPR matrix. Required 4x CPU performance/tab-memory evidence, deployment and submission artifacts remain incomplete. See the [progress audit](PRD_AUDIT.md). Requirements below remain the complete acceptance criteria; this update does not waive them.
+
+Latest local production smoke verifies diagnostic routes are unavailable, all-invalid tagged export remains truthful, the million-point spike is visible and exact, and the 360px page fits without overflow. Full browser matrices and deployed-route verification remain open.
 
 ## 1. Source and decision boundaries
 

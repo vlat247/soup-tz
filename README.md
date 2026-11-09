@@ -4,7 +4,9 @@ Next.js training-run monitor for the Soup Frontend Engineer take-home task, with
 
 The dashboard includes a searchable, sortable run browser; loss, learning-rate, and gradient-norm charts; whole-run summaries; data-quality details; shared zoom controls; and exact observation and reduction-column inspection. Twenty deterministic synthetic runs include broken telemetry and a million-point spike case. Apache ECharts renders linear, unsmoothed plots from independently reduced data, while a dedicated worker retains the full source observations.
 
-Independent source validation checks summaries, domains, provenance, segment breaks, and retained extrema against raw-column scans. Deterministic fake-worker tests cover run changes, overlapping zoom/resize/inspection, failures, retry, and retained snapshots. Chart-model tests exercise the installed ECharts coordinate engine with tiny, adjacent, and extreme finite values. The latest [downsampling verification record](evidence/downsampling/verification.md) covers exact integer bucket boundaries, original column extrema/quality counts, 525 passing tests across 14 files, the production build, 60 independent audit cases and targeted production browser checks. Its Node-only benchmark retains both improvements and a tail regression; it does not measure browser performance. Earlier [chart](evidence/charts/verification.md) and [dashboard](evidence/dashboard-ui/verification.md) checks remain historical evidence. A browser baseline renderer, matched before/after traces at 4x CPU throttling, tab-memory measurements, full browser fault injection and assistive-technology coverage, and deployment remain outstanding.
+Independent source validation checks summaries, domains, provenance, breaks and retained extrema against raw-column scans. The latest [silent-failure verification](evidence/silent-failers/verification.md), through `1aaeeca` on `fix/silent-failers`, records 585 tests across 17 files, a production build, 60 audit cases and nine Node locale/time-zone cases. Targeted development-browser checks cover held replies, failed/stalled refresh, malformed data, renderer retry and zero-size recovery using the actual dashboard. These are manual controlled scenarios, not a full router-race or browser locale/accessibility matrix. Earlier [downsampling evidence](evidence/downsampling/verification.md) includes an isolated Node benchmark with a retained regression. Browser baseline/4x CPU traces, tab memory, broader browser/accessibility checks and deployment remain outstanding.
+
+Latest local production smoke verifies diagnostic routes are unavailable, all-invalid tagged export remains truthful, the million-point spike is visible and exact, and the 360px page fits without overflow. Full browser matrices and deployed-route verification remain open.
 
 ## Requirements documents
 
@@ -42,6 +44,7 @@ Open [localhost:3000](http://localhost:3000). The application opens `/runs/run-0
 | `npm run data:inspect` | Inspect all 20 runs; add `-- run-015` for exact anomaly source positions. |
 | `npm run data:validate` | Audit all 20 fixtures and adversarial seeds 1–40; retain each case result in a versioned JSON report and exit nonzero on failure. |
 | `npm run bench:reduction` | Record Node-only reduction samples and raw/reduced output counts; excludes generation, browser rendering and worker messaging. |
+| `npm run validate:presentation` | Verify explicit en-US/UTC output in nine Node locale/time-zone environments; not a browser matrix. |
 | `npm run data:catalog` | Regenerate the compact run-list catalog from exact source summaries. |
 | `npm run data:catalog:check` | Fail if the committed catalog differs from regenerated summaries. |
 | `npm run build` | Create a production build. |
@@ -52,7 +55,7 @@ Unit tests establish numerical properties within their tested cases. They do not
 
 Replay a particular case with `npm run data:validate -- --run run-012` or `npm run data:validate -- --seed 17`. Selectors can repeat or combine; supplying them runs only those cases. Use `npm run --silent data:validate > report.json` for machine-readable output. Reports include exact case selectors, replay commands, source fingerprints, source/generator versions, Node/platform information and Git revision/dirty state when available. A failed case stays in the report while later cases continue; totals count only completed audits.
 
-The earlier [data-validation record](evidence/data-validation/verification.md) covers source-contract checks, malformed worker replies and stronger independent oracles. Structural errors are rejected without coercion; NaN, infinities, missing readings, duplicate conflicts and rejected numeric steps remain preserved telemetry. The latest downsampling audit passes 300 viewport checks, 900 metric checks and 3,891 exact inspection groups/pages. All 20 fixture fingerprints are unchanged.
+The earlier [data-validation record](evidence/data-validation/verification.md) covers source contracts, malformed worker replies and independent oracles. Structural errors are rejected without coercion; NaN, infinities, missing readings, duplicate conflicts and rejected numeric steps remain preserved telemetry. The latest audit passes 300 viewport checks, 900 metric checks and 3,891 exact inspection groups/pages. All 20 fixture fingerprints are unchanged.
 
 ## Dashboard controls
 
@@ -62,11 +65,11 @@ All three charts share a step range. Use the range presets, explicit start/end i
 
 Expand **Samples in this chart column** to inspect the raw minimum/maximum and quality counts in the selected reduction column. Click an extremum to inspect its original step. The column uses the current range and shared drawing budget; it can span more than one physical pixel on a wider chart. It includes finite conflicting readings, preserves empty columns and reports intersecting missing intervals separately from missing metric values. Exact source inspection still works outside the visible range, where no column summary is shown.
 
-Open the snapshot disclosure to compare the fixed source timestamp/version with **Last successful load**. Reloading a synthetic snapshot does not make its source newer. While reloading, the prior complete snapshot and its load time remain visible; the replacement summary, frame, and load time commit together. **Export summary** includes the descriptor, tagged whole-run summary, and successful load time.
+Open the snapshot disclosure to compare fixed source timestamp/version with **Last successful load**. Reloading a synthetic snapshot does not make its source newer. Pending or failed refresh retains the previous complete snapshot and its load time with a visible notice. Sent worker requests time out after 30 seconds and offer manual retry; background-tab timers can run later. **Export summary** keeps tagged invalid states and shows a visible error if serialization or download setup fails. Exact source text preserves negative zero.
 
 Use Left/Right or Home/End on the Metrics/Data quality tabs. In the selected-observation group, Left/Right move between recorded steps and Home/End select the first/last observation. Explicit keyboard selections are announced without announcing every pointer move.
 
-With `npm run dev`, open [/diagnostics/charts](http://localhost:3000/diagnostics/charts) for handwritten empty, singleton, gap, conflict, extreme-magnitude, fragmented, and paginated-source cases using the real chart component. This development-only route returns not found outside development. It is a correctness aid, not a production performance baseline or a worker-failure simulator.
+With `npm run dev`, open [/diagnostics/charts](http://localhost:3000/diagnostics/charts) for handwritten chart/source edge cases. [/diagnostics/silent-failures](http://localhost:3000/diagnostics/silent-failures) wraps the real dashboard worker and renderer with controls to hold, fail, drop or corrupt replies, fail a chart draw, and hide/show its containers. Its replay instructions and event log make failures reproducible; its request deadline is 10 seconds. Both routes are restricted to development and are not performance baselines. A failed chart removes stale pixels and offers **Retry chart**; other metrics and exact source inspection stay available.
 
 ## Project structure
 
@@ -83,10 +86,10 @@ src/app/
   layout.tsx             Root document and metadata
   page.tsx               Redirect to the first training run
   runs/                  Shared dashboard layout and validated run routes
-  diagnostics/charts/    Development-only chart diagnostic route
+  diagnostics/           Development-only chart and silent-failure routes
 src/features/dashboard/  Run browser, summaries, quality view, and inspector
 src/features/charts/     Pure coordinate/options model and ECharts Canvas component
-src/features/diagnostics/ Handwritten chart/source scenarios
+src/features/diagnostics/ Handwritten cases and controlled worker/renderer faults
 src/features/runs/
   data/manifest.ts        Versioned descriptors for exactly 20 runs
   data/generate.ts        Deterministic source-column generation

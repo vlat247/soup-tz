@@ -1,0 +1,164 @@
+Browser tab: 11, Title: "Million-point isolated spike · soup", URL: "http://127.0.0.1:3001/runs/run-020".
+1 AXWebArea Million-point isolated spike · soup, URL: 127.0.0.1:3001/runs/run-020
+	2 link Description: Skip to run details, Value: 127.0.0.1:3001/runs/run-020#run-content
+	3 container Run navigation
+		4 link Description: Soup training runs, Value: 127.0.0.1:3001/runs
+		5 text Training runs 20
+		6 text Find a run
+		7 text field (settable) Find a run
+		8 container Data quality filter
+			9 checkbox All, Value: 1
+			10 checkbox With issues, Value: 0
+			11 checkbox Clean, Value: 0
+		12 container
+			13 text Filter by run status
+			14 pop up button (collapsed, settable) Filter by run status, Value: All statuses, Secondary Actions: Expand
+				15 menu
+					16 (selected) All statuses
+					17 Running
+					18 Completed
+					19 Failed
+		20 container
+			21 text Sort runs
+			22 pop up button (collapsed, settable) Sort runs, Value: Run ID, Secondary Actions: Expand
+				23 menu
+					24 (selected) Run ID
+					25 Name
+					26 Last step ↓
+					27 Valid loss ↑
+		28 container Training runs
+			29 link Description: completed Steady convergence run-001 · Step 5,999 Loss 0.1316, Value: 127.0.0.1:3001/runs/run-001
+			30 link Description: completed Fast convergence run-002 · Step 4,999 Loss 0.0419, Value: 127.0.0.1:3001/runs/run-002
+			31 link Description: running Slow progress run-003 · Step 7,999 Loss 0.6003, Value: 127.0.0.1:3001/runs/run-003
+			32 link Description: completed Early plateau run-004 · Step 3,999 Loss 0.6314, Value: 127.0.0.1:3001/runs/run-004
+			33 link Description: running Oscillating loss run-005 · Step 3,999 Loss 0.5144, Value: 127.0.0.1:3001/runs/run-005
+			34 link Description: completed Noisy convergence run-006 · Step 5,999 Loss 0.1904, Value: 127.0.0.1:3001/runs/run-006
+			35 link Description: failed Loss divergence run-007 · Step 5,999 Loss 12.4844, Value: 127.0.0.1:3001/runs/run-007
+			36 link Description: running Unstable gradients run-008 · Step 4,999 Loss 0.1484, Value: 127.0.0.1:3001/runs/run-008
+			37 link Description: failed NaN loss readings run-009 · Step 3,999 Loss NaN Issues, Value: 127.0.0.1:3001/runs/run-009
+			38 link Description: failed Infinite loss readings run-010 · Step 3,999 Loss 0.1376 Issues, Value: 127.0.0.1:3001/runs/run-010
+			39 link Description: completed Repeated identical observations run-011 · Step 3,999 Loss 0.1378 Issues, Value: 127.0.0.1:3001/runs/run-011
+			40 link Description: failed Conflicting duplicate steps run-012 · Step 3,999 Loss 0.1325 Issues, Value: 127.0.0.1:3001/runs/run-012
+			41 link Description: completed Out-of-order observations run-013 · Step 4,095 Loss 0.1281 Issues, Value: 127.0.0.1:3001/runs/run-013
+			42 link Description: running Missing step intervals run-014 · Step 4,069 Loss 0.1403 Issues, Value: 127.0.0.1:3001/runs/run-014
+			43 link Description: failed Mixed telemetry defects run-015 · Step 4,034 Loss 0.1333 Issues, Value: 127.0.0.1:3001/runs/run-015
+			44 link Description: completed Valid zero readings run-016 · Step 3,999 Loss 0.1498, Value: 127.0.0.1:3001/runs/run-016
+			45 link Description: completed Negative loss values run-017 · Step 3,999 Loss -0.7994, Value: 127.0.0.1:3001/runs/run-017
+			46 link Description: completed Constant metrics run-018 · Step 2,999 Loss 0.75, Value: 127.0.0.1:3001/runs/run-018
+			47 link Description: failed No finite loss run-019 · Step 2,999 Loss NaN Issues, Value: 127.0.0.1:3001/runs/run-019
+			48 link Description: completed Million-point isolated spike run-020 · Step 999,999 Loss 0.1337, Value: 127.0.0.1:3001/runs/run-020
+		49 container
+			50 text 20  of  20  runs
+		51 pop up button Synthetic data
+	52 container run-content
+		53 text run-020
+		54 image
+		55 text Completed
+		56 heading Million-point isolated spike, Value: 1
+			57 text Million-point isolated spike
+		58 button (collapsed) Snapshot Nov 1, 12:00 UTC, Secondary Actions: Expand
+			59 image
+			60 text Snapshot 
+			61 text Nov 1, 12:00 UTC
+			62 image
+		63 text /
+		64 text 1,000,000
+		65 text  observations
+		66 button Reload, Help: Reload the same source snapshot
+			67 image
+			68 text Reload
+		69 button Export summary
+			70 image
+			71 text Export summary
+		72 container Whole-run latest readings
+			73 text Latest step
+			74 text 999,999
+			75 container
+				76 text Latest  loss
+			77 text 0.1337
+			78 container
+				79 text Latest  learning rate
+			80 text 1.00e-4
+			81 container
+				82 text Latest  gradient norm
+			83 text 0.1878
+		84 tab group Run view
+			85 tab (selected, settable, boolean) Metrics, ID: metrics-tab, Value: 1
+Metrics
+			86 tab (selectable, settable, boolean) Data quality, ID: quality-tab, Value: 0
+Data quality
+		87 container Description: Metrics, ID: metrics-panel
+			88 button All steps
+			89 button Last 25%
+			90 button Last 10%
+			91 container
+				92 button (collapsed) 0 — 999,999, Secondary Actions: Expand
+					93 image
+					94 text 0
+					95 text —
+					96 text 999,999
+					97 image
+			98 button (disabled) Zoom out
+				99 image
+			100 button Zoom in
+				101 image
+			102 container Loss
+				103 heading Loss, Value: 2, ID: loss-title
+					104 text Loss
+				105 text Visible max
+				106 text 12
+				107 container Loss from step 0 to 999999. 1000000 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				108 text Training step
+			109 container Learning rate
+				110 heading Learning rate, Value: 2, ID: lr-title
+					111 text Learning rate
+				112 text Visible max
+				113 text 1.00e-3
+				114 container Learning rate from step 0 to 999999. 1000000 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				115 text Training step
+			116 container Gradient norm
+				117 heading Gradient norm, Value: 2, ID: grad_norm-title
+					118 text Gradient norm
+				119 text Visible max
+				120 text 0.8286
+				121 container Gradient norm from step 0 to 999999. 1000000 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				122 text Training step
+			123 container Original observation inspector
+				124 image
+				125 heading Observation inspector, Value: 2
+					126 text Observation inspector
+				127 container
+					128 text Step
+					129 stepper (settable, integer) Step, Value: 500000, ID: inspect-step
+					130 button Inspect
+				131 text Step 500000. Loss 12. Learning rate 5.50e-4. Gradient norm 0.2724
+				132 container Selected observation; use left and right arrow keys to move between recorded steps
+					133 text Step
+					134 text 500,000
+					135 button Previous observation
+						136 image
+					137 button Next observation
+						138 image
+					139 text Loss
+					140 text 12
+					141 text Learning rate
+					142 text 5.50e-4
+					143 text Gradient norm
+					144 text 0.2724
+				145 button (collapsed) Exact source readings 1 row, Secondary Actions: Expand
+					146 text Exact source readings
+					147 text 1
+					148 text row
+					149 image
+				150 button (collapsed) Samples in this chart column 2,618 observations, Secondary Actions: Expand
+					151 text Samples in this chart column
+					152 text 2,618
+					153 text observations
+					154 image
+		155 container
+			156 text 1,000,000 observations in view
+			157 button (collapsed) How points are shown, Secondary Actions: Expand
+				158 text How points are shown
+		159 text Million-point isolated spike loaded. 1000000 source observations.
+
+The focused UI element is 130 button Inspect

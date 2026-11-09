@@ -1,4 +1,5 @@
-.chart {
+.chart,
+.plot {
   position: relative;
   width: 100%;
   min-width: 0;
@@ -19,8 +20,7 @@
   top: 0;
   bottom: 0;
   width: 1px;
-  border-left: 1px dashed #bbc5be;
-  opacity: 0.5;
+  border-left: 1px dashed rgba(230, 213, 183, 0.68);
 }
 
 .empty {
@@ -32,22 +32,39 @@
   justify-content: center;
   gap: 8px;
   text-align: center;
-  color: #cbd3ce;
+  color: #e6d5b7;
   font-size: 13px;
 }
 
 .empty p {
   margin: 0;
   max-width: 32ch;
-  color: #939b98;
-  font-size: 11px;
+  color: rgba(230, 213, 183, 0.68);
+  font-size: 12px;
   line-height: 1.6;
 }
 
-.rangeNote {
-  position: absolute;
-  top: 0;
-  right: 20px;
-  color: #c4ccbf;
-  font-size: 10px;
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px 16px;
+  padding: 0 20px 8px;
+  color: rgba(230, 213, 183, 0.68);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.conflictNote {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.conflictSymbol {
+  width: 7px;
+  height: 7px;
+  border: 1.5px solid #e6d5b7;
+  background: #1e223d;
+  transform: rotate(45deg);
 }

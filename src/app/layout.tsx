@@ -6,8 +6,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: { default: "soup — Training runs", template: "%s · soup" },
-  description:
-    "A training-run monitor focused on truthful charts and verifiable performance.",
+  description: "Explore training runs, metrics, and data quality.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

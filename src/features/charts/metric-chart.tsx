@@ -61,6 +61,10 @@ const METRIC_NAMES: Record<Metric, string> = {
   grad_norm: "Gradient norm",
 };
 const GRID = { left: 68, right: 20, top: 16, bottom: 34 };
+const AXIS_FONT_SIZE = 11;
+const AXIS_FONT = '"IBM Plex Mono", monospace';
+const AXIS_COLOR = "rgba(230, 213, 183, 0.68)";
+const GRID_COLOR = "rgba(230, 213, 183, 0.12)";
 const stepFormat = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
 
 function paddedDomain(
@@ -109,6 +113,22 @@ function tickLabel(
   return new Intl.NumberFormat("en-US", {
     maximumSignificantDigits: significantDigits,
   }).format(value);
+}
+
+function plotGrid(domain: [number, number] | null, metric: Metric) {
+  if (!domain) return GRID;
+  const span = domain[1] - domain[0];
+  const longestLabel = Math.max(
+    ...[0, 0.25, 0.5, 0.75, 1].map((fraction) =>
+      tickLabel(domain[0] + span * fraction, domain, metric).length,
+    ),
+  );
+  // IBM Plex Mono has a 0.6em advance. Reserve the full label instead of
+  // shrinking its text or truncating precision on a narrow viewport.
+  return {
+    ...GRID,
+    left: Math.max(GRID.left, Math.ceil(longestLabel * AXIS_FONT_SIZE * 0.6) + 16),
+  };
 }
 
 function standalonePoints(points: MetricFrame["points"]): [number, number][] {
@@ -281,7 +301,12 @@ export function MetricChart({
         symbol: "diamond",
         symbolSize: 7,
         clip: false,
-        itemStyle: { color: "#e6c48a", opacity: 1 },
+        itemStyle: {
+          color: "#1E223D",
+          borderColor: "#E6D5B7",
+          borderWidth: 1.5,
+          opacity: 1,
+        },
         silent: true,
         animation: false,
         progressive: 0,
@@ -313,7 +338,7 @@ export function MetricChart({
             "Use the observation inspector for exact source values.",
         },
       },
-      grid: { ...GRID, containLabel: false },
+      grid: { ...plotGrid(domain, metric), containLabel: false },
       tooltip: { show: false, trigger: "none" },
       xAxis: {
         type: "value",
@@ -326,10 +351,13 @@ export function MetricChart({
         axisTick: { show: false },
         splitLine: { show: false },
         axisLabel: {
-          color: "#939b98",
-          fontSize: 10,
+          color: AXIS_COLOR,
+          fontSize: AXIS_FONT_SIZE,
+          fontFamily: AXIS_FONT,
           margin: 12,
           hideOverlap: true,
+          alignMinLabel: "left",
+          alignMaxLabel: "right",
           formatter: (value: number) =>
             Number.isInteger(value) ? stepFormat.format(value) : "",
         },
@@ -344,11 +372,12 @@ export function MetricChart({
         axisTick: { show: false },
         splitLine: {
           show: true,
-          lineStyle: { color: "#2b322f", type: "dashed", width: 1 },
+          lineStyle: { color: GRID_COLOR, type: "dashed", width: 1 },
         },
         axisLabel: {
-          color: "#939b98",
-          fontSize: 10,
+          color: AXIS_COLOR,
+          fontSize: AXIS_FONT_SIZE,
+          fontFamily: AXIS_FONT,
           margin: 12,
           hideOverlap: true,
           formatter: (value: number) => tickLabel(value, domain, metric),
@@ -387,39 +416,50 @@ export function MetricChart({
       : null;
 
   return (
-    <div className={styles.chart} style={{ height }}>
-      <div
-        ref={containerRef}
-        className={styles.canvas}
-        data-testid={`chart-${metric}`}
-        aria-hidden={!domain}
-      />
-      {domain && selectedFraction !== null && (
-        <div className={styles.guideArea} style={GRID} aria-hidden="true">
-          <span
-            className={styles.guide}
-            style={{ left: `${selectedFraction * 100}%` }}
-          />
+    <div className={styles.chart}>
+      <div className={styles.plot} style={{ height }}>
+        <div
+          ref={containerRef}
+          className={styles.canvas}
+          data-testid={`chart-${metric}`}
+          aria-hidden={!domain}
+        />
+        {domain && selectedFraction !== null && (
+          <div className={styles.guideArea} style={plotGrid(domain, metric)} aria-hidden="true">
+            <span
+              className={styles.guide}
+              style={{ left: `${selectedFraction * 100}%` }}
+            />
+          </div>
+        )}
+        {!domain && (
+          <div className={styles.empty} role="status">
+            <span>
+              {data.domain
+                ? "This range exceeds chart precision"
+                : "No finite readings in this interval"}
+            </span>
+            <p>
+              {data.domain
+                ? "Exact source values remain available in the inspector."
+                : "Invalid and missing values remain available in the inspector."}
+            </p>
+          </div>
+        )}
+      </div>
+      {domain && (data.mode === "ranges" || data.conflicts.length > 0) && (
+        <div className={styles.notes}>
+          {data.mode === "ranges" && <span>Disconnected extrema</span>}
+          {data.conflicts.length > 0 && (
+            <span
+              className={styles.conflictNote}
+              title="Finite minimum and maximum from conflicting readings at the same step"
+            >
+              <span className={styles.conflictSymbol} aria-hidden="true" />
+              Conflict min / max
+            </span>
+          )}
         </div>
-      )}
-      {!domain && (
-        <div className={styles.empty} role="status">
-          <span>
-            {data.domain
-              ? "This range exceeds chart precision"
-              : "No finite readings in this interval"}
-          </span>
-          <p>
-            {data.domain
-              ? "Exact source values remain available in the inspector."
-              : "Invalid and missing values remain available in the inspector."}
-          </p>
-        </div>
-      )}
-      {data.mode === "ranges" && domain && (
-        <span className={styles.rangeNote}>
-          Observed extrema · gaps remain disconnected
-        </span>
       )}
     </div>
   );

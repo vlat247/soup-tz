@@ -24,7 +24,6 @@ import {
   ChartLine,
   Info,
   Crosshair,
-  Database,
 } from "@phosphor-icons/react";
 import { MetricChart } from "../charts/metric-chart";
 import { useRun } from "../runs/hooks/use-run";
@@ -135,15 +134,16 @@ function QualityView({
           <ShieldCheck size={27} weight="light" />
         )}
         <div>
-          <h2>
-            {hasIssues
-              ? "Keep the imperfections in view."
-              : "A clean source snapshot."}
-          </h2>
+          <h2>{hasIssues ? "Data quality" : "No data issues found"}</h2>
           <p>{scenario}</p>
         </div>
       </div>
-      <div className={styles.qualityTableWrapper}>
+      <div
+        className={styles.qualityTableWrapper}
+        role="region"
+        aria-label="Metric quality"
+        tabIndex={0}
+      >
         <table className={styles.qualityTable}>
           <caption>Metric quality across the complete run</caption>
           <thead>
@@ -402,25 +402,16 @@ export function RunDashboard({ runId }: { runId: string }) {
         aria-label="Whole-run latest readings"
       >
         <div className={styles.summaryMetric}>
-          <div className={styles.summaryLabel}>
-            Latest step
-            <Database size={13} />
-          </div>
+          <div className={styles.summaryLabel}>Latest step</div>
           <strong>{summary ? formatCount(summary.lastStep) : "—"}</strong>
           <span>
-            {summary
-              ? `${formatCount(summary.uniqueSteps)} unique steps`
-              : "Reading source data"}
+            {summary ? `${formatCount(summary.uniqueSteps)} unique steps` : ""}
           </span>
         </div>
         {METRICS.map((metric) => (
           <div key={metric} className={styles.summaryMetric}>
             <div className={styles.summaryLabel}>
-              {METRIC_LABELS[metric]}
-              <span
-                className={styles.metricSwatch}
-                style={{ background: METRIC_COLORS[metric] }}
-              />
+              Latest {METRIC_LABELS[metric].toLowerCase()}
             </div>
             <strong
               className={
@@ -434,11 +425,11 @@ export function RunDashboard({ runId }: { runId: string }) {
             <span>
               {summary
                 ? summary.latest[metric].kind === "finite"
-                  ? `At step ${formatCount(summary.lastStep)}`
+                  ? ""
                   : summary.lastFinite[metric]
                     ? `Last valid ${formatValue(summary.lastFinite[metric]!.value, metric)} at ${formatCount(summary.lastFinite[metric]!.step)}`
                     : "No finite observations"
-                : "Reading source data"}
+                : ""}
             </span>
           </div>
         ))}
@@ -514,7 +505,6 @@ export function RunDashboard({ runId }: { runId: string }) {
             <strong>
               Preparing {formatCount(descriptor.rowCount)} observations
             </strong>
-            <span>Reading the original data and checking its quality.</span>
           </div>
         )}
         {frame && summary && tab === "metrics" && (
@@ -589,7 +579,7 @@ export function RunDashboard({ runId }: { runId: string }) {
                 <span>
                   {invalidTotal > 0
                     ? `${formatCount(invalidTotal)} invalid ${invalidTotal === 1 ? "reading" : "readings"}`
-                    : "Source data needs a closer look"}
+                    : "Data quality issues"}
                   {summary.duplicateRows
                     ? ` · ${summary.duplicateRows} duplicate rows`
                     : ""}
@@ -612,10 +602,9 @@ export function RunDashboard({ runId }: { runId: string }) {
                     <span style={{ background: METRIC_COLORS.loss }} />
                     Loss
                   </h2>
-                  <p>Training objective across steps</p>
                 </div>
                 <div className={styles.chartRange}>
-                  <span>Observed max</span>
+                  <span>Visible max</span>
                   <strong>
                     {formatValue(frame.metrics.loss.domain?.[1] ?? null)}
                   </strong>
@@ -632,19 +621,7 @@ export function RunDashboard({ runId }: { runId: string }) {
                 height={255}
               />
               <div className={styles.chartFooter}>
-                <span>
-                  <span
-                    className={styles.legendLine}
-                    style={{ background: METRIC_COLORS.loss }}
-                  />
-                  Observed loss
-                </span>
                 <span>Training step</span>
-                <span>
-                  {frame.metrics.loss.mode === "ranges"
-                    ? "Disconnected extrema · fragmented data"
-                    : "Extrema preserved"}
-                </span>
               </div>
             </section>
 
@@ -661,14 +638,9 @@ export function RunDashboard({ runId }: { runId: string }) {
                         <span style={{ background: METRIC_COLORS[metric] }} />
                         {METRIC_LABELS[metric]}
                       </h2>
-                      <p>
-                        {metric === "lr"
-                          ? "Optimizer step size"
-                          : "Magnitude of parameter gradients"}
-                      </p>
                     </div>
                     <div className={styles.chartRange}>
-                      <span>Observed max</span>
+                      <span>Visible max</span>
                       <strong>
                         {formatValue(
                           frame.metrics[metric].domain?.[1] ?? null,
@@ -688,13 +660,6 @@ export function RunDashboard({ runId }: { runId: string }) {
                     height={188}
                   />
                   <div className={styles.chartFooter}>
-                    <span>
-                      <span
-                        className={styles.legendLine}
-                        style={{ background: METRIC_COLORS[metric] }}
-                      />
-                      {METRIC_LABELS[metric]}
-                    </span>
                     <span>Training step</span>
                   </div>
                 </section>
@@ -709,7 +674,6 @@ export function RunDashboard({ runId }: { runId: string }) {
                 <div>
                   <Crosshair size={16} />
                   <h2>Observation inspector</h2>
-                  <span>Original values</span>
                 </div>
                 <form onSubmit={inspectEnteredStep}>
                   <label htmlFor="inspect-step">Step</label>
@@ -828,7 +792,12 @@ export function RunDashboard({ runId }: { runId: string }) {
                       </span>
                       <CaretDown size={11} />
                     </summary>
-                    <div className={styles.rawTableWrapper}>
+                    <div
+                      className={styles.rawTableWrapper}
+                      role="region"
+                      aria-label="Exact source readings"
+                      tabIndex={0}
+                    >
                       <table>
                         <thead>
                           <tr>
@@ -874,19 +843,23 @@ export function RunDashboard({ runId }: { runId: string }) {
           </div>
         )}
       </div>
-      <footer className={styles.pageFooter}>
-        <span>
-          <ShieldCheck size={13} />
-          Source values retained. Nothing smoothed.
-        </span>
-        <span>
-          {updating
-            ? "Processing latest view…"
-            : frame
-              ? `${formatCount(frame.sourceCount)} source rows in view`
-              : "Preparing source data"}
-        </span>
-      </footer>
+      {frame && tab === "metrics" && (
+        <footer className={styles.pageFooter}>
+          <span>
+            {updating
+              ? "Updating view…"
+              : `${formatCount(frame.sourceCount)} observations in view`}
+          </span>
+          <details className={styles.sourceNote}>
+            <summary>How points are shown</summary>
+            <p>
+              Dense charts show selected source points, preserving first, last,
+              minimum and maximum readings per column. Smaller details may be
+              omitted; gaps remain open. Use the inspector for exact readings.
+            </p>
+          </details>
+        </footer>
+      )}
       <span className={styles.srOnly} role="status">
         {status === "ready"
           ? `${descriptor.name} loaded. ${summary?.rowCount} source observations.`

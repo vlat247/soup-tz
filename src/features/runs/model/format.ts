@@ -7,9 +7,9 @@ export const METRIC_LABELS: Record<Metric, string> = {
   grad_norm: "Gradient norm",
 };
 export const METRIC_COLORS: Record<Metric, string> = {
-  loss: "#b6e6bd",
-  lr: "#b5bdf4",
-  grad_norm: "#e9c485",
+  loss: "#F54F1B",
+  lr: "#E6D5B7",
+  grad_norm: "#E6D5B7",
 };
 
 export function formatCount(value: number) {

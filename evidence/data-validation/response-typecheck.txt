@@ -1,0 +1,19 @@
+tests/unit/response-contract.test.ts(109,85): error TS2345: Argument of type '(steps: number | undefined) => void' is not assignable to parameter of type '(...args: [] | [number]) => Awaitable<void>'.
+  Types of parameters 'steps' and 'args' are incompatible.
+    Type '[] | [number]' is not assignable to type '[steps: number | undefined]'.
+      Type '[]' is not assignable to type '[steps: number | undefined]'.
+        Source has 0 element(s) but target requires 1.
+tests/unit/response-contract.test.ts(111,30): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Argument of type 'number | undefined' is not assignable to parameter of type 'ArrayBuffer | ArrayLike<number>'.
+      Type 'undefined' is not assignable to type 'ArrayBuffer | ArrayLike<number>'.
+tests/unit/response-contract.test.ts(111,61): error TS18048: 'steps' is possibly 'undefined'.
+tests/unit/response-contract.test.ts(111,67): error TS2339: Property 'length' does not exist on type 'number'.
+tests/unit/response-contract.test.ts(112,28): error TS18048: 'steps' is possibly 'undefined'.
+tests/unit/response-contract.test.ts(112,34): error TS2339: Property 'length' does not exist on type 'number'.
+tests/unit/response-contract.test.ts(112,94): error TS18048: 'steps' is possibly 'undefined'.
+tests/unit/response-contract.test.ts(112,100): error TS2339: Property 'length' does not exist on type 'number'.
+tests/unit/response-contract.test.ts(113,83): error TS18048: 'steps' is possibly 'undefined'.
+tests/unit/response-contract.test.ts(113,89): error TS2339: Property 'length' does not exist on type 'number'.
+tests/unit/response-contract.test.ts(115,74): error TS18048: 'steps' is possibly 'undefined'.
+tests/unit/response-contract.test.ts(115,80): error TS2339: Property 'length' does not exist on type 'number'.

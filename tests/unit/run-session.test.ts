@@ -49,7 +49,7 @@ function summary(lastStep = 99): RunSummary {
 function frame(runId: string, viewport: Viewport): RunFrame {
   const metric: MetricFrame = {
     points: [[viewport.start, 2], [viewport.end, 1]], conflicts: [], domain: [1, 2],
-    finiteCount: 2, invalidCount: 0, missingCount: 0, conflictCount: 0,
+    finiteCount: viewport.end - viewport.start + 1, invalidCount: 0, missingCount: 0, conflictCount: 0,
     mode: "line", peak: { step: viewport.start, value: 2 },
   };
   return {
@@ -62,7 +62,7 @@ function frame(runId: string, viewport: Viewport): RunFrame {
 function inspected(request: Request<"inspect">, sourceCount = 1): StepInspection {
   const sourceOffset = Math.min(Math.floor((request.sourceOffset ?? 0) / 20) * 20, Math.floor((sourceCount - 1) / 20) * 20);
   const step = Math.round(request.step);
-  const readings = { loss: finite(step), lr: finite(), grad_norm: finite() };
+  const readings = { loss: finite(), lr: finite(), grad_norm: finite() };
   return {
     requestedStep: request.step, step, previousStep: step > 0 ? step - 1 : null,
     nextStep: step < 99 ? step + 1 : null, inGap: false, readings, sourceOffset, sourceCount,
@@ -372,5 +372,68 @@ describe("worker failures, reloads, and historical snapshots", () => {
     session.resize(300);
     session.inspect(10);
     expect(attempts).toBe(1);
+  });
+});
+
+describe("worker response contract", () => {
+  it("rejects a finite-tagged NaN summary instead of publishing it", () => {
+    const h = setup();
+    const sourceSummary = summary();
+    sourceSummary.latest.loss = { kind: "finite", value: NaN };
+    finishLoad(h, sourceSummary);
+    expect(h.session.getState()).toMatchObject({ status: "error", summary: null, frame: null });
+    expect(h.worker.terminated).toBe(1);
+  });
+
+  it("retains the complete prior frame when a current metric payload is absent", () => {
+    const h = setup();
+    const original = finishLoad(h);
+    h.session.setViewport(10, 20);
+    const request = h.worker.latest("viewport");
+    const result = { ...frame(request.runId, request.viewport), metrics: null };
+    h.worker.reply({ type: "frame", runId: request.runId, requestId: request.requestId, frame: result } as unknown as RunWorkerResponse);
+    expect(h.session.getState()).toMatchObject({ status: "error", frame: original, loadedAt: FIRST_LOAD });
+    expect(h.worker.terminated).toBe(1);
+  });
+
+  it("turns malformed worker errors into a bounded recoverable message", () => {
+    const h = setup();
+    const request = h.worker.latest("load");
+    expect(() => h.worker.reply({ type: "error", runId: request.runId, requestId: request.requestId, message: null } as unknown as RunWorkerResponse)).not.toThrow();
+    expect(h.session.getState()).toMatchObject({ status: "error", updating: false });
+    expect(h.session.getState().error?.length).toBeLessThanOrEqual(200);
+    expect(h.worker.terminated).toBe(1);
+  });
+
+  it("rejects source pages whose rows do not match the declared count", () => {
+    const h = setup();
+    finishLoad(h);
+    const request = h.worker.latest("inspect");
+    const result = inspected(request);
+    result.sourceRows.push(result.sourceRows[0]);
+    h.worker.reply({ type: "inspection", runId: request.runId, requestId: request.requestId, inspection: result });
+    expect(h.session.getState()).toMatchObject({ status: "error", inspection: null });
+    expect(h.worker.terminated).toBe(1);
+  });
+
+  it("rejects a wrong response kind for a current request", () => {
+    const h = setup();
+    const request = h.worker.latest("load");
+    h.worker.reply({ type: "unexpected", runId: request.runId, requestId: request.requestId } as unknown as RunWorkerResponse);
+    expect(h.session.getState().status).toBe("error");
+    expect(h.worker.terminated).toBe(1);
+  });
+
+  it("discards malformed obsolete payloads before validation and sends the latest request", () => {
+    const h = setup();
+    const original = finishLoad(h);
+    h.session.setViewport(10, 80);
+    const obsolete = h.worker.latest("viewport");
+    h.session.setViewport(20, 70);
+    h.worker.reply({ type: "unexpected", runId: obsolete.runId, requestId: obsolete.requestId } as unknown as RunWorkerResponse);
+    expect(h.session.getState()).toMatchObject({ frame: original, updating: true, error: null });
+    expect(h.worker.latest("viewport").viewport).toMatchObject({ start: 20, end: 70 });
+    finishFrame(h);
+    expect(h.session.getState().status).toBe("ready");
   });
 });

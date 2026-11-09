@@ -1,0 +1,44 @@
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+ ❯ tests/unit/response-contract.test.ts (62 tests | 3 failed) 824ms
+   ❯ real source compatibility (23)
+     × accepts empty, rejected-only and singleton source undefined 2ms
+     × accepts empty, rejected-only and singleton source null 1ms
+     × accepts empty, rejected-only and singleton source 7 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/response-contract.test.ts > real source compatibility > accepts empty, rejected-only and singleton source undefined
+TypeError: Cannot read properties of undefined (reading 'length')
+ ❯ tests/unit/response-contract.test.ts:111:67
+    109|   it.each([[], [NaN], [7]])("accepts empty, rejected-only and singleto…
+    110|     const columns = {
+    111|       step: new Float64Array(steps), loss: new Float64Array(steps.leng…
+       |                                                                   ^
+    112|       lr: new Float64Array(steps.length).fill(Number.MIN_VALUE), grad_…
+    113|       missing: Object.fromEntries(METRICS.map((metric) => [metric, new…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/unit/response-contract.test.ts > real source compatibility > accepts empty, rejected-only and singleton source null
+ FAIL  tests/unit/response-contract.test.ts > real source compatibility > accepts empty, rejected-only and singleton source 7
+RangeError: Declared source row count must match the source columns
+ ❯ validateSource src/features/runs/model/validate-source.ts:119:11
+    117|   if (length > 0xffff_ffff) throw new RangeError("Source exceeds 32-bi…
+    118|   if (!Number.isSafeInteger(descriptor.rowCount) || descriptor.rowCoun…
+    119|     throw new RangeError("Declared source row count must match the sou…
+       |           ^
+    120|   if (!Number.isSafeInteger(descriptor.expectedStepInterval) || (descr…
+    121|     throw new RangeError("Expected step interval must be a positive sa…
+ ❯ prepareRun src/features/runs/model/prepare.ts:177:3
+ ❯ tests/unit/response-contract.test.ts:115:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  3 failed | 91 passed (94)
+   Start at  02:50:21
+   Duration  974ms (tests 90%, transform 6%, import 4%, worker 1%)
+

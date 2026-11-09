@@ -1,0 +1,27 @@
+[
+  {
+    "case": "finite-tagged NaN latest summary",
+    "status": "ready",
+    "acceptedNaN": true,
+    "terminated": 0
+  },
+  {
+    "case": "frame with absent metric payload",
+    "status": "ready",
+    "acceptedMetrics": null,
+    "terminated": 0
+  },
+  {
+    "case": "error response with null message",
+    "status": "loading",
+    "threw": "Cannot read properties of null (reading 'slice')",
+    "terminated": 0
+  },
+  {
+    "case": "sourceCount one with duplicate source rows",
+    "status": "ready",
+    "sourceCount": 1,
+    "acceptedRowCount": 2,
+    "terminated": 0
+  }
+]

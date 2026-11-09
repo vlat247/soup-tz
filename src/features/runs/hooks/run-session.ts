@@ -1,7 +1,8 @@
 import type {
-  RunFrame, RunSummary, RunWorkerRequest, RunWorkerResponse,
+  RunFrame, RunSummary, RunWorkerRequest,
   StepInspection, Viewport,
 } from "../model/view-types";
+import { isRunFrame, isRunSummary, isStepInspection } from "../model/validate-view";
 
 export interface RunState {
   runId: string;
@@ -20,7 +21,7 @@ export interface RunTransport {
   postMessage(request: RunWorkerRequest): void;
   terminate(): void;
   listen(handlers: {
-    message: (response: RunWorkerResponse) => void;
+    message: (response: unknown) => void;
     error: () => void;
     messageError: () => void;
   }): void;
@@ -96,11 +97,13 @@ export function createRunSession(options: SessionOptions): RunSession {
     options.onState(state);
   }
 
-  function fail(message: string) {
-    publish({ status: "error", error: message.slice(0, 200), updating: false });
+  function fail(message: unknown) {
+    const error = typeof message === "string" && message.trim()
+      ? message.slice(0, 200) : "The run response could not be read. Reload this run.";
+    publish({ status: "error", error, updating: false });
   }
 
-  function halt(message: string) {
+  function halt(message: unknown) {
     fail(message);
     session.cancel();
   }
@@ -126,9 +129,9 @@ export function createRunSession(options: SessionOptions): RunSession {
     send(wantedInspection);
   }
 
-  function validFrame(frame: RunFrame, viewport: Viewport) {
-    return frame?.runId === runId && frame.sourceVersion === sourceVersion &&
-      frame.viewport && sameViewport(frame.viewport, viewport);
+  function validFrame(frame: unknown, viewport: Viewport, sourceSummary: RunSummary): frame is RunFrame {
+    return isRunFrame(frame, sourceSummary) && frame.runId === runId && frame.sourceVersion === sourceVersion &&
+      sameViewport(frame.viewport, viewport);
   }
 
   function commitFrame(frame: RunFrame) {
@@ -187,15 +190,36 @@ export function createRunSession(options: SessionOptions): RunSession {
     },
   };
 
-  function receive(message: RunWorkerResponse) {
-    if (!active || !message || message.runId !== runId) return;
+  function receive(response: unknown) {
+    if (!active || typeof response !== "object" || response === null || Array.isArray(response)) return;
+    const message = response as Record<string, unknown>;
+    if (message.runId !== runId || !Number.isSafeInteger(message.requestId)) return;
+    const isLoad = loadPending && message.requestId === loadId;
+    const isViewport = message.requestId === viewportInFlight;
+    const isInspection = message.requestId === inspectionInFlight;
+    if (!isLoad && !isViewport && !isInspection) return;
+    // Superseded replies release their queue slot, regardless of payload shape.
+    // Validate only the result that can become the current visible state.
+    if (isViewport && message.requestId !== wantedViewport?.requestId) {
+      viewportInFlight = null;
+      sendViewport();
+      return;
+    }
+    if (isInspection && message.requestId !== wantedInspection?.requestId) {
+      inspectionInFlight = null;
+      sendInspection();
+      return;
+    }
+    const expectedType = isLoad ? "loaded" : isViewport ? "frame" : "inspection";
+    if (message.type !== "error" && message.type !== expectedType) {
+      halt("The worker returned an unexpected response. Reload this run.");
+      return;
+    }
     if (message.type === "loaded") {
-      if (!loadPending || message.requestId !== loadId) return;
       const incoming = message.summary;
-      const expected = { start: incoming?.firstStep, end: incoming?.lastStep, width: loadWidth };
-      if (!incoming || !Number.isSafeInteger(incoming.firstStep) || !Number.isSafeInteger(incoming.lastStep) ||
-        incoming.firstStep < 0 || incoming.lastStep < incoming.firstStep || !validFrame(message.frame, expected)) {
-        halt("The worker returned a different source snapshot or range. Reload this run.");
+      if (!isRunSummary(incoming) || !validFrame(message.frame,
+        { start: incoming.firstStep, end: incoming.lastStep, width: loadWidth }, incoming)) {
+        halt("The worker returned invalid run data, source identity, or range. Reload this run.");
         return;
       }
       loadPending = false;
@@ -212,11 +236,10 @@ export function createRunSession(options: SessionOptions): RunSession {
       return;
     }
     if (message.type === "frame") {
-      if (message.requestId !== viewportInFlight) return;
       viewportInFlight = null;
-      if (message.requestId === wantedViewport?.requestId) {
-        if (!validFrame(message.frame, wantedViewport.viewport)) {
-          halt("The chart does not match the requested source and step range. Reload this run.");
+      if (wantedViewport && message.requestId === wantedViewport.requestId) {
+        if (!summary || !validFrame(message.frame, wantedViewport.viewport, summary)) {
+          halt("The chart contains invalid data or does not match the requested source and step range. Reload this run.");
           return;
         }
         wantedViewport = null;
@@ -226,16 +249,15 @@ export function createRunSession(options: SessionOptions): RunSession {
       return;
     }
     if (message.type === "inspection") {
-      if (message.requestId !== inspectionInFlight) return;
       inspectionInFlight = null;
-      if (message.requestId === wantedInspection?.requestId) {
+      if (wantedInspection && message.requestId === wantedInspection.requestId) {
         const inspection = message.inspection;
-        const count = inspection?.sourceCount;
-        const expectedOffset = Number.isSafeInteger(count) && count > 0
-          ? Math.min(Math.floor((wantedInspection.sourceOffset ?? 0) / 20) * 20, Math.floor((count - 1) / 20) * 20)
-          : -1;
-        if (expectedOffset < 0 || inspection?.requestedStep !== wantedInspection.step || inspection.sourceOffset !== expectedOffset ||
-          !Number.isSafeInteger(inspection.step) || !summary || inspection.step < summary.firstStep || inspection.step > summary.lastStep) {
+        if (!summary || !isStepInspection(inspection, summary)) {
+          halt("The observation contains invalid readings or source rows. Reload this run.");
+          return;
+        }
+        const expectedOffset = Math.min(Math.floor((wantedInspection.sourceOffset ?? 0) / 20) * 20, Math.floor((inspection.sourceCount - 1) / 20) * 20);
+        if (inspection.requestedStep !== wantedInspection.step || inspection.sourceOffset !== expectedOffset) {
           halt("The observation does not match the requested step or source page. Reload this run.");
           return;
         }

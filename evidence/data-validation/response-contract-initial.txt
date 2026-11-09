@@ -1,0 +1,462 @@
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+ ❯ tests/unit/run-session.test.ts (32 tests | 6 failed) 17ms
+   ❯ worker response contract (6)
+     × rejects a finite-tagged NaN summary instead of publishing it 6ms
+     × retains the complete prior frame when a current metric payload is absent 1ms
+     × turns malformed worker errors into a bounded recoverable message 1ms
+     × rejects source pages whose rows do not match the declared count 0ms
+     × rejects a wrong response kind for a current request 1ms
+     × discards malformed obsolete payloads before validation and sends the latest request 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/run-session.test.ts > worker response contract > rejects a finite-tagged NaN summary instead of publishing it
+AssertionError: expected { runId: 'run-a', …(8) } to match object { Object (status, summary, ...) }
+(6 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "frame": null,
+-   "status": "error",
+-   "summary": null,
++   "frame": {
++     "metrics": {
++       "grad_norm": {
++         "conflictCount": 0,
++         "conflicts": [],
++         "domain": [
++           1,
++           2,
++         ],
++         "finiteCount": 2,
++         "invalidCount": 0,
++         "missingCount": 0,
++         "mode": "line",
++         "peak": {
++           "step": 0,
++           "value": 2,
++         },
++         "points": [
++           [
++             0,
++             2,
++           ],
++           [
++             99,
++             1,
++           ],
++         ],
++       },
++       "loss": {
++         "conflictCount": 0,
++         "conflicts": [],
++         "domain": [
++           1,
++           2,
++         ],
++         "finiteCount": 2,
++         "invalidCount": 0,
++         "missingCount": 0,
++         "mode": "line",
++         "peak": {
++           "step": 0,
++           "value": 2,
++         },
++         "points": [
++           [
++             0,
++             2,
++           ],
++           [
++             99,
++             1,
++           ],
++         ],
++       },
++       "lr": {
++         "conflictCount": 0,
++         "conflicts": [],
++         "domain": [
++           1,
++           2,
++         ],
++         "finiteCount": 2,
++         "invalidCount": 0,
++         "missingCount": 0,
++         "mode": "line",
++         "peak": {
++           "step": 0,
++           "value": 2,
++         },
++         "points": [
++           [
++             0,
++             2,
++           ],
++           [
++             99,
++             1,
++           ],
++         ],
++       },
++     },
++     "plottedCount": 6,
++     "runId": "run-a",
++     "sourceCount": 100,
++     "sourceVersion": "unchanged-historical-fixture-v1",
++     "viewport": {
++       "end": 99,
++       "start": 0,
++       "width": 800,
++     },
++   },
++   "status": "ready",
++   "summary": {
++     "conflictSteps": {
++       "grad_norm": 0,
++       "loss": 0,
++       "lr": 0,
++     },
++     "duplicateRows": 0,
++     "extents": {
++       "grad_norm": [
++         1,
++         2,
++       ],
++       "loss": [
++         1,
++         2,
++       ],
++       "lr": [
++         1,
++         2,
++       ],
++     },
++     "firstStep": 0,
++     "gapCount": 0,
++     "invalidCounts": {
++       "grad_norm": 0,
++       "loss": 0,
++       "lr": 0,
++     },
++     "lastFinite": {
++       "grad_norm": {
++         "step": 99,
++         "value": 1,
++       },
++       "loss": {
++         "step": 99,
++         "value": 1,
++       },
++       "lr": {
++         "step": 99,
++         "value": 1,
++       },
++     },
++     "lastStep": 99,
++     "latest": {
++       "grad_norm": {
++         "kind": "finite",
++         "value": 1,
++       },
++       "loss": {
++         "kind": "finite",
++         "value": NaN,
++       },
++       "lr": {
++         "kind": "finite",
++         "value": 1,
++       },
++     },
++     "missingCounts": {
++       "grad_norm": 0,
++       "loss": 0,
++       "lr": 0,
++     },
++     "missingSteps": 0,
++     "outOfOrder": false,
++     "rejectedRows": 0,
++     "rowCount": 100,
++     "uniqueSteps": 100,
++   },
+  }
+
+ ❯ tests/unit/run-session.test.ts:384:34
+    382|     sourceSummary.latest.loss = { kind: "finite", value: NaN };
+    383|     finishLoad(h, sourceSummary);
+    384|     expect(h.session.getState()).toMatchObject({ status: "error", summ…
+       |                                  ^
+    385|     expect(h.worker.terminated).toBe(1);
+    386|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/unit/run-session.test.ts > worker response contract > retains the complete prior frame when a current metric payload is absent
+AssertionError: expected { runId: 'run-a', …(8) } to match object { status: 'error', …(2) }
+(21 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "frame": {
+-     "metrics": {
+-       "grad_norm": {
+-         "conflictCount": 0,
+-         "conflicts": [],
+-         "domain": [
+-           1,
+-           2,
+-         ],
+-         "finiteCount": 2,
+-         "invalidCount": 0,
+-         "missingCount": 0,
+-         "mode": "line",
+-         "peak": {
+-           "step": 0,
+-           "value": 2,
+-         },
+-         "points": [
+-           [
+-             0,
+-             2,
+-           ],
+-           [
+-             99,
+-             1,
+-           ],
+-         ],
+-       },
+-       "loss": {
+-         "conflictCount": 0,
+-         "conflicts": [],
+-         "domain": [
+-           1,
+-           2,
+-         ],
+-         "finiteCount": 2,
+-         "invalidCount": 0,
+-         "missingCount": 0,
+-         "mode": "line",
+-         "peak": {
+-           "step": 0,
+-           "value": 2,
+-         },
+-         "points": [
+-           [
+-             0,
+-             2,
+-           ],
+-           [
+-             99,
+-             1,
+-           ],
+-         ],
+-       },
+-       "lr": {
+-         "conflictCount": 0,
+-         "conflicts": [],
+-         "domain": [
+-           1,
+-           2,
+-         ],
+-         "finiteCount": 2,
+-         "invalidCount": 0,
+-         "missingCount": 0,
+-         "mode": "line",
+-         "peak": {
+-           "step": 0,
+-           "value": 2,
+-         },
+-         "points": [
+-           [
+-             0,
+-             2,
+-           ],
+-           [
+-             99,
+-             1,
+-           ],
+-         ],
+-       },
+-     },
++     "metrics": null,
+      "plottedCount": 6,
+      "runId": "run-a",
+-     "sourceCount": 100,
++     "sourceCount": 11,
+      "sourceVersion": "unchanged-historical-fixture-v1",
+      "viewport": {
+-       "end": 99,
+-       "start": 0,
++       "end": 20,
++       "start": 10,
+        "width": 800,
+      },
+    },
+    "loadedAt": "2026-11-10T12:00:00.000Z",
+-   "status": "error",
++   "status": "ready",
+  }
+
+ ❯ tests/unit/run-session.test.ts:395:34
+    393|     const result = { ...frame(request.runId, request.viewport), metric…
+    394|     h.worker.reply({ type: "frame", runId: request.runId, requestId: r…
+    395|     expect(h.session.getState()).toMatchObject({ status: "error", fram…
+       |                                  ^
+    396|     expect(h.worker.terminated).toBe(1);
+    397|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/unit/run-session.test.ts > worker response contract > turns malformed worker errors into a bounded recoverable message
+AssertionError: expected [Function] to not throw an error but 'TypeError: Cannot read properties of …' was thrown
+
+- Expected:
+undefined
+
++ Received:
+"TypeError: Cannot read properties of null (reading 'slice')"
+
+ ❯ tests/unit/run-session.test.ts:402:156
+    400|     const h = setup();
+    401|     const request = h.worker.latest("load");
+    402|     expect(() => h.worker.reply({ type: "error", runId: request.runId,…
+       |                                                                                                                                                            ^
+    403|     expect(h.session.getState()).toMatchObject({ status: "error", upda…
+    404|     expect(h.session.getState().error?.length).toBeLessThanOrEqual(200…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/unit/run-session.test.ts > worker response contract > rejects source pages whose rows do not match the declared count
+AssertionError: expected { runId: 'run-a', …(8) } to match object { status: 'error', inspection: null }
+(28 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "inspection": null,
+-   "status": "error",
++   "inspection": {
++     "inGap": false,
++     "nextStep": null,
++     "previousStep": 98,
++     "readings": {
++       "grad_norm": {
++         "kind": "finite",
++         "value": 1,
++       },
++       "loss": {
++         "kind": "finite",
++         "value": 99,
++       },
++       "lr": {
++         "kind": "finite",
++         "value": 1,
++       },
++     },
++     "requestedStep": 99,
++     "sourceCount": 1,
++     "sourceOffset": 0,
++     "sourceRows": [
++       {
++         "readings": {
++           "grad_norm": {
++             "kind": "finite",
++             "value": 1,
++           },
++           "loss": {
++             "kind": "finite",
++             "value": 99,
++           },
++           "lr": {
++             "kind": "finite",
++             "value": 1,
++           },
++         },
++         "sourceIndex": 0,
++       },
++       {
++         "readings": {
++           "grad_norm": {
++             "kind": "finite",
++             "value": 1,
++           },
++           "loss": {
++             "kind": "finite",
++             "value": 99,
++           },
++           "lr": {
++             "kind": "finite",
++             "value": 1,
++           },
++         },
++         "sourceIndex": 0,
++       },
++     ],
++     "step": 99,
++   },
++   "status": "ready",
+  }
+
+ ❯ tests/unit/run-session.test.ts:415:34
+    413|     result.sourceRows.push(result.sourceRows[0]);
+    414|     h.worker.reply({ type: "inspection", runId: request.runId, request…
+    415|     expect(h.session.getState()).toMatchObject({ status: "error", insp…
+       |                                  ^
+    416|     expect(h.worker.terminated).toBe(1);
+    417|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/unit/run-session.test.ts > worker response contract > rejects a wrong response kind for a current request
+AssertionError: expected 'loading' to be 'error' // Object.is equality
+
+Expected: "error"
+Received: "loading"
+
+ ❯ tests/unit/run-session.test.ts:423:41
+    421|     const request = h.worker.latest("load");
+    422|     h.worker.reply({ type: "unexpected", runId: request.runId, request…
+    423|     expect(h.session.getState().status).toBe("error");
+       |                                         ^
+    424|     expect(h.worker.terminated).toBe(1);
+    425|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/unit/run-session.test.ts > worker response contract > discards malformed obsolete payloads before validation and sends the latest request
+AssertionError: expected { start: 10, end: 80, width: 800 } to match object { start: 20, end: 70 }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "end": 70,
+-   "start": 20,
++   "end": 80,
++   "start": 10,
+  }
+
+ ❯ tests/unit/run-session.test.ts:435:50
+    433|     h.worker.reply({ type: "unexpected", runId: obsolete.runId, reques…
+    434|     expect(h.session.getState()).toMatchObject({ frame: original, upda…
+    435|     expect(h.worker.latest("viewport").viewport).toMatchObject({ start…
+       |                                                  ^
+    436|     finishFrame(h);
+    437|     expect(h.session.getState().status).toBe("ready");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 26 passed (32)
+   Start at  02:47:14
+   Duration  147ms (transform 46%, tests 35%, import 16%, worker 4%)
+

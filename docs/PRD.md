@@ -1,10 +1,10 @@
 # Soup Training Run Monitor Product Requirements
 
-**Version:** 1.4
+**Version:** 1.5
 
 **Date:** 2026-11-10
 
-**Status:** Core dashboard implemented; verification and delivery acceptance remain incomplete.
+**Status:** Core dashboard implemented; 597-test production check passed, performance evidence incomplete, deployment user-owned.
 
 **Companion specification:** [Technical requirements](TRD.md)
 
@@ -12,9 +12,9 @@
 
 The monitor helps an engineer decide whether a training run is behaving well enough to continue spending compute. It must expose uncertainty, invalid observations, and divergence instead of presenting a reassuring but misleading chart. The evaluation scenario is a person deciding whether to stop a $500 run; the application provides evidence for that decision and does not control real training infrastructure.
 
-The current delivery includes the Next.js dashboard, [20 deterministic fixtures](MOCK_DATA.md), three ECharts plots, source-based summaries/reduction, worker processing, run search/filter/sort, shared ranges, and exact source/column inspection. `fix/silent-failers` through `1aaeeca` adds request deadlines, renderer recovery, finite-label/exact-value fixes, guarded export and controlled browser faults. The [integration check](../evidence/silent-failers/check-final.stdout) passes 585 tests across 17 files, lint, strict typing, catalog consistency and production build. The [verification record](../evidence/silent-failers/verification.md) records 60 audit cases with unchanged fixture fingerprints, nine Node locale/time-zone cases and targeted development-browser recovery/race checks. Those checks use the actual dashboard but do not close the full router-race, browser locale/accessibility or Canvas/DPR matrix. Required 4x CPU performance/tab-memory evidence, deployment and submission artifacts remain incomplete. See the [progress audit](PRD_AUDIT.md). Requirements below remain the complete acceptance criteria; this update does not waive them.
+The current delivery includes the Next.js dashboard, [20 deterministic fixtures](MOCK_DATA.md), three ECharts plots, exact summaries/reduction, worker processing, shared ranges, source/column inspection and explicit failure recovery. `pref/optimization` adds descending valid-loss sorting, a distinct empty-catalog state, focus recovery and an opt-in raw/reduced browser comparison harness. The final `npm run check` at `d8192b0` passed 597 tests in 19 files, lint, strict types, all 20 exact catalog summaries and a production build; see [current verification](../evidence/optimization/verification.md). The historical [silent-failure checkpoint](../evidence/silent-failers/verification.md) at `1aaeeca` passed 585 tests in 17 files, lint, types, catalog consistency and build, plus a 60-case independent audit and nine Node locale/time-zone cases. Required before/after 4× CPU traces, actual hover timing and tab memory remain outstanding. The user will deploy later. See the [progress audit](PRD_AUDIT.md) for evidence and limits; the requirements below retain their Brief/Decision/Target distinctions.
 
-Latest local production smoke verifies diagnostic routes are unavailable, all-invalid tagged export remains truthful, the million-point spike is visible and exact, and the 360px page fits without overflow. Full browser matrices and deployed-route verification remain open.
+Current targeted browser checks cover both loss-sort directions, keyboard filter reset/focus, exact spike and next-step inspection, a three-step range, All steps reset and mobile drawer keyboard recovery at 360px with no page overflow. Historical production smoke covers truthful invalid export and hidden diagnostic routes. These observations do not establish comprehensive browser automation, a browser locale matrix or assistive-technology conformance.
 
 ## 1. Source and decision boundaries
 
@@ -183,6 +183,8 @@ These accessibility and device targets are acceptance objectives, not a claim of
 
 The brief requires measured first render, zoom response, hover response, and tab memory at one million points, including before-and-after optimization numbers. The measurements must use a production build and report the browser version, device, data seed/version, viewport, CPU setting, and measurement method. Apply the requested 4x CPU throttling to timing traces; explicitly report how the separate memory measurement was obtained.
 
+The opt-in `/benchmark` harness implements a raw/reduced comparison with scripted range and source-inspection commands. Its paint-proxy timings exclude physical input dispatch; they do not satisfy actual hover timing or replace saved traces and tab-memory measurements. Normal production builds keep the route unavailable.
+
 | ID | Metric | Proposed target | Acceptance evidence |
 | --- | --- | --- | --- |
 | PERF-01 | First useful chart | Median at most 2 seconds on the documented reference environment under 4x CPU slowdown | Five independent cold navigations per variant, from navigation start to the first complete million-point chart frame with correct axes and summaries; report median/range and FCP separately, and keep warm results separate. |
@@ -214,7 +216,7 @@ Each test artifact records the command, environment, dataset version, and comple
 
 **DON'T SHIP** is required if a spike disappears in a containing viewport, invalid data becomes a finite value or an implied continuous line, duplicate handling hides a conflicting extreme, another run's response is displayed, displayed numbers disagree with source data, or required evidence is missing. The verdict identifies the first concrete change needed and its expected effect.
 
-At the project-setup stage the product verdict is **not yet evaluated**. The final note should reach an evidence-based verdict after implementation; this specification is not itself a completed assignment submission.
+The local product implementation and assignment submission are separate completion questions. The core features exist, but a final **SHIP** verdict is not established while required performance evidence is absent. The final note must assess recorded results; this specification is not itself a completed submission.
 
 ## 10. Delivery artifacts
 
@@ -229,6 +231,8 @@ At the project-setup stage the product verdict is **not yet evaluated**. The fin
 | AI disclosure | Where AI was used, accepted suggestions, and what was independently verified, changed, or redone | Names actual work and verification; does not claim unperformed human review. |
 
 The brief requests submission by email reply to `team@trysoup.dev`. Preparing artifacts and recording that requirement is in scope for planning; sending the email needs a separate explicit user instruction. The brief's 40-minute live discussion is an evaluation activity after submission, not content to script in these documents.
+
+The user explicitly retained deployment for later. No deployment is authorized in the current work; the deployed link and post-deployment checks remain the user's delivery step. A [submission draft](submission/NOTE_DRAFT.md) contains implementation decisions, reflection and AI disclosure, with unmeasured evidence clearly marked pending.
 
 ## 11. Implementation sequence
 

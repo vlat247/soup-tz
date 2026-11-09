@@ -4,9 +4,9 @@ Next.js training-run monitor for the Soup Frontend Engineer take-home task, with
 
 The dashboard includes a searchable, sortable run browser; loss, learning-rate, and gradient-norm charts; whole-run summaries; data-quality details; shared zoom controls; and exact observation and reduction-column inspection. Twenty deterministic synthetic runs include broken telemetry and a million-point spike case. Apache ECharts renders linear, unsmoothed plots from independently reduced data, while a dedicated worker retains the full source observations.
 
-Independent source validation checks summaries, domains, provenance, breaks and retained extrema against raw-column scans. The latest [silent-failure verification](evidence/silent-failers/verification.md), through `1aaeeca` on `fix/silent-failers`, records 585 tests across 17 files, a production build, 60 audit cases and nine Node locale/time-zone cases. Targeted development-browser checks cover held replies, failed/stalled refresh, malformed data, renderer retry and zero-size recovery using the actual dashboard. These are manual controlled scenarios, not a full router-race or browser locale/accessibility matrix. Earlier [downsampling evidence](evidence/downsampling/verification.md) includes an isolated Node benchmark with a retained regression. Browser baseline/4x CPU traces, tab memory, broader browser/accessibility checks and deployment remain outstanding.
+The `pref/optimization` work adds descending valid-loss sorting, a distinct empty-catalog state, focus recovery and an opt-in raw/reduced browser comparison harness. The final `npm run check` at `d8192b0` passed 597 tests in 19 files, lint, strict types, all 20 exact catalog summaries and a production build; [current verification](evidence/optimization/verification.md) records the checks actually performed. Required before/after 4× CPU traces, actual hover timing and tab-memory measurements remain outstanding. The user will deploy later.
 
-Latest local production smoke verifies diagnostic routes are unavailable, all-invalid tagged export remains truthful, the million-point spike is visible and exact, and the 360px page fits without overflow. Full browser matrices and deployed-route verification remain open.
+Independent source validation checks summaries, domains, provenance, breaks and retained extrema against raw-column scans. Historical [silent-failure verification](evidence/silent-failers/verification.md), through `1aaeeca`, records 585 tests across 17 files, a production build, 60 audit cases and nine Node locale/time-zone cases. It includes targeted browser failure/retry checks, truthful invalid export, the million-point spike and a 360px layout. Current browser checks additionally cover both loss-sort directions, keyboard filter reset, exact spike/next-step inspection, a three-step range and mobile drawer focus. These are targeted observations, not comprehensive browser automation or accessibility certification. Earlier [downsampling evidence](evidence/downsampling/verification.md) retains an isolated Node benchmark and a regression.
 
 ## Requirements documents
 
@@ -59,7 +59,7 @@ The earlier [data-validation record](evidence/data-validation/verification.md) c
 
 ## Dashboard controls
 
-Choose a run from the sidebar, or open the run drawer on a narrow screen. Search by name/ID, filter by status or source-data quality, and sort by name, last step, or last valid loss. Sorting by loss displays the step of the earlier valid reading when necessary.
+Choose a run from the sidebar, or open the run drawer on a narrow screen. Search by name/ID, filter by status or source-data quality, and sort by name, last step, or last valid loss in either direction. Unavailable loss stays last; sorting by loss displays the step of an earlier valid reading when necessary. An empty catalog has its own message, distinct from filters matching no runs. Reset filters and Clear search return focus to search.
 
 All three charts share a step range. Use the range presets, explicit start/end inputs, zoom buttons, or Alt + mouse wheel over a chart. Whole-run summary cards stay unchanged by zoom; each chart labels its **Visible max** separately. The observation inspector reads original source rows, including conflicting duplicates and invalid values. Expand **Exact source readings** for full precision and use its previous/next page buttons for groups larger than 20 rows. Pages retain original source indexes.
 
@@ -70,6 +70,8 @@ Open the snapshot disclosure to compare fixed source timestamp/version with **La
 Use Left/Right or Home/End on the Metrics/Data quality tabs. In the selected-observation group, Left/Right move between recorded steps and Home/End select the first/last observation. Explicit keyboard selections are announced without announcing every pointer move.
 
 With `npm run dev`, open [/diagnostics/charts](http://localhost:3000/diagnostics/charts) for handwritten chart/source edge cases. [/diagnostics/silent-failures](http://localhost:3000/diagnostics/silent-failures) wraps the real dashboard worker and renderer with controls to hold, fail, drop or corrupt replies, fail a chart draw, and hide/show its containers. Its replay instructions and event log make failures reproducible; its request deadline is 10 seconds. Both routes are restricted to development and are not performance baselines. A failed chart removes stale pixels and offers **Retry chart**; other metrics and exact source inspection stay available.
+
+The optional `/benchmark` page compares raw main-thread rendering with the production worker/reducer on the same million-point source and Canvas adapter. It is available in development; for a local production comparison, build with `NEXT_PUBLIC_ENABLE_BENCHMARK=1 npm run build` and then `npm start`. Normal production builds return 404 for this route. Exported command timings use a double-animation-frame paint proxy; they exclude physical pointer input and are not proof of painted frames. Set 4× CPU slowdown in DevTools and record Performance traces and browser Task Manager memory separately. No such measurements are claimed yet.
 
 ## Project structure
 
@@ -87,9 +89,11 @@ src/app/
   page.tsx               Redirect to the first training run
   runs/                  Shared dashboard layout and validated run routes
   diagnostics/           Development-only chart and silent-failure routes
+  benchmark/             Opt-in raw/reduced browser comparison route
 src/features/dashboard/  Run browser, summaries, quality view, and inspector
 src/features/charts/     Pure coordinate/options model and ECharts Canvas component
 src/features/diagnostics/ Handwritten cases and controlled worker/renderer faults
+src/features/benchmark/  Comparison controls and bounded timing ledger
 src/features/runs/
   data/manifest.ts        Versioned descriptors for exactly 20 runs
   data/generate.ts        Deterministic source-column generation
@@ -111,6 +115,6 @@ ESLint 9 and TypeScript 6 satisfy the Next.js lint plugins' current peer ranges;
 
 ## Deployment
 
-Vercel is the intended deployment target. Connect this repository, select the Next.js framework preset, use Node.js 24.x, and run the standard `npm run build` command. Deployment has not been completed.
+The user will deploy later. Vercel supports the current Next.js build: connect the repository, select the Next.js framework preset, use Node.js 24.x and the standard `npm run build` command. Leave `NEXT_PUBLIC_ENABLE_BENCHMARK` unset for the normal product build. Deployment has not been performed; verify direct run URLs, worker loading and the million-point case after publication.
 
-Before submission, complete the remaining verification and evidence checklist in the requirements documents. The numerical engine has a raw-output mode, but that is not a captured browser baseline. Preserve test output and before/after performance results, including failed results, and document AI assistance and the checks performed.
+Before assignment submission, attach the required performance traces/tab memory and finish the [short note draft](docs/submission/NOTE_DRAFT.md). The comparison harness makes measurements reproducible but does not supply them. Preserve failed results, document AI assistance and report only checks actually performed.

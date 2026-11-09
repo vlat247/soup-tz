@@ -1,0 +1,107 @@
+{
+  "revision": "d8192b0",
+  "checkedAt": "2026-11-09T23:02:04.590Z",
+  "benchmarkOptIn": false,
+  "routes": [
+    {
+      "path": "/runs",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-001",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-002",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-003",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-004",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-005",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-006",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-007",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-008",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-009",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-010",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-011",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-012",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-013",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-014",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-015",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-016",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-017",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-018",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-019",
+      "status": 200
+    },
+    {
+      "path": "/runs/run-020",
+      "status": 200
+    },
+    {
+      "path": "/runs/no-such-run",
+      "status": 404
+    },
+    {
+      "path": "/benchmark",
+      "status": 404
+    },
+    {
+      "path": "/diagnostics/charts",
+      "status": 404
+    },
+    {
+      "path": "/diagnostics/silent-failures",
+      "status": 404
+    }
+  ]
+}

@@ -1,0 +1,625 @@
+{
+  "passed": true,
+  "browserEvidence": "evidence/charts/browser-runs.json",
+  "comparedAgainst": [
+    "fresh generateRun + prepareRun",
+    "checked-in catalog",
+    "independent raw valid-step finite extrema scans",
+    "current UI formatting functions"
+  ],
+  "routeCount": 20,
+  "sourceRows": 1086106,
+  "summaryLabelsCompared": 80,
+  "metricMaximaCompared": 60,
+  "assertions": 364,
+  "mismatches": [],
+  "runs": [
+    {
+      "id": "run-001",
+      "heading": "Steady convergence",
+      "summaryLabels": [
+        "5,999",
+        "0.1316",
+        "1.00e-4",
+        "0.1359"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.7967512700983495,
+          "maximumLabel": "1.7968",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.827492340079214,
+          "maximumLabel": "0.8275",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-002",
+      "heading": "Fast convergence",
+      "summaryLabels": [
+        "4,999",
+        "0.0419",
+        "1.00e-4",
+        "0.1897"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.798673153645359,
+          "maximumLabel": "1.7987",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8154761893951022,
+          "maximumLabel": "0.8155",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-003",
+      "heading": "Slow progress",
+      "summaryLabels": [
+        "7,999",
+        "0.6003",
+        "1.00e-4",
+        "0.1361"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.8079273472816022,
+          "maximumLabel": "1.8079",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8279893399798338,
+          "maximumLabel": "0.828",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-004",
+      "heading": "Early plateau",
+      "summaryLabels": [
+        "3,999",
+        "0.6314",
+        "1.00e-4",
+        "0.1714"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.7951311208051628,
+          "maximumLabel": "1.7951",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8194867931926436,
+          "maximumLabel": "0.8195",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-005",
+      "heading": "Oscillating loss",
+      "summaryLabels": [
+        "3,999",
+        "0.5144",
+        "1.00e-4",
+        "0.152"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.1097265664068983,
+          "maximumLabel": "1.1097",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8155685438147905,
+          "maximumLabel": "0.8156",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-006",
+      "heading": "Noisy convergence",
+      "summaryLabels": [
+        "5,999",
+        "0.1904",
+        "1.00e-4",
+        "0.1329"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.8937870375217294,
+          "maximumLabel": "1.8938",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8274314655334929,
+          "maximumLabel": "0.8274",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-007",
+      "heading": "Loss divergence",
+      "summaryLabels": [
+        "5,999",
+        "12.4844",
+        "1.00e-4",
+        "8.6203"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 12.4948885954077,
+          "maximumLabel": "12.4949",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 8.62434803914283,
+          "maximumLabel": "8.6243",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-008",
+      "heading": "Unstable gradients",
+      "summaryLabels": [
+        "4,999",
+        "0.1484",
+        "1.00e-4",
+        "2.1417"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.8067503906378988,
+          "maximumLabel": "1.8068",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 30,
+          "maximumLabel": "30",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-009",
+      "heading": "NaN loss readings",
+      "summaryLabels": [
+        "3,999",
+        "NaN",
+        "1.00e-4",
+        "0.1879"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.8048247404803988,
+          "maximumLabel": "1.8048",
+          "latestKind": "nan",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8142680586758986,
+          "maximumLabel": "0.8143",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-010",
+      "heading": "Infinite loss readings",
+      "summaryLabels": [
+        "3,999",
+        "0.1376",
+        "1.00e-4",
+        "0.1608"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.8043148917148901,
+          "maximumLabel": "1.8043",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8240324951647506,
+          "maximumLabel": "0.824",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-011",
+      "heading": "Repeated identical observations",
+      "summaryLabels": [
+        "3,999",
+        "0.1378",
+        "1.00e-4",
+        "0.1599"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.812290701904567,
+          "maximumLabel": "1.8123",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8222841479244619,
+          "maximumLabel": "0.8223",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-012",
+      "heading": "Conflicting duplicate steps",
+      "summaryLabels": [
+        "3,999",
+        "0.1325",
+        "1.00e-4",
+        "Conflicting"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 12,
+          "maximumLabel": "12",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 25,
+          "maximumLabel": "25",
+          "latestKind": "conflict",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-013",
+      "heading": "Out-of-order observations",
+      "summaryLabels": [
+        "4,095",
+        "0.1281",
+        "1.00e-4",
+        "0.1847"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.7995708960603245,
+          "maximumLabel": "1.7996",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8224911635726315,
+          "maximumLabel": "0.8225",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-014",
+      "heading": "Missing step intervals",
+      "summaryLabels": [
+        "4,069",
+        "0.1403",
+        "1.00e-4",
+        "0.1373"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.8040908745393494,
+          "maximumLabel": "1.8041",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8254790422662753,
+          "maximumLabel": "0.8255",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-015",
+      "heading": "Mixed telemetry defects",
+      "summaryLabels": [
+        "4,034",
+        "0.1333",
+        "1.00e-4",
+        "0.1368"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 18,
+          "maximumLabel": "18",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 22,
+          "maximumLabel": "22",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-016",
+      "heading": "Valid zero readings",
+      "summaryLabels": [
+        "3,999",
+        "0.1498",
+        "0",
+        "0.1614"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 1.8121260666346644,
+          "maximumLabel": "1.8121",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8296613319404423,
+          "maximumLabel": "0.8297",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-017",
+      "heading": "Negative loss values",
+      "summaryLabels": [
+        "3,999",
+        "-0.7994",
+        "1.00e-4",
+        "0.1898"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 0.8041963580412866,
+          "maximumLabel": "0.8042",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8267429352193733,
+          "maximumLabel": "0.8267",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-018",
+      "heading": "Constant metrics",
+      "summaryLabels": [
+        "2,999",
+        "0.75",
+        "1.00e-3",
+        "0.5"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 0.75,
+          "maximumLabel": "0.75",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.5,
+          "maximumLabel": "0.5",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-019",
+      "heading": "No finite loss",
+      "summaryLabels": [
+        "2,999",
+        "NaN",
+        "1.00e-4",
+        "0.1584"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": null,
+          "maximumLabel": "—",
+          "latestKind": "nan",
+          "canvas": false
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8287136075552554,
+          "maximumLabel": "0.8287",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    },
+    {
+      "id": "run-020",
+      "heading": "Million-point isolated spike",
+      "summaryLabels": [
+        "999,999",
+        "0.1337",
+        "1.00e-4",
+        "0.1878"
+      ],
+      "metrics": {
+        "loss": {
+          "maximum": 12,
+          "maximumLabel": "12",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "lr": {
+          "maximum": 0.001,
+          "maximumLabel": "1.00e-3",
+          "latestKind": "finite",
+          "canvas": true
+        },
+        "grad_norm": {
+          "maximum": 0.8286345596246573,
+          "maximumLabel": "0.8286",
+          "latestKind": "finite",
+          "canvas": true
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Checks saved browser DOM text and reported canvas presence; canvas existence does not prove any plotted pixel, gap break, marker, clipping behavior, or axis tick is correct.",
+    "The saved route records do not include active step bounds, viewport width, DPR, browser/build identity, timestamps, source version, or source-row totals. Maxima are compared with full-range expectations, but matching text alone does not establish the rendered viewport or asset revision.",
+    "Uses the current UI formatters to validate rounded display text. Exact source extrema are independently scanned and included here; display equality alone cannot prove full floating-point precision.",
+    "Reported errors and overflow are reproduced from the evidence without assuming they include console errors, every layout, interactions, keyboard access, or screen-reader checks.",
+    "No performance, tab-memory, race, pagination, refresh, or all-zoom conclusions are derived from this route sweep."
+  ]
+}

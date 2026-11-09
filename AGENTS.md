@@ -4,7 +4,7 @@
 
 Read `docs/BUILD_APPROACH.md` for the current build direction, `docs/PRD.md` for acceptance criteria, and `docs/TRD.md` for precise contracts and verification. The user asked to preserve this direction for future sessions. Keep these documents consistent when a later user decision changes the approach.
 
-The project contains a Next.js dashboard, a deterministic 20-run fixture generator, typed-array normalization and exact summaries, viewport reduction, a worker, a generated list catalog, and source/numerical-engine tests. Apache ECharts renders the reduced results; the UI includes run search/filter/sort, shared range controls, data-quality details, and source inspection. See `docs/MOCK_DATA.md` for fixture usage. Do not describe a completed browser baseline renderer, before/after 4x CPU traces, tab-memory measurements, comprehensive browser automation, or deployment as delivered. Browser QA evidence must state the checks actually performed.
+The project contains a Next.js dashboard, a deterministic 20-run fixture generator, typed-array normalization and exact summaries, viewport reduction, a worker, a generated list catalog, and source/numerical-engine tests. Apache ECharts renders the reduced results; the UI includes run search/filter/sort, shared range controls, data-quality details, and paginated source inspection. Pure session tests cover async identity/coalescing, and ECharts SSR geometry tests cover extreme numeric domains. `evidence/charts/verification.md` records the current source validation, Canvas browser checks and their limits. See `docs/MOCK_DATA.md` for fixture usage. Do not describe a completed browser baseline renderer, before/after 4x CPU traces, tab-memory measurements, comprehensive browser automation, or deployment as delivered. Browser QA evidence must state the checks actually performed.
 
 ## Implementation principles
 
@@ -20,7 +20,7 @@ The project contains a Next.js dashboard, a deterministic 20-run fixture generat
 
 ## Working commands
 
-Use Node.js 24.x and npm. `npm run check` runs lint, strict type checking, source/numerical unit tests, catalog consistency, and a production build. `npm run data:inspect` reports all 20 source fixtures. Regenerate the catalog with `npm run data:catalog` after changing source or summary semantics; `npm run data:catalog:check` verifies it. Add meaningful browser checks for rendering and interactions; numerical tests alone do not establish painted chart truthfulness. Documentation-only updates do not require rebuilding the app.
+Use Node.js 24.x and npm. `npm run check` runs lint, strict type checking, unit tests, catalog consistency, and a production build. `npm run data:inspect` reports all 20 source fixtures; `npm run data:validate` independently checks source summaries, provenance, gaps and reduced viewports for all fixtures plus seeded adversarial cases. Regenerate the catalog with `npm run data:catalog` after changing source or summary semantics; `npm run data:catalog:check` verifies it. Add meaningful browser checks for rendering and interactions; numerical tests alone do not establish painted chart truthfulness. `/diagnostics/charts` provides small edge-case fixtures in development and returns 404 in production. Documentation-only updates do not require rebuilding the app.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

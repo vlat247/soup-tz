@@ -1,8 +1,8 @@
 # Soup Training Run Monitor Technical Requirements
 
-Version 1.2 · 10 November 2026 · Status: dashboard and numerical pipeline implemented; verification and delivery incomplete
+Version 1.3 · 10 November 2026 · Status: dashboard, chart model, and async sessions implemented; verification and delivery incomplete
 
-This specification defines how to implement and verify a training-run monitor whose charts remain trustworthy when records are malformed or too numerous to draw individually. The current application includes the dashboard, [deterministic fixtures](MOCK_DATA.md), typed-array preparation and exact summaries, per-metric viewport reduction, worker queries, generated catalog, and source/numerical-engine tests. Apache ECharts renders the worker results. A browser baseline renderer, comparable before/after traces at 4x CPU throttling, tab-memory measurements, comprehensive automated browser coverage, and deployment remain outstanding. The requirements below include those remaining acceptance checks; implemented behavior is not a claim that every release gate has passed.
+This specification defines how to implement and verify a training-run monitor whose charts remain trustworthy when records are malformed or too numerous to draw individually. The current application includes the dashboard, [deterministic fixtures](MOCK_DATA.md), typed-array preparation and exact summaries, per-metric viewport reduction, worker queries, generated catalog, paginated source inspection, and independent source validation. Apache ECharts renders results through a pure linear coordinate model; a separately tested async session controls frame and inspection commits. Targeted browser diagnostic evidence is retained. A browser baseline renderer, comparable before/after traces at 4x CPU throttling, tab-memory measurements, full browser fault injection and assistive-technology coverage, and deployment remain outstanding. The requirements below include those remaining acceptance checks; implemented behavior is not a claim that every release gate has passed.
 
 The product behavior and release criteria are in [PRD.md](./PRD.md). Assignment requirements come from *Soup-Task-05-Frontend-Engineer(1).pdf*, page 1, supplied at `/Users/vlat247/Downloads/Soup-Task-05-Frontend-Engineer(1).pdf`. Architecture, data policies, fixture allocation, and performance budgets below are engineering decisions, rather than constraints prescribed by the assignment.
 
@@ -27,10 +27,10 @@ The application supports inspection, not actual training termination. Authentica
 | Quality checks | ESLint, TypeScript, unit tests, catalog consistency, production build | Checks source and numerical behavior and prevents stale run-list summaries. |
 | Chart renderer | Apache ECharts Canvas renderer, tree-shaken line/scatter/grid components; HTML controls and inspection | User-selected visualization library; application controls sampling, gaps, raw axes, and exact inspection. |
 | Computation | Dedicated Web Worker with typed arrays | Owns generation, preparation, summaries, reduction, and source inspection. |
-| Tests | Vitest covers fixtures and numerical-engine behavior; Playwright and axe integration remain planned | Reducer and source assertions do not establish browser pixels, interaction behavior, or accessibility. |
+| Tests | Vitest covers fixtures, independent source checks, numerical queries, worker boundaries, pure sessions, and ECharts coordinate geometry; browser automation and axe integration remain planned | Controlled session and SVG coordinate checks complement targeted Canvas observations, without certifying all browser interactions or accessibility. |
 | Deployment target | Vercel | Direct fit for this Next.js setup. GitHub Pages would require a separate static-export routing decision. |
 
-`package.json` and the lockfile are authoritative for installed versions. `/` and `/runs` redirect to `/runs/run-001`; `/runs/[runId]` validates the manifest ID and renders the dashboard in its shared run-browser layout. Commands include `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `test:watch`, `data:inspect`, `data:catalog`, `data:catalog:check`, and `check`. The dashboard includes loading/error feedback, a no-results state, shared viewport controls, a quality view, source inspection, and a summary export.
+`package.json` and the lockfile are authoritative for installed versions. `/` and `/runs` redirect to `/runs/run-001`; `/runs/[runId]` validates the manifest ID and renders the dashboard in its shared run-browser layout. Commands include `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `test:watch`, `data:inspect`, `data:validate`, `data:catalog`, `data:catalog:check`, and `check`. `data:validate` emits the independent source-audit report; related assertions also run in the unit suite. The dashboard includes loading/error feedback, a no-results state, shared viewport controls, a quality view, paginated source inspection, and a summary export.
 
 App Router configuration follows the [official Next.js installation guide](https://nextjs.org/docs/app/getting-started/installation). Keep browser APIs in client components or workers, not module initialization shared with server rendering. Do not fetch remote fonts during builds.
 
@@ -52,7 +52,7 @@ The manifest describes 20 synthetic runs and fixed generator/source versions. `d
 
 A selected run gets one dedicated worker that owns its full source data. Its computed summary must agree with the same-version catalog. On a run switch, terminate the previous worker, clear previous run content, and create a new worker. This bounds active data ownership to one dataset and makes cancellation of synchronous worker computation reliable; browser reclamation can lag, so measure switch-time peaks.
 
-React state holds route/filter/load state, small summaries, the bounded frame, and the selected inspection result. Full source columns and normalization indexes stay in the worker. ECharts instances remain behind refs; pointer events are coalesced to animation frames, and the selected-step overlay updates separately from the numerical frame. The hook coalesces viewport and inspection requests and rejects obsolete replies.
+React state holds route/filter/load state, small summaries, the bounded frame, and the selected inspection result. Full source columns and normalization indexes stay in the worker. ECharts instances remain behind refs; pointer events are coalesced to animation frames, and the selected-step overlay updates separately from the numerical frame. `run-session.ts` owns bounded request queues, identity checks, and atomic state transitions; `use-run.ts` connects that pure controller to React and the native worker transport.
 
 ### Implemented module boundaries
 
@@ -64,6 +64,7 @@ src/
     runs/layout.tsx                persistent run-browser shell
     runs/[runId]/page.tsx          validated run route
     runs/[runId]/not-found.tsx     unknown-run view
+    diagnostics/charts/page.tsx   development-only diagnostic route
   features/dashboard/
     dashboard-shell.tsx            search, filters, sorting, navigation
     run-dashboard.tsx              summaries, controls, quality, inspection
@@ -75,19 +76,25 @@ src/
     model/view-types.ts            summaries, frames, inspection, worker protocol
     model/prepare.ts               sorted source indexes, groups, exact summaries
     model/reduce.ts                viewport buckets and segment breaks
-    model/inspect.ts               nearest source group and raw readings
+    model/inspect.ts               nearest source group and paginated raw readings
     model/format.ts                shared numeric and timestamp formatters
     worker/run.worker.ts           computation and query dispatcher
-    hooks/use-run.ts               lifecycle and request identity checks
+    hooks/use-run.ts               React lifecycle and native worker transport
+    hooks/run-session.ts           pure async controller and request identity checks
   features/charts/
-    metric-chart.tsx               ECharts plots, axes, pointer interaction
+    chart-model.ts                 source/display mappings, ticks, options, zoom math
+    metric-chart.tsx               ECharts lifecycle, measured plot width, pointer interaction
+  features/diagnostics/            handwritten cases using the real chart pipeline
 tests/
-  unit/                           fixture and numerical-engine verification
+  unit/                           source, engine, worker, session, and chart-model checks
 scripts/
   inspect-runs.ts                  source fixture diagnostics
+  validate-runs.ts                 independent raw-source oracle and report
   generate-run-catalog.ts          reproducible metadata generation
 evidence/
   mock-data/                      retained source-fixture verification
+  dashboard-ui/                   earlier dashboard checks and browser observations
+  charts/                         source/session/renderer checks and diagnostic evidence
 ```
 
 Create browser-test, performance, and submission artifacts as those checks are performed. Their absence must not be replaced with generated pass claims or invented results. Loading, empty-metric, and worker error states currently live in the dashboard/chart components rather than separate route files.
@@ -155,14 +162,14 @@ The identifiers and allocation below are implemented in the versioned fixture ma
 | `run-019` | 1 | All-invalid loss with usable learning-rate and gradient-norm series. |
 | `run-020` | 1 | Exactly 1,000,000 rows, steps 0 through 999,999; one isolated loss spike at step 500,000. |
 
-For `run-020`, the existing loss reading at step 500,000 is replaced with exactly `12`, while baseline loss remains below `2`. No extra row is inserted. The manifest declares the expected peak step/value, with independently specified checks in the fixture tests. Small empty, single-point, invalid-step, and extreme-magnitude cases belong in diagnostic tests outside the 20 listed runs. Loading/error/race behaviors will use deterministic delay and failure adapters rather than changing fixture mathematics.
+For `run-020`, the existing loss reading at step 500,000 is replaced with exactly `12`, while baseline loss remains below `2`. No extra row is inserted. The manifest declares the expected peak step/value, with independently specified checks in the fixture tests. Small empty, single-point, invalid-step, and extreme-magnitude cases are tested outside the 20 listed runs; applicable cases also appear on the development diagnostic page. Loading/error/race behavior is exercised through deterministic fake-worker replies and failures, without changing fixture mathematics. Full browser failure injection remains separate work.
 
 ## 5 Normalization and numerical policy
 
 ### Step validity and ordering
 
 1. Classify invalid `step` values separately. Reject the row from the ordered chart and metric summaries, count it in `rejectedRows`, and preserve its source index and original columns. Do not coerce strings, round fractional steps, or replace invalid steps with zero. The dashboard discloses the rejected count; a detailed rejected-row UI is not implemented.
-2. Order valid rows by `(step, sourceRowIndex)`. All plotted x coordinates are actual steps, never array positions.
+2. Order valid rows by `(step, sourceRowIndex)`. Selected points retain actual training steps, never array positions. The chart's internal bounded display coordinates are a reversible presentation mapping over those steps.
 3. Group equal steps. For each metric independently, compare reading classes and values. All NaNs form the same invalid class; signed infinities remain distinct. Treat positive and negative zero as numerically equal for these metrics, while source inspection may retain their representation.
 4. Identical readings within a step collapse into one plotted state and a disclosed duplicate count. A difference in any metric affects that metric only.
 
@@ -198,6 +205,8 @@ Whole-run summaries do not silently change when zooming. If viewport summaries a
 
 The viewport is an inclusive interval `[startStep, endStep]` shared by all three charts. Validate finite safe integers, clamp to the dataset, and handle a single-step viewport explicitly. `W` is the drawable width in CSS pixels after axis padding. Device pixel ratio scales the backing canvas, not the source step values.
 
+The implemented chart component reports its actual container width minus the grid margins, including the margin derived from precise tick labels. The dashboard uses the minimum reported width across all three charts for the shared reduction budget. Both resize and changed label padding can request a new frame; unchanged integer widths are deduplicated. Domains come from raw visible valid-step readings, so changing only the point budget does not change the axis bounds.
+
 1. Binary-search the normalized steps for the visible interval. Query at most one neighboring group on each side to support edge geometry; these neighbors cannot cross a gap or influence visible-only summary labels.
 2. Derive each y-domain from all visible raw finite values, including conflict extrema, before reduction. Apply explicit padding and a stable constant-domain rule. Never take the domain from a lossy sample.
 3. Assign visible samples to pixel columns with `floor((step - start) / (end - start) * W)`, clamped to `[0, W - 1]`. This includes the rightmost step. Single-step viewports use a centered marker.
@@ -217,11 +226,17 @@ The isolated fixture spike is the unique finite maximum. In any nonempty viewpor
 
 Test all supported zoom presets, widths, edge alignments, and several device pixel ratios, then use property-based tests over arbitrary containing intervals. Assert retained source identity and visible plot geometry, and add browser pixel assertions for the actual spike. An excluded spike must not affect the viewport domain or appear as an in-view observation. Finite screenshots cannot prove every possible browser scale or human perception; record that limitation.
 
-### Tooltips and exact inspection
+### Display coordinates and exact inspection
+
+`chart-model.ts` maps raw source domains into bounded linear display coordinates before supplying ECharts. The mapping uses an overflow-safe calculation for opposite finite extremes and handles a singleton step at the center. Constant metric domains get finite padding; subnormal and adjacent representable readings receive distinct ticks where representable. Tick labels describe source values, not normalized positions. Each series entry also retains its original step/value in separate dimensions; the renderer never writes normalized values back to source or summary data. Straight lines, explicit null breaks, isolated markers, conflict extrema, and the exact peak marker retain their existing semantics.
+
+The installed ECharts coordinate engine is exercised in SVG server-rendering tests for finite geometry, edge visibility, tick coordinates, and pixel-to-source mapping at multiple widths. Canvas screenshots and targeted browser observations complement these assertions; they do not establish every DPR, font, device, or paint outcome.
 
 Map the cursor to a raw step, then query the worker for the nearest unique source step, with a documented tie rule of the lower step. Do not report a reduced bucket's average or interpolate a measurement. Show the exact step and reading classification. If the cursor is inside a missing interval, say so; any nearest recorded point must be labelled as nearest, not sampled at the cursor.
 
-When multiple observations share a pixel, the column inspector also exposes its finite extrema and invalid/conflict counts. This makes a retained peak discoverable even when its exact x coordinate cannot be targeted with the mouse. Keyboard controls and a step input provide exact sample access. Page any raw table rather than inserting a million DOM rows.
+Pointer conversion decodes the chart's normalized x coordinate back to the source interval without rounding before nearest-step selection. The selected-step guide uses the same model's forward mapping and grid margins. Integer wheel-zoom calculations are tested separately for narrow ranges and singleton boundaries.
+
+The remaining column-inspection requirement is to expose finite extrema and invalid/conflict counts when multiple observations share a pixel. This would make a retained peak discoverable even when its exact x coordinate cannot be targeted with the mouse. Current keyboard controls and a step input provide exact sample access, and the raw table is paginated; they do not implement the per-column query.
 
 ## 7 Worker protocol and asynchronous state
 
@@ -231,9 +246,9 @@ The implemented protocol in `model/view-types.ts` carries `runId` and a monotoni
 | --- | --- | --- |
 | `load` | `loaded` or `error` | Exact whole-run summary and initial full-range frame; raw columns stay in worker. |
 | `viewport` | `frame` or `error` | Interval/width, raw domains, points, null breaks, conflict extrema, representation mode, quality counts. |
-| `inspect` | `inspection` or `error` | Nearest group with lower-step tie rule, previous/next recorded steps, source provenance, and up to 20 raw readings with the full source count. |
+| `inspect` | `inspection` or `error` | Requested step and optional `sourceOffset`; nearest group with lower-step tie rule, previous/next recorded steps, source provenance, normalized offset, and at most 20 raw readings with the full source count. |
 
-The provided fixtures have small duplicate groups, so all their readings fit in the inspector. Pagination beyond 20 rows and an explicit pixel-column inspection request remain future work; current exact-step controls and visible peak markers do not constitute those broader capabilities.
+`inspectStep(prepared, requestedStep, sourceOffset = 0)` accepts only a nonnegative safe-integer offset. It rounds down to a multiple of 20 and clamps to the last page of the selected group. `sourceOffset`, `sourceCount`, and original `sourceIndex` values let the UI show the current range and navigate every source row without unbounded DOM output. A 45-row group is covered by three pages in unit and diagnostic checks. Step/page requests share one latest-inspection identity; old pages cannot replace a newer selection. An explicit pixel-column inspection request remains future work.
 
 Validate payload discriminants and ranges at the worker boundary. Return a bounded error record rather than serializing an entire exception or dataset. Keep complete source arrays in the worker and transfer only temporary result buffers; transferring an `ArrayBuffer` detaches the sender's view, so a persistent source buffer must never be transferred accidentally. See [MDN transferable objects](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
 
@@ -241,13 +256,17 @@ The run view moves through `idle -> loading -> ready | empty | error`. A new run
 
 During same-run viewport updates, keep the last rendered frame and its matching axes under an `Updating chart` state until all three metric results for the new revision are ready. Commit them atomically. Never show new axis bounds over old plotted values. For refresh of the same run, retained content must be labelled as the previous snapshot; an error must leave a visible stale/error notice and retry action.
 
-Use fixed `snapshotAt` and `sourceVersion` labels for the synthetic demo. Record `loadedAt` separately so reloading an old source never makes it look fresh. No live-data promise or polling is implied. A future stale threshold would be configuration with injected clocks; test the distinction with deliberately outdated metadata now.
+The implementation uses fixed `snapshotAt` and `sourceVersion` labels for the synthetic demo and records ISO `loadedAt` separately for the displayed successful retrieval. The snapshot disclosure shows both source time and last successful load in UTC; export includes the separate load time. A refresh retains the previous complete summary/frame/load time with `isPreviousSnapshot` until the replacement commits. If a resized initial frame is still pending, new summary and load time wait for that frame too. Failed refresh, zoom, and hover cannot make an old snapshot appear newer. No live-data promise or polling is implied. A future stale threshold would require a deliberate policy and injected clocks.
+
+Pure session tests supply a fake worker and clock to exercise A/B/A switches, late or replayed replies, coalesced zoom/resize/inspection, mismatched run/version/geometry, paginated inspection identity, worker construction and message failures, retry, and retained snapshot metadata. These controlled sequences are reproducible without React test dependencies. They do not replace browser-level fault injection or prove the absence of every race.
 
 ## 8 Routes and interaction design
 
 `/` and `/runs` redirect to the first run. The shared run-browser shell provides name/ID search, status and quality filters, and fixed sort options: run ID, name, last step descending, and last unambiguous finite loss ascending. Loss sorting exposes that reading's value and actual step; latest invalid/conflicted states remain visible in the run detail. Runs with no unambiguous finite loss go last, with stable run IDs breaking numerical ties. If reverse sort directions are added, unavailable readings must still remain last. Preserve filter/sort state across detail navigation.
 
 `/runs/[runId]` validates membership in the manifest and returns a meaningful unknown-run state for invalid IDs. The detail view shows run metadata, whole-run summaries, quality notices, and separate loss, learning-rate, and gradient-norm plots sharing a step interval. It never claims that one y-axis unit applies to all three metrics.
+
+`/diagnostics/charts` is available only when `NODE_ENV` is `development`; other environments return not found. Handwritten cases reuse preparation, reduction, inspection, and the actual Canvas component for empty, singleton, constant, invalid, gap, conflict, zero/negative, tiny/adjacent/extreme, highly fragmented, and paginated duplicate data. This route is a correctness aid, not the main-thread raw baseline or a fault-injection harness.
 
 Provide zoom in/out/reset buttons and labelled start/end step inputs. Pointer wheel or drag zoom may be added, but the native controls remain sufficient. Arrow-key sample navigation, Home/End, and exact step inspection operate when the chart inspector has focus and must not hijack typing in form controls. Escape dismisses an inspector without losing focus. Shared viewport changes retain deliberate focus.
 
@@ -257,7 +276,7 @@ Canvas has a textual alternative: metric name, interval, summary, quality descri
 
 ## 9 Numeric formatting and scale behavior
 
-Use one formatter module for list values, summaries, ticks, and inspection. Positions and comparisons always use raw numbers. Display rounded values with adequate significant digits and expose `Number.toString()` precision in exact inspection. Small learning rates must not become a misleading visible zero; use scientific notation when necessary. Show integer steps without treating them as dates.
+Use a consistent formatting policy for list values, summaries, ticks, and inspection. `model/format.ts` handles UI values; `chart-model.ts` uses tick spacing to choose enough precision for distinct axis labels. Positions and comparisons use raw numbers before the explicit display transform. Display rounded values with adequate significant digits and expose `Number.toString()` precision in exact inspection. Small learning rates must not become a misleading visible zero; use scientific notation when necessary. Show integer steps without treating them as dates.
 
 Use deterministic `en-US` and UTC defaults for the initial demo, with the timezone explicitly shown. If locale/timezone controls are added, pass explicit settings to all formatters and preserve numeric sort. Validate formatting with `en-US`, `de-DE`, and `fr-FR`, and instants near a date boundary in UTC, Asia/Almaty, and America/Los_Angeles. Do not parse localized labels back into numeric source values or allow server/client environment defaults to cause hydration differences.
 
@@ -268,6 +287,10 @@ Tick labels must be produced from the exact tick values used by the scale. Disti
 ## 10 Verification plan and required evidence
 
 ### Automated data and rendering checks
+
+Implemented coverage includes the original fixture/numerical tests, `run-validation.test.ts`, `run-worker.test.ts`, `run-session.test.ts`, and `chart-model.test.ts`. The independent validator uses ordinary sorted source indexes and reading identities to compute expected facts without calling the production numerical helpers as its oracle. It checks raw summaries/domains, required retained source points, continuity and conflicts, provenance, and a before/after source-byte SHA-256. The retained [source validation report](../evidence/charts/source-validation.json) covers all 20 fixtures and adversarial seeds 1–40; generated million-point viewport assertions are saved in the test source. Session logs, geometry checks, diagnostic screenshots, and earlier failures remain under `evidence/charts/`. The [current verification record](../evidence/charts/verification.md) links the passing integration output, targeted browser observations, 20-run source/DOM comparison, and production smoke checks. Passing cases do not imply release completion.
+
+The table below remains the full acceptance plan. In particular, T09 browser fault injection, the full T10 browser/DPR matrix, T11 assistive-technology coverage, and the locale/time-zone matrix are not closed by pure tests or targeted screenshots.
 
 | Test ID | Case and oracle | Failure caught |
 | --- | --- | --- |

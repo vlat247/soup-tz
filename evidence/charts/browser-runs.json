@@ -1,0 +1,642 @@
+[
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.7968",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.7968\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8275",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8275\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Steady convergence",
+    "overflow": false,
+    "summary": [
+      "5,999",
+      "0.1316",
+      "1.00e-4",
+      "0.1359"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-001"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.7987",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.7987\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8155",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8155\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Fast convergence",
+    "overflow": false,
+    "summary": [
+      "4,999",
+      "0.0419",
+      "1.00e-4",
+      "0.1897"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-002"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.8079",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.8079\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.828",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.828\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Slow progress",
+    "overflow": false,
+    "summary": [
+      "7,999",
+      "0.6003",
+      "1.00e-4",
+      "0.1361"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-003"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.7951",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.7951\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8195",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8195\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Early plateau",
+    "overflow": false,
+    "summary": [
+      "3,999",
+      "0.6314",
+      "1.00e-4",
+      "0.1714"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-004"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.1097",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.1097\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8156",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8156\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Oscillating loss",
+    "overflow": false,
+    "summary": [
+      "3,999",
+      "0.5144",
+      "1.00e-4",
+      "0.152"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-005"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.8938",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.8938\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8274",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8274\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Noisy convergence",
+    "overflow": false,
+    "summary": [
+      "5,999",
+      "0.1904",
+      "1.00e-4",
+      "0.1329"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-006"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "12.4949",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n12.4949\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "8.6243",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n8.6243\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Loss divergence",
+    "overflow": false,
+    "summary": [
+      "5,999",
+      "12.4844",
+      "1.00e-4",
+      "8.6203"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-007"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.8068",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.8068\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "30",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n30\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Unstable gradients",
+    "overflow": false,
+    "summary": [
+      "4,999",
+      "0.1484",
+      "1.00e-4",
+      "2.1417"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-008"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.8048",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.8048\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8143",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8143\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "NaN loss readings",
+    "overflow": false,
+    "summary": [
+      "3,999",
+      "NaN",
+      "1.00e-4",
+      "0.1879"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-009"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.8043",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.8043\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.824",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.824\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Infinite loss readings",
+    "overflow": false,
+    "summary": [
+      "3,999",
+      "0.1376",
+      "1.00e-4",
+      "0.1608"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-010"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.8123",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.8123\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8223",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8223\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Repeated identical observations",
+    "overflow": false,
+    "summary": [
+      "3,999",
+      "0.1378",
+      "1.00e-4",
+      "0.1599"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-011"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "12",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n12\nConflict min / max\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "25",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n25\nConflict min / max\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Conflicting duplicate steps",
+    "overflow": false,
+    "summary": [
+      "3,999",
+      "0.1325",
+      "1.00e-4",
+      "Conflicting"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-012"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.7996",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.7996\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8225",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8225\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Out-of-order observations",
+    "overflow": false,
+    "summary": [
+      "4,095",
+      "0.1281",
+      "1.00e-4",
+      "0.1847"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-013"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.8041",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.8041\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8255",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8255\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Missing step intervals",
+    "overflow": false,
+    "summary": [
+      "4,069",
+      "0.1403",
+      "1.00e-4",
+      "0.1373"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-014"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "18",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n18\nConflict min / max\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "22",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n22\nConflict min / max\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Mixed telemetry defects",
+    "overflow": false,
+    "summary": [
+      "4,034",
+      "0.1333",
+      "1.00e-4",
+      "0.1368"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-015"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "1.8121",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n1.8121\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8297",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8297\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Valid zero readings",
+    "overflow": false,
+    "summary": [
+      "3,999",
+      "0.1498",
+      "0",
+      "0.1614"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-016"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "0.8042",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n0.8042\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8267",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8267\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Negative loss values",
+    "overflow": false,
+    "summary": [
+      "3,999",
+      "-0.7994",
+      "1.00e-4",
+      "0.1898"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-017"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "0.75",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n0.75\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.5",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.5\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Constant metrics",
+    "overflow": false,
+    "summary": [
+      "2,999",
+      "0.75",
+      "1.00e-3",
+      "0.5"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-018"
+  },
+  {
+    "charts": [
+      {
+        "canvas": false,
+        "maximum": "—",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n—\nNo finite readings in this interval\n\nInvalid and missing values remain available in the inspector.\n\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8287",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8287\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "No finite loss",
+    "overflow": false,
+    "summary": [
+      "2,999",
+      "NaN",
+      "1.00e-4",
+      "0.1584"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-019"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "maximum": "12",
+        "metric": "Loss",
+        "text": "Loss\nVisible max\n12\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "1.00e-3",
+        "metric": "Learning rate",
+        "text": "Learning rate\nVisible max\n1.00e-3\nTraining step"
+      },
+      {
+        "canvas": true,
+        "maximum": "0.8286",
+        "metric": "Gradient norm",
+        "text": "Gradient norm\nVisible max\n0.8286\nTraining step"
+      }
+    ],
+    "errors": [],
+    "heading": "Million-point isolated spike",
+    "overflow": false,
+    "summary": [
+      "999,999",
+      "0.1337",
+      "1.00e-4",
+      "0.1878"
+    ],
+    "url": "http://127.0.0.1:3000/runs/run-020"
+  }
+]

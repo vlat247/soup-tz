@@ -4,7 +4,7 @@ Current implementation direction, refined on 10 November 2026.
 
 Build a small, explainable training monitor using explicit data rules and ordinary loops. Keep the original observations, reduce only what is drawn, and prove that the result preserves the evidence a person needs to inspect a run. This document records the direction to follow in later implementation sessions. Product acceptance criteria remain in [PRD.md](./PRD.md); precise data contracts and the measurement protocol remain in [TRD.md](./TRD.md).
 
-Status: the dashboard, deterministic fixtures, typed-array preparation and exact summaries, per-metric viewport reduction, worker, generated run-list catalog, and source/numerical-engine tests are implemented. The UI provides run search/filter/sort, three ECharts plots, shared range controls, data-quality details, and raw observation inspection. See [MOCK_DATA.md](MOCK_DATA.md) for fixture usage. Browser QA is separate from the numerical tests. A browser baseline renderer, before/after 4x CPU traces, tab-memory measurements, comprehensive browser automation, and deployment remain outstanding; the sequence below still defines the overall completion checks.
+Status: the dashboard, deterministic fixtures, typed-array preparation and exact summaries, per-metric viewport reduction, worker, and generated run-list catalog are implemented. The chart work adds independent raw-source validation, paginated exact inspection, a pure tested async session, separate source/load timestamps, and an overflow-safe linear chart model. The UI provides run search/filter/sort, three ECharts plots, shared range controls, and data-quality details. See [MOCK_DATA.md](MOCK_DATA.md) for fixture usage and [PRD_AUDIT.md](PRD_AUDIT.md) for current coverage. Targeted browser observations are retained separately from numerical and session tests. A browser baseline renderer, matched before/after 4x CPU traces, tab-memory measurements, full browser fault injection and assistive-technology checks, and deployment remain outstanding.
 
 ## Scope of the first implementation
 
@@ -35,6 +35,8 @@ flowchart LR
 
 Small pure modules separate generation, preparation/summaries, reduction, inspection, and formatting from React and drawing. Explicit reading states and point/break tuples make the numerical decisions testable without a browser. The generated catalog supplies list summaries without allocating every run's dataset. `npm run data:catalog` uses the same generator and preparation module as the worker; `npm run data:catalog:check` fails when the checked-in catalog is stale.
 
+`npm run data:validate` adds a separate reference scan over preserved raw columns; it does not call preparation or reduction helpers to calculate expected facts. It checks summaries, visible domains, required extrema/endpoints, continuity, conflicts, provenance, and unchanged source bytes. Its retained report covers all 20 fixtures and deterministic adversarial seeds 1–40. Additional unit cases cover generated million-point viewports, malformed boundaries, pagination, and raw mode. These are finite correctness checks, not browser timing or memory measurements.
+
 ## Rules for each data problem
 
 | Condition | Numerical treatment | What the user sees |
@@ -63,7 +65,7 @@ Keep original data at full precision. On every committed zoom or chart resize, r
 3. For each metric and continuous valid segment, scan each bucket and select the **first, minimum, maximum, and last** source observations. These are selections of existing points, not computed averages.
 4. Remove repeated selections, then emit retained observations in their original step order with unchanged step/value pairs. The words first/minimum/maximum/last describe selection criteria, not drawing order.
 5. Preserve segment breaks and conflict/gap annotations independently. Never remove invalid records and connect the remaining neighbors across the removed position.
-6. Compute the metric's vertical domain from all visible raw finite observations, including conflict extremes. Draw isolated valid points as markers and keep peaks visible at viewport edges.
+6. Compute the metric's vertical domain from all visible raw finite observations with valid steps, including conflict extremes. Draw isolated valid points as markers and keep peaks visible at viewport edges.
 
 For the bucket below, the original steps are part of the data:
 
@@ -90,7 +92,13 @@ Whole-run summary cards come from the full valid-step source history and remain 
 
 Axis bounds use all finite valid-step source readings in the visible interval. Tooltip and keyboard inspection query source groups by step, rather than inventing values between retained chart vertices. If the pointer falls in a gap, identify the missing interval. The current inspector exposes nearest or explicitly entered steps and original readings; a complete per-pixel column inspector with local extrema and quality counts remains a later completion check.
 
-Use one formatting policy for cards, axes, and inspection. Keep exact values available, show tiny learning rates without rounding them to zero, and use explicit UTC metadata timestamps. Distinguish source snapshot time from the time the application loaded it.
+Exact source inspection uses pages of at most 20 rows with original source indexes and a total count. `sourceOffset` is a nonnegative safe integer, rounded down to a page boundary and clamped to the selected group's last page. Changing step starts at offset zero; an obsolete step/page reply cannot replace the newest inspection.
+
+Keep a consistent numeric policy across cards, axes, and inspection. Axis labels use spacing-aware precision, while exact source values remain available without rounding. The pure chart model maps source domains into bounded linear display coordinates, including subnormal values, neighboring representable numbers, and opposite finite extremes. Raw step/value dimensions are preserved. Pointer queries decode the display coordinate; the selection guide uses the same forward mapping. This is a display transform, not a change to source numbers or a logarithmic scale.
+
+Each chart reports its measured drawable width after its actual tick-label padding. The shared reducer budget uses the narrowest plot, and a changed width requests a fresh frame. Per-chart width deduplication prevents unchanged geometry from repeatedly querying the worker.
+
+The snapshot disclosure shows fixed `snapshotAt`/`sourceVersion` separately from ISO `loadedAt`, the successful retrieval time of the displayed snapshot. Retained content keeps its previous load time through reload failure. A successful replacement publishes its summary, frame, and load time together; zoom and hover do not update freshness metadata. UTC labels and summary export preserve the distinction.
 
 ## Performance and state management
 
@@ -101,6 +109,10 @@ For the final million-point path, one Web Worker owns the selected run's Float64
 Use ordinary visible-range scans initially. Do not introduce block indexes, multilevel summaries, a global state library, or a backend unless measurements demonstrate a concrete need. Coalesce viewport requests so only the active request and the newest pending viewport need work. Redraw the hover overlay separately from the complete chart.
 
 All async results carry run/version identity and request sequence. Viewport and inspection replies also carry their own revision/sequence. A change to the plot width increments the viewport revision even when the step range is unchanged; obsolete resize results must be rejected too. Reject stale results even if a request was cancelled. On a run change, terminate the old worker and clear its content. During zoom, retain the last complete frame with its matching axes and an updating state until the new three-chart result is ready.
+
+`hooks/run-session.ts` implements this policy independently of React. The hook supplies the worker transport and lifecycle. Deterministic fake-worker tests exercise A/B/A switching, overlapping zoom/resize, stale inspection pages, mismatched identities, worker construction/message failures, retry, and failed refresh with retained content. Worker-boundary tests separately reject malformed requests. These tests establish those controlled sequences; browser-level fault injection and the full interaction/accessibility matrix remain required.
+
+The development-only `/diagnostics/charts` route uses the real numerical pipeline and Canvas component with small handwritten scenarios, including extreme numbers and 45-row duplicate pagination. Production returned HTTP 404 in the recorded smoke check; this route is not the raw performance baseline. The [chart verification record](../evidence/charts/verification.md) covers the final passing integration check, reviewed diagnostic screenshots, 20-run source/DOM comparison, pagination, and targeted 360/768/1440px checks. Preserve those observations, failures, and follow-ups in `evidence/charts/`; the earlier dashboard evidence remains historical.
 
 ## Build sequence and completion checks
 

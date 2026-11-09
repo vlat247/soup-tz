@@ -1,0 +1,16 @@
+Observation inspector
+Step
+Inspect
+Step
+3,999
+Loss
+0.1325
+Learning rate
+1.00e-4
+Gradient norm
+Conflicting
+Exact source readings
+2 rows
+Source row	Loss	Learning rate	Gradient norm
+3999	0.13247977131888128	0.00009999999999999998	0.18090641017537565
+4002	0.13247977131888128	0.00009999999999999998	25

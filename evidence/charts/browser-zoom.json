@@ -1,0 +1,22 @@
+[
+  {
+    "latest": "Latest step\n999,999\nLatest loss\n0.1337\nLatest learning rate\n1.00e-4\nLatest gradient norm\n0.1878",
+    "loss": "Loss\nVisible max\n12\nTraining step",
+    "range": "499,995—500,005"
+  },
+  {
+    "latest": "Latest step\n999,999\nLatest loss\n0.1337\nLatest learning rate\n1.00e-4\nLatest gradient norm\n0.1878",
+    "loss": "Loss\nVisible max\n12\nTraining step",
+    "range": "500,000—500,020"
+  },
+  {
+    "latest": "Latest step\n999,999\nLatest loss\n0.1337\nLatest learning rate\n1.00e-4\nLatest gradient norm\n0.1878",
+    "loss": "Loss\nVisible max\n12\nTraining step",
+    "range": "500,000—500,000"
+  },
+  {
+    "latest": "Latest step\n999,999\nLatest loss\n0.1337\nLatest learning rate\n1.00e-4\nLatest gradient norm\n0.1878",
+    "loss": "Loss\nVisible max\n0.2694\nTraining step",
+    "range": "500,001—500,010"
+  }
+]

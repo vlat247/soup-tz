@@ -1,0 +1,15 @@
+Observation inspector
+Step
+Inspect
+Step
+3,999
+Loss
+NaN
+Learning rate
+1.00e-4
+Gradient norm
+0.1879
+Exact source readings
+1 row
+Source row	Loss	Learning rate	Gradient norm
+3999	NaN	0.00009999999999999998	0.18785429400391876

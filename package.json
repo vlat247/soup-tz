@@ -11,7 +11,10 @@
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "next typegen && tsc --noEmit",
-    "check": "npm run lint && npm run typecheck && npm run build"
+    "test": "vitest run tests/unit",
+    "test:watch": "vitest tests/unit",
+    "data:inspect": "node --import tsx scripts/inspect-runs.ts",
+    "check": "npm run lint && npm run typecheck && npm run test && npm run build"
   },
   "dependencies": {
     "next": "16.4.5",
@@ -24,6 +27,8 @@
     "@types/react-dom": "19.3.0",
     "eslint": "9.39.5",
     "eslint-config-next": "16.4.5",
-    "typescript": "6.0.3"
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "vitest": "5.1.0"
   }
 }

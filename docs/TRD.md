@@ -1,10 +1,12 @@
 # Soup Training Run Monitor Technical Requirements
 
-Version 1.0 · 9 November 2026 · Status: implementation specification
+Version 1.1 · 10 November 2026 · Status: implementation specification
 
-This specification defines how to implement and verify a training-run monitor whose charts remain trustworthy when records are malformed or too numerous to draw individually. The current delivery establishes the Next.js foundation and the requirements documents. The monitor, data pipeline, behavioral tests, benchmark evidence, and deployment described below are subsequent implementation work.
+This specification defines how to implement and verify a training-run monitor whose charts remain trustworthy when records are malformed or too numerous to draw individually. The current delivery includes the Next.js foundation, requirements documents, and [deterministic fixture generation with source-data tests](MOCK_DATA.md). The monitor, normalization/reduction pipeline, chart behavior tests, benchmark evidence, and deployment described below are subsequent implementation work.
 
 The product behavior and release criteria are in [PRD.md](./PRD.md). Assignment requirements come from *Soup-Task-05-Frontend-Engineer(1).pdf*, page 1, supplied at `/Users/vlat247/Downloads/Soup-Task-05-Frontend-Engineer(1).pdf`. Architecture, data policies, fixture allocation, and performance budgets below are engineering decisions, rather than constraints prescribed by the assignment.
+
+Start implementation with [BUILD_APPROACH.md](./BUILD_APPROACH.md), which records the current direction and build sequence. Use ordinary numerical helpers, first/minimum/maximum/last reduction, Canvas 2D, and linear-only unsmoothed plots initially. Preserve a truthful baseline before adding the worker and reduction optimizations; add further indexing only when measurements justify it. The contracts below define the edge cases that this simple implementation must preserve.
 
 ## 1 Engineering objectives
 
@@ -25,10 +27,10 @@ The application supports inspection, not actual training termination. Authentica
 | Quality checks | ESLint, TypeScript, production build | Establishes a working baseline before feature development. |
 | Planned chart renderer | Canvas 2D lines and markers; HTML or SVG axes and controls | Keeps element count bounded while retaining accessible surrounding UI. |
 | Planned computation | Dedicated Web Worker with typed arrays | Keeps generation, normalization, and reduction off the UI thread. |
-| Planned behavior tests | Vitest for pure functions; Playwright for browser behavior; axe integration as an aid | Covers data invariants and actual rendered behavior at different layers. Add these when implementing the monitor. |
+| Tests | Vitest is installed for fixture verification; Playwright and axe integration are planned for browser behavior | Covers source data now; chart and interaction checks follow during monitor implementation. |
 | Deployment target | Vercel | Direct fit for this Next.js setup. GitHub Pages would require a separate static-export routing decision. |
 
-`package.json` and the lockfile are authoritative for installed versions. The scaffold contains `/`, its root layout, styles, project metadata, and `dev`, `build`, `start`, `lint`, `typecheck`, and `check` commands. `/runs`, `/runs/[runId]`, workers, fixtures, and test commands are planned, not scaffold features.
+`package.json` and the lockfile are authoritative for installed versions. The project contains `/`, its root layout, styles, metadata, the fixture module, and `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `test:watch`, `data:inspect`, and `check` commands. `/runs`, `/runs/[runId]`, normalization, charts, and workers are planned features.
 
 App Router configuration follows the [official Next.js installation guide](https://nextjs.org/docs/app/getting-started/installation). Keep browser APIs in client components or workers, not module initialization shared with server rendering. Do not fetch remote fonts during builds.
 
@@ -137,7 +139,7 @@ Do not serialize nonfinite raw metrics using ordinary JSON: `NaN` and infinities
 
 ### Fixture allocation
 
-All identifiers and allocations below are proposed and deterministic. Most runs have 2,000 to 10,000 rows so their behavior is easy to inspect.
+The identifiers and allocation below are implemented in the versioned fixture manifest; exact row counts and injection locations are documented in [MOCK_DATA.md](MOCK_DATA.md). Most runs have 2,000 to 10,000 rows so their behavior is easy to inspect.
 
 | Run IDs | Count | Required scenario |
 | --- | --- | --- |
@@ -156,7 +158,7 @@ All identifiers and allocations below are proposed and deterministic. Most runs 
 | `run-019` | 1 | All-invalid loss with usable learning-rate and gradient-norm series. |
 | `run-020` | 1 | Exactly 1,000,000 rows, steps 0 through 999,999; one isolated loss spike at step 500,000. |
 
-For `run-020`, replace the existing loss reading at step 500,000 with a known large value, for example `12`, while baseline loss remains below `2`. Do not insert an extra row. The manifest declares the expected peak step/value for independent checks. Small empty, single-point, invalid-step, and extreme-magnitude fixtures are test-only fixtures outside the 20 listed runs. Loading/error/race behaviors use deterministic delay and failure adapters rather than changing fixture mathematics.
+For `run-020`, the existing loss reading at step 500,000 is replaced with exactly `12`, while baseline loss remains below `2`. No extra row is inserted. The manifest declares the expected peak step/value, with independently specified checks in the fixture tests. Small empty, single-point, invalid-step, and extreme-magnitude cases belong in diagnostic tests outside the 20 listed runs. Loading/error/race behaviors will use deterministic delay and failure adapters rather than changing fixture mathematics.
 
 ## 5 Normalization and numerical policy
 
@@ -202,13 +204,13 @@ The viewport is an inclusive interval `[startStep, endStep]` shared by all three
 1. Binary-search the normalized steps for the visible interval. Query at most one neighboring group on each side to support edge geometry; these neighbors cannot cross a gap or influence visible-only summary labels.
 2. Derive each y-domain from all visible raw finite values, including conflict extrema, before reduction. Apply explicit padding and a stable constant-domain rule. Never take the domain from a lossy sample.
 3. Assign visible samples to pixel columns with `floor((step - start) / (end - start) * W)`, clamped to `[0, W - 1]`. This includes the rightmost step. Single-step viewports use a centered marker.
-4. Within each continuous valid segment and column retain first, minimum, maximum, and last sample indexes. Deduplicate repeated indexes and emit in original step order. Never emit in the artificial order first/min/max/last when the maximum occurred before the minimum.
+4. Reduce each metric independently; do not reuse loss-selected indexes for learning rate or gradient norm. Within each continuous valid segment and column retain first, minimum, maximum, and last sample indexes. Deduplicate repeated indexes and emit in original step order. Never emit in the artificial order first/min/max/last when the maximum occurred before the minimum.
 5. Emit explicit path-break commands at every invalid, missing, gap, or conflicting group. Emit conflict extrema and quality annotations separately. Draw straight connections only within continuous finite segments; no smoothing curve or trend filter.
 6. Clip paths to the plot area, but keep edge markers fully visible using plot inset or marker-aware clipping. Bound y-padding so large finite values do not overflow; reject a nonfinite computed transform rather than drawing misleading coordinates.
 
 For a single continuous series this produces at most about `4W` retained samples plus edge handling. With `B` segment boundaries it is `O(W + B)`, not unconditionally `O(W)`. Arbitrarily alternating valid and invalid records cannot have every discontinuity represented as a separate line segment within a fixed pixel budget.
 
-For excessive fragmentation, switch the affected columns to a visibly different **range and missing-data density** representation, showing exact finite extrema and counts with no connected line. Explain that mode and offer zoom/inspection. Do not truncate break markers and connect the remaining vertices. A practical first threshold is `8W` proposed drawing primitives or payload entries per metric, counting line vertices, singletons, conflict markers, and break/quality annotations together. Above that threshold, aggregate every category into a bounded number of entries per pixel column; retain exact extrema values and source IDs plus category counts. Counting line vertices alone would leave an all-conflict series unbounded. Measure and tune the threshold without changing semantics.
+For excessive fragmentation, show disconnected finite minimum/maximum markers and missing/conflict counts per pixel column, labelled as an aggregate view. Explain the representation and offer zoom/inspection; a second sophisticated chart mode is unnecessary. Do not truncate break markers and connect the remaining vertices. A practical first threshold is `8W` proposed drawing primitives or payload entries per metric, counting line vertices, singletons, conflict markers, and break/quality annotations together. Above that threshold, aggregate every category into a bounded number of entries per pixel column; retain exact extrema values and source IDs plus category counts. Counting line vertices alone would leave an all-conflict series unbounded. Measure and tune the threshold without changing semantics.
 
 The first implementation can scan visible rows in the worker for each completed zoom (`O(Nvisible)`), using binary search only to restrict the interval. Coalesce inputs and allow only one active reduction plus the latest pending viewport. If measured zoom performance misses its budget, add fixed-size block summaries containing exact extrema indexes, endpoint indexes, and break/conflict flags. Boundary blocks must still be scanned; indexes must never bridge internal breaks. Do not prebuild a large pyramid before evidence justifies it.
 
@@ -226,7 +228,7 @@ When multiple observations share a pixel, the column inspector also exposes its 
 
 ## 7 Worker protocol and asynchronous state
 
-Every request and response carries `runId`, `sourceVersion`, and monotonically increasing `requestId`. Viewport replies additionally carry a `viewportRevision`; hover requests have a separate sequence so obsolete inspection replies cannot overwrite a newer cursor selection.
+Every request and response carries `runId`, `sourceVersion`, and monotonically increasing `requestId`. Viewport requests include the step interval and drawable width; changes to either increment `viewportRevision`, which is echoed in replies. Hover requests have a separate sequence so obsolete inspection replies cannot overwrite a newer cursor selection. A new revision invalidates pending inspection requests from the previous coordinate mapping.
 
 | Request | Response | Main contents |
 | --- | --- | --- |
@@ -261,7 +263,7 @@ Use one formatter module for list values, summaries, ticks, and inspection. Posi
 
 Use deterministic `en-US` and UTC defaults for the initial demo, with the timezone explicitly shown. If locale/timezone controls are added, pass explicit settings to all formatters and preserve numeric sort. Validate formatting with `en-US`, `de-DE`, and `fr-FR`, and instants near a date boundary in UTC, Asia/Almaty, and America/Los_Angeles. Do not parse localized labels back into numeric source values or allow server/client environment defaults to cause hydration differences.
 
-Linear scale is mandatory and the default. Log scale is optional; if implemented, disable it for a viewport containing any finite zero or negative raw reading, including duplicate conflicts, with an explanation. Never add epsilon, drop nonpositive samples silently, or relabel linear axes as logarithmic. Nonfinite values remain disclosed breaks. If panning a log view reveals a nonpositive reading, switch visibly to linear with an announcement. If log is omitted for time, record that decision and verify no implicit log transform is used.
+The first implementation uses linear scales only and verifies that zero and negative finite readings remain represented without an implicit log transform. If log controls are added later, disable them for a viewport containing any finite zero or negative raw reading, including duplicate conflicts, with an explanation. Never add epsilon, drop nonpositive samples silently, or relabel linear axes as logarithmic. Nonfinite values remain disclosed breaks. If panning a future log view reveals a nonpositive reading, switch visibly to linear with an announcement.
 
 Tick labels must be produced from the exact tick values used by the scale. Distinct ticks must not collapse to identical formatted labels. Compute padded domains safely for constant and extreme finite values. An all-invalid viewport shows `No finite readings in this interval`; it has no fabricated data line.
 
@@ -276,13 +278,13 @@ Tick labels must be produced from the exact tick values used by the scale. Disti
 | T03 | Exact and conflicting duplicates, including an extreme and NaN in the same group; assert breaks, counts, markers, latest state, and observed extrema. | Hidden conflict or averaging away divergence. |
 | T04 | NaN, infinities, missing values, zeros, and invalid final reading; inspect finite drawing commands and gap positions. | Invalid-to-zero conversion, bridging gaps, stale latest summary. |
 | T05 | Known cadence gaps and singleton segments; assert no path crosses a missing interval and singletons render. | Misleading continuity or invisible isolated observations. |
-| T06 | Exhaustive small fixtures plus property-generated viewports around the 1M spike; supported widths, spike on edges, and bucket boundary alignments. | Spike loss, off-by-one inclusion, wrong reduction order. |
+| T06 | Exhaustive small fixtures plus property-generated viewports around the 1M spike; supported widths, spike on edges, and bucket boundary alignments. Include a separate gradient-only spike to verify independent metric reduction. | Spike loss, off-by-one inclusion, wrong reduction order, reusing one metric's selected indexes for another. |
 | T07 | Compare summaries and y-domain with an independent brute-force reference over raw finite readings. | Summaries computed from reduced samples or conflict extrema excluded. |
 | T08 | Shared ticks/formatting with small, negative, constant, large, and nonfinite inputs; explicit locale/timezone matrix. | Axis/tooltip mismatch, false zeros, string sorting, timezone drift. |
 | T09 | Browser interaction tests: delayed A response after B, old viewport after new, stale hover reply, refresh failure. | Wrong run, axis/frame mismatch, stale tooltip, silent stale data. |
 | T10 | Browser pixel/geometry assertions for spike and gaps, resize and DPR variations; compare tooltip to known raw sample. | Correct reducer but clipped/missing pixels or wrong coordinate mapping. |
 | T11 | Keyboard-only list/detail workflow, focus retention, accessible inspector, responsive states, automated contrast/axe checks. | Mouse-only operation, inaccessible canvas content, layout overflow. |
-| T12 | Log unavailable for zero/negative, including conflicts; highly fragmented density mode; all-invalid and empty views. | Silent clipping, false continuous lines, fabricated domain. |
+| T12 | Linear-only mode preserves zero/negative values, including conflicts; any future log controls reject nonpositive input. Check the fragmented-column fallback plus all-invalid and empty views. | Silent clipping, false continuous lines, fabricated domain. |
 
 Property-test seeds and failure cases must be saved. Expected output should not call the implementation under test to compute its own oracle. Browser screenshots complement precise assertions; do not let a broad screenshot tolerance erase the one-pixel spike.
 
@@ -342,7 +344,7 @@ Investigate, in order: accidentally retained arrays/workers, raw data duplicated
 | Zoom race | Complete an older viewport after a newer request. | Atomic matching frame/axes; obsolete revision discarded. |
 | Locale/timezone | Numeric formats and date-boundary instants across the specified matrix. | Explicit locale/zone; raw step and numeric ordering unchanged. |
 | Hidden divergence | Isolated spike and sustained divergence across zooms, with no smoothing enabled. | Extremes retained and represented; reduction method disclosed. |
-| Log with zero | Zero/negative values both ordinary and within duplicate conflicts. | Log action blocked or visible switch to linear. |
+| Log with zero | Zero/negative values both ordinary and within duplicate conflicts. | The initial linear-only view preserves them; future log controls must block the action or visibly switch to linear. |
 | False finite export | Encode/decode fixtures with NaN/infinities using supported representation. | Invalid classes preserved, never silently converted to zero/null-as-zero. |
 | Renderer failure | Inject worker error, nonfinite transform, empty viewport, or zero-sized canvas. | Recoverable error/empty state; previous chart never relabelled as current success. |
 

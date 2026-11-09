@@ -1,16 +1,18 @@
 # Soup Training Run Monitor Product Requirements
 
-**Version:** 1.0
+**Version:** 1.1
 
-**Date:** 2026-11-09
+**Date:** 2026-11-10
 
 **Status:** Implementation specification; product acceptance is pending.
 
 **Companion specification:** [Technical requirements](TRD.md)
 
+**Implementation direction:** [Build approach](BUILD_APPROACH.md) records the simple data pipeline, initial feature choices, and implementation sequence to use with these acceptance criteria.
+
 The monitor helps an engineer decide whether a training run is behaving well enough to continue spending compute. It must expose uncertainty, invalid observations, and divergence instead of presenting a reassuring but misleading chart. The evaluation scenario is a person deciding whether to stop a $500 run; the application provides evidence for that decision and does not control real training infrastructure.
 
-The current delivery establishes the Next.js project and its requirements. The training monitor, generated dataset, chart implementation, product tests, performance evidence, deployment, and final submission are subsequent implementation work. Requirements below describe the intended product, not functionality already delivered.
+The current delivery includes the Next.js project, its requirements, and the [20-run fixture generator with source-data tests](MOCK_DATA.md). The monitor interface, chart implementation, product interaction tests, performance evidence, deployment, and final submission are subsequent implementation work. Requirements below describe the intended complete product.
 
 ## 1. Source and decision boundaries
 
@@ -62,6 +64,7 @@ The key success criterion is correct interpretation, not smoothness or visual de
 - Use deterministic synthetic data so the same seed reproduces the same observations and defects.
 - Use the training step as the horizontal axis. Use timestamps only for run metadata and freshness information.
 - Use linear scales and unsmoothed data by default.
+- Ship the first implementation with linear axes only. The log-scale failure check verifies that no implicit log transform or nonpositive-value clipping occurs; optional log controls can be considered later.
 - Keep the three charts synchronized to one step range.
 - Show data-quality information alongside run health; an invalid value is evidence of a problem, not evidence of a successful run.
 - Make the source of summary values and the visible range explicit.
@@ -80,7 +83,7 @@ Five-million-point support is a possible live discussion topic in the brief, not
 | --- | --- | --- |
 | DATA-01 | Brief | Generate exactly 20 runs. Each observation contains a training step and loss, learning rate, and gradient norm values. Every run has a stable identifier and display name. |
 | DATA-02 | Brief | Include non-finite loss observations representing NaN and Infinity, duplicate steps, unsorted steps, and gaps. The fixture manifest identifies the run and source positions for each intentional defect. |
-| DATA-03 | Brief + Decision | Include one run containing exactly 1,000,000 source observations and an isolated outlier spike in the middle of its long series. The proposed fixture is `run-020`, with steps 0 through 999,999 and a finite loss spike replacing the normal value at step 500,000. Record its exact value as an independent test oracle. |
+| DATA-03 | Brief + Decision | Include one run containing exactly 1,000,000 source observations and an isolated outlier spike in the middle of its long series. The implemented fixture is `run-020`, with steps 0 through 999,999 and a loss value of exactly 12 replacing the normal value at step 500,000. Preserve that value as an independent test oracle. |
 | DATA-04 | Decision | Use a documented seed and dataset version. Two generations with the same inputs produce the same logical data and defect manifest. Run IDs and spike position remain stable across application sessions. |
 | DATA-05 | Decision | Include clean reference cases, zero/negative values, constant and all-invalid metric cases, and divergent or unstable trajectories within the 20-run set. Empty, single-point, invalid-step, and extreme-magnitude cases are diagnostic/test-only fixtures outside the 20 listed runs. The TRD records the exact fixture allocation. |
 | DATA-06 | Decision | Preserve the original observations or equivalent inspectable provenance. Normalization must not erase evidence of conflicting duplicate values or disguise an invalid value as a missing zero. |

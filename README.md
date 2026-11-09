@@ -2,14 +2,18 @@
 
 Next.js foundation for the Soup Frontend Engineer take-home task: a training-run monitor whose charts remain truthful when the data is large, incomplete, duplicated, or invalid.
 
-The current application is a minimal starter. The monitor, generated datasets, automated chart tests, performance evidence, and deployment are planned in the requirements documents and are not implemented yet.
+The current interface is a minimal starter. The data module now generates 20 deterministic training runs, including the required broken telemetry and a million-point spike case, with focused fixture tests. The monitor interface, chart tests, performance evidence, and deployment remain planned work.
 
 ## Requirements documents
 
+- [Build approach](docs/BUILD_APPROACH.md): the current implementation direction, data rules, and build sequence. Start here.
 - [Product requirements](docs/PRD.md): scope, user journeys, acceptance criteria, and delivery requirements.
 - [Technical requirements](docs/TRD.md): data contracts, chart correctness, architecture, testing, and performance measurement.
+- [Mock data](docs/MOCK_DATA.md): fixture allocation, generator usage, anomaly locations, and inspection commands.
 
 The detailed PRD and TRD are working specifications. They do not replace the assignment's separate submission note of at most two pages.
+
+`AGENTS.md` preserves the project direction for future coding sessions and points to these documents.
 
 ## Run locally
 
@@ -30,16 +34,22 @@ Open [localhost:3000](http://localhost:3000). No environment variables or extern
 | `npm run dev` | Start the development server. |
 | `npm run lint` | Check TypeScript and React code with ESLint; warnings fail the check. |
 | `npm run typecheck` | Generate Next.js route types and run strict TypeScript checks. |
+| `npm test` | Verify the generated training-run fixtures. |
+| `npm run test:watch` | Run fixture tests in watch mode. |
+| `npm run data:inspect` | Inspect all 20 runs; add `-- run-015` for exact anomaly source positions. |
 | `npm run build` | Create a production build. |
 | `npm start` | Serve the production build; run `npm run build` first. |
-| `npm run check` | Run lint, type checking, and a production build. |
+| `npm run check` | Run lint, type checking, fixture tests, and a production build. |
 
-Behavioral test tooling will be added with the data and chart implementation. Passing starter checks does not establish chart correctness or performance.
+The fixture tests verify source data. Passing them does not establish chart correctness or browser performance.
 
 ## Project structure
 
 ```text
+AGENTS.md                 Project instructions for future coding sessions
 docs/
+  BUILD_APPROACH.md       Current build direction and sequence
+  MOCK_DATA.md            Generated fixtures and inspection commands
   PRD.md                  Product requirements
   TRD.md                  Technical requirements
 src/app/
@@ -47,6 +57,12 @@ src/app/
   layout.tsx              Root document and metadata
   page.tsx                Starter screen
   page.module.css         Starter screen styles
+src/features/runs/
+  data/manifest.ts        Versioned descriptors for exactly 20 runs
+  data/generate.ts        Deterministic source-column generation
+  model/types.ts          Run and column contracts
+scripts/inspect-runs.ts   Human-readable fixture diagnostics
+tests/unit/              Fixture verification
 eslint.config.mjs         Next.js and TypeScript lint rules
 next.config.ts           Next.js configuration
 tsconfig.json            Strict TypeScript and @/* import alias

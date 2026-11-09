@@ -1,0 +1,18 @@
+
+> soup-training-monitor@0.1.0 test
+> vitest run
+
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+
+ Test Files  1 passed (1)
+      Tests  58 passed (58)
+   Start at  00:10:16
+   Duration  392ms (tests 86%, transform 11%, import 3%, worker 1%)
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+Exit code: 0

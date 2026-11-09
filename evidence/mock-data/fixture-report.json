@@ -1,0 +1,1976 @@
+[
+  {
+    "descriptor": {
+      "id": "run-001",
+      "name": "Steady convergence",
+      "status": "completed",
+      "seed": 1001,
+      "rowCount": 6000,
+      "pattern": "convergence",
+      "fixture": {},
+      "scenario": "Clean reference with steadily decreasing loss.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 6000,
+      "uniqueSteps": 6000,
+      "minimumStep": 0,
+      "maximumStep": 5999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 6000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.1269538687424,
+        "maximum": 1.7967512700983495
+      },
+      "lr": {
+        "finite": 6000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 6000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13101528071310958,
+        "maximum": 0.827492340079214
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-002",
+      "name": "Fast convergence",
+      "status": "completed",
+      "seed": 1002,
+      "rowCount": 5000,
+      "pattern": "fast-convergence",
+      "fixture": {},
+      "scenario": "Clean reference that converges quickly.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 5000,
+      "uniqueSteps": 5000,
+      "minimumStep": 0,
+      "maximumStep": 4999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 5000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.03894407212204162,
+        "maximum": 1.798673153645359
+      },
+      "lr": {
+        "finite": 5000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 5000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13084345637123448,
+        "maximum": 0.8154761893951022
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-003",
+      "name": "Slow progress",
+      "status": "running",
+      "seed": 1003,
+      "rowCount": 8000,
+      "pattern": "slow-convergence",
+      "fixture": {},
+      "scenario": "Clean reference with slow but sustained progress.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 8000,
+      "uniqueSteps": 8000,
+      "minimumStep": 0,
+      "maximumStep": 7999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 8000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.5906002428120979,
+        "maximum": 1.8079273472816022
+      },
+      "lr": {
+        "finite": 8000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 8000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.1314918702559936,
+        "maximum": 0.8279893399798338
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-004",
+      "name": "Early plateau",
+      "status": "completed",
+      "seed": 1004,
+      "rowCount": 4000,
+      "pattern": "plateau",
+      "fixture": {},
+      "scenario": "Finite loss settles on a plateau.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 4000,
+      "uniqueSteps": 4000,
+      "minimumStep": 0,
+      "maximumStep": 3999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.6313511214870584,
+        "maximum": 1.7951311208051628
+      },
+      "lr": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13131565346898827,
+        "maximum": 0.8194867931926436
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-005",
+      "name": "Oscillating loss",
+      "status": "running",
+      "seed": 1005,
+      "rowCount": 4000,
+      "pattern": "oscillation",
+      "fixture": {},
+      "scenario": "Finite periodic oscillations without missing telemetry.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 4000,
+      "uniqueSteps": 4000,
+      "minimumStep": 0,
+      "maximumStep": 3999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.4912704200251028,
+        "maximum": 1.1097265664068983
+      },
+      "lr": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13124840638741,
+        "maximum": 0.8155685438147905
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-006",
+      "name": "Noisy convergence",
+      "status": "completed",
+      "seed": 1006,
+      "rowCount": 6000,
+      "pattern": "noisy-convergence",
+      "fixture": {},
+      "scenario": "Converging loss with reproducible noise.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 6000,
+      "uniqueSteps": 6000,
+      "minimumStep": 0,
+      "maximumStep": 5999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 6000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.028495290062161532,
+        "maximum": 1.8937870375217294
+      },
+      "lr": {
+        "finite": 6000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 6000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13039321889139746,
+        "maximum": 0.8274314655334929
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-007",
+      "name": "Loss divergence",
+      "status": "failed",
+      "seed": 1007,
+      "rowCount": 6000,
+      "pattern": "divergence",
+      "fixture": {},
+      "scenario": "Sustained finite loss divergence with increasing gradient norms.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 6000,
+      "uniqueSteps": 6000,
+      "minimumStep": 0,
+      "maximumStep": 5999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 6000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.4805430479090782,
+        "maximum": 12.4948885954077
+      },
+      "lr": {
+        "finite": 6000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 6000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.5604408282229834,
+        "maximum": 8.62434803914283
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-008",
+      "name": "Unstable gradients",
+      "status": "running",
+      "seed": 1008,
+      "rowCount": 5000,
+      "pattern": "gradient-instability",
+      "fixture": {
+        "injections": [
+          {
+            "step": 2500,
+            "metric": "grad_norm",
+            "value": 30
+          }
+        ]
+      },
+      "scenario": "High gradient norms and a gradient-only spike at step 2500.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 5000,
+      "uniqueSteps": 5000,
+      "minimumStep": 0,
+      "maximumStep": 4999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 5000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.12728868502057553,
+        "maximum": 1.8067503906378988
+      },
+      "lr": {
+        "finite": 5000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 5000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 1.7500985097140074,
+        "maximum": 30
+      }
+    },
+    "fixturePositions": {
+      "injections": [
+        {
+          "step": 2500,
+          "metric": "grad_norm",
+          "value": 30,
+          "rows": [
+            {
+              "sourceIndex": 2500,
+              "step": 2500,
+              "loss": 0.2669295121446282,
+              "lr": 0.0005499099819963994,
+              "grad_norm": 30
+            }
+          ]
+        }
+      ],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-009",
+      "name": "NaN loss readings",
+      "status": "failed",
+      "seed": 1009,
+      "rowCount": 4000,
+      "pattern": "convergence",
+      "fixture": {
+        "injections": [
+          {
+            "step": 400,
+            "metric": "loss",
+            "value": "NaN"
+          },
+          {
+            "step": 1600,
+            "metric": "loss",
+            "value": "NaN"
+          },
+          {
+            "step": 3999,
+            "metric": "loss",
+            "value": "NaN"
+          }
+        ]
+      },
+      "scenario": "Interior NaN readings and an invalid final loss observation.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 4000,
+      "uniqueSteps": 4000,
+      "minimumStep": 0,
+      "maximumStep": 3999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 3997,
+        "nan": 3,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.12656959975628512,
+        "maximum": 1.8048247404803988
+      },
+      "lr": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13105944365967775,
+        "maximum": 0.8142680586758986
+      }
+    },
+    "fixturePositions": {
+      "injections": [
+        {
+          "step": 400,
+          "metric": "loss",
+          "value": "NaN",
+          "rows": [
+            {
+              "sourceIndex": 400,
+              "step": 400,
+              "loss": "NaN",
+              "lr": 0.0009099774943735935,
+              "grad_norm": 0.5985200651055447
+            }
+          ]
+        },
+        {
+          "step": 1600,
+          "metric": "loss",
+          "value": "NaN",
+          "rows": [
+            {
+              "sourceIndex": 1600,
+              "step": 1600,
+              "loss": "NaN",
+              "lr": 0.0006399099774943736,
+              "grad_norm": 0.3351908361159184
+            }
+          ]
+        },
+        {
+          "step": 3999,
+          "metric": "loss",
+          "value": "NaN",
+          "rows": [
+            {
+              "sourceIndex": 3999,
+              "step": 3999,
+              "loss": "NaN",
+              "lr": 0.00009999999999999998,
+              "grad_norm": 0.18785429400391876
+            }
+          ]
+        }
+      ],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-010",
+      "name": "Infinite loss readings",
+      "status": "failed",
+      "seed": 1010,
+      "rowCount": 4000,
+      "pattern": "convergence",
+      "fixture": {
+        "injections": [
+          {
+            "step": 900,
+            "metric": "loss",
+            "value": "Infinity"
+          },
+          {
+            "step": 2100,
+            "metric": "loss",
+            "value": "-Infinity"
+          }
+        ]
+      },
+      "scenario": "Both positive and negative infinite loss readings.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 4000,
+      "uniqueSteps": 4000,
+      "minimumStep": 0,
+      "maximumStep": 3999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 3998,
+        "nan": 0,
+        "positiveInfinity": 1,
+        "negativeInfinity": 1,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.12811515297718254,
+        "maximum": 1.8043148917148901
+      },
+      "lr": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13307017179789626,
+        "maximum": 0.8240324951647506
+      }
+    },
+    "fixturePositions": {
+      "injections": [
+        {
+          "step": 900,
+          "metric": "loss",
+          "value": "Infinity",
+          "rows": [
+            {
+              "sourceIndex": 900,
+              "step": 900,
+              "loss": "Infinity",
+              "lr": 0.0007974493623405851,
+              "grad_norm": 0.44834472635074823
+            }
+          ]
+        },
+        {
+          "step": 2100,
+          "metric": "loss",
+          "value": "-Infinity",
+          "rows": [
+            {
+              "sourceIndex": 2100,
+              "step": 2100,
+              "loss": "-Infinity",
+              "lr": 0.0005273818454613652,
+              "grad_norm": 0.2505569971363294
+            }
+          ]
+        }
+      ],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-011",
+      "name": "Repeated identical observations",
+      "status": "completed",
+      "seed": 1011,
+      "rowCount": 4003,
+      "pattern": "convergence",
+      "fixture": {
+        "duplicates": [
+          {
+            "step": 500
+          },
+          {
+            "step": 1500
+          },
+          {
+            "step": 2500
+          }
+        ]
+      },
+      "scenario": "Three appended duplicate rows with identical metric readings.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 4003,
+      "uniqueSteps": 4000,
+      "minimumStep": 0,
+      "maximumStep": 3999,
+      "duplicateExtraRows": 3,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 1
+    },
+    "metrics": {
+      "loss": {
+        "finite": 4003,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.12789730863377335,
+        "maximum": 1.812290701904567
+      },
+      "lr": {
+        "finite": 4003,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 4003,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13275568975854915,
+        "maximum": 0.8222841479244619
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [
+        {
+          "step": 500,
+          "rows": [
+            {
+              "sourceIndex": 500,
+              "step": 500,
+              "loss": 0.7319072317126548,
+              "lr": 0.0008874718679669917,
+              "grad_norm": 0.5189098730213195
+            },
+            {
+              "sourceIndex": 4000,
+              "step": 500,
+              "loss": 0.7319072317126548,
+              "lr": 0.0008874718679669917,
+              "grad_norm": 0.5189098730213195
+            }
+          ]
+        },
+        {
+          "step": 1500,
+          "rows": [
+            {
+              "sourceIndex": 1500,
+              "step": 1500,
+              "loss": 0.3352831256634122,
+              "lr": 0.0006624156039009752,
+              "grad_norm": 0.3259025188144034
+            },
+            {
+              "sourceIndex": 4001,
+              "step": 1500,
+              "loss": 0.3352831256634122,
+              "lr": 0.0006624156039009752,
+              "grad_norm": 0.3259025188144034
+            }
+          ]
+        },
+        {
+          "step": 2500,
+          "rows": [
+            {
+              "sourceIndex": 2500,
+              "step": 2500,
+              "loss": 0.2081255781931142,
+              "lr": 0.0004373593398349588,
+              "grad_norm": 0.25843935466930945
+            },
+            {
+              "sourceIndex": 4002,
+              "step": 2500,
+              "loss": 0.2081255781931142,
+              "lr": 0.0004373593398349588,
+              "grad_norm": 0.25843935466930945
+            }
+          ]
+        }
+      ],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-012",
+      "name": "Conflicting duplicate steps",
+      "status": "failed",
+      "seed": 1012,
+      "rowCount": 4003,
+      "pattern": "convergence",
+      "fixture": {
+        "duplicates": [
+          {
+            "step": 700,
+            "overrides": {
+              "loss": 12
+            }
+          },
+          {
+            "step": 1700,
+            "overrides": {
+              "loss": "NaN"
+            }
+          },
+          {
+            "step": 3999,
+            "overrides": {
+              "grad_norm": 25
+            }
+          }
+        ]
+      },
+      "scenario": "Finite-extreme and finite/NaN loss conflicts, plus a final-step gradient conflict.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 4003,
+      "uniqueSteps": 4000,
+      "minimumStep": 0,
+      "maximumStep": 3999,
+      "duplicateExtraRows": 3,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 1
+    },
+    "metrics": {
+      "loss": {
+        "finite": 4002,
+        "nan": 1,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.12733597817988757,
+        "maximum": 12
+      },
+      "lr": {
+        "finite": 4003,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 4003,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13273728945528182,
+        "maximum": 25
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [
+        {
+          "step": 700,
+          "overrides": {
+            "loss": 12
+          },
+          "rows": [
+            {
+              "sourceIndex": 700,
+              "step": 700,
+              "loss": 0.5753684404213275,
+              "lr": 0.0008424606151537884,
+              "grad_norm": 0.46893975274392086
+            },
+            {
+              "sourceIndex": 4000,
+              "step": 700,
+              "loss": 12,
+              "lr": 0.0008424606151537884,
+              "grad_norm": 0.46893975274392086
+            }
+          ]
+        },
+        {
+          "step": 1700,
+          "overrides": {
+            "loss": "NaN"
+          },
+          "rows": [
+            {
+              "sourceIndex": 1700,
+              "step": 1700,
+              "loss": 0.3010080977808169,
+              "lr": 0.0006174043510877719,
+              "grad_norm": 0.3051996918194495
+            },
+            {
+              "sourceIndex": 4001,
+              "step": 1700,
+              "loss": "NaN",
+              "lr": 0.0006174043510877719,
+              "grad_norm": 0.3051996918194495
+            }
+          ]
+        },
+        {
+          "step": 3999,
+          "overrides": {
+            "grad_norm": 25
+          },
+          "rows": [
+            {
+              "sourceIndex": 3999,
+              "step": 3999,
+              "loss": 0.13247977131888128,
+              "lr": 0.00009999999999999998,
+              "grad_norm": 0.18090641017537565
+            },
+            {
+              "sourceIndex": 4002,
+              "step": 3999,
+              "loss": 0.13247977131888128,
+              "lr": 0.00009999999999999998,
+              "grad_norm": 25
+            }
+          ]
+        }
+      ],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-013",
+      "name": "Out-of-order observations",
+      "status": "completed",
+      "seed": 1013,
+      "rowCount": 4096,
+      "pattern": "convergence",
+      "fixture": {
+        "shuffle": true
+      },
+      "scenario": "A deterministic permutation of unique steps; all metric columns move together.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 4096,
+      "uniqueSteps": 4096,
+      "minimumStep": 0,
+      "maximumStep": 4095,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 2036
+    },
+    "metrics": {
+      "loss": {
+        "finite": 4096,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.12781127968474246,
+        "maximum": 1.7995708960603245
+      },
+      "lr": {
+        "finite": 4096,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 4096,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13069329327304607,
+        "maximum": 0.8224911635726315
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-014",
+      "name": "Missing step intervals",
+      "status": "running",
+      "seed": 1014,
+      "rowCount": 4000,
+      "pattern": "convergence",
+      "fixture": {
+        "gaps": [
+          {
+            "startStep": 600,
+            "endStep": 619
+          },
+          {
+            "startStep": 2200,
+            "endStep": 2249
+          }
+        ]
+      },
+      "scenario": "Missing steps 600-619 and 2200-2249 with a declared cadence of one.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 4000,
+      "uniqueSteps": 4000,
+      "minimumStep": 0,
+      "maximumStep": 4069,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 2,
+      "missingSteps": 70,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.12674065880202398,
+        "maximum": 1.8040908745393494
+      },
+      "lr": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13205740635678992,
+        "maximum": 0.8254790422662753
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [],
+      "gaps": [
+        {
+          "startStep": 600,
+          "endStep": 619,
+          "previousSourceIndexes": [
+            599
+          ],
+          "nextSourceIndexes": [
+            600
+          ]
+        },
+        {
+          "startStep": 2200,
+          "endStep": 2249,
+          "previousSourceIndexes": [
+            2179
+          ],
+          "nextSourceIndexes": [
+            2180
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-015",
+      "name": "Mixed telemetry defects",
+      "status": "failed",
+      "seed": 1015,
+      "rowCount": 4004,
+      "pattern": "convergence",
+      "fixture": {
+        "shuffle": true,
+        "gaps": [
+          {
+            "startStep": 1200,
+            "endStep": 1224
+          },
+          {
+            "startStep": 2800,
+            "endStep": 2809
+          }
+        ],
+        "injections": [
+          {
+            "step": 200,
+            "metric": "loss",
+            "value": "NaN"
+          },
+          {
+            "step": 2200,
+            "metric": "loss",
+            "value": "Infinity"
+          },
+          {
+            "step": 2400,
+            "metric": "loss",
+            "value": "missing"
+          }
+        ],
+        "duplicates": [
+          {
+            "step": 450
+          },
+          {
+            "step": 900,
+            "overrides": {
+              "loss": 18
+            }
+          },
+          {
+            "step": 1800,
+            "overrides": {
+              "loss": "NaN"
+            }
+          },
+          {
+            "step": 3600,
+            "overrides": {
+              "grad_norm": 22
+            }
+          }
+        ]
+      },
+      "scenario": "Shuffled gaps, identical/conflicting duplicates, invalid and missing loss readings.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 4004,
+      "uniqueSteps": 4000,
+      "minimumStep": 0,
+      "maximumStep": 4034,
+      "duplicateExtraRows": 4,
+      "gapIntervals": 2,
+      "missingSteps": 35,
+      "descendingPairs": 2020
+    },
+    "metrics": {
+      "loss": {
+        "finite": 4000,
+        "nan": 2,
+        "positiveInfinity": 1,
+        "negativeInfinity": 0,
+        "missing": 1,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.12714853584295954,
+        "maximum": 18
+      },
+      "lr": {
+        "finite": 4004,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 4004,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.1310731233750444,
+        "maximum": 22
+      }
+    },
+    "fixturePositions": {
+      "injections": [
+        {
+          "step": 200,
+          "metric": "loss",
+          "value": "NaN",
+          "rows": [
+            {
+              "sourceIndex": 3214,
+              "step": 200,
+              "loss": "NaN",
+              "lr": 0.0009553792761527021,
+              "grad_norm": 0.6483734871128696
+            }
+          ]
+        },
+        {
+          "step": 2200,
+          "metric": "loss",
+          "value": "Infinity",
+          "rows": [
+            {
+              "sourceIndex": 592,
+              "step": 2200,
+              "loss": "Infinity",
+              "lr": 0.0005091720376797224,
+              "grad_norm": 0.2590037743289069
+            }
+          ]
+        },
+        {
+          "step": 2400,
+          "metric": "loss",
+          "value": "missing",
+          "rows": [
+            {
+              "sourceIndex": 3480,
+              "step": 2400,
+              "loss": "missing",
+              "lr": 0.00046455131383242446,
+              "grad_norm": 0.2308506367799982
+            }
+          ]
+        }
+      ],
+      "duplicates": [
+        {
+          "step": 450,
+          "rows": [
+            {
+              "sourceIndex": 3135,
+              "step": 450,
+              "loss": 0.7744083725561609,
+              "lr": 0.0008996033713435796,
+              "grad_norm": 0.5485742172708877
+            },
+            {
+              "sourceIndex": 3529,
+              "step": 450,
+              "loss": 0.7744083725561609,
+              "lr": 0.0008996033713435796,
+              "grad_norm": 0.5485742172708877
+            }
+          ]
+        },
+        {
+          "step": 900,
+          "overrides": {
+            "loss": 18
+          },
+          "rows": [
+            {
+              "sourceIndex": 238,
+              "step": 900,
+              "loss": 0.4871842677232807,
+              "lr": 0.0007992067426871592,
+              "grad_norm": 0.4369468683666529
+            },
+            {
+              "sourceIndex": 3137,
+              "step": 900,
+              "loss": 18,
+              "lr": 0.0007992067426871592,
+              "grad_norm": 0.4369468683666529
+            }
+          ]
+        },
+        {
+          "step": 1800,
+          "overrides": {
+            "loss": "NaN"
+          },
+          "rows": [
+            {
+              "sourceIndex": 1184,
+              "step": 1800,
+              "loss": "NaN",
+              "lr": 0.0005984134853743184,
+              "grad_norm": 0.2629054503031273
+            },
+            {
+              "sourceIndex": 2805,
+              "step": 1800,
+              "loss": 0.28539183570105736,
+              "lr": 0.0005984134853743184,
+              "grad_norm": 0.2629054503031273
+            }
+          ]
+        },
+        {
+          "step": 3600,
+          "overrides": {
+            "grad_norm": 22
+          },
+          "rows": [
+            {
+              "sourceIndex": 896,
+              "step": 3600,
+              "loss": 0.14631556195139794,
+              "lr": 0.00019682697074863666,
+              "grad_norm": 0.2020872100371872
+            },
+            {
+              "sourceIndex": 3086,
+              "step": 3600,
+              "loss": 0.14631556195139794,
+              "lr": 0.00019682697074863666,
+              "grad_norm": 22
+            }
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "startStep": 1200,
+          "endStep": 1224,
+          "previousSourceIndexes": [
+            1485
+          ],
+          "nextSourceIndexes": [
+            1943
+          ]
+        },
+        {
+          "startStep": 2800,
+          "endStep": 2809,
+          "previousSourceIndexes": [
+            2179
+          ],
+          "nextSourceIndexes": [
+            3962
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-016",
+      "name": "Valid zero readings",
+      "status": "completed",
+      "seed": 1016,
+      "rowCount": 4000,
+      "pattern": "zero-values",
+      "fixture": {
+        "injections": [
+          {
+            "step": 500,
+            "metric": "loss",
+            "value": 0
+          },
+          {
+            "step": 999,
+            "metric": "loss",
+            "value": 0
+          },
+          {
+            "step": 1200,
+            "metric": "grad_norm",
+            "value": 0
+          }
+        ]
+      },
+      "scenario": "Valid metric zeros and a learning-rate schedule ending at zero.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 4000,
+      "uniqueSteps": 4000,
+      "minimumStep": 0,
+      "maximumStep": 3999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 2,
+        "negativeFinite": 0,
+        "minimum": 0,
+        "maximum": 1.8121260666346644
+      },
+      "lr": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 1,
+        "negativeFinite": 0,
+        "minimum": 0,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 1,
+        "negativeFinite": 0,
+        "minimum": 0,
+        "maximum": 0.8296613319404423
+      }
+    },
+    "fixturePositions": {
+      "injections": [
+        {
+          "step": 500,
+          "metric": "loss",
+          "value": 0,
+          "rows": [
+            {
+              "sourceIndex": 500,
+              "step": 500,
+              "loss": 0,
+              "lr": 0.0008749687421855464,
+              "grad_norm": 0.5566376714823023
+            }
+          ]
+        },
+        {
+          "step": 999,
+          "metric": "loss",
+          "value": 0,
+          "rows": [
+            {
+              "sourceIndex": 999,
+              "step": 999,
+              "loss": 0,
+              "lr": 0.0007501875468867216,
+              "grad_norm": 0.39179561125100587
+            }
+          ]
+        },
+        {
+          "step": 1200,
+          "metric": "grad_norm",
+          "value": 0,
+          "rows": [
+            {
+              "sourceIndex": 1200,
+              "step": 1200,
+              "loss": 0.37936417739288264,
+              "lr": 0.0006999249812453113,
+              "grad_norm": 0
+            }
+          ]
+        }
+      ],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-017",
+      "name": "Negative loss values",
+      "status": "completed",
+      "seed": 1017,
+      "rowCount": 4000,
+      "pattern": "negative-loss",
+      "fixture": {
+        "injections": [
+          {
+            "step": 2000,
+            "metric": "loss",
+            "value": -0.25
+          }
+        ]
+      },
+      "scenario": "Finite loss crosses below zero; negative is a value, not invalid telemetry.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 4000,
+      "uniqueSteps": 4000,
+      "minimumStep": 0,
+      "maximumStep": 3999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 1999,
+        "minimum": -0.8027346762548562,
+        "maximum": 0.8041963580412866
+      },
+      "lr": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 4000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13192325264158355,
+        "maximum": 0.8267429352193733
+      }
+    },
+    "fixturePositions": {
+      "injections": [
+        {
+          "step": 2000,
+          "metric": "loss",
+          "value": -0.25,
+          "rows": [
+            {
+              "sourceIndex": 2000,
+              "step": 2000,
+              "loss": -0.25,
+              "lr": 0.000549887471867967,
+              "grad_norm": 0.24098409832983203
+            }
+          ]
+        }
+      ],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-018",
+      "name": "Constant metrics",
+      "status": "completed",
+      "seed": 1018,
+      "rowCount": 3000,
+      "pattern": "constant",
+      "fixture": {},
+      "scenario": "Loss 0.75, learning rate 0.001, and gradient norm 0.5 at every step.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 3000,
+      "uniqueSteps": 3000,
+      "minimumStep": 0,
+      "maximumStep": 2999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 3000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.75,
+        "maximum": 0.75
+      },
+      "lr": {
+        "finite": 3000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.001,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 3000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.5,
+        "maximum": 0.5
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [],
+      "gaps": []
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-019",
+      "name": "No finite loss",
+      "status": "failed",
+      "seed": 1019,
+      "rowCount": 3000,
+      "pattern": "convergence",
+      "fixture": {
+        "allInvalidLoss": true
+      },
+      "scenario": "Every loss is NaN while learning rate and gradient norm remain usable.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 3000,
+      "uniqueSteps": 3000,
+      "minimumStep": 0,
+      "maximumStep": 2999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 0,
+        "nan": 3000,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": null,
+        "maximum": null
+      },
+      "lr": {
+        "finite": 3000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 3000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.1339702593990492,
+        "maximum": 0.8287136075552554
+      }
+    },
+    "fixturePositions": {
+      "injections": [],
+      "duplicates": [],
+      "gaps": [],
+      "allInvalidLoss": {
+        "firstSourceIndex": 0,
+        "lastSourceIndex": 2999,
+        "kind": "NaN"
+      }
+    }
+  },
+  {
+    "descriptor": {
+      "id": "run-020",
+      "name": "Million-point isolated spike",
+      "status": "completed",
+      "seed": 1020,
+      "rowCount": 1000000,
+      "pattern": "convergence",
+      "fixture": {
+        "injections": [
+          {
+            "step": 500000,
+            "metric": "loss",
+            "value": 12
+          }
+        ]
+      },
+      "scenario": "Steps 0-999999 with one loss spike of exactly 12 at step 500000; other loss values stay below 2.",
+      "generatorVersion": "1.0.0",
+      "sourceVersion": "soup-fixtures-v1",
+      "expectedStepInterval": 1,
+      "snapshotAt": "2026-11-01T12:00:00.000Z",
+      "synthetic": true
+    },
+    "steps": {
+      "sourceRows": 1000000,
+      "uniqueSteps": 1000000,
+      "minimumStep": 0,
+      "maximumStep": 999999,
+      "duplicateExtraRows": 0,
+      "gapIntervals": 0,
+      "missingSteps": 0,
+      "descendingPairs": 0
+    },
+    "metrics": {
+      "loss": {
+        "finite": 1000000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.12604390282337702,
+        "maximum": 12
+      },
+      "lr": {
+        "finite": 1000000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.00009999999999999998,
+        "maximum": 0.001
+      },
+      "grad_norm": {
+        "finite": 1000000,
+        "nan": 0,
+        "positiveInfinity": 0,
+        "negativeInfinity": 0,
+        "missing": 0,
+        "zero": 0,
+        "negativeFinite": 0,
+        "minimum": 0.13007768054145433,
+        "maximum": 0.8286345596246573
+      }
+    },
+    "fixturePositions": {
+      "injections": [
+        {
+          "step": 500000,
+          "metric": "loss",
+          "value": 12,
+          "rows": [
+            {
+              "sourceIndex": 500000,
+              "step": 500000,
+              "loss": 12,
+              "lr": 0.00054999954999955,
+              "grad_norm": 0.2723748343569857
+            }
+          ]
+        }
+      ],
+      "duplicates": [],
+      "gaps": []
+    }
+  }
+]

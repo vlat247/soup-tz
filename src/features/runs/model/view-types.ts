@@ -66,6 +66,36 @@ export interface StepInspection {
   sourceRows: { sourceIndex: number; readings: Record<Metric, Reading> }[];
   sourceCount: number;
   sourceOffset: number;
+  /** Present only when inspection was requested for a specific chart viewport. */
+  column?: ColumnInspection | null;
+}
+
+export interface SourceExtremum {
+  step: number;
+  value: number;
+  sourceIndex: number;
+}
+
+export interface ColumnMetric {
+  finiteCount: number;
+  invalidCount: number;
+  missingCount: number;
+  conflictSteps: number;
+  minimum: SourceExtremum | null;
+  maximum: SourceExtremum | null;
+}
+
+export interface ColumnInspection {
+  viewport: Viewport;
+  column: number;
+  /** Integer positions belonging to this reduction column, including unsampled ones. */
+  stepRange: [number, number] | null;
+  sourceCount: number;
+  uniqueSteps: number;
+  duplicateRows: number;
+  /** Known missing intervals intersecting the column's continuous step band. */
+  gapCount: number;
+  metrics: Record<Metric, ColumnMetric>;
 }
 
 export interface CatalogEntry {
@@ -82,6 +112,7 @@ export type RunWorkerRequest =
       requestId: number;
       step: number;
       sourceOffset?: number;
+      viewport?: Viewport;
     };
 
 export type RunWorkerResponse =

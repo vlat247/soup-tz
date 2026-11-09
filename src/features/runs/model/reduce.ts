@@ -1,32 +1,15 @@
 import { METRICS, type Metric } from "./types";
 import { emptyGroupStats, groupStep, lowerBound, scanGroup, type PreparedRun } from "./prepare";
+import { createBuckets, normalizeViewport } from "./buckets";
 import type { MetricFrame, RunFrame, Viewport } from "./view-types";
 
-function clampViewport(run: PreparedRun, requested: Viewport): Viewport {
-  if (!Number.isSafeInteger(requested.start) || !Number.isSafeInteger(requested.end) || requested.start > requested.end) {
-    throw new RangeError("Viewport bounds must be ordered safe integer steps");
-  }
-  if (!Number.isFinite(requested.width) || requested.width <= 0) {
-    throw new RangeError("Viewport width must be positive and finite");
-  }
-  const { firstStep, lastStep } = run.summary;
-  return {
-    start: Math.max(firstStep, Math.min(lastStep, requested.start)),
-    end: Math.max(firstStep, Math.min(lastStep, requested.end)),
-    width: Math.min(16_384, Math.max(1, Math.floor(requested.width))),
-  };
-}
-
-function metricFrame(run: PreparedRun, metric: Metric, viewport: Viewport, first: number, end: number, raw: boolean): MetricFrame {
+function metricFrame(run: PreparedRun, metric: Metric, viewport: Viewport, buckets: ReturnType<typeof createBuckets>, first: number, end: number, raw: boolean): MetricFrame {
   const result: MetricFrame = {
     points: [], conflicts: [], domain: null,
     finiteCount: 0, invalidCount: 0, missingCount: 0, conflictCount: 0,
     mode: "line", peak: null,
   };
   const width = viewport.width;
-  const span = viewport.end - viewport.start;
-  const bucketFor = (step: number) => span === 0 ? Math.floor(width / 2)
-    : Math.min(width - 1, Math.max(0, Math.floor((step - viewport.start) / span * width)));
   const minValues = new Float64Array(width).fill(Infinity);
   const maxValues = new Float64Array(width).fill(-Infinity);
   const minSteps = new Float64Array(width);
@@ -71,7 +54,7 @@ function metricFrame(run: PreparedRun, metric: Metric, viewport: Viewport, first
 
   for (let group = first; group < end; group++) {
     const step = groupStep(run, group);
-    const bucket = bucketFor(step);
+    const bucket = buckets.index(step);
     scanGroup(run, group, metric, stats);
     result.finiteCount += stats.finiteCount;
     result.invalidCount += stats.invalidCount;
@@ -142,13 +125,14 @@ function metricFrame(run: PreparedRun, metric: Metric, viewport: Viewport, first
 
 /** Recompute from preserved source on each viewport, never from prior output. */
 export function buildFrame(run: PreparedRun, requested: Viewport, mode: "reduced" | "raw" = "reduced"): RunFrame {
-  const viewport = clampViewport(run, requested);
+  const viewport = normalizeViewport(run.summary, requested);
+  const buckets = createBuckets(viewport);
   const first = lowerBound(run, viewport.start);
   const end = lowerBound(run, viewport.end, true);
   const metrics = {} as Record<Metric, MetricFrame>;
   let plottedCount = 0;
   for (const metric of METRICS) {
-    metrics[metric] = metricFrame(run, metric, viewport, first, end, mode === "raw");
+    metrics[metric] = metricFrame(run, metric, viewport, buckets, first, end, mode === "raw");
     plottedCount += metrics[metric].points.length + metrics[metric].conflicts.length;
   }
   return {

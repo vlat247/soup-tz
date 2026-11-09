@@ -342,6 +342,14 @@ export function auditRun(run: GeneratedRun, viewports: Viewport[]) {
       "independently clamped requested viewport",
     );
     const { start, end, width } = expectedViewport;
+    // Independent integer-rational oracle: copying the renderer's floating
+    // quotient previously missed exact-boundary bucket drift.
+    const exactStart = BigInt(start);
+    const exactSpan = BigInt(end) - exactStart;
+    const exactWidth = BigInt(width);
+    const referenceColumn = (step: number) => exactSpan === 0n
+      ? Math.floor(width / 2)
+      : Math.min(width - 1, Number(((BigInt(step) - exactStart) * exactWidth) / exactSpan));
     const visible = order.filter(
       (index) =>
         run.columns.step[index] >= start && run.columns.step[index] <= end,
@@ -402,13 +410,7 @@ export function auditRun(run: GeneratedRun, viewports: Viewport[]) {
             requiredConflicts.add(pointKey([step, high]));
           }
         }
-        const column =
-          start === end
-            ? Math.floor(width / 2)
-            : Math.min(
-                width - 1,
-                Math.floor(width * ((step - start) / (end - start))),
-              );
+        const column = referenceColumn(step);
         for (const value of group.finite) {
           minimum = Math.min(minimum, value);
           if (value > maximum) {

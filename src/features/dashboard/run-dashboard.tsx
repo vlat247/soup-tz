@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  useEffect,
+  useCallback,
   useRef,
   useState,
   type FormEvent,
@@ -223,7 +223,7 @@ function QualityView({
 
 export function RunDashboard({ runId }: { runId: string }) {
   const descriptor = getRunDescriptor(runId);
-  const chartsRef = useRef<HTMLDivElement>(null);
+  const plotWidths = useRef<Partial<Record<Metric, number>>>({});
   const [width, setWidth] = useState(420);
   const [tab, setTab] = useState<"metrics" | "quality">("metrics");
   const [stepDraft, setStepDraft] = useState("");
@@ -237,24 +237,22 @@ export function RunDashboard({ runId }: { runId: string }) {
     frame,
     inspection,
     updating,
+    loadedAt,
+    isPreviousSnapshot,
     error,
     setViewport,
     inspect,
     refresh,
   } = useRun(runId, width);
 
-  useEffect(() => {
-    const element = chartsRef.current;
-    if (!element) return;
-    const observer = new ResizeObserver(([entry]) => {
-      const total = entry.contentRect.width;
-      // Use the narrowest chart's drawable width; the wide loss chart retains
-      // the same extrema with a conservative (slightly lower) point budget.
-      const chartWidth = total >= 640 ? (total - 18) / 2 : total;
-      setWidth(Math.max(1, Math.floor(chartWidth - 88)));
-    });
-    observer.observe(element);
-    return () => observer.disconnect();
+  const measurePlot = useCallback((metric: Metric, drawableWidth: number) => {
+    plotWidths.current[metric] = drawableWidth;
+    const measured = Object.values(plotWidths.current);
+    if (measured.length === METRICS.length) {
+      // All charts share a conservative budget based on the narrowest actual
+      // plot, including responsive layout and precision-dependent axis padding.
+      setWidth(Math.max(1, Math.floor(Math.min(...measured))));
+    }
   }, []);
 
   function selectTab(next: "metrics" | "quality", focus = false) {
@@ -277,10 +275,10 @@ export function RunDashboard({ runId }: { runId: string }) {
     );
   }
 
-  function inspectExplicitly(step: number) {
+  function inspectExplicitly(step: number, sourceOffset = 0) {
     if (updating) return;
     setAnnouncedStep(step);
-    inspect(step);
+    inspect(step, sourceOffset);
   }
 
   function exportSummary() {
@@ -289,6 +287,7 @@ export function RunDashboard({ runId }: { runId: string }) {
       {
         descriptor,
         summary,
+        loadedAt,
         scope:
           "Whole-run source summary; finite extrema include duplicate conflicts. Nonfinite readings are explicitly tagged.",
       },
@@ -370,8 +369,43 @@ export function RunDashboard({ runId }: { runId: string }) {
           </div>
           <h1>{descriptor.name}</h1>
           <div className={styles.subtitle}>
-            <Clock size={13} />
-            <span>Snapshot {formatSnapshot(descriptor.snapshotAt)}</span>
+            <details className={styles.snapshotDetails}>
+              <summary>
+                <Clock size={13} />
+                <span>Snapshot {formatSnapshot(descriptor.snapshotAt)}</span>
+                <CaretDown size={11} />
+              </summary>
+              <dl>
+                <div>
+                  <dt>Dataset version</dt>
+                  <dd>{descriptor.sourceVersion}</dd>
+                </div>
+                <div>
+                  <dt>Source snapshot</dt>
+                  <dd>
+                    <time dateTime={descriptor.snapshotAt}>
+                      {descriptor.snapshotAt
+                        .replace("T", " ")
+                        .replace(/\.\d{3}Z$/, " UTC")}
+                    </time>
+                  </dd>
+                </div>
+                <div>
+                  <dt>Last successful load</dt>
+                  <dd>
+                    {loadedAt ? (
+                      <time dateTime={loadedAt}>
+                        {loadedAt
+                          .replace("T", " ")
+                          .replace(/\.\d{3}Z$/, " UTC")}
+                      </time>
+                    ) : (
+                      "Not loaded yet"
+                    )}
+                  </dd>
+                </div>
+              </dl>
+            </details>
             <span className={styles.subtitleSeparator}>/</span>
             <span>{formatCount(descriptor.rowCount)} observations</span>
           </div>
@@ -469,7 +503,9 @@ export function RunDashboard({ runId }: { runId: string }) {
         {updating && (
           <div className={styles.trustLabel}>
             <CircleNotch size={13} />
-            Updating chart
+            {isPreviousSnapshot
+              ? "Reloading · previous snapshot"
+              : "Updating chart"}
           </div>
         )}
       </div>
@@ -488,7 +524,7 @@ export function RunDashboard({ runId }: { runId: string }) {
         </div>
       )}
 
-      <div ref={chartsRef}>
+      <div>
         {status === "loading" && (
           <div className={styles.loadingState} role="status">
             <CircleNotch size={26} weight="light" />
@@ -607,6 +643,7 @@ export function RunDashboard({ runId }: { runId: string }) {
                 color={METRIC_COLORS.loss}
                 onInspect={inspect}
                 onZoom={setViewport}
+                onPlotWidth={measurePlot}
                 selectedStep={inspection?.step}
                 height={255}
               />
@@ -646,6 +683,7 @@ export function RunDashboard({ runId }: { runId: string }) {
                     color={METRIC_COLORS[metric]}
                     onInspect={inspect}
                     onZoom={setViewport}
+                    onPlotWidth={measurePlot}
                     selectedStep={inspection?.step}
                     height={188}
                   />
@@ -816,6 +854,43 @@ export function RunDashboard({ runId }: { runId: string }) {
                         </tbody>
                       </table>
                     </div>
+                    {inspection.sourceCount > 20 && (
+                      <div className={styles.sourcePagination}>
+                        <span aria-live="polite">
+                          Rows {inspection.sourceOffset + 1}–
+                          {inspection.sourceOffset +
+                            inspection.sourceRows.length}{" "}
+                          of {formatCount(inspection.sourceCount)}
+                        </span>
+                        <button
+                          disabled={updating || inspection.sourceOffset === 0}
+                          onClick={() =>
+                            inspectExplicitly(
+                              inspection.step,
+                              inspection.sourceOffset - 20,
+                            )
+                          }
+                        >
+                          Previous rows
+                        </button>
+                        <button
+                          disabled={
+                            updating ||
+                            inspection.sourceOffset +
+                              inspection.sourceRows.length >=
+                              inspection.sourceCount
+                          }
+                          onClick={() =>
+                            inspectExplicitly(
+                              inspection.step,
+                              inspection.sourceOffset + 20,
+                            )
+                          }
+                        >
+                          Next rows
+                        </button>
+                      </div>
+                    )}
                   </details>
                 </>
               ) : (

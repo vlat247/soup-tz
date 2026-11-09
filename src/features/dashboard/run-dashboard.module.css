@@ -66,6 +66,46 @@
   color: var(--muted);
 }
 
+.snapshotDetails {
+  position: relative;
+  z-index: 3;
+}
+
+.snapshotDetails summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+}
+
+.snapshotDetails summary::-webkit-details-marker {
+  display: none;
+}
+
+.snapshotDetails dl {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: min(380px, calc(100vw - 40px));
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--control-border);
+  border-radius: 4px;
+  background: var(--chart-surface);
+}
+
+.snapshotDetails dl div + div {
+  margin-top: 12px;
+}
+.snapshotDetails dt {
+  color: var(--muted);
+}
+.snapshotDetails dd {
+  margin: 4px 0 0;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
 .headingActions {
   display: flex;
   flex-shrink: 0;
@@ -651,6 +691,30 @@
 
 .rawReadings td {
   color: var(--text-secondary);
+}
+
+.sourcePagination {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.sourcePagination span {
+  margin-right: auto;
+}
+.sourcePagination button {
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--control-border);
+  background: transparent;
+  color: var(--text);
+}
+.sourcePagination button:disabled {
+  opacity: 0.4;
 }
 
 .gapNotice,

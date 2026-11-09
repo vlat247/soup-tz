@@ -70,7 +70,9 @@ export function scanGroup(
   metric: Metric,
   result: GroupStats,
 ): void {
-  const first = run.order[run.groupStarts[group]];
+  const start = run.groupStarts[group];
+  const end = run.groupStarts[group + 1];
+  const first = run.order[start];
   const firstKind = readingKind(run.source, first, metric);
   const firstValue = run.source.columns[metric][first];
   result.kind = firstKind;
@@ -78,9 +80,22 @@ export function scanGroup(
   result.minimum = Infinity;
   result.maximum = -Infinity;
   result.finiteCount = result.invalidCount = result.missingCount = 0;
+  // Most training steps have one observation. Classify that source row once,
+  // without a second readingKind call or duplicate-comparison loop.
+  if (end === start + 1) {
+    if (firstKind === "finite") {
+      result.minimum = result.maximum = firstValue;
+      result.finiteCount = 1;
+    } else if (firstKind === "missing") {
+      result.missingCount = 1;
+    } else {
+      result.invalidCount = 1;
+    }
+    return;
+  }
   for (
-    let position = run.groupStarts[group];
-    position < run.groupStarts[group + 1];
+    let position = start;
+    position < end;
     position++
   ) {
     const index = run.order[position];

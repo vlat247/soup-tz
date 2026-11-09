@@ -1,0 +1,53 @@
+.chart {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.guideArea {
+  position: absolute;
+  pointer-events: none;
+}
+
+.guide {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  border-left: 1px dashed #bbc5be;
+  opacity: 0.5;
+}
+
+.empty {
+  position: absolute;
+  inset: 16px 20px 34px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  color: #cbd3ce;
+  font-size: 13px;
+}
+
+.empty p {
+  margin: 0;
+  max-width: 32ch;
+  color: #939b98;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.rangeNote {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  color: #c4ccbf;
+  font-size: 10px;
+}

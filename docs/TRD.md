@@ -1,0 +1,373 @@
+# Soup Training Run Monitor Technical Requirements
+
+Version 1.0 · 9 November 2026 · Status: implementation specification
+
+This specification defines how to implement and verify a training-run monitor whose charts remain trustworthy when records are malformed or too numerous to draw individually. The current delivery establishes the Next.js foundation and the requirements documents. The monitor, data pipeline, behavioral tests, benchmark evidence, and deployment described below are subsequent implementation work.
+
+The product behavior and release criteria are in [PRD.md](./PRD.md). Assignment requirements come from *Soup-Task-05-Frontend-Engineer(1).pdf*, page 1, supplied at `/Users/vlat247/Downloads/Soup-Task-05-Frontend-Engineer(1).pdf`. Architecture, data policies, fixture allocation, and performance budgets below are engineering decisions, rather than constraints prescribed by the assignment.
+
+## 1 Engineering objectives
+
+1. Preserve evidence that could change a person's decision about a costly training run: spikes, invalid readings, ambiguous duplicate records, missing intervals, and stale snapshots.
+2. Make normalization, reduction, rendering, summaries, and formatting independently testable. A fast chart is acceptable only if these layers agree.
+3. Keep the main thread responsive with a million source records and avoid putting those records into React state or the server-rendered page payload.
+4. Produce reproducible test and performance artifacts, including failures and the limits of the evidence.
+
+The application supports inspection, not actual training termination. Authentication, a training backend, streaming ingestion, persistence, billing, smoothing, and multi-run chart overlays are outside the initial scope.
+
+## 2 Stack and setup boundary
+
+| Area | Decision | Reason |
+| --- | --- | --- |
+| Framework | Next.js App Router with React and strict TypeScript | Matches the requested stack; separates route shells from interactive charts. |
+| Runtime and package management | Node.js 24.x and npm; committed `package-lock.json` | Makes local and deployment installations reproducible. |
+| Styling | Global tokens and CSS Modules | Small dependency surface; no component library required for this task. |
+| Quality checks | ESLint, TypeScript, production build | Establishes a working baseline before feature development. |
+| Planned chart renderer | Canvas 2D lines and markers; HTML or SVG axes and controls | Keeps element count bounded while retaining accessible surrounding UI. |
+| Planned computation | Dedicated Web Worker with typed arrays | Keeps generation, normalization, and reduction off the UI thread. |
+| Planned behavior tests | Vitest for pure functions; Playwright for browser behavior; axe integration as an aid | Covers data invariants and actual rendered behavior at different layers. Add these when implementing the monitor. |
+| Deployment target | Vercel | Direct fit for this Next.js setup. GitHub Pages would require a separate static-export routing decision. |
+
+`package.json` and the lockfile are authoritative for installed versions. The scaffold contains `/`, its root layout, styles, project metadata, and `dev`, `build`, `start`, `lint`, `typecheck`, and `check` commands. `/runs`, `/runs/[runId]`, workers, fixtures, and test commands are planned, not scaffold features.
+
+App Router configuration follows the [official Next.js installation guide](https://nextjs.org/docs/app/getting-started/installation). Keep browser APIs in client components or workers, not module initialization shared with server rendering. Do not fetch remote fonts during builds.
+
+## 3 Architecture and ownership
+
+```mermaid
+flowchart TD
+    Manifest[Small versioned run manifest] --> List[Run list and route shell]
+    List --> View[Client run view and request controller]
+    View -->|Load, viewport, inspect| Worker[Worker holding full source columns]
+    Worker --> Normalize[Validation and duplicate groups]
+    Normalize --> Reduce[Exact summaries and viewport reduction]
+    Reduce -->|Small render buffers and quality metadata| View
+    View --> Canvas[Canvas plot with explicit breaks]
+    View --> Accessible[Axes, summary cards, controls, data inspector]
+```
+
+The manifest describes 20 synthetic runs and fixed generator versions. A small versioned catalog supplies exact list summaries and quality counts without loading point arrays in the list. Generate this catalog ahead of time through the shared generator, normalizer, and summarizer in a Node script, processing and releasing one run at a time. Commit the result with its generator/source version and verify that it matches regenerated fixtures; build or CI must fail on a stale catalog. Encode unavailable or invalid summary readings as tagged states, never JSON nonfinite numbers. Each catalog entry extends the run descriptor with latest step, latest reading states, last unambiguous finite loss and its step, and quality counts used by filters.
+
+A selected run gets one dedicated worker that owns its full source data. Its computed summary must agree with the same-version catalog. On a run switch, terminate the previous worker, clear previous run content, and create a new worker. This bounds active data ownership to one dataset and makes cancellation of synchronous worker computation reliable; browser reclamation can lag, so measure switch-time peaks.
+
+Use React state for route identity, filters, viewport, scale, load state, small summaries, and the inspected sample. Keep the canvas and render arrays behind refs. Coalesce pointer input to animation frames; do not trigger a full chart redraw for each hover update. A base plot layer and a small interaction overlay can redraw independently.
+
+### Planned module boundaries
+
+```text
+src/
+  app/
+    runs/page.tsx                  run list shell
+    runs/[runId]/page.tsx          validated run route
+    runs/[runId]/loading.tsx       route loading state
+    runs/[runId]/error.tsx         recoverable route failure
+    not-found.tsx                 unknown run
+  features/runs/
+    components/                   list, summary, quality notice, run view
+    data/manifest.ts              20 fixture descriptors
+    data/catalog.json             generated small list summaries
+    data/generate.ts               seeded column generator
+    model/types.ts                 source and UI contracts
+    model/normalize.ts             sorted groups and metric states
+    model/summarize.ts             raw finite extrema and latest states
+    model/reduce.ts                viewport buckets and segment breaks
+    model/format.ts                shared numeric and timestamp formatters
+    worker/run.worker.ts           computation and query dispatcher
+    worker/protocol.ts             discriminated message types
+    hooks/use-run.ts               lifecycle and request identity checks
+  features/charts/
+    draw.ts                       pure geometry to Canvas commands
+    scales.ts                     linear/log maps and tick positions
+    metric-chart.tsx               plot and native controls
+    data-inspector.tsx             exact sample and duplicate inspection
+tests/
+  unit/                           normalization, reduction, formatting
+  e2e/                            pixels, interaction, races, states
+scripts/
+  generate-catalog.ts              reproducible metadata generation
+evidence/
+  tests/                          original test output
+  performance/                    traces, environment, raw observations
+  submission/                     final short note and AI disclosure
+```
+
+Create modules as their features are implemented. This is a target structure, not a requirement to add empty files.
+
+## 4 Source data and fixture contract
+
+### Types and representations
+
+The conceptual input record is `{ step, loss, lr, grad_norm }`. `step` is a nonnegative safe integer; metrics are JavaScript numbers, including deliberately generated `NaN` and signed infinities. Missing readings use a separate state. Preserve the difference between a missing reading, an invalid number, and a valid zero.
+
+```ts
+type Metric = "loss" | "lr" | "grad_norm";
+type ReadingKind = "finite" | "nan" | "positive-infinity"
+  | "negative-infinity" | "missing" | "conflict";
+
+interface RunDescriptor {
+  id: string;
+  name: string;
+  status: "running" | "completed" | "failed";
+  seed: number;
+  generatorVersion: string;
+  sourceVersion: string;
+  rowCount: number;
+  expectedStepInterval: number;
+  snapshotAt: string; // Fixed ISO 8601 UTC instant, including Z.
+  scenario: string;
+}
+
+interface SourceColumns {
+  step: Float64Array;
+  loss: Float64Array;
+  lr: Float64Array;
+  grad_norm: Float64Array;
+  // Per-metric byte masks distinguish missing from numerical NaN.
+  missing: Record<Metric, Uint8Array>;
+}
+```
+
+Use four Float64 columns to avoid changing metric precision while optimizing. Their payload for one million rows is 32,000,000 bytes, about 30.52 MiB. Three one-byte missing masks add about 2.86 MiB. A `Uint32Array` source-order index adds about 3.81 MiB when sorting is necessary. These calculations cover the named arrays only, not browser/tab memory, duplicate-group indexes, temporary allocations, or canvas backing stores.
+
+Keep source row positions as provenance. The sorted index is an ordering over raw columns, so original values remain available without a second full copy of the dataset. For monotonic input use an identity-order fast path; do not allocate a million boxed objects merely to sort an already sorted fixture.
+
+Generate points inside the worker from a small manifest and fixed integer PRNG. Formula, seed, anomaly locations, and generator version must reproduce the same data. Do not use ambient `Math.random()` or current time. Golden fixtures and manually specified expected values prevent tests from merely agreeing with the same faulty generator.
+
+Do not serialize nonfinite raw metrics using ordinary JSON: `NaN` and infinities become `null`. Generate them in memory; if export or network ingestion is added, use explicit tags such as `{ kind: "nan" }` and validate the schema on decode. See [MDN on JSON serialization](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify).
+
+### Fixture allocation
+
+All identifiers and allocations below are proposed and deterministic. Most runs have 2,000 to 10,000 rows so their behavior is easy to inspect.
+
+| Run IDs | Count | Required scenario |
+| --- | --- | --- |
+| `run-001` to `run-006` | 6 | Distinct clean convergence, plateau, oscillation, and slow-progress shapes. |
+| `run-007` to `run-008` | 2 | Sustained loss divergence and high gradient norms. |
+| `run-009` | 1 | Interior NaN loss and invalid final loss. |
+| `run-010` | 1 | Positive and negative infinite loss readings. |
+| `run-011` | 1 | Exact duplicate steps and metric values. |
+| `run-012` | 1 | Conflicting duplicate steps, including finite-plus-NaN and finite extreme values. |
+| `run-013` | 1 | Deliberately shuffled input order. |
+| `run-014` | 1 | Missing step intervals with known cadence. |
+| `run-015` | 1 | Combined gaps, shuffled rows, invalid readings, and duplicates. |
+| `run-016` | 1 | Zero readings, including a learning-rate schedule reaching zero. |
+| `run-017` | 1 | Negative loss values to test log-scale rejection without assuming all valid losses are positive. |
+| `run-018` | 1 | Constant finite series and constant-axis edge cases. |
+| `run-019` | 1 | All-invalid loss with usable learning-rate and gradient-norm series. |
+| `run-020` | 1 | Exactly 1,000,000 rows, steps 0 through 999,999; one isolated loss spike at step 500,000. |
+
+For `run-020`, replace the existing loss reading at step 500,000 with a known large value, for example `12`, while baseline loss remains below `2`. Do not insert an extra row. The manifest declares the expected peak step/value for independent checks. Small empty, single-point, invalid-step, and extreme-magnitude fixtures are test-only fixtures outside the 20 listed runs. Loading/error/race behaviors use deterministic delay and failure adapters rather than changing fixture mathematics.
+
+## 5 Normalization and numerical policy
+
+### Step validity and ordering
+
+1. Classify invalid `step` values separately. Reject the row from the ordered chart, count it, and keep it inspectable as rejected input. Do not coerce strings, round fractional steps, or replace invalid steps with zero.
+2. Order valid rows by `(step, sourceRowIndex)`. All plotted x coordinates are actual steps, never array positions.
+3. Group equal steps. For each metric independently, compare reading classes and values. All NaNs form the same invalid class; signed infinities remain distinct. Treat positive and negative zero as numerically equal for these metrics, while source inspection may retain their representation.
+4. Identical readings within a step collapse into one plotted state and a disclosed duplicate count. A difference in any metric affects that metric only.
+
+### Conflicting duplicates
+
+A conflicting group has no single canonical metric value. Break the connected line at that step. Draw separate finite extreme markers or a clearly labelled **observed range** glyph at the exact step, and expose every original reading in a paginated inspector. Include finite conflict extrema in the y-domain and overall observed minimum/maximum. A finite-plus-NaN group remains a conflict and also contributes to the invalid-reading count.
+
+Do not average conflicting records or choose whichever record arrived last. Neither policy is justified by the source. A conflict at the largest step produces a `Conflicting values` latest-reading state, not an arbitrary number. A separate last unambiguous finite reading may be shown with its actual step.
+
+### Invalid readings and missing intervals
+
+Nonfinite and missing readings never enter a Canvas coordinate, interpolation, zero fallback, or finite summary. Each creates a break for its metric. A known step gap occurs when adjacent unique steps differ by more than `expectedStepInterval`; break all affected metric paths and disclose the missing interval. Do not invent a cadence for future external data: an unknown cadence must remain unknown.
+
+Every valid singleton segment needs a point marker because a path with only `moveTo` is invisible. Gap and invalid markers use a dedicated annotation lane or label, not y=0 in the metric plot. At coarse scales, aggregate their counts per pixel column with an inspectable warning; do not imply that a hidden gap is continuous data.
+
+### Summaries
+
+| Summary | Exact definition |
+| --- | --- |
+| Latest step | Largest valid unique step, independent of input order. |
+| Latest metric | Reading state at that step, including invalid or conflict states. |
+| Last valid metric | Last unambiguous finite group at or before the latest step, explicitly labelled with its step. |
+| Observed minimum and maximum | Extrema of every raw finite reading for the metric, including conflicting duplicates; invalid and missing readings excluded with counts disclosed. |
+| Source count | Total input row count, including duplicates and rejected-step rows. |
+| Chart step count | Number of valid unique steps. |
+| Quality counts | Raw invalid readings by type, duplicate extra rows, conflicting steps per metric, rejected-step rows, and missing intervals; overlapping categories need not sum to the source count. |
+
+Whole-run summaries do not silently change when zooming. If viewport summaries are later added, label their interval separately. All-invalid and empty inputs return explicit unavailable states, never `0`, `Infinity`, or an arbitrary axis domain displayed as a measurement.
+
+## 6 Reduction and rendering contract
+
+### Viewport algorithm
+
+The viewport is an inclusive interval `[startStep, endStep]` shared by all three charts. Validate finite safe integers, clamp to the dataset, and handle a single-step viewport explicitly. `W` is the drawable width in CSS pixels after axis padding. Device pixel ratio scales the backing canvas, not the source step values.
+
+1. Binary-search the normalized steps for the visible interval. Query at most one neighboring group on each side to support edge geometry; these neighbors cannot cross a gap or influence visible-only summary labels.
+2. Derive each y-domain from all visible raw finite values, including conflict extrema, before reduction. Apply explicit padding and a stable constant-domain rule. Never take the domain from a lossy sample.
+3. Assign visible samples to pixel columns with `floor((step - start) / (end - start) * W)`, clamped to `[0, W - 1]`. This includes the rightmost step. Single-step viewports use a centered marker.
+4. Within each continuous valid segment and column retain first, minimum, maximum, and last sample indexes. Deduplicate repeated indexes and emit in original step order. Never emit in the artificial order first/min/max/last when the maximum occurred before the minimum.
+5. Emit explicit path-break commands at every invalid, missing, gap, or conflicting group. Emit conflict extrema and quality annotations separately. Draw straight connections only within continuous finite segments; no smoothing curve or trend filter.
+6. Clip paths to the plot area, but keep edge markers fully visible using plot inset or marker-aware clipping. Bound y-padding so large finite values do not overflow; reject a nonfinite computed transform rather than drawing misleading coordinates.
+
+For a single continuous series this produces at most about `4W` retained samples plus edge handling. With `B` segment boundaries it is `O(W + B)`, not unconditionally `O(W)`. Arbitrarily alternating valid and invalid records cannot have every discontinuity represented as a separate line segment within a fixed pixel budget.
+
+For excessive fragmentation, switch the affected columns to a visibly different **range and missing-data density** representation, showing exact finite extrema and counts with no connected line. Explain that mode and offer zoom/inspection. Do not truncate break markers and connect the remaining vertices. A practical first threshold is `8W` proposed drawing primitives or payload entries per metric, counting line vertices, singletons, conflict markers, and break/quality annotations together. Above that threshold, aggregate every category into a bounded number of entries per pixel column; retain exact extrema values and source IDs plus category counts. Counting line vertices alone would leave an all-conflict series unbounded. Measure and tune the threshold without changing semantics.
+
+The first implementation can scan visible rows in the worker for each completed zoom (`O(Nvisible)`), using binary search only to restrict the interval. Coalesce inputs and allow only one active reduction plus the latest pending viewport. If measured zoom performance misses its budget, add fixed-size block summaries containing exact extrema indexes, endpoint indexes, and break/conflict flags. Boundary blocks must still be scanned; indexes must never bridge internal breaks. Do not prebuild a large pyramid before evidence justifies it.
+
+### What the spike guarantee means
+
+The isolated fixture spike is the unique finite maximum. In any nonempty viewport containing its step, it is the maximum of its pixel bucket, so the reducer must retain it or include it in an explicitly labelled range glyph. The y-domain includes it. This is a mathematical invariant of this reduction rule, conditional on correct normalization, bounds, and rendering; it is not a claim that every original sample survives.
+
+Test all supported zoom presets, widths, edge alignments, and several device pixel ratios, then use property-based tests over arbitrary containing intervals. Assert retained source identity and visible plot geometry, and add browser pixel assertions for the actual spike. An excluded spike must not affect the viewport domain or appear as an in-view observation. Finite screenshots cannot prove every possible browser scale or human perception; record that limitation.
+
+### Tooltips and exact inspection
+
+Map the cursor to a raw step, then query the worker for the nearest unique source step, with a documented tie rule of the lower step. Do not report a reduced bucket's average or interpolate a measurement. Show the exact step and reading classification. If the cursor is inside a missing interval, say so; any nearest recorded point must be labelled as nearest, not sampled at the cursor.
+
+When multiple observations share a pixel, the column inspector also exposes its finite extrema and invalid/conflict counts. This makes a retained peak discoverable even when its exact x coordinate cannot be targeted with the mouse. Keyboard controls and a step input provide exact sample access. Page any raw table rather than inserting a million DOM rows.
+
+## 7 Worker protocol and asynchronous state
+
+Every request and response carries `runId`, `sourceVersion`, and monotonically increasing `requestId`. Viewport replies additionally carry a `viewportRevision`; hover requests have a separate sequence so obsolete inspection replies cannot overwrite a newer cursor selection.
+
+| Request | Response | Main contents |
+| --- | --- | --- |
+| `LOAD_RUN` | `RUN_READY` or `RUN_ERROR` | Descriptor, exact whole-run summary, quality totals; raw columns stay in worker. |
+| `QUERY_VIEWPORT` | `VIEWPORT_READY` | Requested interval, revision, domains, tick values, vertices, breaks, conflict extrema, representation mode, quality counts. |
+| `INSPECT_STEP` | `STEP_DETAILS` | Exact nearest group, raw readings and provenance; pagination for large duplicate groups. |
+| `INSPECT_COLUMN` | `COLUMN_DETAILS` | Exact extrema and quality counts for the selected visible step interval. |
+
+Validate payload discriminants and ranges at the worker boundary. Return a bounded error record rather than serializing an entire exception or dataset. Keep complete source arrays in the worker and transfer only temporary result buffers; transferring an `ArrayBuffer` detaches the sender's view, so a persistent source buffer must never be transferred accidentally. See [MDN transferable objects](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
+
+The run view moves through `idle -> loading -> ready | empty | error`. A new run immediately invalidates old content and request IDs. Abort any in-flight fetch when available, terminate the old worker, and still reject responses whose identities do not match the active route. Cancellation alone is not the correctness check.
+
+During same-run viewport updates, keep the last rendered frame and its matching axes under an `Updating chart` state until all three metric results for the new revision are ready. Commit them atomically. Never show new axis bounds over old plotted values. For refresh of the same run, retained content must be labelled as the previous snapshot; an error must leave a visible stale/error notice and retry action.
+
+Use fixed `snapshotAt` and `sourceVersion` labels for the synthetic demo. Record `loadedAt` separately so reloading an old source never makes it look fresh. No live-data promise or polling is implied. A future stale threshold would be configuration with injected clocks; test the distinction with deliberately outdated metadata now.
+
+## 8 Routes and interaction design
+
+`/` is the starter page in this delivery. During monitor implementation, make it redirect or link to `/runs`. `/runs` supports name/id search, status and quality filters, and sort by name, latest step, or last unambiguous finite loss. The loss column shows that reading's actual step and separately identifies any invalid/conflicted latest observation; its heading must not imply the earlier value is current. Runs with no unambiguous finite loss go last in either direction; tie-break by stable run ID. Preserve query state on returning from a detail page.
+
+`/runs/[runId]` validates membership in the manifest and returns a meaningful unknown-run state for invalid IDs. The detail view shows run metadata, whole-run summaries, quality notices, and separate loss, learning-rate, and gradient-norm plots sharing a step interval. It never claims that one y-axis unit applies to all three metrics.
+
+Provide zoom in/out/reset buttons and labelled start/end step inputs. Pointer wheel or drag zoom may be added, but the native controls remain sufficient. Arrow-key sample navigation, Home/End, and exact step inspection operate when the chart inspector has focus and must not hijack typing in form controls. Escape dismisses an inspector without losing focus. Shared viewport changes retain deliberate focus.
+
+Test layouts at 360, 768, and 1440 CSS-pixel widths, plus browser text zoom. Charts resize through `ResizeObserver`; redraw once per frame and recompute buckets for the actual plot width. Cap or manage backing-canvas DPR if memory measurements require it, and document the setting.
+
+Canvas has a textual alternative: metric name, interval, summary, quality description, and an accessible sample inspector. Use native buttons, inputs, table headings, `aria-sort`, visible focus, and concise live announcements for load/error/selection changes. Do not announce every pointer event. Target normal text contrast of at least 4.5:1 and necessary chart/control graphics of at least 3:1. Validate these against [W3C text contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html), [non-text contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html), and [keyboard guidance](https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html); automated checks alone do not establish accessibility conformance.
+
+## 9 Numeric formatting and scale behavior
+
+Use one formatter module for list values, summaries, ticks, and inspection. Positions and comparisons always use raw numbers. Display rounded values with adequate significant digits and expose `Number.toString()` precision in exact inspection. Small learning rates must not become a misleading visible zero; use scientific notation when necessary. Show integer steps without treating them as dates.
+
+Use deterministic `en-US` and UTC defaults for the initial demo, with the timezone explicitly shown. If locale/timezone controls are added, pass explicit settings to all formatters and preserve numeric sort. Validate formatting with `en-US`, `de-DE`, and `fr-FR`, and instants near a date boundary in UTC, Asia/Almaty, and America/Los_Angeles. Do not parse localized labels back into numeric source values or allow server/client environment defaults to cause hydration differences.
+
+Linear scale is mandatory and the default. Log scale is optional; if implemented, disable it for a viewport containing any finite zero or negative raw reading, including duplicate conflicts, with an explanation. Never add epsilon, drop nonpositive samples silently, or relabel linear axes as logarithmic. Nonfinite values remain disclosed breaks. If panning a log view reveals a nonpositive reading, switch visibly to linear with an announcement. If log is omitted for time, record that decision and verify no implicit log transform is used.
+
+Tick labels must be produced from the exact tick values used by the scale. Distinct ticks must not collapse to identical formatted labels. Compute padded domains safely for constant and extreme finite values. An all-invalid viewport shows `No finite readings in this interval`; it has no fabricated data line.
+
+## 10 Verification plan and required evidence
+
+### Automated data and rendering checks
+
+| Test ID | Case and oracle | Failure caught |
+| --- | --- | --- |
+| T01 | Fixture manifest has exactly 20 runs; 1M run has exact row count and known spike source index/value. | Wrong dataset, nondeterministic generation, extra spike row. |
+| T02 | Handwritten shuffled records and their sorted equivalent yield identical metric segments and summaries; separately verify each provenance group maps to its actual original input rows. Source row indexes can change when input order changes. | Index used as x coordinate; unstable ordering; incorrect provenance. |
+| T03 | Exact and conflicting duplicates, including an extreme and NaN in the same group; assert breaks, counts, markers, latest state, and observed extrema. | Hidden conflict or averaging away divergence. |
+| T04 | NaN, infinities, missing values, zeros, and invalid final reading; inspect finite drawing commands and gap positions. | Invalid-to-zero conversion, bridging gaps, stale latest summary. |
+| T05 | Known cadence gaps and singleton segments; assert no path crosses a missing interval and singletons render. | Misleading continuity or invisible isolated observations. |
+| T06 | Exhaustive small fixtures plus property-generated viewports around the 1M spike; supported widths, spike on edges, and bucket boundary alignments. | Spike loss, off-by-one inclusion, wrong reduction order. |
+| T07 | Compare summaries and y-domain with an independent brute-force reference over raw finite readings. | Summaries computed from reduced samples or conflict extrema excluded. |
+| T08 | Shared ticks/formatting with small, negative, constant, large, and nonfinite inputs; explicit locale/timezone matrix. | Axis/tooltip mismatch, false zeros, string sorting, timezone drift. |
+| T09 | Browser interaction tests: delayed A response after B, old viewport after new, stale hover reply, refresh failure. | Wrong run, axis/frame mismatch, stale tooltip, silent stale data. |
+| T10 | Browser pixel/geometry assertions for spike and gaps, resize and DPR variations; compare tooltip to known raw sample. | Correct reducer but clipped/missing pixels or wrong coordinate mapping. |
+| T11 | Keyboard-only list/detail workflow, focus retention, accessible inspector, responsive states, automated contrast/axe checks. | Mouse-only operation, inaccessible canvas content, layout overflow. |
+| T12 | Log unavailable for zero/negative, including conflicts; highly fragmented density mode; all-invalid and empty views. | Silent clipping, false continuous lines, fabricated domain. |
+
+Property-test seeds and failure cases must be saved. Expected output should not call the implementation under test to compute its own oracle. Browser screenshots complement precise assertions; do not let a broad screenshot tolerance erase the one-pixel spike.
+
+### Product requirement coverage
+
+| PRD requirements | Technical responsibility | Verification |
+| --- | --- | --- |
+| DATA-01 through DATA-07 | Versioned generator, catalog, source columns, provenance | T01, T02, T03; catalog regeneration consistency check |
+| LIST-01 through LIST-05 | Small exact catalog, stable sort/filter, list states | Browser list tests; raw-summary oracle T07 |
+| DETAIL-01 through DETAIL-06 | Route validation, worker summaries, three metric panels, freshness labels | T07, T09, T11 and direct-route smoke checks |
+| CHART-01 through CHART-05 | Normalization, segment-aware reduction, domains and formatting | T02 through T08, T10 |
+| CHART-06 through CHART-10 | Unsmoothed drawing, shared viewport, source inspection, explicit scale and reduction mode | T06, T09, T10, T12 |
+| STATE-01 through STATE-06 | Worker lifecycle, request identity, atomic viewport commit, recovery | T09, T11, T12; silent failure matrix |
+| UX-01 through UX-06 | Native controls, accessible inspection, responsive sizing, shared formatters | T08, T11; manual keyboard and screen-reader review |
+| PERF-01 through PERF-05 | Production baseline/optimized experiment and memory accounting | Original traces, raw observations, environment and comparison report |
+| TEST-01 through TEST-06 | Independent test oracles and retained output | T01 through T12 and explicit coverage limitations |
+
+Save unmodified stdout/stderr, exit code, command, timestamp, source revision, tool versions, and test seed under `evidence/tests/`. Keep failing runs alongside subsequent passes; name retries separately. Use a test runner's JSON reporter or a Node process wrapper that retains exit status when logging. A shell pipeline that exits successfully because `tee` succeeded is not a passed test run.
+
+### Limits to state in the final note
+
+Unit tests cannot prove that the browser painted the intended pixels. Pixel assertions cannot prove correctness at every possible width, device, or visual impairment. Synthetic data cannot establish scientific meaning or production-ingestion correctness. A tested request sequence does not prove absence of every race. Automated accessibility tools miss interaction and screen-reader issues. Browser memory measurements vary with process sharing, garbage collection, and tooling. No test establishes that stopping a real training run is the right business decision.
+
+## 11 Performance experiment
+
+The assignment requires measured first render, zoom response, and hover response in a Performance trace with CPU throttling at 4x, plus tab memory at 1M points, before and after optimization. All values are **not measured** at setup. Proposed budgets are engineering goals, not assignment pass thresholds or current results.
+
+| Measure | Definition | Proposed optimized goal |
+| --- | --- | --- |
+| First useful chart | Navigation start to first complete 1M chart frame with correct axes and summary; report FCP separately. | Median at most 2,000 ms on the recorded reference machine under 4x CPU throttling. |
+| Zoom response | User input to next painted frame containing matching new viewport and axes for all metrics. | p95 at most 100 ms. |
+| Hover response | Pointer/key input to the correct inspection result becoming visible. | p95 at most 50 ms. |
+| Memory | Browser task memory footprint and JS memory, with baseline, loaded steady state, peak, and release observation. | Incremental steady-state tab footprint at most 250 MiB; always report absolute footprint too. |
+
+Capture a correctness-preserving baseline before optimizing: the same generated columns, normalization policies, viewport, and Canvas renderer, but raw finite segments are drawn on the main thread without reduction. Baseline execution may be slow; impose a documented timeout and retain an honest timeout/crash result rather than substituting a smaller dataset. Do not use a deliberately incorrect every-Nth sample as a performance baseline.
+
+Then compare the worker-owned dataset and segment-aware viewport reducer. Preserve a baseline source revision or controlled benchmark mode with both implementations and identical fixtures. Ensure screenshot geometry and truth tests still pass after the optimization; changed behavior invalidates the comparison.
+
+### Measurement procedure
+
+1. Build production assets and run `npm run start`; never profile development compilation. Record source revision, Node/browser/OS versions, CPU/RAM, viewport, DPR, dataset version/seed, network/cache state, and the exact CPU throttling setting.
+2. Use an otherwise idle browser profile and record the Performance panel with screenshots and User Timing marks. Select 4x CPU slowdown as described by [Chrome's performance guide](https://developer.chrome.com/docs/devtools/performance). Note which worker activity is visible in the trace and any uncertainty about throttling coverage; it is a browser simulation on that host, not a claim about a particular phone.
+3. Measure five independent cold navigations under consistent cache settings for each variant. Keep all observations; report median and range for first chart. Keep warm navigation measurements separate.
+4. Replay at least 30 identical zoom actions and 30 hover/keyboard selections per variant on `run-020`, including the spike and viewport edges. Save input-to-paint observations and report median and p95. Tag requests so stale events cannot be paired with the wrong paint. Check gap interactions separately on `run-014` or `run-015`; report those supplementary results separately and never pool them into the 1M percentiles.
+5. User Timing marks should bracket input, worker completion, draw submission, and next animation frame. Canvas command completion is not proof of paint; correlate the endpoint with trace frames/screenshots. Do not present a `performance.now()` duration alone as a Performance trace.
+6. In a separate memory pass, record empty/list baseline, steady loaded 1M run after a documented idle period, peak during load/switch, and state after switching away repeatedly. Use Chrome Task Manager's memory footprint and JS-memory columns, with worker/process attribution noted. JS heap size alone is not tab memory; [Chrome distinguishes these measurements](https://developer.chrome.com/docs/devtools/memory-problems).
+7. Save original trace exports or legible screenshots under `evidence/performance/`, raw observations in CSV, and an environment description. Report before/after absolute values, differences, and any timeout or failed sample. Do not delete regressions or overwrite an earlier trace.
+
+Investigate, in order: accidentally retained arrays/workers, raw data duplicated in React, main-thread scans, redundant zoom work, full-canvas hover redraws, then the need for block indexes. Rerun the relevant correctness and measurement checks after each material change.
+
+## 12 Silent failure verification
+
+| Risk | Required check | User-visible protection |
+| --- | --- | --- |
+| Stale data | Reload a deliberately old snapshot; fail refresh while prior data exists. | Source timestamp/version remain unchanged; retained data and failure explicitly labelled. |
+| Run race | Delay run A, select B, then deliver A; repeat during navigation and worker failure. | B identity, summaries, charts, and inspection remain consistent. |
+| Zoom race | Complete an older viewport after a newer request. | Atomic matching frame/axes; obsolete revision discarded. |
+| Locale/timezone | Numeric formats and date-boundary instants across the specified matrix. | Explicit locale/zone; raw step and numeric ordering unchanged. |
+| Hidden divergence | Isolated spike and sustained divergence across zooms, with no smoothing enabled. | Extremes retained and represented; reduction method disclosed. |
+| Log with zero | Zero/negative values both ordinary and within duplicate conflicts. | Log action blocked or visible switch to linear. |
+| False finite export | Encode/decode fixtures with NaN/infinities using supported representation. | Invalid classes preserved, never silently converted to zero/null-as-zero. |
+| Renderer failure | Inject worker error, nonfinite transform, empty viewport, or zero-sized canvas. | Recoverable error/empty state; previous chart never relabelled as current success. |
+
+## 13 Delivery and implementation sequence
+
+The brief estimates 4 to 6 hours of work and a 48-hour deadline, without giving an absolute start instant. The following is a proposed six-hour implementation allocation after setup; it is a timebox, not a promise that all browser and accessibility checks fit without tradeoffs.
+
+| Timebox | Work | Exit condition |
+| --- | --- | --- |
+| 0:00 to 0:45 | Fixtures, normalization, source contract, core truth tests. | Invalid, duplicate, gap, and summary oracles pass. |
+| 0:45 to 1:45 | List/detail flow, straightforward truthful baseline chart, controls and states. | 20 runs inspectable; baseline source preserved. |
+| 1:45 to 2:15 | Baseline 1M traces and memory capture. | Original baseline artifacts retained, including any failure. |
+| 2:15 to 3:30 | Worker pipeline, viewport reducer, exact inspection. | Spike invariant and gap/duplicate render checks pass. |
+| 3:30 to 4:30 | Races, responsive behavior, keyboard inspection, locale and scale edge cases. | Silent failure matrix checked; critical defects recorded. |
+| 4:30 to 5:15 | Optimized traces, memory, regression tests. | Comparable before/after evidence and test output saved. |
+| 5:15 to 6:00 | Deploy, smoke check, final note and AI-use record. | Links and artifacts reviewable; honest verdict recorded. |
+
+If time runs short, keep linear scale, native zoom controls, raw-value inspection, quality notices, and evidence. Drop optional log controls, sophisticated gestures, visual embellishment, and block indexing unless measurements require it. Do not reduce scope by hiding failed tests or converting invalid data to a plausible line.
+
+For deployment, install from the lockfile, run lint/typecheck/build and the implemented behavioral checks, then deploy to Vercel. Smoke-test deep links, worker asset loading, the 1M fixture, and an error state in the deployed production build. Deployment and email submission are later assignment deliverables; this setup request does not perform them.
+
+The final submission must include repository and deployed URLs, original tests and output, Performance traces/screenshots, a note of at most two pages with **SHIP** or **DON'T SHIP** and the first fix, a paragraph on actual surprises and remaining concerns, and an AI-use disclosure. Record AI assistance as it happens, distinguishing generated suggestions from checks the engineer personally performed. Do not invent surprise, personal verification, benchmarks, or a favorable verdict. The detailed PRD/TRD are working specifications and do not replace the two-page submission note.
+
+Choose **DON'T SHIP** if a truth invariant fails, another run can overwrite the current view, nonfinite values appear as valid measurements, required evidence is missing, or essential interaction is inaccessible. A missed proposed performance budget requires an explicit severity decision and mitigation, not a concealed result. Rank the first fix by decision risk before cosmetic improvements.
+
+## 14 Remaining decisions
+
+The implementation may revise the Canvas choice after a small, measured prototype, provided the renderer exposes enough control to preserve gaps, conflict extrema, and exact inspection. Do not accept a library's automatic downsampling or gap-joining behavior without tests. Optional log controls and block indexing should be added only when their scope is justified. Record the actual reference machine and measured limits during profiling; no absolute benchmark result can be specified in advance.

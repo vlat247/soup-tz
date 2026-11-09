@@ -1,0 +1,27 @@
+:root {
+  color-scheme: light;
+  background: #faf8f5;
+  color: #292524;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+code {
+  font-family: ui-monospace, monospace;
+  font-size: 0.95em;
+}
+
+::selection {
+  background: #fde6bf;
+  color: #292524;
+}

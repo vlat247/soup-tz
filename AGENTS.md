@@ -8,6 +8,8 @@ The project contains a Next.js dashboard, a deterministic 20-run fixture generat
 
 ## Implementation principles
 
+Runtime validation lives in `model/validate-source.ts` and `model/validate-view.ts`. Malformed structures must not be coerced into valid telemetry, while NaN/infinity/missing/duplicate data remains inspectable. Keep source/reply guards separate from the independent raw-source oracle. `data:validate -- --run <id>` and `data:validate -- --seed <uint32>` replay individual cases; the versioned report preserves failures and reports bounded inspection coverage. See `evidence/data-validation/verification.md` for the latest validation checkpoint; earlier chart screenshots are historical evidence.
+
 - Use the user's black `#000000`, cream `#E6D5B7`, and orange `#F54F1B` interface palette and supplied slash icon. Chart panels are lighter charcoal with distinct orange, blue, and mint lines, as requested. Keep copy only where it helps navigate, interpret data, or act. Preserve warnings and accessible descriptions; see the visual direction in `docs/BUILD_APPROACH.md`.
 - Prefer ordinary loops, small pure functions, and explicit rules. Add complexity only for a demonstrated correctness or performance need.
 - Preserve full-resolution source observations. Validate steps, sort numerically, and resolve duplicate groups independently for each metric. Collapse identical readings; expose conflicting values and their finite extrema rather than choosing an arbitrary winner.

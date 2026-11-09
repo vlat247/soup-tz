@@ -37,6 +37,8 @@ Small pure modules separate generation, preparation/summaries, reduction, inspec
 
 `npm run data:validate` adds a separate reference scan over preserved raw columns; it does not call preparation or reduction helpers to calculate expected facts. It checks summaries, visible domains, required extrema/endpoints, continuity, conflicts, provenance, and unchanged source bytes. Its retained report covers all 20 fixtures and deterministic adversarial seeds 1–40. Additional unit cases cover generated million-point viewports, malformed boundaries, pagination, and raw mode. These are finite correctness checks, not browser timing or memory measurements.
 
+The `feature/data-validation` follow-up validates runtime source structure and relevant worker replies without rewriting broken telemetry. The independent audit now checks requested-to-returned viewport normalization and full inspected records rather than trusting returned geometry or only checking source indexes. Small sources are exhaustively inspected; large sources use bounded sampling with reported counts. Reports retain individual failures and exact replay commands (`--run` / `--seed`). See [data-validation evidence](../evidence/data-validation/verification.md). No fixture recipes, source bytes, chart design or numerical reduction policy changed in this follow-up.
+
 ## Rules for each data problem
 
 | Condition | Numerical treatment | What the user sees |

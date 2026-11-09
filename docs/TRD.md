@@ -137,6 +137,8 @@ Use four Float64 columns to avoid changing metric precision while optimizing. Th
 
 Keep source row positions as provenance. The sorted index is an ordering over raw columns, so original values remain available without a second full copy of the dataset. Monotonic input uses an identity order and skips sorting; it still has a compact index. No million-element array of row objects is allocated by preparation.
 
+`validate-source.ts` checks the runtime contract before preparation: required descriptor metadata, supported fixture recipe shapes, real ISO UTC timestamps, attached Float64 source columns, Uint8 masks, consistent lengths/counts, positive safe-integer cadence and binary mask entries. It does not coerce ordinary arrays or strings into numbers. Numeric NaN/infinity, missing payloads and invalid numeric steps are telemetry classifications, not malformed source structures. Validation does not rewrite source buffers or infer external-data cadence. Recipe shape validation does not establish that a recipe generated the supplied columns.
+
 Generate points inside the worker from a small manifest and fixed integer PRNG. Formula, seed, anomaly locations, and generator version must reproduce the same data. Do not use ambient `Math.random()` or current time. Golden fixtures and manually specified expected values prevent tests from merely agreeing with the same faulty generator.
 
 Do not serialize nonfinite raw metrics using ordinary JSON: `NaN` and infinities become `null`. Generate them in memory; if export or network ingestion is added, use explicit tags such as `{ kind: "nan" }` and validate the schema on decode. See [MDN on JSON serialization](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify).
@@ -260,6 +262,8 @@ The implementation uses fixed `snapshotAt` and `sourceVersion` labels for the sy
 
 Pure session tests supply a fake worker and clock to exercise A/B/A switches, late or replayed replies, coalesced zoom/resize/inspection, mismatched run/version/geometry, paginated inspection identity, worker construction and message failures, retry, and retained snapshot metadata. These controlled sequences are reproducible without React test dependencies. They do not replace browser-level fault injection or prove the absence of every race.
 
+`validate-view.ts` checks relevant current replies before publishing them: tagged reading states, summary accounting, metric containers, finite coordinates/domains, drawing budgets, full-range summary agreement, and bounded source pages. Finite inspection values must remain inside whole-run source extents; latest-step inspection must agree with the latest summary. Stale identities are discarded before deep validation. A malformed current payload stops that session without replacing a retained complete snapshot, and malformed error text receives a bounded fallback. These structural and consistency guards do not independently prove every returned value came from the source; the raw-source oracle provides separate evidence.
+
 ## 8 Routes and interaction design
 
 `/` and `/runs` redirect to the first run. The shared run-browser shell provides name/ID search, status and quality filters, and fixed sort options: run ID, name, last step descending, and last unambiguous finite loss ascending. Loss sorting exposes that reading's value and actual step; latest invalid/conflicted states remain visible in the run detail. Runs with no unambiguous finite loss go last, with stable run IDs breaking numerical ties. If reverse sort directions are added, unavailable readings must still remain last. Preserve filter/sort state across detail navigation.
@@ -308,6 +312,10 @@ The table below remains the full acceptance plan. In particular, T09 browser fau
 | T12 | Linear-only mode preserves zero/negative values, including conflicts; any future log controls reject nonpositive input. Check the fragmented-column fallback plus all-invalid and empty views. | Silent clipping, false continuous lines, fabricated domain. |
 
 Property-test seeds and failure cases must be saved. Expected output should not call the implementation under test to compute its own oracle. Browser screenshots complement precise assertions; do not let a broad screenshot tolerance erase the one-pixel spike.
+
+The data-validation audit independently computes requested viewport clamping, verifies frame identity/version and compares complete inspected records against raw readings and source indexes. It exhausts inspection groups when there are at most 512 valid rows; larger sources use bounded representative and anomalous groups. Groups over 512 rows sample first/middle/last pages to avoid repeated scans of huge duplicate groups. Reports expose the actual inspected group/page counts; sampled coverage is not exhaustive coverage of every million-point inspection.
+
+`npm run data:validate` defaults to all fixtures and seeds 1–40. Repeatable `--run <id>` and `--seed <uint32>` selectors reproduce only the requested cases. Schema-version-2 reports retain each success/failure with its replay command, environment and available revision metadata; one failure does not prevent later cases from running. Any failed case or invalid command argument produces nonzero exit status. Mutation tests deliberately corrupt frame and inspection replies to verify that the oracle rejects them.
 
 ### Product requirement coverage
 

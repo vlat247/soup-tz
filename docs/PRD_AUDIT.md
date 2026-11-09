@@ -1,8 +1,10 @@
 # Dashboard progress against the PRD
 
-Updated 10 November 2026 for `feature/charts`, implementation commit `1461d88`, comparing source, test definitions, and retained evidence. This documentation review did not rerun checks. The [current verification record](../evidence/charts/verification.md) documents the passing 279-test integration check and targeted 360/768/1440px browser checks. The original audit covered `feature/dashboard-ui` at implementation commit `bfe1ee3`; its 109-test checkpoint and browser record remain historical evidence, not the current count or reviewed revision.
+Updated 10 November 2026 for `feature/data-validation`, implementation commit `239bd67`. The [latest verification record](../evidence/data-validation/verification.md) documents 448 passing tests across 10 files, catalog consistency and a production build. The earlier [chart checkpoint](../evidence/charts/verification.md) at `1461d88` records 279 tests and targeted 360/768/1440px browser checks. The original dashboard audit at `bfe1ee3` and its 109-test checkpoint remain historical evidence.
 
 The core monitor is implemented. **The assignment is not ready for submission: DON'T SHIP under the PRD release gate**, because required performance/memory evidence and delivery artifacts are missing. This is a progress assessment, not the final two-page submission note.
+
+The data-validation checkpoint adds runtime source/reply guards, mutation-tested independent viewport/inspection checks, and per-case reproducible audit reports. All 60 audit cases pass, and the 20 fixture fingerprints are unchanged. These changes strengthen DATA-05/06, DETAIL-03/04, STATE-03–06 and TEST-04/05; they do not close the remaining browser, accessibility, performance or delivery gates in the tables below.
 
 ## Chart decision
 

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/Users/vlat247/.nvm/versions/node/v24.13.1/bin/node",
+    "--import",
+    "tsx",
+    "scripts/validate-runs.ts"
+  ],
+  "startedAt": "2026-11-09T21:54:25.747Z",
+  "completedAt": "2026-11-09T21:54:31.327Z",
+  "exitCode": 0
+}

@@ -40,7 +40,7 @@ Open [localhost:3000](http://localhost:3000). The application opens `/runs/run-0
 | `npm test` | Verify fixtures, independent source invariants, numerical queries, worker boundaries, async sessions, and chart coordinates. |
 | `npm run test:watch` | Run unit tests in watch mode. |
 | `npm run data:inspect` | Inspect all 20 runs; add `-- run-015` for exact anomaly source positions. |
-| `npm run data:validate` | Run the independent raw-source audit over all 20 fixtures and saved adversarial seeds; emit a JSON report. |
+| `npm run data:validate` | Audit all 20 fixtures and adversarial seeds 1–40; retain each case result in a versioned JSON report and exit nonzero on failure. |
 | `npm run data:catalog` | Regenerate the compact run-list catalog from exact source summaries. |
 | `npm run data:catalog:check` | Fail if the committed catalog differs from regenerated summaries. |
 | `npm run build` | Create a production build. |
@@ -48,6 +48,10 @@ Open [localhost:3000](http://localhost:3000). The application opens `/runs/run-0
 | `npm run check` | Run lint, type checking, unit tests, catalog consistency, and a production build. |
 
 Unit tests establish numerical properties within their tested cases. They do not establish correct browser pixels, complete accessibility, absence of every request race, or browser performance.
+
+Replay a particular case with `npm run data:validate -- --run run-012` or `npm run data:validate -- --seed 17`. Selectors can repeat or combine; supplying them runs only those cases. Use `npm run --silent data:validate > report.json` for machine-readable output. Reports include exact case selectors, replay commands, source fingerprints, source/generator versions, Node/platform information and Git revision/dirty state when available. A failed case stays in the report while later cases continue; totals count only completed audits.
+
+The [data-validation record](evidence/data-validation/verification.md) covers source-contract checks, malformed worker replies and stronger independent oracles. Structural errors are rejected without coercion; NaN, infinities, missing readings, duplicate conflicts and rejected numeric steps remain preserved telemetry. The original 20 fixtures are unchanged.
 
 ## Dashboard controls
 

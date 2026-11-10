@@ -1,0 +1,194 @@
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+ ❯ tests/unit/run-session.test.ts (56 tests | 13 failed) 23ms
+   ❯ bounded worker response waits (18)
+     × ends a silent load after 30 seconds without fabricating data or retrying 5ms
+     × does not let an uncorrelated message null extend the wait 1ms
+     × does not let an uncorrelated message "unreadable" extend the wait 0ms
+     × does not let an uncorrelated message {} extend the wait 0ms
+     × does not let an uncorrelated message {"runId":"wrong-run","requestId":1} extend the wait 0ms
+     × does not let an uncorrelated message {"runId":"run-a","requestId":999} extend the wait 0ms
+     × retains the old snapshot and successful retrieval time when refresh never responds 2ms
+     × bounds a stalled viewport queue even when newer work keeps arriving 1ms
+     × bounds a stalled inspect queue even when newer work keeps arriving 1ms
+     × uses the conservative default for invalid timeout 0 0ms
+     × uses the conservative default for invalid timeout -1 0ms
+     × uses the conservative default for invalid timeout NaN 0ms
+     × uses the conservative default for invalid timeout Infinity 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 13 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > ends a silent load after 30 seconds without fabricating data or retrying
+AssertionError: expected { runId: 'run-a', …(8) } to match object { status: 'error', frame: null, …(3) }
+(4 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "frame": null,
+    "loadedAt": null,
+-   "status": "error",
++   "status": "loading",
+    "summary": null,
+    "updating": false,
+  }
+
+ ❯ tests/unit/run-session.test.ts:515:34
+    513|     expect(h.session.getState().status).toBe("loading");
+    514|     h.deadlines.advance(1);
+    515|     expect(h.session.getState()).toMatchObject({ status: "error", fram…
+       |                                  ^
+    516|     expect(h.session.getState().error).toContain("did not respond");
+    517|     expect(h.worker.sent).toHaveLength(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/13]⎯
+
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > does not let an uncorrelated message null extend the wait
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > does not let an uncorrelated message "unreadable" extend the wait
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > does not let an uncorrelated message {} extend the wait
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > does not let an uncorrelated message {"runId":"wrong-run","requestId":1} extend the wait
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > does not let an uncorrelated message {"runId":"run-a","requestId":999} extend the wait
+AssertionError: expected 'loading' to be 'error' // Object.is equality
+
+Expected: "error"
+Received: "loading"
+
+ ❯ tests/unit/run-session.test.ts:533:43
+    531|       h.worker.handlers?.message(message);
+    532|       h.deadlines.advance(1);
+    533|       expect(h.session.getState().status).toBe("error");
+       |                                           ^
+    534|       expect(h.worker.terminated).toBe(1);
+    535|     },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/13]⎯
+
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > retains the old snapshot and successful retrieval time when refresh never responds
+AssertionError: expected { runId: 'run-a', …(8) } to match object { status: 'error', …(5) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+@@ -90,11 +90,11 @@
+        "width": 800,
+      },
+    },
+    "isPreviousSnapshot": true,
+    "loadedAt": "2026-11-10T12:00:00.000Z",
+-   "status": "error",
++   "status": "ready",
+    "summary": {
+      "conflictSteps": {
+        "grad_norm": 0,
+        "loss": 0,
+        "lr": 0,
+@@ -159,7 +159,7 @@
+      "outOfOrder": false,
+      "rejectedRows": 0,
+      "rowCount": 100,
+      "uniqueSteps": 100,
+    },
+-   "updating": false,
++   "updating": true,
+  }
+
+ ❯ tests/unit/run-session.test.ts:557:40
+    555|     const refresh = setup({ previous: retained, now: SECOND_LOAD, requ…
+    556|     refresh.deadlines.advance(100);
+    557|     expect(refresh.session.getState()).toMatchObject({
+       |                                        ^
+    558|       status: "error", summary: retained.summary, frame: retained.fram…
+    559|       loadedAt: FIRST_LOAD, isPreviousSnapshot: true, updating: false,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/13]⎯
+
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > bounds a stalled viewport queue even when newer work keeps arriving
+AssertionError: expected { runId: 'run-a', …(8) } to match object { status: 'error', …(3) }
+(30 matching properties omitted from actual)
+
+- Expected
++ Received
+
+@@ -89,8 +89,8 @@
+        "start": 0,
+        "width": 800,
+      },
+    },
+    "loadedAt": "2026-11-10T12:00:00.000Z",
+-   "status": "error",
+-   "updating": false,
++   "status": "ready",
++   "updating": true,
+  }
+
+ ❯ tests/unit/run-session.test.ts:576:34
+    574|     else h.session.inspect(20);
+    575|     h.deadlines.advance(1);
+    576|     expect(h.session.getState()).toMatchObject({ status: "error", fram…
+       |                                  ^
+    577|     expect(h.worker.terminated).toBe(1);
+    578|     expect(h.deadlines.pending.size).toBe(0);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/13]⎯
+
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > bounds a stalled inspect queue even when newer work keeps arriving
+AssertionError: expected { runId: 'run-a', …(8) } to match object { status: 'error', …(3) }
+(30 matching properties omitted from actual)
+
+- Expected
++ Received
+
+@@ -89,8 +89,8 @@
+        "start": 0,
+        "width": 800,
+      },
+    },
+    "loadedAt": "2026-11-10T12:00:00.000Z",
+-   "status": "error",
++   "status": "ready",
+    "updating": false,
+  }
+
+ ❯ tests/unit/run-session.test.ts:576:34
+    574|     else h.session.inspect(20);
+    575|     h.deadlines.advance(1);
+    576|     expect(h.session.getState()).toMatchObject({ status: "error", fram…
+       |                                  ^
+    577|     expect(h.worker.terminated).toBe(1);
+    578|     expect(h.deadlines.pending.size).toBe(0);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/13]⎯
+
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > uses the conservative default for invalid timeout 0
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > uses the conservative default for invalid timeout -1
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > uses the conservative default for invalid timeout NaN
+ FAIL  tests/unit/run-session.test.ts > bounded worker response waits > uses the conservative default for invalid timeout Infinity
+AssertionError: expected [] to deeply equal [ 30000 ]
+
+- Expected
++ Received
+
+- [
+-   30000,
+- ]
++ []
+
+ ❯ tests/unit/run-session.test.ts:624:63
+    622|   it.each([0, -1, NaN, Infinity])("uses the conservative default for i…
+    623|     const h = setup({ requestTimeoutMs });
+    624|     expect([...h.deadlines.pending].map((entry) => entry.at)).toEqual(…
+       |                                                               ^
+    625|   });
+    626|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/13]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  13 failed | 43 passed (56)
+   Start at  03:33:03
+   Duration  232ms (transform 60%, tests 25%, import 13%, worker 2%)
+

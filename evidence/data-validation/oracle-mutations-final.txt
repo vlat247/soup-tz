@@ -1,0 +1,9 @@
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+
+ Test Files  1 passed (1)
+      Tests  21 passed (21)
+   Start at  02:49:13
+   Duration  143ms (tests 47%, transform 32%, import 18%, worker 2%)
+

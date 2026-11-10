@@ -1,0 +1,83 @@
+{
+  "descriptor": {
+    "id": "run-019",
+    "name": "No finite loss",
+    "status": "failed",
+    "seed": 1019,
+    "rowCount": 3000,
+    "pattern": "convergence",
+    "fixture": {
+      "allInvalidLoss": true
+    },
+    "scenario": "Every loss is NaN while learning rate and gradient norm remain usable.",
+    "generatorVersion": "1.0.0",
+    "sourceVersion": "soup-fixtures-v1",
+    "expectedStepInterval": 1,
+    "snapshotAt": "2026-11-01T12:00:00.000Z",
+    "synthetic": true
+  },
+  "summary": {
+    "rowCount": 3000,
+    "uniqueSteps": 3000,
+    "firstStep": 0,
+    "lastStep": 2999,
+    "duplicateRows": 0,
+    "rejectedRows": 0,
+    "gapCount": 0,
+    "missingSteps": 0,
+    "outOfOrder": false,
+    "invalidCounts": {
+      "loss": 3000,
+      "lr": 0,
+      "grad_norm": 0
+    },
+    "missingCounts": {
+      "loss": 0,
+      "lr": 0,
+      "grad_norm": 0
+    },
+    "conflictSteps": {
+      "loss": 0,
+      "lr": 0,
+      "grad_norm": 0
+    },
+    "latest": {
+      "loss": {
+        "kind": "nan",
+        "value": null
+      },
+      "lr": {
+        "kind": "finite",
+        "value": 0.00009999999999999998
+      },
+      "grad_norm": {
+        "kind": "finite",
+        "value": 0.15837422063574194
+      }
+    },
+    "lastFinite": {
+      "loss": null,
+      "lr": {
+        "step": 2999,
+        "value": 0.00009999999999999998
+      },
+      "grad_norm": {
+        "step": 2999,
+        "value": 0.15837422063574194
+      }
+    },
+    "extents": {
+      "loss": null,
+      "lr": [
+        0.00009999999999999998,
+        0.001
+      ],
+      "grad_norm": [
+        0.1339702593990492,
+        0.8287136075552554
+      ]
+    }
+  },
+  "loadedAt": "2026-11-09T22:39:56.721Z",
+  "scope": "Whole-run source summary; finite extrema include duplicate conflicts. Nonfinite readings are explicitly tagged."
+}

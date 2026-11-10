@@ -1,0 +1,34 @@
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+ ❯ tests/unit/response-contract.test.ts (66 tests | 1 failed | 65 skipped) 5ms
+   ❯ inspection response contract (15)
+     × rejects latest-step readings that disagree with the summary even inside its extent 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/response-contract.test.ts > inspection response contract > rejects latest-step readings that disagree with the summary even inside its extent
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/response-contract.test.ts:80:57
+     78|     inspection.readings.loss = { kind: "finite", value: 0.5 };
+     79|     for (const row of inspection.sourceRows) row.readings.loss = { kin…
+     80|     expect(isStepInspection(inspection, sourceSummary)).toBe(false);
+       |                                                         ^
+     81|   });
+     82|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 65 skipped (66)
+   Start at  02:52:48
+   Duration  141ms (transform 54%, import 36%, tests 7%, worker 3%)
+

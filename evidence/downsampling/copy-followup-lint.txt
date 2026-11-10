@@ -1,0 +1,2 @@
+Command: node_modules/.bin/eslint src/features/dashboard/column-inspection.tsx --max-warnings=0
+Exit: 0

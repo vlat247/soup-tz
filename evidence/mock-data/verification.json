@@ -1,0 +1,27 @@
+{
+  "capturedAtUtc": "2026-11-09T19:12:08.705818+00:00",
+  "command": [
+    "npm",
+    "run",
+    "check"
+  ],
+  "exitCode": 0,
+  "branch": "feature/mock-data",
+  "baseCommit": "225e24bb3b310f58269a05435786b6913ba831b9",
+  "sourceState": "Uncommitted feature/mock-data implementation; hashes below identify tested inputs.",
+  "node": "v24.13.1",
+  "npm": "11.10.0",
+  "os": "Darwin 25.5.0",
+  "architecture": "arm64",
+  "inputSha256": {
+    "src/features/runs/data/manifest.ts": "2010f038e59a9f94a99c48853e901c1493efe17886b4e2a00a79035785c3c0fe",
+    "src/features/runs/data/generate.ts": "b1915a9a73b160197e43a1261565dd3da870eae40a43861b662d924dae21aaed",
+    "src/features/runs/model/types.ts": "e29870cd8a1b6e8f64cb49b8b991717b72f4a4f809a06e0f1c3361b6afa70730",
+    "tests/unit/mock-data.test.ts": "835fdbfde3487be02dd0d4c164a040b328a2dfb3e63033412db7a68f1113f21b",
+    "scripts/inspect-runs.ts": "34596494fd48a5e7327dd6c182130b55ef77e2747fc63376e7d0c2fbd429fa34",
+    "package.json": "ce8c9547e5705218a0b040c1688e5372a0fe0795bf462598046174eaa7d1f2c8",
+    "package-lock.json": "773333829b25b688afcd2b82cf9b593d3f3f9fdc52f4e44318c1112b5dd07f78",
+    "tsconfig.json": "29c5cc4c45c8547da6771cab92163880505b7d757fb12c5a74a987dd9b3e6ad2"
+  },
+  "scope": "Source-fixture tests and scaffold checks. Not chart correctness or browser performance evidence."
+}

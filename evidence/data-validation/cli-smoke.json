@@ -1,0 +1,45 @@
+[
+  {
+    "command": [
+      "/Users/vlat247/.nvm/versions/node/v24.13.1/bin/node",
+      "--import",
+      "tsx",
+      "scripts/validate-runs.ts",
+      "--run",
+      "run-012",
+      "--seed",
+      "17"
+    ],
+    "startedAt": "2026-11-09T21:51:39.409Z",
+    "completedAt": "2026-11-09T21:51:39.824Z",
+    "expected": 0,
+    "exitCode": 0
+  },
+  {
+    "command": [
+      "/Users/vlat247/.nvm/versions/node/v24.13.1/bin/node",
+      "--import",
+      "tsx",
+      "scripts/validate-runs.ts",
+      "--seed",
+      "-1"
+    ],
+    "startedAt": "2026-11-09T21:51:39.824Z",
+    "completedAt": "2026-11-09T21:51:39.906Z",
+    "expected": 1,
+    "exitCode": 1
+  },
+  {
+    "command": [
+      "/Users/vlat247/.nvm/versions/node/v24.13.1/bin/node",
+      "--import",
+      "tsx",
+      "scripts/validate-runs.ts",
+      "--help"
+    ],
+    "startedAt": "2026-11-09T21:51:39.906Z",
+    "completedAt": "2026-11-09T21:51:39.987Z",
+    "expected": 0,
+    "exitCode": 0
+  }
+]

@@ -1,0 +1,1177 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T22:20:32.385Z",
+  "environment": {
+    "node": "v24.13.1",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "source": {
+    "revision": "f877330c4a51e447ace3207c7abbce54519e04d8",
+    "workingTreeDirty": true,
+    "datasetVersions": [
+      "soup-fixtures-v1"
+    ],
+    "generatorVersions": [
+      "1.0.0"
+    ]
+  },
+  "arguments": [],
+  "passed": true,
+  "caseCounts": {
+    "attempted": 60,
+    "passed": 60,
+    "failed": 0
+  },
+  "completed": {
+    "fixtureRows": 1086106,
+    "viewportChecks": 300,
+    "metricChecks": 900,
+    "fragmentedMetricFrames": 130,
+    "inspectionGroups": 3891,
+    "inspectionPages": 3891
+  },
+  "results": [
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-001"
+      },
+      "replay": "npm run data:validate -- --run run-001",
+      "status": "passed",
+      "audit": {
+        "id": "run-001",
+        "sourceRows": 6000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "4e8630f6f8125017cb8bf2cb3a93191863d487ec95c1ed8559e743722cf925c4"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-002"
+      },
+      "replay": "npm run data:validate -- --run run-002",
+      "status": "passed",
+      "audit": {
+        "id": "run-002",
+        "sourceRows": 5000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "6e5f0ccbddd9ccebfa8598e6b3f6e4ca7eaf762d0029bc5f235d7c7e65df4e2a"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-003"
+      },
+      "replay": "npm run data:validate -- --run run-003",
+      "status": "passed",
+      "audit": {
+        "id": "run-003",
+        "sourceRows": 8000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "efa9932582bcbfee292683e982a0da6b559aebdcc758a383b97a092176b3ca16"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-004"
+      },
+      "replay": "npm run data:validate -- --run run-004",
+      "status": "passed",
+      "audit": {
+        "id": "run-004",
+        "sourceRows": 4000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "a217874083f0c8b56cbe86f7ac34ccfd34769185de514ce1d53c180574c76654"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-005"
+      },
+      "replay": "npm run data:validate -- --run run-005",
+      "status": "passed",
+      "audit": {
+        "id": "run-005",
+        "sourceRows": 4000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "c6ec5401dd74df16ad83bee2a4885cf1cf865b94f5f94695ca240ec15f2af8f7"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-006"
+      },
+      "replay": "npm run data:validate -- --run run-006",
+      "status": "passed",
+      "audit": {
+        "id": "run-006",
+        "sourceRows": 6000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "056893bfb6f4c91615e4336763f4618c9452d1dac9a41ad7766b142811166e7a"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-007"
+      },
+      "replay": "npm run data:validate -- --run run-007",
+      "status": "passed",
+      "audit": {
+        "id": "run-007",
+        "sourceRows": 6000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "ee7486ad8194985357d7855cf2307fc78442e91d5e656830381c7ba63998851b"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-008"
+      },
+      "replay": "npm run data:validate -- --run run-008",
+      "status": "passed",
+      "audit": {
+        "id": "run-008",
+        "sourceRows": 5000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "1e3f127e4ee501d3bcc54ca2550bec257c23eb3832e634aa0586e71466304db1"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-009"
+      },
+      "replay": "npm run data:validate -- --run run-009",
+      "status": "passed",
+      "audit": {
+        "id": "run-009",
+        "sourceRows": 4000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 1,
+        "inspectionGroups": 35,
+        "inspectionPages": 35,
+        "rejectedRows": 0,
+        "sourceSha256": "309aa0e6605ae6a6c460755c0dbce1c1237181eb3722716e1504a5f00a675f1d"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-010"
+      },
+      "replay": "npm run data:validate -- --run run-010",
+      "status": "passed",
+      "audit": {
+        "id": "run-010",
+        "sourceRows": 4000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 1,
+        "inspectionGroups": 35,
+        "inspectionPages": 35,
+        "rejectedRows": 0,
+        "sourceSha256": "7594370241d9faddd9ffbd252cdb9598c92b574624ae5c667b3ea29ac6076b81"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-011"
+      },
+      "replay": "npm run data:validate -- --run run-011",
+      "status": "passed",
+      "audit": {
+        "id": "run-011",
+        "sourceRows": 4003,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 36,
+        "inspectionPages": 36,
+        "rejectedRows": 0,
+        "sourceSha256": "78062f4012711138fbcf4412b839a227aabff6487636e13cbf632819254983ab"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-012"
+      },
+      "replay": "npm run data:validate -- --run run-012",
+      "status": "passed",
+      "audit": {
+        "id": "run-012",
+        "sourceRows": 4003,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 1,
+        "inspectionGroups": 35,
+        "inspectionPages": 35,
+        "rejectedRows": 0,
+        "sourceSha256": "459320bc74d75263e66299f50bae78009dd3ca9b7e764350d38c0c6edb9aa6a4"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-013"
+      },
+      "replay": "npm run data:validate -- --run run-013",
+      "status": "passed",
+      "audit": {
+        "id": "run-013",
+        "sourceRows": 4096,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "d219f5ef24b318bd32281d60078f0d4df3674b0a8433593727dfdccb7aa4b40f"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-014"
+      },
+      "replay": "npm run data:validate -- --run run-014",
+      "status": "passed",
+      "audit": {
+        "id": "run-014",
+        "sourceRows": 4000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 2,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "3e7687c258f4f15ce523efc920e13cc4e2dd0a48a3aa03308337cc572b94aebf"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-015"
+      },
+      "replay": "npm run data:validate -- --run run-015",
+      "status": "passed",
+      "audit": {
+        "id": "run-015",
+        "sourceRows": 4004,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 2,
+        "inspectionGroups": 40,
+        "inspectionPages": 40,
+        "rejectedRows": 0,
+        "sourceSha256": "123c32e561a67d305e5c6de11c01a13d83b51caceceace5119c7ab7541820496"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-016"
+      },
+      "replay": "npm run data:validate -- --run run-016",
+      "status": "passed",
+      "audit": {
+        "id": "run-016",
+        "sourceRows": 4000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "56268874c4700e2b445ae86db740cc717e1b8080282a1ff583477631a8cff03b"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-017"
+      },
+      "replay": "npm run data:validate -- --run run-017",
+      "status": "passed",
+      "audit": {
+        "id": "run-017",
+        "sourceRows": 4000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "b2c8b83a9c365faffeaa9ed69d0d5f7d0f2360619f3cba64767ec6ed115b891e"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-018"
+      },
+      "replay": "npm run data:validate -- --run run-018",
+      "status": "passed",
+      "audit": {
+        "id": "run-018",
+        "sourceRows": 3000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "33c225c2c8caab9125bfedfc56f35819c5343da975ad1144bba2c8d01fdcf9b4"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-019"
+      },
+      "replay": "npm run data:validate -- --run run-019",
+      "status": "passed",
+      "audit": {
+        "id": "run-019",
+        "sourceRows": 3000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 48,
+        "inspectionPages": 48,
+        "rejectedRows": 0,
+        "sourceSha256": "afe8b37a2e78e374f633561de29ff9c786c01c129bb334cf0c2d5a2336118fe6"
+      }
+    },
+    {
+      "selected": {
+        "kind": "fixture",
+        "id": "run-020"
+      },
+      "replay": "npm run data:validate -- --run run-020",
+      "status": "passed",
+      "audit": {
+        "id": "run-020",
+        "sourceRows": 1000000,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 0,
+        "inspectionGroups": 33,
+        "inspectionPages": 33,
+        "rejectedRows": 0,
+        "sourceSha256": "999bfffb32f9f135ae0880bbbc39f21bf56eac432efb52498ed24ccec5f813d3"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 1
+      },
+      "replay": "npm run data:validate -- --seed 1",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 126,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "75c5e953a6f060ad106bb6bfa55529e9cdf3b7d4ef8b6d29bcf8568c47f66837"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 2
+      },
+      "replay": "npm run data:validate -- --seed 2",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 107,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "e67da5b89e89d9cf4b807617b85f09372bae3953f1f63051c25cd8229c8a2db8"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 3
+      },
+      "replay": "npm run data:validate -- --seed 3",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 116,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "0effbeaeebcdd3c296e0de507a0a012a1863019cf231d2d51bc978cd0aa41a6d"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 4
+      },
+      "replay": "npm run data:validate -- --seed 4",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 112,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "03c40f2274f5e78ee0ebbb83c2e1f8d194199dbe8277525a123d36f2cd13d648"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 5
+      },
+      "replay": "npm run data:validate -- --seed 5",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 117,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "6e9b607004202960cca6ab4de5bf56fb691f9db146de48ab4e95ec2eb5e497c1"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 6
+      },
+      "replay": "npm run data:validate -- --seed 6",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 109,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "87e66cfa0c69f39d01132dca69c40e19ddf347443899ebe4f6ad58aec6ff24a4"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 7
+      },
+      "replay": "npm run data:validate -- --seed 7",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 118,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "a5d22a8c508458ef06eb64326414c15ed7948d1abbab06a8a83fec4c10722083"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 8
+      },
+      "replay": "npm run data:validate -- --seed 8",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 109,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "f0fd9adc511a27cbd9c9df1ab5508d85668f7ea4e77dc588b8e3de1866b8daa4"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 9
+      },
+      "replay": "npm run data:validate -- --seed 9",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 120,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "5dc80532a7ada383deace87a85d72c6e4b5dc5e8f48817b5f2582676b450b3e7"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 10
+      },
+      "replay": "npm run data:validate -- --seed 10",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 115,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "a3f4a63d8d408277affe432d530e07f1695771b9c9cb4d90dc5992c04442eac6"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 11
+      },
+      "replay": "npm run data:validate -- --seed 11",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 111,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "2f45d67ab01f34e231261215d2f8a079c1f2ab2a35054b1bbe41932d2b11466a"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 12
+      },
+      "replay": "npm run data:validate -- --seed 12",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 114,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "7f8ebad7d2c466a805750651551b9ed01fbfc4259f7fc484b89058e540776569"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 13
+      },
+      "replay": "npm run data:validate -- --seed 13",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 107,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "b3a7baca41cc5be7ca7f8d5f69834ce7bc0f174bdc8332b4760429fc759b1bea"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 14
+      },
+      "replay": "npm run data:validate -- --seed 14",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 111,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "68da9b43c68d663222fd7daa416b6eafeb93e6f67a6d5b1e3dc1b4e1e0889fe8"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 15
+      },
+      "replay": "npm run data:validate -- --seed 15",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 116,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "a15a8391210e45aeaa49c62744e89d48b964b7d8347eaddb37eb3018ef56fd18"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 16
+      },
+      "replay": "npm run data:validate -- --seed 16",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 115,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "aefc74fae20d459920718deb9ca0d1dfefd31809ccacdea3496e11022f5a687c"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 17
+      },
+      "replay": "npm run data:validate -- --seed 17",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 110,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "41f296a3b0e8f5867a33c3d2f02329263932eaccefabe4177961b340cb746056"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 18
+      },
+      "replay": "npm run data:validate -- --seed 18",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 114,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "d3678e1c24e4c9ef7737dc95684a878cf9ad040a4b271e927d6c4da521f48000"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 19
+      },
+      "replay": "npm run data:validate -- --seed 19",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 110,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "23b3e0e3c7588662c2c9335b7bb99a159a0ef9a2b813e59fb305e24e8c3a616b"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 20
+      },
+      "replay": "npm run data:validate -- --seed 20",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 111,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "3c36c304764b1c074adfa8880a860281138cda48311a4b0fa68e284defdd359c"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 21
+      },
+      "replay": "npm run data:validate -- --seed 21",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 111,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "214162290b5b8e26c4cec243332214421f2bbe9020304cb9dadcea4dd9fd312b"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 22
+      },
+      "replay": "npm run data:validate -- --seed 22",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 105,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "e533483f19a683527e794365de7b37dead1740b5ae1aff06178681f6742e3115"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 23
+      },
+      "replay": "npm run data:validate -- --seed 23",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 114,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "fd6b55c37712d054ca98989f998b1c7487ca975d322c35042dbffecb1bbcc264"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 24
+      },
+      "replay": "npm run data:validate -- --seed 24",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 109,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "f31934b075e70f01a857407389bed8dcf69d8946f1191c9267ad85e3a6f3cd96"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 25
+      },
+      "replay": "npm run data:validate -- --seed 25",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 110,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "220b20ec006af70e196c62a7e683ea08b5712a7aa7660af4b53a0194bd058403"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 26
+      },
+      "replay": "npm run data:validate -- --seed 26",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 105,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "52610296008f83f3fb752e763bb1574d2ef20fd649e452100431ed6ef0867f98"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 27
+      },
+      "replay": "npm run data:validate -- --seed 27",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 112,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "4a473e3149e4b06296e9e9c7fa150392d21b5d7e1ea6473a97595303e37284b3"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 28
+      },
+      "replay": "npm run data:validate -- --seed 28",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 112,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "5fbf22e21e1bd340b30315e94ec602511dc6be082f24aa4d1c7d17b0673713c4"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 29
+      },
+      "replay": "npm run data:validate -- --seed 29",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 113,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "007f5718a8295569ec31a2a57f16194f9f6b084c265e4200deea2e56fb73f7d0"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 30
+      },
+      "replay": "npm run data:validate -- --seed 30",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 118,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "056bf2049fe3482d3caf32debcc947969492622555cf6074c412d8bfe2bb6380"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 31
+      },
+      "replay": "npm run data:validate -- --seed 31",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 114,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "05a3f77e42f7ff4d885adcc9a992a9669a477e3993c3ee465631d04c50fb7d76"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 32
+      },
+      "replay": "npm run data:validate -- --seed 32",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 111,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "41993329ce303063f9e724cca2a3fbdbf102163da56c2417ab5aa1cd0e80a6f3"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 33
+      },
+      "replay": "npm run data:validate -- --seed 33",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 110,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "1c1e8902d4d15f7ee1fdc72f28de27c4a90c4e87520319e51e8a8159d6b2e366"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 34
+      },
+      "replay": "npm run data:validate -- --seed 34",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 114,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "2365a87d97682282987c9d2820dffadd12ac350cb7f30ff6e66998690bc927e6"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 35
+      },
+      "replay": "npm run data:validate -- --seed 35",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 111,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "c6dc864ad81bb1faa50db7b1c1bbc6f270675af749dc95e103cb8424eca9106a"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 36
+      },
+      "replay": "npm run data:validate -- --seed 36",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 110,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "4fae0d10a1b5830ff4a00215bcad7a90cb3207973f135a5c58a2d356f7fc5cd3"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 37
+      },
+      "replay": "npm run data:validate -- --seed 37",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 115,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "bf6892fb607203105dda346613e9db5f9df0f6d1b1965a51dc6aa6e1bdc65335"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 38
+      },
+      "replay": "npm run data:validate -- --seed 38",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 116,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "98e4131988d385ed4aa7b5626fee25a732ae7e0047add1e19480a51f41b99167"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 39
+      },
+      "replay": "npm run data:validate -- --seed 39",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 109,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "9e782342da47e6b695c023a15589130dee4b6228911ae8470480668d15408653"
+      }
+    },
+    {
+      "selected": {
+        "kind": "adversarial",
+        "seed": 40
+      },
+      "replay": "npm run data:validate -- --seed 40",
+      "status": "passed",
+      "audit": {
+        "id": "validation",
+        "sourceRows": 109,
+        "viewports": 5,
+        "metricChecks": 15,
+        "rangeFrames": 3,
+        "inspectionGroups": 80,
+        "inspectionPages": 80,
+        "rejectedRows": 5,
+        "sourceSha256": "0b919522de29986d1aa19b934a46e5ce983d055fa52a97e5366f4a5c27a69b5b"
+      }
+    }
+  ],
+  "limitations": "Source and numerical engine validation only. Finite deterministic cases do not prove all inputs, painted chart geometry, async races, accessibility, browser performance, or memory budgets."
+}

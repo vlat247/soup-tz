@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/Users/vlat247/.nvm/versions/node/v24.13.1/bin/node",
+    "--import",
+    "tsx",
+    "scripts/benchmark-reduction.ts"
+  ],
+  "startedAt": "2026-11-09T22:15:14.978Z",
+  "completedAt": "2026-11-09T22:15:23.656Z",
+  "exitCode": 0,
+  "error": null
+}

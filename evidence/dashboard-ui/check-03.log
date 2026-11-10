@@ -1,0 +1,20 @@
+
+> soup-training-monitor@0.1.0 check
+> npm run lint && npm run typecheck && npm run test && npm run data:catalog:check && npm run build
+
+
+> soup-training-monitor@0.1.0 lint
+> eslint . --max-warnings=0
+
+
+> soup-training-monitor@0.1.0 typecheck
+> next typegen && tsc --noEmit
+
+Generating route types...
+✓ Types generated successfully
+tests/unit/run-view.test.ts(338,60): error TS2769: No overload matches this call.
+  Overload 1 of 4, '(object: DateTimeFormat, key: never, accessor: "get"): Mock<() => never>', gave the following error.
+    Argument of type '"format"' is not assignable to parameter of type 'never'.
+  Overload 2 of 4, '(object: DateTimeFormat, key: never, accessor: "set"): Mock<(arg: never) => void>', gave the following error.
+    Argument of type '"format"' is not assignable to parameter of type 'never'.
+tests/unit/run-view.test.ts(339,24): error TS2345: Argument of type '() => string' is not assignable to parameter of type 'never'.

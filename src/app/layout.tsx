@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import "@fontsource-variable/geist";
+import "@fontsource/ibm-plex-mono/400.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Soup Training Monitor",
-  description:
-    "A training-run monitor focused on truthful charts and verifiable performance.",
+  title: { default: "soup — Training runs", template: "%s · soup" },
+  description: "Explore training runs, metrics, and data quality.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

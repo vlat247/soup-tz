@@ -1,16 +1,20 @@
 # Soup Training Run Monitor Product Requirements
 
-**Version:** 1.0
+**Version:** 1.5
 
-**Date:** 2026-11-09
+**Date:** 2026-11-10
 
-**Status:** Implementation specification; product acceptance is pending.
+**Status:** Core dashboard implemented; 597-test production check passed, performance evidence incomplete, deployment user-owned.
 
 **Companion specification:** [Technical requirements](TRD.md)
 
+**Implementation direction:** [Build approach](BUILD_APPROACH.md) records the simple data pipeline, initial feature choices, and implementation sequence to use with these acceptance criteria.
+
 The monitor helps an engineer decide whether a training run is behaving well enough to continue spending compute. It must expose uncertainty, invalid observations, and divergence instead of presenting a reassuring but misleading chart. The evaluation scenario is a person deciding whether to stop a $500 run; the application provides evidence for that decision and does not control real training infrastructure.
 
-The current delivery establishes the Next.js project and its requirements. The training monitor, generated dataset, chart implementation, product tests, performance evidence, deployment, and final submission are subsequent implementation work. Requirements below describe the intended product, not functionality already delivered.
+The current delivery includes the Next.js dashboard, [20 deterministic fixtures](MOCK_DATA.md), three ECharts plots, exact summaries/reduction, worker processing, shared ranges, source/column inspection and explicit failure recovery. `pref/optimization` adds descending valid-loss sorting, a distinct empty-catalog state, focus recovery and an opt-in raw/reduced browser comparison harness. The final `npm run check` at `d8192b0` passed 597 tests in 19 files, lint, strict types, all 20 exact catalog summaries and a production build; see [current verification](../evidence/optimization/verification.md). The historical [silent-failure checkpoint](../evidence/silent-failers/verification.md) at `1aaeeca` passed 585 tests in 17 files, lint, types, catalog consistency and build, plus a 60-case independent audit and nine Node locale/time-zone cases. Required before/after 4× CPU traces, actual hover timing and tab memory remain outstanding. The user will deploy later. See the [progress audit](PRD_AUDIT.md) for evidence and limits; the requirements below retain their Brief/Decision/Target distinctions.
+
+Current targeted browser checks cover both loss-sort directions, keyboard filter reset/focus, exact spike and next-step inspection, a three-step range, All steps reset and mobile drawer keyboard recovery at 360px with no page overflow. Historical production smoke covers truthful invalid export and hidden diagnostic routes. These observations do not establish comprehensive browser automation, a browser locale matrix or assistive-technology conformance.
 
 ## 1. Source and decision boundaries
 
@@ -62,6 +66,7 @@ The key success criterion is correct interpretation, not smoothness or visual de
 - Use deterministic synthetic data so the same seed reproduces the same observations and defects.
 - Use the training step as the horizontal axis. Use timestamps only for run metadata and freshness information.
 - Use linear scales and unsmoothed data by default.
+- Ship the first implementation with linear axes only. The log-scale failure check verifies that no implicit log transform or nonpositive-value clipping occurs; optional log controls can be considered later.
 - Keep the three charts synchronized to one step range.
 - Show data-quality information alongside run health; an invalid value is evidence of a problem, not evidence of a successful run.
 - Make the source of summary values and the visible range explicit.
@@ -80,7 +85,7 @@ Five-million-point support is a possible live discussion topic in the brief, not
 | --- | --- | --- |
 | DATA-01 | Brief | Generate exactly 20 runs. Each observation contains a training step and loss, learning rate, and gradient norm values. Every run has a stable identifier and display name. |
 | DATA-02 | Brief | Include non-finite loss observations representing NaN and Infinity, duplicate steps, unsorted steps, and gaps. The fixture manifest identifies the run and source positions for each intentional defect. |
-| DATA-03 | Brief + Decision | Include one run containing exactly 1,000,000 source observations and an isolated outlier spike in the middle of its long series. The proposed fixture is `run-020`, with steps 0 through 999,999 and a finite loss spike replacing the normal value at step 500,000. Record its exact value as an independent test oracle. |
+| DATA-03 | Brief + Decision | Include one run containing exactly 1,000,000 source observations and an isolated outlier spike in the middle of its long series. The implemented fixture is `run-020`, with steps 0 through 999,999 and a loss value of exactly 12 replacing the normal value at step 500,000. Preserve that value as an independent test oracle. |
 | DATA-04 | Decision | Use a documented seed and dataset version. Two generations with the same inputs produce the same logical data and defect manifest. Run IDs and spike position remain stable across application sessions. |
 | DATA-05 | Decision | Include clean reference cases, zero/negative values, constant and all-invalid metric cases, and divergent or unstable trajectories within the 20-run set. Empty, single-point, invalid-step, and extreme-magnitude cases are diagnostic/test-only fixtures outside the 20 listed runs. The TRD records the exact fixture allocation. |
 | DATA-06 | Decision | Preserve the original observations or equivalent inspectable provenance. Normalization must not erase evidence of conflicting duplicate values or disguise an invalid value as a missing zero. |
@@ -178,6 +183,8 @@ These accessibility and device targets are acceptance objectives, not a claim of
 
 The brief requires measured first render, zoom response, hover response, and tab memory at one million points, including before-and-after optimization numbers. The measurements must use a production build and report the browser version, device, data seed/version, viewport, CPU setting, and measurement method. Apply the requested 4x CPU throttling to timing traces; explicitly report how the separate memory measurement was obtained.
 
+The opt-in `/benchmark` harness implements a raw/reduced comparison with scripted range and source-inspection commands. Its paint-proxy timings exclude physical input dispatch; they do not satisfy actual hover timing or replace saved traces and tab-memory measurements. Normal production builds keep the route unavailable.
+
 | ID | Metric | Proposed target | Acceptance evidence |
 | --- | --- | --- | --- |
 | PERF-01 | First useful chart | Median at most 2 seconds on the documented reference environment under 4x CPU slowdown | Five independent cold navigations per variant, from navigation start to the first complete million-point chart frame with correct axes and summaries; report median/range and FCP separately, and keep warm results separate. |
@@ -209,7 +216,7 @@ Each test artifact records the command, environment, dataset version, and comple
 
 **DON'T SHIP** is required if a spike disappears in a containing viewport, invalid data becomes a finite value or an implied continuous line, duplicate handling hides a conflicting extreme, another run's response is displayed, displayed numbers disagree with source data, or required evidence is missing. The verdict identifies the first concrete change needed and its expected effect.
 
-At the project-setup stage the product verdict is **not yet evaluated**. The final note should reach an evidence-based verdict after implementation; this specification is not itself a completed assignment submission.
+The local product implementation and assignment submission are separate completion questions. The core features exist, but a final **SHIP** verdict is not established while required performance evidence is absent. The final note must assess recorded results; this specification is not itself a completed submission.
 
 ## 10. Delivery artifacts
 
@@ -224,6 +231,8 @@ At the project-setup stage the product verdict is **not yet evaluated**. The fin
 | AI disclosure | Where AI was used, accepted suggestions, and what was independently verified, changed, or redone | Names actual work and verification; does not claim unperformed human review. |
 
 The brief requests submission by email reply to `team@trysoup.dev`. Preparing artifacts and recording that requirement is in scope for planning; sending the email needs a separate explicit user instruction. The brief's 40-minute live discussion is an evaluation activity after submission, not content to script in these documents.
+
+The user explicitly retained deployment for later. No deployment is authorized in the current work; the deployed link and post-deployment checks remain the user's delivery step. A [submission draft](submission/NOTE_DRAFT.md) contains implementation decisions, reflection and AI disclosure, with unmeasured evidence clearly marked pending.
 
 ## 11. Implementation sequence
 

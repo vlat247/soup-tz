@@ -1,0 +1,85 @@
+{
+  "comparedWith": "evidence/charts/source-validation.json",
+  "fingerprints": [
+    {
+      "id": "run-001",
+      "unchanged": true
+    },
+    {
+      "id": "run-002",
+      "unchanged": true
+    },
+    {
+      "id": "run-003",
+      "unchanged": true
+    },
+    {
+      "id": "run-004",
+      "unchanged": true
+    },
+    {
+      "id": "run-005",
+      "unchanged": true
+    },
+    {
+      "id": "run-006",
+      "unchanged": true
+    },
+    {
+      "id": "run-007",
+      "unchanged": true
+    },
+    {
+      "id": "run-008",
+      "unchanged": true
+    },
+    {
+      "id": "run-009",
+      "unchanged": true
+    },
+    {
+      "id": "run-010",
+      "unchanged": true
+    },
+    {
+      "id": "run-011",
+      "unchanged": true
+    },
+    {
+      "id": "run-012",
+      "unchanged": true
+    },
+    {
+      "id": "run-013",
+      "unchanged": true
+    },
+    {
+      "id": "run-014",
+      "unchanged": true
+    },
+    {
+      "id": "run-015",
+      "unchanged": true
+    },
+    {
+      "id": "run-016",
+      "unchanged": true
+    },
+    {
+      "id": "run-017",
+      "unchanged": true
+    },
+    {
+      "id": "run-018",
+      "unchanged": true
+    },
+    {
+      "id": "run-019",
+      "unchanged": true
+    },
+    {
+      "id": "run-020",
+      "unchanged": true
+    }
+  ]
+}

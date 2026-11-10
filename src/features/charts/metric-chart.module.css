@@ -1,0 +1,80 @@
+.chart,
+.plot {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.guideArea {
+  position: absolute;
+  pointer-events: none;
+}
+
+.guide {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  border-left: 1px dashed rgba(230, 213, 183, 0.68);
+}
+
+.empty {
+  position: absolute;
+  inset: 16px 20px 34px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  color: #e6d5b7;
+  font-size: 13px;
+}
+
+.empty p {
+  margin: 0;
+  max-width: 32ch;
+  color: rgba(230, 213, 183, 0.68);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.empty button {
+  min-height: 36px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+}
+
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px 16px;
+  padding: 0 20px 8px;
+  color: rgba(230, 213, 183, 0.68);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.conflictNote {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.conflictSymbol {
+  width: 7px;
+  height: 7px;
+  border: 1.5px solid #e6d5b7;
+  background: var(--chart-surface);
+  transform: rotate(45deg);
+}

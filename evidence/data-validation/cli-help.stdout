@@ -1,0 +1,4 @@
+Usage: npm run data:validate -- [--run <run-id>] [--seed <uint32>]
+Without selectors: validate all 20 fixtures and adversarial seeds 1–40.
+With selectors: validate only the specified cases; flags may repeat or combine.
+Each result includes a replay command. Any failed case produces exit status 1.

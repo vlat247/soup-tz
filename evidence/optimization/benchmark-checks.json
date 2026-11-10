@@ -1,0 +1,39 @@
+[
+  {
+    "command": [
+      "npx",
+      "vitest",
+      "run",
+      "tests/unit/benchmark-protocol.test.ts"
+    ],
+    "exitCode": 0,
+    "recordedAt": "2026-11-09T22:59:23.917751+00:00",
+    "stdout": "benchmark-tests-final.stdout",
+    "stderr": "benchmark-tests-final.stderr"
+  },
+  {
+    "command": [
+      "npx",
+      "eslint",
+      "src/features/benchmark",
+      "src/app/benchmark",
+      "tests/unit/benchmark-protocol.test.ts",
+      "--max-warnings=0"
+    ],
+    "exitCode": 0,
+    "recordedAt": "2026-11-09T22:59:25.908272+00:00",
+    "stdout": "benchmark-lint-final.stdout",
+    "stderr": "benchmark-lint-final.stderr"
+  },
+  {
+    "command": [
+      "npx",
+      "tsc",
+      "--noEmit"
+    ],
+    "exitCode": 0,
+    "recordedAt": "2026-11-09T22:59:28.364366+00:00",
+    "stdout": "benchmark-typecheck-final.stdout",
+    "stderr": "benchmark-typecheck-final.stderr"
+  }
+]

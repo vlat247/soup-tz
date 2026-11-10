@@ -1,0 +1,94 @@
+{
+  "descriptor": {
+    "id": "run-020",
+    "name": "Million-point isolated spike",
+    "status": "completed",
+    "seed": 1020,
+    "rowCount": 1000000,
+    "pattern": "convergence",
+    "fixture": {
+      "injections": [
+        {
+          "step": 500000,
+          "metric": "loss",
+          "value": 12
+        }
+      ]
+    },
+    "scenario": "Steps 0-999999 with one loss spike of exactly 12 at step 500000; other loss values stay below 2.",
+    "generatorVersion": "1.0.0",
+    "sourceVersion": "soup-fixtures-v1",
+    "expectedStepInterval": 1,
+    "snapshotAt": "2026-11-01T12:00:00.000Z",
+    "synthetic": true
+  },
+  "summary": {
+    "rowCount": 1000000,
+    "uniqueSteps": 1000000,
+    "firstStep": 0,
+    "lastStep": 999999,
+    "duplicateRows": 0,
+    "rejectedRows": 0,
+    "gapCount": 0,
+    "missingSteps": 0,
+    "outOfOrder": false,
+    "invalidCounts": {
+      "loss": 0,
+      "lr": 0,
+      "grad_norm": 0
+    },
+    "missingCounts": {
+      "loss": 0,
+      "lr": 0,
+      "grad_norm": 0
+    },
+    "conflictSteps": {
+      "loss": 0,
+      "lr": 0,
+      "grad_norm": 0
+    },
+    "latest": {
+      "loss": {
+        "kind": "finite",
+        "value": 0.13369214665055132
+      },
+      "lr": {
+        "kind": "finite",
+        "value": 0.00009999999999999998
+      },
+      "grad_norm": {
+        "kind": "finite",
+        "value": 0.18781498877331615
+      }
+    },
+    "lastFinite": {
+      "loss": {
+        "step": 999999,
+        "value": 0.13369214665055132
+      },
+      "lr": {
+        "step": 999999,
+        "value": 0.00009999999999999998
+      },
+      "grad_norm": {
+        "step": 999999,
+        "value": 0.18781498877331615
+      }
+    },
+    "extents": {
+      "loss": [
+        0.12604390282337702,
+        12
+      ],
+      "lr": [
+        0.00009999999999999998,
+        0.001
+      ],
+      "grad_norm": [
+        0.13007768054145433,
+        0.8286345596246573
+      ]
+    }
+  },
+  "scope": "Whole-run source summary; finite extrema include duplicate conflicts. Nonfinite readings are explicitly tagged."
+}

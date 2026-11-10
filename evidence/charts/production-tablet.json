@@ -1,0 +1,22 @@
+{
+  "charts": [
+    {
+      "canvas": true,
+      "id": "chart-loss",
+      "width": 734
+    },
+    {
+      "canvas": true,
+      "id": "chart-lr",
+      "width": 358
+    },
+    {
+      "canvas": true,
+      "id": "chart-grad_norm",
+      "width": 358
+    }
+  ],
+  "scrollWidth": 768,
+  "summary": "Latest step999,999Latest loss0.1337Latest learning rate1.00e-4Latest gradient norm0.1878",
+  "width": 768
+}

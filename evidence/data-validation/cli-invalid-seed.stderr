@@ -1,0 +1,11 @@
+RangeError: Seed must be a decimal integer from 0 to 4294967295
+    at selectValidationCases (/Users/vlat247/Desktop/coding/soup-technical/scripts/validation-report.ts:46:15)
+    at main (/Users/vlat247/Desktop/coding/soup-technical/scripts/validate-runs.ts:694:20)
+    at assert (/Users/vlat247/Desktop/coding/soup-technical/scripts/validate-runs.ts:738:5)
+    at Object.<anonymous> (/Users/vlat247/Desktop/coding/soup-technical/scripts/validate-runs.ts:743:1)
+    at Module._compile (node:internal/modules/cjs/loader:1804:14)
+    at Object.transformer (/Users/vlat247/Desktop/coding/soup-technical/node_modules/tsx/dist/register-B1c7OH6V.cjs:22:2188)
+    at Module.load (node:internal/modules/cjs/loader:1525:32)
+    at Module._load (node:internal/modules/cjs/loader:1327:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)

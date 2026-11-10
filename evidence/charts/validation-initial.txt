@@ -1,0 +1,122 @@
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+ ❯ tests/unit/run-validation.test.ts (91 tests | 12 failed) 5484ms
+   ❯ repeatable adversarial source properties (44)
+     × matches independent raw scans for saved seed 35 6ms
+     × matches independent raw scans for saved seed 36 2ms
+   ❯ malformed source boundary checks (11)
+     × rejects declared row count -1 for a one-row source 0ms
+     × rejects declared row count 0 for a one-row source 0ms
+     × rejects declared row count 2 for a one-row source 0ms
+     × rejects declared row count 0.5 for a one-row source 0ms
+     × rejects declared row count NaN for a one-row source 0ms
+     × rejects declared row count Infinity for a one-row source 0ms
+     × rejects nonbinary loss masks instead of silently changing reading meaning 0ms
+     × rejects nonbinary lr masks instead of silently changing reading meaning 0ms
+     × rejects nonbinary grad_norm masks instead of silently changing reading meaning 0ms
+     × also validates masks on rejected-step rows and preserves all bytes on failure 0ms
+
+ Test Files  1 failed (1)
+      Tests  12 failed | 79 passed (91)
+   Start at  01:57:31
+   Duration  5.64s (tests 99%, transform 1%)
+
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/run-validation.test.ts > repeatable adversarial source properties > matches independent raw scans for saved seed 35
+AssertionError: validation lr [58,89] width=7: raw domain
++ actual - expected
+
+  [
++   0,
+-   -0,
+    1e+280
+  ]
+
+
+- Expected
++ Received
+
+  [
+-   -0,
++   0,
+    1e+280,
+  ]
+
+ ❯ auditRun scripts/validate-runs.ts:181:14
+
+ ❯ tests/unit/run-validation.test.ts:22:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL  tests/unit/run-validation.test.ts > repeatable adversarial source properties > matches independent raw scans for saved seed 36
+AssertionError: validation lr [55,86] width=7: raw domain
++ actual - expected
+
+  [
++   0,
+-   -0,
+    1e+280
+  ]
+
+
+- Expected
++ Received
+
+  [
+-   -0,
++   0,
+    1e+280,
+  ]
+
+ ❯ auditRun scripts/validate-runs.ts:181:14
+
+ ❯ tests/unit/run-validation.test.ts:22:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL  tests/unit/run-validation.test.ts > malformed source boundary checks > rejects declared row count -1 for a one-row source
+ FAIL  tests/unit/run-validation.test.ts > malformed source boundary checks > rejects declared row count 0 for a one-row source
+ FAIL  tests/unit/run-validation.test.ts > malformed source boundary checks > rejects declared row count 2 for a one-row source
+ FAIL  tests/unit/run-validation.test.ts > malformed source boundary checks > rejects declared row count 0.5 for a one-row source
+ FAIL  tests/unit/run-validation.test.ts > malformed source boundary checks > rejects declared row count NaN for a one-row source
+ FAIL  tests/unit/run-validation.test.ts > malformed source boundary checks > rejects declared row count Infinity for a one-row source
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/unit/run-validation.test.ts:112:87
+    110|   it.each([-1, 0, 2, 0.5, NaN, Infinity])("rejects declared row count …
+    111|     const run = validationSource([{ step: 0, loss: 1 }]);
+    112|     expect(() => prepareRun({ ...run, descriptor: { ...run.descriptor,…
+       |                                                                                       ^
+    113|   });
+    114|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL  tests/unit/run-validation.test.ts > malformed source boundary checks > rejects nonbinary loss masks instead of silently changing reading meaning
+ FAIL  tests/unit/run-validation.test.ts > malformed source boundary checks > rejects nonbinary lr masks instead of silently changing reading meaning
+ FAIL  tests/unit/run-validation.test.ts > malformed source boundary checks > rejects nonbinary grad_norm masks instead of silently changing reading meaning
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/unit/run-validation.test.ts:118:38
+    116|     const source = validationSource([{ step: 0, loss: 1 }]);
+    117|     source.columns.missing[metric][0] = 2;
+    118|     expect(() => prepareRun(source)).toThrow(RangeError);
+       |                                      ^
+    119|   });
+    120|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL  tests/unit/run-validation.test.ts > malformed source boundary checks > also validates masks on rejected-step rows and preserves all bytes on failure
+AssertionError: expected function to throw an error, but it didn't
+ ❯ tests/unit/run-validation.test.ts:124:38
+    122|     const source = validationSource([{ step: NaN, loss: 7 }]);
+    123|     source.columns.missing.loss[0] = 255;
+    124|     expect(() => prepareRun(source)).toThrow(RangeError);
+       |                                      ^
+    125|     expect(source.columns.missing.loss[0]).toBe(255);
+    126|     expect(source.columns.loss[0]).toBe(7);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+

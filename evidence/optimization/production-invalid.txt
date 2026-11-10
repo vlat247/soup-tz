@@ -1,0 +1,287 @@
+- link "Skip to run details":
+  - /url: "#run-content"
+- complementary "Run navigation":
+  - link "Soup training runs":
+    - /url: /runs
+    - generic: soup
+  - generic: Training runs
+  - generic: "20"
+  - generic: Find a run
+  - textbox "Find a run":
+    - /placeholder: Find a run…
+  - group "Data quality filter":
+    - button "All" [pressed]
+    - button "With issues"
+    - button "Clean"
+  - generic: Filter by run status
+  - combobox "Filter by run status":
+    - option "All statuses" [selected]
+    - option "Running"
+    - option "Completed"
+    - option "Failed"
+  - generic: Sort runs
+  - combobox "Sort runs":
+    - option "Run ID"
+    - option "Name"
+    - option "Last step ↓"
+    - option "Valid loss ↑"
+    - option "Valid loss ↓" [selected]
+  - navigation "Training runs":
+    - link "failed Loss divergence run-007 · Step 5,999 Loss 12.4844":
+      - /url: /runs/run-007
+      - img "failed"
+      - generic: Loss divergence
+      - text: run-007
+      - generic: ·
+      - text: Step 5,999
+      - generic: Loss 12.4844
+    - link "completed Constant metrics run-018 · Step 2,999 Loss 0.75":
+      - /url: /runs/run-018
+      - img "completed"
+      - generic: Constant metrics
+      - text: run-018
+      - generic: ·
+      - text: Step 2,999
+      - generic: Loss 0.75
+    - link "completed Early plateau run-004 · Step 3,999 Loss 0.6314":
+      - /url: /runs/run-004
+      - img "completed"
+      - generic: Early plateau
+      - text: run-004
+      - generic: ·
+      - text: Step 3,999
+      - generic: Loss 0.6314
+    - link "running Slow progress run-003 · Step 7,999 Loss 0.6003":
+      - /url: /runs/run-003
+      - img "running"
+      - generic: Slow progress
+      - text: run-003
+      - generic: ·
+      - text: Step 7,999
+      - generic: Loss 0.6003
+    - link "running Oscillating loss run-005 · Step 3,999 Loss 0.5144":
+      - /url: /runs/run-005
+      - img "running"
+      - generic: Oscillating loss
+      - text: run-005
+      - generic: ·
+      - text: Step 3,999
+      - generic: Loss 0.5144
+    - link "completed Noisy convergence run-006 · Step 5,999 Loss 0.1904":
+      - /url: /runs/run-006
+      - img "completed"
+      - generic: Noisy convergence
+      - text: run-006
+      - generic: ·
+      - text: Step 5,999
+      - generic: Loss 0.1904
+    - link "completed Valid zero readings run-016 · Step 3,999 Loss 0.1498":
+      - /url: /runs/run-016
+      - img "completed"
+      - generic: Valid zero readings
+      - text: run-016
+      - generic: ·
+      - text: Step 3,999
+      - generic: Loss 0.1498
+    - link "running Unstable gradients run-008 · Step 4,999 Loss 0.1484":
+      - /url: /runs/run-008
+      - img "running"
+      - generic: Unstable gradients
+      - text: run-008
+      - generic: ·
+      - text: Step 4,999
+      - generic: Loss 0.1484
+    - link "running Missing step intervals run-014 · Step 4,069 Loss 0.1403 Issues":
+      - /url: /runs/run-014
+      - img "running"
+      - generic: Missing step intervals
+      - text: run-014
+      - generic: ·
+      - text: Step 4,069
+      - generic: Loss 0.1403
+      - generic: Issues
+    - link "failed NaN loss readings run-009 · Step 3,999 Loss NaN Issues Last valid 0.139 at step 3,998":
+      - /url: /runs/run-009
+      - img "failed"
+      - generic: NaN loss readings
+      - text: run-009
+      - generic: ·
+      - text: Step 3,999
+      - generic: Loss NaN
+      - generic: Issues
+      - generic: Last valid 0.139 at step 3,998
+    - link "completed Repeated identical observations run-011 · Step 3,999 Loss 0.1378 Issues":
+      - /url: /runs/run-011
+      - img "completed"
+      - generic: Repeated identical observations
+      - text: run-011
+      - generic: ·
+      - text: Step 3,999
+      - generic: Loss 0.1378
+      - generic: Issues
+    - link "failed Infinite loss readings run-010 · Step 3,999 Loss 0.1376 Issues":
+      - /url: /runs/run-010
+      - img "failed"
+      - generic: Infinite loss readings
+      - text: run-010
+      - generic: ·
+      - text: Step 3,999
+      - generic: Loss 0.1376
+      - generic: Issues
+    - link "completed Million-point isolated spike run-020 · Step 999,999 Loss 0.1337":
+      - /url: /runs/run-020
+      - img "completed"
+      - generic: Million-point isolated spike
+      - text: run-020
+      - generic: ·
+      - text: Step 999,999
+      - generic: Loss 0.1337
+    - link "failed Mixed telemetry defects run-015 · Step 4,034 Loss 0.1333 Issues":
+      - /url: /runs/run-015
+      - img "failed"
+      - generic: Mixed telemetry defects
+      - text: run-015
+      - generic: ·
+      - text: Step 4,034
+      - generic: Loss 0.1333
+      - generic: Issues
+    - link "failed Conflicting duplicate steps run-012 · Step 3,999 Loss 0.1325 Issues":
+      - /url: /runs/run-012
+      - img "failed"
+      - generic: Conflicting duplicate steps
+      - text: run-012
+      - generic: ·
+      - text: Step 3,999
+      - generic: Loss 0.1325
+      - generic: Issues
+    - link "completed Steady convergence run-001 · Step 5,999 Loss 0.1316":
+      - /url: /runs/run-001
+      - img "completed"
+      - generic: Steady convergence
+      - text: run-001
+      - generic: ·
+      - text: Step 5,999
+      - generic: Loss 0.1316
+    - link "completed Out-of-order observations run-013 · Step 4,095 Loss 0.1281 Issues":
+      - /url: /runs/run-013
+      - img "completed"
+      - generic: Out-of-order observations
+      - text: run-013
+      - generic: ·
+      - text: Step 4,095
+      - generic: Loss 0.1281
+      - generic: Issues
+    - link "completed Fast convergence run-002 · Step 4,999 Loss 0.0419":
+      - /url: /runs/run-002
+      - img "completed"
+      - generic: Fast convergence
+      - text: run-002
+      - generic: ·
+      - text: Step 4,999
+      - generic: Loss 0.0419
+    - link "completed Negative loss values run-017 · Step 3,999 Loss -0.7994":
+      - /url: /runs/run-017
+      - img "completed"
+      - generic: Negative loss values
+      - text: run-017
+      - generic: ·
+      - text: Step 3,999
+      - generic: Loss -0.7994
+    - link "failed No finite loss run-019 · Step 2,999 Loss NaN Issues Last valid —" [active]:
+      - /url: /runs/run-019
+      - img "failed"
+      - generic: No finite loss
+      - text: run-019
+      - generic: ·
+      - text: Step 2,999
+      - generic: Loss NaN
+      - generic: Issues
+      - generic: Last valid —
+  - status: 20 of 20 runs
+  - button "Synthetic data":
+    - text: Synthetic data
+- main:
+  - generic: run-019
+  - text: failed
+  - heading "No finite loss" [level=1]
+  - generic "Snapshot Nov 1, 12:00 UTC":
+    - generic: Snapshot Nov 1, 12:00 UTC
+  - generic: /
+  - generic: 3,000 observations
+  - button "Reload":
+    - generic: Reload
+  - button "Export summary":
+    - generic: Export summary
+  - region "Whole-run latest readings":
+    - generic: Latest step
+    - strong: 2,999
+    - generic: Latest loss
+    - strong: NaN
+    - generic: No finite observations
+    - generic: Latest learning rate
+    - strong: "1.00e-4"
+    - generic: Latest gradient norm
+    - strong: "0.1584"
+  - tablist "Run view":
+    - tab "Metrics" [selected]:
+      - text: Metrics
+    - tab "Data quality 3,000":
+      - text: Data quality
+      - generic: 3,000
+  - tabpanel "Metrics":
+    - button "All steps"
+    - button "Last 25%"
+    - button "Last 10%"
+    - generic "0 — 2,999":
+      - text: "0"
+      - generic: —
+      - text: 2,999
+    - button "Zoom out" [disabled]:
+    - button "Zoom in":
+    - generic: 3,000 invalid readings — across the whole run
+    - button "Review":
+      - text: Review
+    - region "Loss":
+      - heading "Loss" [level=2]: Loss
+      - generic: Visible max
+      - strong: —
+      - status:
+        - generic: No finite readings in this interval
+        - paragraph: Invalid and missing values remain available in the inspector.
+      - generic: Training step
+    - region "Learning rate":
+      - heading "Learning rate" [level=2]: Learning rate
+      - generic: Visible max
+      - strong: "1.00e-3"
+      - img "Learning rate from step 0 to 2999. 3000 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings."
+      - generic: Training step
+    - region "Gradient norm":
+      - heading "Gradient norm" [level=2]: Gradient norm
+      - generic: Visible max
+      - strong: "0.8287"
+      - img "Gradient norm from step 0 to 2999. 3000 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings."
+      - generic: Training step
+    - region "Original observation inspector":
+      - heading "Observation inspector" [level=2]
+      - generic: Step
+      - spinbutton "Step"
+      - button "Inspect"
+      - status
+      - group "Selected observation; use left and right arrow keys to move between recorded steps":
+        - generic: Step
+        - strong: 2,999
+        - button "Previous observation":
+        - button "Next observation" [disabled]:
+        - generic: Loss
+        - strong: NaN
+        - generic: Learning rate
+        - strong: "1.00e-4"
+        - generic: Gradient norm
+        - strong: "0.1584"
+      - generic "Exact source readings 1 row":
+        - text: Exact source readings
+        - generic: 1 row
+  - generic: 3,000 observations in view
+  - generic "How points are shown"
+  - status: No finite loss loaded. 3000 source observations.
+- alert: No finite loss · soup

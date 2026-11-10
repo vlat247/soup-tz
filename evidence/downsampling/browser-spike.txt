@@ -1,0 +1,91 @@
+Browser tab: 9, Title: "Million-point isolated spike · soup", URL: "http://127.0.0.1:3001/runs/run-020".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 153-157
++				162 container
++					163 button (expanded) Samples in this chart column 2,618 observations, Secondary Actions: Collapse
++						164 text Samples in this chart column
++						165 text 2,618
++						166 text  observations
++						167 image
++					168 text Steps 500,000–502,617
++					169 container Chart column source statistics
++						170 table
++							171 row
++								172 cell
++									173 text Metric
++								174 cell
++									175 text Minimum · step
++								176 cell
++									177 text Maximum · step
++								178 cell
++									179 text Finite
++								180 cell
++									181 text Invalid
++								182 cell
++									183 text Missing
++								184 cell
++									185 text Conflicting steps
++							186 row
++								187 cell
++									188 text Loss
++								189 cell
++									190 button Description: Inspect Loss minimum 0.24355024973514422 at step 502592, source row 502592, Help: 0.24355024973514422 · source row 502592
++										191 text 0.2436
++										192 text at 
++										193 text 502,592
++								194 cell
++									195 button Description: Inspect Loss maximum 12 at step 500000, source row 500000, Help: 12 · source row 500000
++										196 text 12
++										197 text at 
++										198 text 500,000
++								199 cell
++									200 text 2,618
++								201 cell
++									202 text 0
++								203 cell
++									204 text 0
++								205 cell
++									206 text 0
++							207 row
++								208 cell
++									209 text Learning rate
++								210 cell
++									211 button Description: Inspect Learning rate minimum 0.0005476442476442476 at step 502617, source row 502617, Help: 0.0005476442476442476 · source row 502617
++										212 text 5.48e-4
++										213 text at 
++										214 text 502,617
++								215 cell
++									216 button Description: Inspect Learning rate maximum 0.00054999954999955 at step 500000, source row 500000, Help: 0.00054999954999955 · source row 500000
++										217 text 5.50e-4
++										218 text at 
++										219 text 500,000
++								220 cell
++									221 text 2,618
++								222 cell
++									223 text 0
++								224 cell
++									225 text 0
++								226 cell
++									227 text 0
++							228 row
++								229 cell
++									230 text Gradient norm
++								231 cell
++									232 button Description: Inspect Gradient norm minimum 0.235856616382878 at step 502545, source row 502545, Help: 0.235856616382878 · source row 502545
++										233 text 0.2359
++										234 text at 
++										235 text 502,545
++								236 cell
++									237 button Description: Inspect Gradient norm maximum 0.29625993252909044 at step 500162, source row 500162, Help: 0.29625993252909044 · source row 500162
++										238 text 0.2963
++										239 text at 
++										240 text 500,162
++								241 cell
++									242 text 2,618
++								243 cell
++									244 text 0
++								245 cell
++									246 text 0
++								247 cell
++									248 text 0
+The focused UI element is 163 button (expanded) Samples in this chart column 2,618 observations, Secondary Actions: Collapse

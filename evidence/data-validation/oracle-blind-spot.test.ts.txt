@@ -1,0 +1,25 @@
+import { expect, it, vi } from "vitest";
+
+vi.mock("../../src/features/runs/model/reduce", async (importOriginal) => {
+  const original = await importOriginal<typeof import("../../src/features/runs/model/reduce")>();
+  return {
+    ...original,
+    // Return coherent data for the WRONG interval to test the independent audit.
+    buildFrame: ((run, requested, mode) => original.buildFrame(
+      run,
+      { ...requested, start: 0, end: 0 },
+      mode,
+    )) as typeof original.buildFrame,
+  };
+});
+
+import { auditRun, validationSource } from "../../scripts/validate-runs";
+
+it("rejects a coherent frame for the wrong requested viewport", () => {
+  const source = validationSource([
+    { step: 0, loss: 1 },
+    { step: 1, loss: 100 },
+    { step: 2, loss: 2 },
+  ]);
+  expect(() => auditRun(source, [{ start: 1, end: 2, width: 10 }])).toThrow();
+});

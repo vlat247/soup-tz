@@ -1,0 +1,324 @@
+[
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\n\n1 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n1 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n1 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "One visible marker in each chart, centered at step 7.",
+    "overflow": false,
+    "rows": 1,
+    "scenario": "singleton"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\nNo finite readings in this interval\n\nInvalid and missing values remain available in the inspector.\n\n0 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\nNo finite readings in this interval\n\nInvalid and missing values remain available in the inspector.\n\n0 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\nNo finite readings in this interval\n\nInvalid and missing values remain available in the inspector.\n\n0 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "No line or invented measurements; all charts report no finite readings.",
+    "overflow": false,
+    "rows": 0,
+    "scenario": "empty"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "Horizontal lines with distinct axis labels.",
+    "overflow": false,
+    "rows": 1,
+    "scenario": "constant"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\nNo finite readings in this interval\n\nInvalid and missing values remain available in the inspector.\n\n0 finite · 3 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "Loss is empty; learning rate and gradient norm remain valid.",
+    "overflow": false,
+    "rows": 1,
+    "scenario": "invalid"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\n\n3 finite · 2 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n5 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n5 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "Three separate loss markers, with no bridges across invalid steps.",
+    "overflow": false,
+    "rows": 1,
+    "scenario": "islands"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\n\n4 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n4 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n4 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "Every metric breaks between steps 1 and 100.",
+    "overflow": false,
+    "rows": 1,
+    "scenario": "gap"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\nConflict min / max\n\n4 finite · 1 invalid · 1 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n5 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n5 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "Loss breaks at step 1, showing conflict extremes 1 and 100; other metrics remain continuous.",
+    "overflow": false,
+    "rows": 1,
+    "scenario": "conflict"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "Zero and negative readings keep their actual positions on a linear scale.",
+    "overflow": false,
+    "rows": 1,
+    "scenario": "zero-negative"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "Three distinct finite levels; exact values remain inspectable.",
+    "overflow": false,
+    "rows": 1,
+    "scenario": "subnormal"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "A rising line with finite coordinates and scientific tick labels.",
+    "overflow": false,
+    "rows": 1,
+    "scenario": "tiny"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "Three distinct levels around 1, without duplicate or clipped tick labels.",
+    "overflow": false,
+    "rows": 1,
+    "scenario": "adjacent"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n3 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "Finite plotted coordinates despite an overflowing raw range subtraction.",
+    "overflow": false,
+    "rows": 1,
+    "scenario": "huge"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\nDisconnected extrema\n\n3000 finite · 3000 invalid · 0 conflicting steps · ranges"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n6000 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n6000 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "Disconnected extrema at small drawing budgets; no fabricated connected path.",
+    "overflow": false,
+    "rows": 1,
+    "scenario": "fragmented"
+  },
+  {
+    "charts": [
+      {
+        "canvas": true,
+        "name": "Loss diagnostic",
+        "text": "Loss\nConflict min / max\n\n45 finite · 0 invalid · 1 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Learning rate diagnostic",
+        "text": "Learning rate\n\n45 finite · 0 invalid · 0 conflicting steps · line"
+      },
+      {
+        "canvas": true,
+        "name": "Gradient norm diagnostic",
+        "text": "Gradient norm\n\n45 finite · 0 invalid · 0 conflicting steps · line"
+      }
+    ],
+    "expectation": "Conflict extremes 1 and 45; all 45 rows accessible in pages of 20, 20 and 5.",
+    "overflow": false,
+    "rows": 20,
+    "scenario": "pagination"
+  }
+]

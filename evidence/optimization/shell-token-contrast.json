@@ -1,0 +1,112 @@
+{
+  "scope": "Dashboard shell token pairs only; not a full rendered-browser accessibility audit.",
+  "method": "WCAG sRGB relative luminance and contrast ratio. CSS color-mix(in srgb) values calculated without integer rounding from src/app/globals.css; no screenshots or browser-computed style measurements.",
+  "colors": {
+    "black": [
+      0,
+      0,
+      0
+    ],
+    "cream": [
+      230,
+      213,
+      183
+    ],
+    "secondary": [
+      188.6,
+      174.66,
+      150.06
+    ],
+    "muted": [
+      156.4,
+      144.84,
+      124.44000000000001
+    ],
+    "controlBorder": [
+      105.80000000000001,
+      97.98,
+      84.18
+    ],
+    "surface": [
+      6.8999999999999995,
+      6.39,
+      5.49
+    ],
+    "hover": [
+      18.400000000000002,
+      17.04,
+      14.64
+    ],
+    "orange": [
+      245,
+      79,
+      27
+    ]
+  },
+  "results": [
+    {
+      "usage": "primary text",
+      "foreground": "cream",
+      "background": "black",
+      "contrastRatio": 14.5661,
+      "threshold": 4.5,
+      "passes": true
+    },
+    {
+      "usage": "secondary text on hovered run",
+      "foreground": "secondary",
+      "background": "hover",
+      "contrastRatio": 8.7102,
+      "threshold": 4.5,
+      "passes": true
+    },
+    {
+      "usage": "muted metadata on hovered run",
+      "foreground": "muted",
+      "background": "hover",
+      "contrastRatio": 6.066,
+      "threshold": 4.5,
+      "passes": true
+    },
+    {
+      "usage": "search placeholder",
+      "foreground": "muted",
+      "background": "surface",
+      "contrastRatio": 6.5013,
+      "threshold": 4.5,
+      "passes": true
+    },
+    {
+      "usage": "input boundary",
+      "foreground": "controlBorder",
+      "background": "surface",
+      "contrastRatio": 3.3543,
+      "threshold": 3,
+      "passes": true
+    },
+    {
+      "usage": "control boundary on hover",
+      "foreground": "controlBorder",
+      "background": "hover",
+      "contrastRatio": 3.1297,
+      "threshold": 3,
+      "passes": true
+    },
+    {
+      "usage": "keyboard focus on selected run",
+      "foreground": "orange",
+      "background": "hover",
+      "contrastRatio": 5.4028,
+      "threshold": 3,
+      "passes": true
+    },
+    {
+      "usage": "button label",
+      "foreground": "black",
+      "background": "secondary",
+      "contrastRatio": 9.6999,
+      "threshold": 4.5,
+      "passes": true
+    }
+  ]
+}

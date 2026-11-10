@@ -11,9 +11,21 @@
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "next typegen && tsc --noEmit",
-    "check": "npm run lint && npm run typecheck && npm run build"
+    "test": "vitest run tests/unit",
+    "test:watch": "vitest tests/unit",
+    "data:inspect": "node --import tsx scripts/inspect-runs.ts",
+    "data:validate": "node --import tsx scripts/validate-runs.ts",
+    "bench:reduction": "node --import tsx scripts/benchmark-reduction.ts",
+    "validate:presentation": "node --import tsx scripts/validate-presentation.ts",
+    "data:catalog": "node --import tsx scripts/generate-run-catalog.ts",
+    "data:catalog:check": "node --import tsx scripts/generate-run-catalog.ts --check",
+    "check": "npm run lint && npm run typecheck && npm run test && npm run data:catalog:check && npm run build"
   },
   "dependencies": {
+    "@fontsource-variable/geist": "5.3.0",
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "@phosphor-icons/react": "2.1.10",
+    "echarts": "6.1.0",
     "next": "16.4.5",
     "react": "19.3.1",
     "react-dom": "19.3.1"
@@ -24,6 +36,8 @@
     "@types/react-dom": "19.3.0",
     "eslint": "9.39.5",
     "eslint-config-next": "16.4.5",
-    "typescript": "6.0.3"
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "vitest": "5.1.0"
   }
 }

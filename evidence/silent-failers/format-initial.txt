@@ -1,0 +1,38 @@
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+ ❯ tests/unit/format.test.ts (3 tests | 3 failed) 5ms
+   ❯ finite numeric presentation (3)
+     × does not label finite 1.7976931348623157e+308 as an overflowing scientific value 4ms
+     × does not label finite -1.7976931348623157e+308 as an overflowing scientific value 0ms
+     × does not label finite 1.797e+308 as an overflowing scientific value 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/format.test.ts > finite numeric presentation > does not label finite 1.7976931348623157e+308 as an overflowing scientific value
+ FAIL  tests/unit/format.test.ts > finite numeric presentation > does not label finite -1.7976931348623157e+308 as an overflowing scientific value
+ FAIL  tests/unit/format.test.ts > finite numeric presentation > does not label finite 1.797e+308 as an overflowing scientific value
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/unit/format.test.ts:9:68
+      7|       for (const metric of [undefined, "loss", "lr", "grad_norm"] as c…
+      8|         const label = formatValue(value, metric);
+      9|         expect(Number.isFinite(Number(label.replaceAll(",", "")))).toB…
+       |                                                                    ^
+     10|         expect(Math.sign(Number(label))).toBe(Math.sign(value));
+     11|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  03:33:10
+   Duration  104ms (transform 48%, import 23%, tests 20%, worker 8%)
+

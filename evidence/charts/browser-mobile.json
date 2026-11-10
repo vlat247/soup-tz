@@ -1,0 +1,14 @@
+{
+  "details": [
+    {
+      "bounds": {
+        "left": 16,
+        "right": 199.4765625
+      },
+      "text": "Snapshot Nov 1, 12:00 UTCDataset versionsoup-fixtures-v1Source snapshot2026-11-01 12:00:00 UTCLast successful load2026-11-09 21:09:30 UTC"
+    }
+  ],
+  "document": 360,
+  "inspection": "Observation inspectorStepInspectStep 620. Loss 0.6409. Learning rate 8.63e-4. Gradient norm 0.4782. Requested step is in a missing interval; showing the nearest recorded step.Step620Loss0.6409Learning rate8.63e-4Gradient norm0.4782The requested step is in a missing interval. Showing the nearest recorded step, 620.Exact source readings 1 rowSource rowLossLearning rateGradient norm6000.64085284696836030.00086286556893585640.4781537616914411",
+  "viewport": 360
+}

@@ -1,0 +1,21 @@
+{
+  "charts": [
+    {
+      "chart": "chart-loss",
+      "description": "Loss from step 0 to 999999. 1000000 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.",
+      "visible": "visible"
+    },
+    {
+      "chart": "chart-lr",
+      "description": "Learning rate from step 0 to 999999. 1000000 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.",
+      "visible": "visible"
+    },
+    {
+      "chart": "chart-grad_norm",
+      "description": "Gradient norm from step 0 to 999999. 1000000 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.",
+      "visible": "visible"
+    }
+  ],
+  "pageWidth": 360,
+  "width": 360
+}

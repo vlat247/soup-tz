@@ -1,0 +1,115 @@
+Browser tab: 10, Title: "Silent failure diagnostics · soup", URL: "http://127.0.0.1:3000/diagnostics/silent-failures".
+0 AXWebArea Silent failure diagnostics · soup, URL: 127.0.0.1:3000/diagnostics/silent-failures
+	1 container
+		2 link Description: Back to runs, Value: 127.0.0.1:3000/runs
+		3 heading Silent failure diagnostics, Value: 1
+			4 text Silent failure diagnostics
+		5 text Development only. These controls wrap real worker replies and the real charts. Requests expire after 10 seconds here; the dashboard default is 30 seconds.
+		6 container Diagnostic run selection
+			7 checkbox Run A · steady, Value: 0
+			8 checkbox Run B · fast, Value: 1
+		9 button Hold next load
+		10 button Hold next range
+		11 button Hold next inspection
+		12 button Fail next load
+		13 button Drop next load
+		14 button Corrupt next range
+		15 button (disabled) Release oldest reply
+		16 button Fail next loss draw
+		17 checkbox Hide dashboard, Value: 0
+		18 container
+			19 text No transport fault armed. 0  held replies.
+		20 button (collapsed) Replay instructions and event log, Secondary Actions: Expand
+			21 text Replay instructions and event log
+		22 text run-002
+		23 image
+		24 text Completed
+		25 heading Fast convergence, Value: 1
+			26 text Fast convergence
+		27 button (expanded) Snapshot Nov 1, 12:00 UTC, Secondary Actions: Collapse
+			28 image
+			29 text Snapshot 
+			30 text Nov 1, 12:00 UTC
+			31 image
+		32 text / 5,000  observations
+		33 button Reload, Help: Reload the same source snapshot
+			34 image
+			35 text Reload
+		36 button Export summary
+			37 image
+			38 text Export summary
+		39 container Whole-run latest readings
+			40 text Latest step
+			41 text 4,999
+			42 container
+				43 text Latest  loss
+			44 text 0.0419
+			45 container
+				46 text Latest  learning rate
+			47 text 1.00e-4
+			48 container
+				49 text Latest  gradient norm
+			50 text 0.1897
+		51 tab group Run view
+			52 tab (selected, settable, boolean) Metrics, ID: metrics-tab, Value: 1
+Metrics
+			53 tab (selectable, settable, boolean) Data quality, ID: quality-tab, Value: 0
+Data quality
+		133 image
+		134 text Unable to update this run
+		135 container
+			136 text Run processing did not respond. Reload the run to try again.  The previous snapshot is still shown.
+		137 button Try again
+		60 container Description: Metrics, ID: metrics-panel
+			61 button All steps
+			62 button Last 25%
+			63 button Last 10%
+			64 container
+				65 button (collapsed) 0 — 4,999, Secondary Actions: Expand
+					66 image
+					67 text 0
+					68 text —
+					69 text 4,999
+					70 image
+			71 button (disabled) Zoom out
+				72 image
+			73 button Zoom in
+				74 image
+			75 container Loss
+				76 heading Loss, Value: 2, ID: loss-title
+					77 text Loss
+				78 text Visible max
+				79 text 1.7987
+				80 container Loss from step 0 to 4999. 5000 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				81 text Training step
+			82 container Learning rate
+				83 heading Learning rate, Value: 2, ID: lr-title
+					84 text Learning rate
+				85 text Visible max
+				86 text 1.00e-3
+				87 container Learning rate from step 0 to 4999. 5000 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				88 text Training step
+			89 container Gradient norm
+				90 heading Gradient norm, Value: 2, ID: grad_norm-title
+					91 text Gradient norm
+				92 text Visible max
+				93 text 0.8155
+				94 container Gradient norm from step 0 to 4999. 5000 finite readings; 0 invalid, 0 missing, 0 conflicting steps. Linear scale without smoothing. Axis labels show source values. Use the observation inspector for exact readings.
+				95 text Training step
+			96 container Original observation inspector
+				97 image
+				98 heading Observation inspector, Value: 2
+					99 text Observation inspector
+				100 container
+					101 text Step
+					102 stepper (settable, integer) Step, Value: 200, ID: inspect-step
+					103 button Inspect
+				132 text Hover over a chart or enter a step to inspect its original readings.
+		127 text 5,000 observations in view
+		128 button (collapsed) How points are shown, Secondary Actions: Expand
+			129 text How points are shown
+		57 text Run processing error.
+	58 pop up button (collapsed) Description: Open Next.js Dev Tools, ID: next-logo, Secondary Actions: Expand
+		59 image
+
+The focused UI element is 0 AXWebArea Silent failure diagnostics · soup, URL: 127.0.0.1:3000/diagnostics/silent-failures

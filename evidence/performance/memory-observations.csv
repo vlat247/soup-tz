@@ -1,0 +1,8 @@
+variant,phase,footprint_chrome_display,js_allocated_display,js_live_display,renderer_pid,captured_at_utc,artifact
+raw,empty,48.3 MB,"3,840K","3,293K",24360,2026-11-10T09:01:09.773Z,raw-memory-empty
+raw,load observation,1.4 GB,"1,177,472K","1,121,180K",24360,2026-11-10T09:01:45.079Z,raw-memory-load-observation
+raw,loaded >=30s,1.4 GB,"981,856K","941,606K",24360,2026-11-10T09:02:40.216Z,raw-memory-loaded-30s
+raw,unloaded >=30s,1.4 GB,"982,368K","941,706K",24360,2026-11-10T09:03:21.352Z,raw-memory-unloaded-30s
+optimized,empty,44.5 MB,"3,840K","3,169K",24693,2026-11-10T09:04:36.205Z,optimized-memory-empty
+optimized,load observation,109 MB,not sampled,not sampled,24693,2026-11-10T09:04:41.864Z,optimized-memory-load-observation
+optimized,loaded >=30s,103 MB,"8,448K","7,116K",24693,2026-11-10T09:05:49.927Z,optimized-memory-loaded-30s

@@ -1,0 +1,147 @@
+[
+  {
+    "i": 0,
+    "x": 204,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499003 · Loss 0.2501361839438483 · Learning rate 0.000550896850896851 · Gradient norm 0.2898271889104452"
+  },
+  {
+    "i": 1,
+    "x": 650,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499589 · Loss 0.2515123562215415 · Learning rate 0.0005503694503694503 · Gradient norm 0.25735872399740106"
+  },
+  {
+    "i": 2,
+    "x": 963,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499996 · Loss 0.24951157373630642 · Learning rate 0.0005500031500031501 · Gradient norm 0.2606737162371038"
+  },
+  {
+    "i": 3,
+    "x": 1250,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 500377 · Loss 0.2669882061707418 · Learning rate 0.0005496602496602496 · Gradient norm 0.25563633225196464"
+  },
+  {
+    "i": 4,
+    "x": 1720,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 500992 · Loss 0.2624607497938069 · Learning rate 0.0005491067491067491 · Gradient norm 0.286026814601524"
+  },
+  {
+    "i": 5,
+    "x": 204,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499000 · Loss 0.26380599560816886 · Learning rate 0.0005508995508995509 · Gradient norm 0.2612210798873036"
+  },
+  {
+    "i": 6,
+    "x": 650,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499586 · Loss 0.24896876070973797 · Learning rate 0.0005503721503721504 · Gradient norm 0.24197680100091704"
+  },
+  {
+    "i": 7,
+    "x": 963,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499996 · Loss 0.24951157373630642 · Learning rate 0.0005500031500031501 · Gradient norm 0.2606737162371038"
+  },
+  {
+    "i": 8,
+    "x": 1250,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 500375 · Loss 0.2630514981574426 · Learning rate 0.0005496620496620497 · Gradient norm 0.25593849457089884"
+  },
+  {
+    "i": 9,
+    "x": 1720,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 500992 · Loss 0.2624607497938069 · Learning rate 0.0005491067491067491 · Gradient norm 0.286026814601524"
+  },
+  {
+    "i": 10,
+    "x": 204,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499000 · Loss 0.26380599560816886 · Learning rate 0.0005508995508995509 · Gradient norm 0.2612210798873036"
+  },
+  {
+    "i": 11,
+    "x": 650,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499586 · Loss 0.24896876070973797 · Learning rate 0.0005503721503721504 · Gradient norm 0.24197680100091704"
+  },
+  {
+    "i": 12,
+    "x": 963,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499996 · Loss 0.24951157373630642 · Learning rate 0.0005500031500031501 · Gradient norm 0.2606737162371038"
+  },
+  {
+    "i": 13,
+    "x": 1250,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 500375 · Loss 0.2630514981574426 · Learning rate 0.0005496620496620497 · Gradient norm 0.25593849457089884"
+  },
+  {
+    "i": 14,
+    "x": 1720,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 500992 · Loss 0.2624607497938069 · Learning rate 0.0005491067491067491 · Gradient norm 0.286026814601524"
+  },
+  {
+    "i": 15,
+    "x": 204,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499003 · Loss 0.2501361839438483 · Learning rate 0.000550896850896851 · Gradient norm 0.2898271889104452"
+  },
+  {
+    "i": 16,
+    "x": 650,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499586 · Loss 0.24896876070973797 · Learning rate 0.0005503721503721504 · Gradient norm 0.24197680100091704"
+  },
+  {
+    "i": 17,
+    "x": 963,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499996 · Loss 0.24951157373630642 · Learning rate 0.0005500031500031501 · Gradient norm 0.2606737162371038"
+  },
+  {
+    "i": 18,
+    "x": 1250,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 500377 · Loss 0.2669882061707418 · Learning rate 0.0005496602496602496 · Gradient norm 0.25563633225196464"
+  },
+  {
+    "i": 19,
+    "x": 1720,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 500992 · Loss 0.2624607497938069 · Learning rate 0.0005491067491067491 · Gradient norm 0.286026814601524"
+  },
+  {
+    "i": 20,
+    "x": 204,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499000 · Loss 0.26380599560816886 · Learning rate 0.0005508995508995509 · Gradient norm 0.2612210798873036"
+  },
+  {
+    "i": 21,
+    "x": 650,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499586 · Loss 0.24896876070973797 · Learning rate 0.0005503721503721504 · Gradient norm 0.24197680100091704"
+  },
+  {
+    "i": 22,
+    "x": 963,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499996 · Loss 0.24951157373630642 · Learning rate 0.0005500031500031501 · Gradient norm 0.2606737162371038"
+  },
+  {
+    "i": 23,
+    "x": 1250,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 500375 · Loss 0.2630514981574426 · Learning rate 0.0005496620496620497 · Gradient norm 0.25593849457089884"
+  },
+  {
+    "i": 24,
+    "x": 1720,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 500995 · Loss 0.2511663281125786 · Learning rate 0.0005491040491040491 · Gradient norm 0.24333931113802626"
+  },
+  {
+    "i": 25,
+    "x": 204,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499000 · Loss 0.26380599560816886 · Learning rate 0.0005508995508995509 · Gradient norm 0.2612210798873036"
+  },
+  {
+    "i": 26,
+    "x": 650,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499586 · Loss 0.24896876070973797 · Learning rate 0.0005503721503721504 · Gradient norm 0.24197680100091704"
+  },
+  {
+    "i": 27,
+    "x": 963,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 499996 · Loss 0.24951157373630642 · Learning rate 0.0005500031500031501 · Gradient norm 0.2606737162371038"
+  },
+  {
+    "i": 28,
+    "x": 1250,
+    "state": "~\t\t\t\t\t\t\t272 text Variant locked for this report. Export results and reload to compare the other variant. Ready — sample complete 1,000,000  source rows 6,003  drawing entries 327  reduction columns Steps  499000–501000 Step 500375 · Loss 0.2630514981574426 · Learning rate 0.0005496620496620497 · Gradient norm 0.25593849457089884"
+  }
+]

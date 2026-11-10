@@ -1,0 +1,218 @@
+{
+  "sourceRevision": "0eb0e3d",
+  "method": "Load/zoom: last same-frame Paint before completion marker (conservative complete update). Inspection/hover: first Paint after inspector DOM commit. Neither is physical display latency.",
+  "variants": {
+    "raw": {
+      "interactionViewport": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "hardwareConcurrency": 8,
+        "width": 915,
+        "height": 837,
+        "dpr": 2,
+        "charts": [
+          {
+            "metric": "loss",
+            "width": 849,
+            "height": 260
+          },
+          {
+            "metric": "lr",
+            "width": 416,
+            "height": 220
+          },
+          {
+            "metric": "grad_norm",
+            "width": 416,
+            "height": 220
+          }
+        ],
+        "timeOrigin": 1794300042459.3
+      },
+      "scriptedAndPointerSamples": {
+        "load": {
+          "attempted": 1,
+          "passed": 1,
+          "failed": 0,
+          "medianMs": 9634.70000000298,
+          "p95Ms": 9634.70000000298
+        },
+        "zoom": {
+          "attempted": 30,
+          "passed": 30,
+          "failed": 0,
+          "medianMs": 39.650000005960464,
+          "p95Ms": 1025.1000000089407
+        },
+        "inspection": {
+          "attempted": 30,
+          "passed": 30,
+          "failed": 0,
+          "medianMs": 32.8500000089407,
+          "p95Ms": 33.80000001192093
+        },
+        "hover": {
+          "attempted": 30,
+          "passed": 30,
+          "failed": 0,
+          "medianMs": 38.75,
+          "p95Ms": 112.70000000298023
+        }
+      },
+      "tracePaint": {
+        "load": {
+          "n": 1,
+          "medianMs": 9548.651,
+          "p95Ms": 9548.651,
+          "minMs": 9548.651,
+          "maxMs": 9548.651
+        },
+        "zoom": {
+          "n": 30,
+          "medianMs": 34.6705,
+          "p95Ms": 909.226,
+          "minMs": 19.694,
+          "maxMs": 1264.497
+        },
+        "inspection": {
+          "n": 30,
+          "medianMs": 17.281,
+          "p95Ms": 17.996,
+          "minMs": 13.549,
+          "maxMs": 18.219
+        },
+        "hover": {
+          "n": 30,
+          "medianMs": 29.8825,
+          "p95Ms": 100.577,
+          "minMs": 12.529,
+          "maxMs": 306.949
+        }
+      },
+      "ignoredBusyPointerMoves": 23,
+      "filmstrip": {
+        "traceScreenshotUs": 93024607164,
+        "afterPaintMs": 93.762
+      },
+      "coldNavigationToPaint": {
+        "n": 5,
+        "medianMs": 13630.109,
+        "p95Ms": 14874.433,
+        "minMs": 8906.112,
+        "maxMs": 14874.433
+      },
+      "coldFcp": {
+        "n": 5,
+        "medianMs": 124,
+        "p95Ms": 328,
+        "minMs": 96,
+        "maxMs": 328
+      }
+    },
+    "optimized": {
+      "interactionViewport": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "hardwareConcurrency": 8,
+        "width": 915,
+        "height": 837,
+        "dpr": 2,
+        "charts": [
+          {
+            "metric": "loss",
+            "width": 849,
+            "height": 260
+          },
+          {
+            "metric": "lr",
+            "width": 416,
+            "height": 220
+          },
+          {
+            "metric": "grad_norm",
+            "width": 416,
+            "height": 220
+          }
+        ],
+        "timeOrigin": 1794300455114.3
+      },
+      "scriptedAndPointerSamples": {
+        "load": {
+          "attempted": 1,
+          "passed": 1,
+          "failed": 0,
+          "medianMs": 680,
+          "p95Ms": 680
+        },
+        "zoom": {
+          "attempted": 30,
+          "passed": 30,
+          "failed": 0,
+          "medianMs": 35.04999999701977,
+          "p95Ms": 87.59999999403954
+        },
+        "inspection": {
+          "attempted": 30,
+          "passed": 30,
+          "failed": 0,
+          "medianMs": 32.599999994039536,
+          "p95Ms": 33.5
+        },
+        "hover": {
+          "attempted": 30,
+          "passed": 30,
+          "failed": 0,
+          "medianMs": 35,
+          "p95Ms": 68.09999999403954
+        }
+      },
+      "tracePaint": {
+        "load": {
+          "n": 1,
+          "medianMs": 668.495,
+          "p95Ms": 668.495,
+          "minMs": 668.495,
+          "maxMs": 668.495
+        },
+        "zoom": {
+          "n": 30,
+          "medianMs": 30.7265,
+          "p95Ms": 84.004,
+          "minMs": 19.125,
+          "maxMs": 170.809
+        },
+        "inspection": {
+          "n": 30,
+          "medianMs": 16.866,
+          "p95Ms": 17.85,
+          "minMs": 12.351,
+          "maxMs": 18.396
+        },
+        "hover": {
+          "n": 30,
+          "medianMs": 21.151,
+          "p95Ms": 55.804,
+          "minMs": 16.358,
+          "maxMs": 70.533
+        }
+      },
+      "ignoredBusyPointerMoves": 27,
+      "filmstrip": {
+        "traceScreenshotUs": 93420399109,
+        "afterPaintMs": 20.301
+      },
+      "coldNavigationToPaint": {
+        "n": 5,
+        "medianMs": 863.852,
+        "p95Ms": 1214.5,
+        "minMs": 747.788,
+        "maxMs": 1214.5
+      },
+      "coldFcp": {
+        "n": 5,
+        "medianMs": 132,
+        "p95Ms": 236,
+        "minMs": 88,
+        "maxMs": 236
+      }
+    }
+  }
+}

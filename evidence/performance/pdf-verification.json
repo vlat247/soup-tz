@@ -1,0 +1,9 @@
+{
+  "artifact": "output/pdf/soup-submission-note.pdf",
+  "pageCount": 2,
+  "pageSize": "A4",
+  "source": "docs/submission/SUBMISSION.md",
+  "renderer": "ReportLab; Poppler PNG at 120 dpi",
+  "visualReview": "Both final pages inspected; no clipping, overlaps, broken tables or missing glyphs. Links and footer/page numbers present.",
+  "limits": "Not a tagged accessible PDF; Markdown source also provided."
+}

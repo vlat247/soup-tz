@@ -1,0 +1,910 @@
+{
+  "schemaVersion": 1,
+  "variant": "raw",
+  "run": {
+    "id": "run-020",
+    "seed": 1020,
+    "rows": 1000000,
+    "sourceVersion": "soup-fixtures-v1",
+    "generatorVersion": "1.0.0",
+    "expectedPeak": {
+      "step": 500000,
+      "loss": 12
+    }
+  },
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+    "hardwareConcurrency": 8,
+    "width": 915,
+    "height": 837,
+    "dpr": 2,
+    "charts": [
+      {
+        "metric": "loss",
+        "width": 849,
+        "height": 260
+      },
+      {
+        "metric": "lr",
+        "width": 416,
+        "height": 220
+      },
+      {
+        "metric": "grad_norm",
+        "width": 416,
+        "height": 220
+      }
+    ],
+    "timeOrigin": 1794300042459.3
+  },
+  "protocol": {
+    "timeoutMs": 120000,
+    "cpuThrottling": "Set and verify 4x in Chrome DevTools; this page cannot attest the browser setting.",
+    "source": "Main-thread generation/preparation/raw finite segments",
+    "endpoint": "Second requestAnimationFrame after synchronous Canvas draw and text commit; paint proxy, correlate with trace frames/screenshots.",
+    "commandTiming": "Scripted range/inspection command start; excludes physical device/input dispatch latency.",
+    "memory": "No tab-memory estimate is made. Record browser Task Manager footprint and worker attribution separately.",
+    "timeoutLimit": "A watchdog cannot preempt a blocked main thread or guarantee recovery from an out-of-memory crash.",
+    "coldLoad": "Only autorun query loads report navigation-to-paint proxy. Disable cache and use independent reloads for cold samples."
+  },
+  "loadedAt": "2026-11-10T08:40:51.572Z",
+  "activeViewport": {
+    "start": 499000,
+    "end": 501000,
+    "width": 327
+  },
+  "sourceRows": 1000000,
+  "plottedEntries": 6003,
+  "observedPeak": {
+    "step": 500000,
+    "value": 12
+  },
+  "fcpMs": 8192,
+  "hoverProtocol": {
+    "input": "Trusted DOM mousemove timestamp, one requestAnimationFrame before the same renderer coordinate mapping and source inspection",
+    "endpoint": "React inspector DOM commit, then double-animation-frame paint proxy; correlate with trace Paint",
+    "ignoredPointerEvents": 0,
+    "mode": "Discrete pointer moves while armed; busy moves are counted and ignored, not a continuous-sweep benchmark"
+  },
+  "summary": {
+    "load": {
+      "attempted": 1,
+      "passed": 1,
+      "failed": 0,
+      "medianMs": 9634.70000000298,
+      "p95Ms": 9634.70000000298
+    },
+    "zoom": {
+      "attempted": 30,
+      "passed": 30,
+      "failed": 0,
+      "medianMs": 39.650000005960464,
+      "p95Ms": 1025.1000000089407
+    },
+    "inspection": {
+      "attempted": 30,
+      "passed": 30,
+      "failed": 0,
+      "medianMs": 32.8500000089407,
+      "p95Ms": 33.80000001192093
+    },
+    "hover": {
+      "attempted": 1,
+      "passed": 1,
+      "failed": 0,
+      "medianMs": 87.40000000596046,
+      "p95Ms": 87.40000000596046
+    }
+  },
+  "samples": [
+    {
+      "id": 1,
+      "kind": "load",
+      "startedAtMs": 8313.79999999702,
+      "status": "passed",
+      "sourceReadyAtMs": 9989.79999999702,
+      "viewport": {
+        "start": 0,
+        "end": 999999,
+        "width": 328
+      },
+      "drawSubmittedAtMs": 17847.09999999404,
+      "paintProxyAtMs": 17948.5,
+      "durationMs": 9634.70000000298,
+      "navigationToPaintProxyMs": 17948.5
+    },
+    {
+      "id": 2,
+      "kind": "zoom",
+      "startedAtMs": 38700.09999999404,
+      "status": "passed",
+      "viewport": {
+        "start": 450000,
+        "end": 550000,
+        "width": 328
+      },
+      "sourceReadyAtMs": 38885.5,
+      "drawSubmittedAtMs": 39946.5,
+      "paintProxyAtMs": 39967.29999999702,
+      "durationMs": 1267.2000000029802
+    },
+    {
+      "id": 3,
+      "kind": "zoom",
+      "startedAtMs": 39971.29999999702,
+      "status": "passed",
+      "viewport": {
+        "start": 490000,
+        "end": 510000,
+        "width": 328
+      },
+      "sourceReadyAtMs": 40049.89999999106,
+      "drawSubmittedAtMs": 40203.89999999106,
+      "paintProxyAtMs": 40222.5,
+      "durationMs": 251.20000000298023
+    },
+    {
+      "id": 4,
+      "kind": "zoom",
+      "startedAtMs": 40223.5,
+      "status": "passed",
+      "viewport": {
+        "start": 499900,
+        "end": 500100,
+        "width": 320
+      },
+      "sourceReadyAtMs": 40227.39999999106,
+      "drawSubmittedAtMs": 40251.09999999404,
+      "paintProxyAtMs": 40267.39999999106,
+      "durationMs": 43.8999999910593
+    },
+    {
+      "id": 5,
+      "kind": "zoom",
+      "startedAtMs": 40268,
+      "status": "passed",
+      "viewport": {
+        "start": 500000,
+        "end": 500020,
+        "width": 314
+      },
+      "sourceReadyAtMs": 40270,
+      "drawSubmittedAtMs": 40290.59999999404,
+      "paintProxyAtMs": 40300.79999999702,
+      "durationMs": 32.79999999701977
+    },
+    {
+      "id": 6,
+      "kind": "zoom",
+      "startedAtMs": 40300.89999999106,
+      "status": "passed",
+      "viewport": {
+        "start": 499980,
+        "end": 500000,
+        "width": 314
+      },
+      "sourceReadyAtMs": 40302.19999998808,
+      "drawSubmittedAtMs": 40321.19999998808,
+      "paintProxyAtMs": 40333.69999998808,
+      "durationMs": 32.79999999701977
+    },
+    {
+      "id": 7,
+      "kind": "zoom",
+      "startedAtMs": 40334.5,
+      "status": "passed",
+      "viewport": {
+        "start": 499000,
+        "end": 501000,
+        "width": 327
+      },
+      "sourceReadyAtMs": 40345.69999998808,
+      "drawSubmittedAtMs": 40385.39999999106,
+      "paintProxyAtMs": 40406.59999999404,
+      "durationMs": 72.09999999403954
+    },
+    {
+      "id": 8,
+      "kind": "zoom",
+      "startedAtMs": 40407.39999999106,
+      "status": "passed",
+      "viewport": {
+        "start": 450000,
+        "end": 550000,
+        "width": 328
+      },
+      "sourceReadyAtMs": 40630.69999998808,
+      "drawSubmittedAtMs": 41290.69999998808,
+      "paintProxyAtMs": 41306.19999998808,
+      "durationMs": 898.7999999970198
+    },
+    {
+      "id": 9,
+      "kind": "zoom",
+      "startedAtMs": 41307.09999999404,
+      "status": "passed",
+      "viewport": {
+        "start": 490000,
+        "end": 510000,
+        "width": 328
+      },
+      "sourceReadyAtMs": 41340.69999998808,
+      "drawSubmittedAtMs": 41494.79999999702,
+      "paintProxyAtMs": 41506.09999999404,
+      "durationMs": 199
+    },
+    {
+      "id": 10,
+      "kind": "zoom",
+      "startedAtMs": 41506.19999998808,
+      "status": "passed",
+      "viewport": {
+        "start": 499900,
+        "end": 500100,
+        "width": 320
+      },
+      "sourceReadyAtMs": 41508.79999999702,
+      "drawSubmittedAtMs": 41529.39999999106,
+      "paintProxyAtMs": 41537.29999999702,
+      "durationMs": 31.100000008940697
+    },
+    {
+      "id": 11,
+      "kind": "zoom",
+      "startedAtMs": 41537.5,
+      "status": "passed",
+      "viewport": {
+        "start": 500000,
+        "end": 500020,
+        "width": 314
+      },
+      "sourceReadyAtMs": 41539.59999999404,
+      "drawSubmittedAtMs": 41555.79999999702,
+      "paintProxyAtMs": 41571.69999998808,
+      "durationMs": 34.19999998807907
+    },
+    {
+      "id": 12,
+      "kind": "zoom",
+      "startedAtMs": 41572.39999999106,
+      "status": "passed",
+      "viewport": {
+        "start": 499980,
+        "end": 500000,
+        "width": 314
+      },
+      "sourceReadyAtMs": 41573,
+      "drawSubmittedAtMs": 41589.89999999106,
+      "paintProxyAtMs": 41600.89999999106,
+      "durationMs": 28.5
+    },
+    {
+      "id": 13,
+      "kind": "zoom",
+      "startedAtMs": 41601.5,
+      "status": "passed",
+      "viewport": {
+        "start": 499000,
+        "end": 501000,
+        "width": 327
+      },
+      "sourceReadyAtMs": 41606.79999999702,
+      "drawSubmittedAtMs": 41632.59999999404,
+      "paintProxyAtMs": 41638.09999999404,
+      "durationMs": 36.599999994039536
+    },
+    {
+      "id": 14,
+      "kind": "zoom",
+      "startedAtMs": 41638.69999998808,
+      "status": "passed",
+      "viewport": {
+        "start": 450000,
+        "end": 550000,
+        "width": 328
+      },
+      "sourceReadyAtMs": 41836,
+      "drawSubmittedAtMs": 42531.39999999106,
+      "paintProxyAtMs": 42663.79999999702,
+      "durationMs": 1025.1000000089407
+    },
+    {
+      "id": 15,
+      "kind": "zoom",
+      "startedAtMs": 42669.89999999106,
+      "status": "passed",
+      "viewport": {
+        "start": 490000,
+        "end": 510000,
+        "width": 328
+      },
+      "sourceReadyAtMs": 42805.89999999106,
+      "drawSubmittedAtMs": 42947.09999999404,
+      "paintProxyAtMs": 42961.69999998808,
+      "durationMs": 291.79999999701977
+    },
+    {
+      "id": 16,
+      "kind": "zoom",
+      "startedAtMs": 42962.39999999106,
+      "status": "passed",
+      "viewport": {
+        "start": 499900,
+        "end": 500100,
+        "width": 320
+      },
+      "sourceReadyAtMs": 42964.19999998808,
+      "drawSubmittedAtMs": 42982.89999999106,
+      "paintProxyAtMs": 43002.09999999404,
+      "durationMs": 39.70000000298023
+    },
+    {
+      "id": 17,
+      "kind": "zoom",
+      "startedAtMs": 43002.69999998808,
+      "status": "passed",
+      "viewport": {
+        "start": 500000,
+        "end": 500020,
+        "width": 314
+      },
+      "sourceReadyAtMs": 43003.89999999106,
+      "drawSubmittedAtMs": 43018.59999999404,
+      "paintProxyAtMs": 43042.29999999702,
+      "durationMs": 39.6000000089407
+    },
+    {
+      "id": 18,
+      "kind": "zoom",
+      "startedAtMs": 43043.09999999404,
+      "status": "passed",
+      "viewport": {
+        "start": 499980,
+        "end": 500000,
+        "width": 314
+      },
+      "sourceReadyAtMs": 43044.09999999404,
+      "drawSubmittedAtMs": 43060.79999999702,
+      "paintProxyAtMs": 43067.59999999404,
+      "durationMs": 24.5
+    },
+    {
+      "id": 19,
+      "kind": "zoom",
+      "startedAtMs": 43068.69999998808,
+      "status": "passed",
+      "viewport": {
+        "start": 499000,
+        "end": 501000,
+        "width": 327
+      },
+      "sourceReadyAtMs": 43073.59999999404,
+      "drawSubmittedAtMs": 43100.69999998808,
+      "paintProxyAtMs": 43118,
+      "durationMs": 49.30000001192093
+    },
+    {
+      "id": 20,
+      "kind": "zoom",
+      "startedAtMs": 43118.5,
+      "status": "passed",
+      "viewport": {
+        "start": 450000,
+        "end": 550000,
+        "width": 328
+      },
+      "sourceReadyAtMs": 43297.09999999404,
+      "drawSubmittedAtMs": 43902.79999999702,
+      "paintProxyAtMs": 43917.19999998808,
+      "durationMs": 798.6999999880791
+    },
+    {
+      "id": 21,
+      "kind": "zoom",
+      "startedAtMs": 43918.19999998808,
+      "status": "passed",
+      "viewport": {
+        "start": 490000,
+        "end": 510000,
+        "width": 328
+      },
+      "sourceReadyAtMs": 43940.79999999702,
+      "drawSubmittedAtMs": 44080.39999999106,
+      "paintProxyAtMs": 44089.29999999702,
+      "durationMs": 171.1000000089407
+    },
+    {
+      "id": 22,
+      "kind": "zoom",
+      "startedAtMs": 44090.09999999404,
+      "status": "passed",
+      "viewport": {
+        "start": 499900,
+        "end": 500100,
+        "width": 320
+      },
+      "sourceReadyAtMs": 44092.29999999702,
+      "drawSubmittedAtMs": 44116.79999999702,
+      "paintProxyAtMs": 44135.59999999404,
+      "durationMs": 45.5
+    },
+    {
+      "id": 23,
+      "kind": "zoom",
+      "startedAtMs": 44135.79999999702,
+      "status": "passed",
+      "viewport": {
+        "start": 500000,
+        "end": 500020,
+        "width": 314
+      },
+      "sourceReadyAtMs": 44137.59999999404,
+      "drawSubmittedAtMs": 44151.69999998808,
+      "paintProxyAtMs": 44167.69999998808,
+      "durationMs": 31.899999991059303
+    },
+    {
+      "id": 24,
+      "kind": "zoom",
+      "startedAtMs": 44168.09999999404,
+      "status": "passed",
+      "viewport": {
+        "start": 499980,
+        "end": 500000,
+        "width": 314
+      },
+      "sourceReadyAtMs": 44169.09999999404,
+      "drawSubmittedAtMs": 44182.39999999106,
+      "paintProxyAtMs": 44202.09999999404,
+      "durationMs": 34
+    },
+    {
+      "id": 25,
+      "kind": "zoom",
+      "startedAtMs": 44202.29999999702,
+      "status": "passed",
+      "viewport": {
+        "start": 499000,
+        "end": 501000,
+        "width": 327
+      },
+      "sourceReadyAtMs": 44207.19999998808,
+      "drawSubmittedAtMs": 44231.59999999404,
+      "paintProxyAtMs": 44236.89999999106,
+      "durationMs": 34.599999994039536
+    },
+    {
+      "id": 26,
+      "kind": "zoom",
+      "startedAtMs": 44237.69999998808,
+      "status": "passed",
+      "viewport": {
+        "start": 450000,
+        "end": 550000,
+        "width": 328
+      },
+      "sourceReadyAtMs": 44446.89999999106,
+      "drawSubmittedAtMs": 45066.59999999404,
+      "paintProxyAtMs": 45083.69999998808,
+      "durationMs": 846
+    },
+    {
+      "id": 27,
+      "kind": "zoom",
+      "startedAtMs": 45085,
+      "status": "passed",
+      "viewport": {
+        "start": 490000,
+        "end": 510000,
+        "width": 328
+      },
+      "sourceReadyAtMs": 45107,
+      "drawSubmittedAtMs": 45250.79999999702,
+      "paintProxyAtMs": 45268.89999999106,
+      "durationMs": 183.8999999910593
+    },
+    {
+      "id": 28,
+      "kind": "zoom",
+      "startedAtMs": 45269.89999999106,
+      "status": "passed",
+      "viewport": {
+        "start": 499900,
+        "end": 500100,
+        "width": 320
+      },
+      "sourceReadyAtMs": 45272.29999999702,
+      "drawSubmittedAtMs": 45292.29999999702,
+      "paintProxyAtMs": 45300.59999999404,
+      "durationMs": 30.700000002980232
+    },
+    {
+      "id": 29,
+      "kind": "zoom",
+      "startedAtMs": 45301.39999999106,
+      "status": "passed",
+      "viewport": {
+        "start": 500000,
+        "end": 500020,
+        "width": 314
+      },
+      "sourceReadyAtMs": 45302.69999998808,
+      "drawSubmittedAtMs": 45317.5,
+      "paintProxyAtMs": 45334.09999999404,
+      "durationMs": 32.70000000298023
+    },
+    {
+      "id": 30,
+      "kind": "zoom",
+      "startedAtMs": 45334.89999999106,
+      "status": "passed",
+      "viewport": {
+        "start": 499980,
+        "end": 500000,
+        "width": 314
+      },
+      "sourceReadyAtMs": 45335.59999999404,
+      "drawSubmittedAtMs": 45349.89999999106,
+      "paintProxyAtMs": 45368.29999999702,
+      "durationMs": 33.400000005960464
+    },
+    {
+      "id": 31,
+      "kind": "zoom",
+      "startedAtMs": 45368.79999999702,
+      "status": "passed",
+      "viewport": {
+        "start": 499000,
+        "end": 501000,
+        "width": 327
+      },
+      "sourceReadyAtMs": 45373.09999999404,
+      "drawSubmittedAtMs": 45398.29999999702,
+      "paintProxyAtMs": 45404.5,
+      "durationMs": 35.70000000298023
+    },
+    {
+      "id": 32,
+      "kind": "inspection",
+      "startedAtMs": 45405.69999998808,
+      "status": "passed",
+      "step": 500000,
+      "sourceReadyAtMs": 45407.39999999106,
+      "drawSubmittedAtMs": 45409.69999998808,
+      "paintProxyAtMs": 45435.5,
+      "durationMs": 29.80000001192093
+    },
+    {
+      "id": 33,
+      "kind": "inspection",
+      "startedAtMs": 45435.59999999404,
+      "status": "passed",
+      "step": 499999,
+      "sourceReadyAtMs": 45436.59999999404,
+      "drawSubmittedAtMs": 45438.09999999404,
+      "paintProxyAtMs": 45468.39999999106,
+      "durationMs": 32.79999999701977
+    },
+    {
+      "id": 34,
+      "kind": "inspection",
+      "startedAtMs": 45468.89999999106,
+      "status": "passed",
+      "step": 500002,
+      "sourceReadyAtMs": 45469.39999999106,
+      "drawSubmittedAtMs": 45470.79999999702,
+      "paintProxyAtMs": 45501.79999999702,
+      "durationMs": 32.900000005960464
+    },
+    {
+      "id": 35,
+      "kind": "inspection",
+      "startedAtMs": 45502.29999999702,
+      "status": "passed",
+      "step": 499997,
+      "sourceReadyAtMs": 45502.89999999106,
+      "drawSubmittedAtMs": 45504.39999999106,
+      "paintProxyAtMs": 45534.39999999106,
+      "durationMs": 32.099999994039536
+    },
+    {
+      "id": 36,
+      "kind": "inspection",
+      "startedAtMs": 45534.59999999404,
+      "status": "passed",
+      "step": 500004,
+      "sourceReadyAtMs": 45535.5,
+      "drawSubmittedAtMs": 45537.09999999404,
+      "paintProxyAtMs": 45567.5,
+      "durationMs": 32.900000005960464
+    },
+    {
+      "id": 37,
+      "kind": "inspection",
+      "startedAtMs": 45567.89999999106,
+      "status": "passed",
+      "step": 499995,
+      "sourceReadyAtMs": 45568.39999999106,
+      "drawSubmittedAtMs": 45569.69999998808,
+      "paintProxyAtMs": 45601,
+      "durationMs": 33.1000000089407
+    },
+    {
+      "id": 38,
+      "kind": "inspection",
+      "startedAtMs": 45601.5,
+      "status": "passed",
+      "step": 500006,
+      "sourceReadyAtMs": 45601.59999999404,
+      "drawSubmittedAtMs": 45603.59999999404,
+      "paintProxyAtMs": 45635.09999999404,
+      "durationMs": 33.599999994039536
+    },
+    {
+      "id": 39,
+      "kind": "inspection",
+      "startedAtMs": 45635.79999999702,
+      "status": "passed",
+      "step": 500000,
+      "sourceReadyAtMs": 45635.79999999702,
+      "drawSubmittedAtMs": 45637.79999999702,
+      "paintProxyAtMs": 45668.09999999404,
+      "durationMs": 32.29999999701977
+    },
+    {
+      "id": 40,
+      "kind": "inspection",
+      "startedAtMs": 45668.59999999404,
+      "status": "passed",
+      "step": 500001,
+      "sourceReadyAtMs": 45669.29999999702,
+      "drawSubmittedAtMs": 45671.39999999106,
+      "paintProxyAtMs": 45700.79999999702,
+      "durationMs": 32.20000000298023
+    },
+    {
+      "id": 41,
+      "kind": "inspection",
+      "startedAtMs": 45701.5,
+      "status": "passed",
+      "step": 499998,
+      "sourceReadyAtMs": 45701.5,
+      "drawSubmittedAtMs": 45704.29999999702,
+      "paintProxyAtMs": 45734.69999998808,
+      "durationMs": 33.19999998807907
+    },
+    {
+      "id": 42,
+      "kind": "inspection",
+      "startedAtMs": 45735.69999998808,
+      "status": "passed",
+      "step": 500003,
+      "sourceReadyAtMs": 45735.79999999702,
+      "drawSubmittedAtMs": 45737.89999999106,
+      "paintProxyAtMs": 45768.5,
+      "durationMs": 32.80000001192093
+    },
+    {
+      "id": 43,
+      "kind": "inspection",
+      "startedAtMs": 45769,
+      "status": "passed",
+      "step": 499996,
+      "sourceReadyAtMs": 45769,
+      "drawSubmittedAtMs": 45771.09999999404,
+      "paintProxyAtMs": 45801.29999999702,
+      "durationMs": 32.29999999701977
+    },
+    {
+      "id": 44,
+      "kind": "inspection",
+      "startedAtMs": 45801.79999999702,
+      "status": "passed",
+      "step": 500005,
+      "sourceReadyAtMs": 45801.89999999106,
+      "drawSubmittedAtMs": 45804.09999999404,
+      "paintProxyAtMs": 45834.09999999404,
+      "durationMs": 32.29999999701977
+    },
+    {
+      "id": 45,
+      "kind": "inspection",
+      "startedAtMs": 45834.59999999404,
+      "status": "passed",
+      "step": 499994,
+      "sourceReadyAtMs": 45834.69999998808,
+      "drawSubmittedAtMs": 45836.19999998808,
+      "paintProxyAtMs": 45867.89999999106,
+      "durationMs": 33.29999999701977
+    },
+    {
+      "id": 46,
+      "kind": "inspection",
+      "startedAtMs": 45868.29999999702,
+      "status": "passed",
+      "step": 500000,
+      "sourceReadyAtMs": 45868.39999999106,
+      "drawSubmittedAtMs": 45870.5,
+      "paintProxyAtMs": 45901,
+      "durationMs": 32.70000000298023
+    },
+    {
+      "id": 47,
+      "kind": "inspection",
+      "startedAtMs": 45901.59999999404,
+      "status": "passed",
+      "step": 499999,
+      "sourceReadyAtMs": 45901.89999999106,
+      "drawSubmittedAtMs": 45903.79999999702,
+      "paintProxyAtMs": 45934.19999998808,
+      "durationMs": 32.599999994039536
+    },
+    {
+      "id": 48,
+      "kind": "inspection",
+      "startedAtMs": 45935,
+      "status": "passed",
+      "step": 500002,
+      "sourceReadyAtMs": 45935.09999999404,
+      "drawSubmittedAtMs": 45937.29999999702,
+      "paintProxyAtMs": 45968.59999999404,
+      "durationMs": 33.599999994039536
+    },
+    {
+      "id": 49,
+      "kind": "inspection",
+      "startedAtMs": 45968.69999998808,
+      "status": "passed",
+      "step": 499997,
+      "sourceReadyAtMs": 45969.59999999404,
+      "drawSubmittedAtMs": 45971.69999998808,
+      "paintProxyAtMs": 46000.29999999702,
+      "durationMs": 31.600000008940697
+    },
+    {
+      "id": 50,
+      "kind": "inspection",
+      "startedAtMs": 46000.89999999106,
+      "status": "passed",
+      "step": 500004,
+      "sourceReadyAtMs": 46000.89999999106,
+      "drawSubmittedAtMs": 46002.39999999106,
+      "paintProxyAtMs": 46034,
+      "durationMs": 33.1000000089407
+    },
+    {
+      "id": 51,
+      "kind": "inspection",
+      "startedAtMs": 46034.29999999702,
+      "status": "passed",
+      "step": 499995,
+      "sourceReadyAtMs": 46034.5,
+      "drawSubmittedAtMs": 46036.5,
+      "paintProxyAtMs": 46068.29999999702,
+      "durationMs": 34
+    },
+    {
+      "id": 52,
+      "kind": "inspection",
+      "startedAtMs": 46068.39999999106,
+      "status": "passed",
+      "step": 500006,
+      "sourceReadyAtMs": 46068.5,
+      "drawSubmittedAtMs": 46071.39999999106,
+      "paintProxyAtMs": 46100.59999999404,
+      "durationMs": 32.20000000298023
+    },
+    {
+      "id": 53,
+      "kind": "inspection",
+      "startedAtMs": 46101.09999999404,
+      "status": "passed",
+      "step": 500000,
+      "sourceReadyAtMs": 46101.79999999702,
+      "drawSubmittedAtMs": 46104.19999998808,
+      "paintProxyAtMs": 46134.09999999404,
+      "durationMs": 33
+    },
+    {
+      "id": 54,
+      "kind": "inspection",
+      "startedAtMs": 46134.29999999702,
+      "status": "passed",
+      "step": 500001,
+      "sourceReadyAtMs": 46135,
+      "drawSubmittedAtMs": 46136.89999999106,
+      "paintProxyAtMs": 46168,
+      "durationMs": 33.70000000298023
+    },
+    {
+      "id": 55,
+      "kind": "inspection",
+      "startedAtMs": 46168.39999999106,
+      "status": "passed",
+      "step": 499998,
+      "sourceReadyAtMs": 46168.39999999106,
+      "drawSubmittedAtMs": 46170.69999998808,
+      "paintProxyAtMs": 46200.29999999702,
+      "durationMs": 31.900000005960464
+    },
+    {
+      "id": 56,
+      "kind": "inspection",
+      "startedAtMs": 46201,
+      "status": "passed",
+      "step": 500003,
+      "sourceReadyAtMs": 46201.09999999404,
+      "drawSubmittedAtMs": 46202.89999999106,
+      "paintProxyAtMs": 46234.29999999702,
+      "durationMs": 33.29999999701977
+    },
+    {
+      "id": 57,
+      "kind": "inspection",
+      "startedAtMs": 46234.89999999106,
+      "status": "passed",
+      "step": 499996,
+      "sourceReadyAtMs": 46235.19999998808,
+      "drawSubmittedAtMs": 46237,
+      "paintProxyAtMs": 46267.19999998808,
+      "durationMs": 32.29999999701977
+    },
+    {
+      "id": 58,
+      "kind": "inspection",
+      "startedAtMs": 46267.89999999106,
+      "status": "passed",
+      "step": 500005,
+      "sourceReadyAtMs": 46267.89999999106,
+      "drawSubmittedAtMs": 46269.29999999702,
+      "paintProxyAtMs": 46300.89999999106,
+      "durationMs": 33
+    },
+    {
+      "id": 59,
+      "kind": "inspection",
+      "startedAtMs": 46301.09999999404,
+      "status": "passed",
+      "step": 499994,
+      "sourceReadyAtMs": 46301.59999999404,
+      "drawSubmittedAtMs": 46303.09999999404,
+      "paintProxyAtMs": 46333.59999999404,
+      "durationMs": 32.5
+    },
+    {
+      "id": 60,
+      "kind": "inspection",
+      "startedAtMs": 46334.29999999702,
+      "status": "passed",
+      "step": 500000,
+      "sourceReadyAtMs": 46334.29999999702,
+      "drawSubmittedAtMs": 46336.59999999404,
+      "paintProxyAtMs": 46367.5,
+      "durationMs": 33.20000000298023
+    },
+    {
+      "id": 61,
+      "kind": "inspection",
+      "startedAtMs": 46367.69999998808,
+      "status": "passed",
+      "step": 499999,
+      "sourceReadyAtMs": 46368.39999999106,
+      "drawSubmittedAtMs": 46369.69999998808,
+      "paintProxyAtMs": 46401.5,
+      "durationMs": 33.80000001192093
+    },
+    {
+      "id": 62,
+      "kind": "hover",
+      "startedAtMs": 91331.89999999106,
+      "status": "passed",
+      "inputEventAtMs": 91331.89999999106,
+      "inputReceivedAtMs": 91370.09999999404,
+      "step": 499588.6990801577,
+      "sourceReadyAtMs": 91386,
+      "drawSubmittedAtMs": 91406.79999999702,
+      "paintProxyAtMs": 91419.29999999702,
+      "durationMs": 87.40000000596046
+    }
+  ]
+}

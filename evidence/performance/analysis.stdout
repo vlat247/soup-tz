@@ -1,0 +1,102 @@
+{
+  "raw": {
+    "tracePaint": {
+      "load": {
+        "n": 1,
+        "medianMs": 9548.651,
+        "p95Ms": 9548.651,
+        "minMs": 9548.651,
+        "maxMs": 9548.651
+      },
+      "zoom": {
+        "n": 30,
+        "medianMs": 34.6705,
+        "p95Ms": 909.226,
+        "minMs": 19.694,
+        "maxMs": 1264.497
+      },
+      "inspection": {
+        "n": 30,
+        "medianMs": 17.281,
+        "p95Ms": 17.996,
+        "minMs": 13.549,
+        "maxMs": 18.219
+      },
+      "hover": {
+        "n": 30,
+        "medianMs": 29.8825,
+        "p95Ms": 100.577,
+        "minMs": 12.529,
+        "maxMs": 306.949
+      }
+    },
+    "filmstrip": {
+      "traceScreenshotUs": 93024607164,
+      "afterPaintMs": 93.762
+    },
+    "coldNavigationToPaint": {
+      "n": 5,
+      "medianMs": 13630.109,
+      "p95Ms": 14874.433,
+      "minMs": 8906.112,
+      "maxMs": 14874.433
+    },
+    "coldFcp": {
+      "n": 5,
+      "medianMs": 124,
+      "p95Ms": 328,
+      "minMs": 96,
+      "maxMs": 328
+    }
+  },
+  "optimized": {
+    "tracePaint": {
+      "load": {
+        "n": 1,
+        "medianMs": 668.495,
+        "p95Ms": 668.495,
+        "minMs": 668.495,
+        "maxMs": 668.495
+      },
+      "zoom": {
+        "n": 30,
+        "medianMs": 30.7265,
+        "p95Ms": 84.004,
+        "minMs": 19.125,
+        "maxMs": 170.809
+      },
+      "inspection": {
+        "n": 30,
+        "medianMs": 16.866,
+        "p95Ms": 17.85,
+        "minMs": 12.351,
+        "maxMs": 18.396
+      },
+      "hover": {
+        "n": 30,
+        "medianMs": 21.151,
+        "p95Ms": 55.804,
+        "minMs": 16.358,
+        "maxMs": 70.533
+      }
+    },
+    "filmstrip": {
+      "traceScreenshotUs": 93420399109,
+      "afterPaintMs": 20.301
+    },
+    "coldNavigationToPaint": {
+      "n": 5,
+      "medianMs": 863.852,
+      "p95Ms": 1214.5,
+      "minMs": 747.788,
+      "maxMs": 1214.5
+    },
+    "coldFcp": {
+      "n": 5,
+      "medianMs": 132,
+      "p95Ms": 236,
+      "minMs": 88,
+      "maxMs": 236
+    }
+  }
+}

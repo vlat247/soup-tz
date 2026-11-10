@@ -1,0 +1,73 @@
+
+> soup-training-monitor@0.1.0 check
+> npm run lint && npm run typecheck && npm run test && npm run data:catalog:check && npm run build
+
+
+> soup-training-monitor@0.1.0 lint
+> eslint . --max-warnings=0
+
+
+> soup-training-monitor@0.1.0 typecheck
+> next typegen && tsc --noEmit
+
+Generating route types...
+✓ Types generated successfully
+
+> soup-training-monitor@0.1.0 test
+> vitest run tests/unit
+
+
+ RUN  v5.1.0 /Users/vlat247/Desktop/coding/soup-technical
+
+
+ Test Files  19 passed (19)
+      Tests  598 passed (598)
+   Start at  13:38:41
+   Duration  13.52s (tests 95%, import 3%, transform 1%)
+
+
+> soup-training-monitor@0.1.0 data:catalog:check
+> node --import tsx scripts/generate-run-catalog.ts --check
+
+Verified 20 exact run summaries.
+
+> soup-training-monitor@0.1.0 build
+> next build
+
+▲ Next.js 16.4.5 (Turbopack)
+✓ Running next.config.ts took 81ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.3s
+  Running TypeScript ...
+  Finished TypeScript in 3.0s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/28) ...
+  Generating static pages using 7 workers (7/28) 
+  Generating static pages using 7 workers (14/28) 
+  Generating static pages using 7 workers (21/28) 
+✓ Generating static pages using 7 workers (28/28) in 307ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /benchmark
+├ ○ /diagnostics/charts
+├ ○ /diagnostics/silent-failures
+├ ○ /icon.png
+├ ○ /runs
+└   /runs/[runId]
+  ├ ● /runs/run-001
+  ├ ● /runs/run-002
+  ├ ● /runs/run-003
+  └ ● [+17 more paths]
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+
+> soup-training-monitor@0.1.0 postbuild
+> node scripts/finalize-pages-export.mjs
+

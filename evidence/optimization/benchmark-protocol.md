@@ -1,6 +1,6 @@
 # Browser comparison harness
 
-The `/benchmark` route supplies a controlled comparison, not completed performance evidence. Development smoke checks are retained separately. No 4× CPU trace, cold-load series, physical hover latency or tab-memory result is established by the harness or its unit tests.
+The `/benchmark` route supplies a controlled comparison. The later [production capture](../performance/verification.md) now includes four original 4× CPU traces, cold loads, native mouse-movement inspection and actual tab memory. This protocol and its development smoke remain historical preparation; harness/unit tests alone do not establish performance.
 
 ## Running a production comparison
 
@@ -32,3 +32,7 @@ Successful medians and nearest-rank p95 exclude failed attempts; attempted, pass
 `benchmark-checks.json` records commands, timestamps and exit codes with separate stdout/stderr. Final focused results: 4 protocol tests passed; benchmark ESLint and TypeScript checks passed. Tests cover obsolete completion identity, retained failed samples, a bounded ledger, separate navigation timing, percentile accounting and repeatable spike/edge workloads. The earlier `benchmark-lint.txt` preserves an unused-suppression warning that was subsequently removed; it is not a passing lint result.
 
 The original assignment still requires actual production before/after 4× CPU traces for first render, zoom and hover, plus browser tab-memory measurements. These are explicitly unclaimed here. Five cold navigations per variant and the 30-command sequences are the project's repeatability protocol, not additional sample counts prescribed by the assignment.
+
+## Native pointer capture added at `0eb0e3d`
+
+After load/workload, select **Start hover capture**. Trusted mousemove timestamps include event queueing; the next frame maps through the production renderer and raw/worker source inspection. A React layout effect marks inspector DOM commit. Endpoints remain paint proxies until correlated with a saved trace. The discrete measurement shell ignores busy moves and counts them in the exported report. **Stop hover capture** before exporting. The recorded experiment used short native drags, not synthetic JavaScript events; see its exact scope and limitations in the production evidence.

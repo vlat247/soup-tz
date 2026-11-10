@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "variant": "optimized",
+  "run": {
+    "id": "run-020",
+    "seed": 1020,
+    "rows": 1000000,
+    "sourceVersion": "soup-fixtures-v1",
+    "generatorVersion": "1.0.0",
+    "expectedPeak": {
+      "step": 500000,
+      "loss": 12
+    }
+  },
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+    "hardwareConcurrency": 8,
+    "width": 727,
+    "height": 837,
+    "dpr": 2,
+    "charts": [
+      {
+        "metric": "loss",
+        "width": 661,
+        "height": 260
+      },
+      {
+        "metric": "lr",
+        "width": 322,
+        "height": 220
+      },
+      {
+        "metric": "grad_norm",
+        "width": 322,
+        "height": 220
+      }
+    ],
+    "timeOrigin": 1794300811056.5
+  },
+  "protocol": {
+    "timeoutMs": 120000,
+    "cpuThrottling": "Set and verify 4x in Chrome DevTools; this page cannot attest the browser setting.",
+    "source": "Production worker/session and per-metric reduction",
+    "endpoint": "Second requestAnimationFrame after synchronous Canvas draw and text commit; paint proxy, correlate with trace frames/screenshots.",
+    "commandTiming": "Scripted range/inspection command start; excludes physical device/input dispatch latency.",
+    "memory": "No tab-memory estimate is made. Record browser Task Manager footprint and worker attribution separately.",
+    "timeoutLimit": "A watchdog cannot preempt a blocked main thread or guarantee recovery from an out-of-memory crash.",
+    "coldLoad": "Only autorun query loads report navigation-to-paint proxy. Disable cache and use independent reloads for cold samples."
+  },
+  "loadedAt": "2026-11-10T08:53:31.808Z",
+  "activeViewport": {
+    "start": 0,
+    "end": 999999,
+    "width": 234
+  },
+  "sourceRows": 1000000,
+  "plottedEntries": 2335,
+  "observedPeak": {
+    "step": 500000,
+    "value": 12
+  },
+  "fcpMs": 132,
+  "hoverProtocol": {
+    "input": "Trusted DOM mousemove timestamp, one requestAnimationFrame before the same renderer coordinate mapping and source inspection",
+    "endpoint": "React inspector DOM commit, then double-animation-frame paint proxy; correlate with trace Paint",
+    "ignoredPointerEvents": 0,
+    "mode": "Discrete pointer moves while armed; busy moves are counted and ignored, not a continuous-sweep benchmark"
+  },
+  "summary": {
+    "load": {
+      "attempted": 1,
+      "passed": 1,
+      "failed": 0,
+      "medianMs": 656.2000000029802,
+      "p95Ms": 656.2000000029802
+    },
+    "zoom": {
+      "attempted": 0,
+      "passed": 0,
+      "failed": 0,
+      "medianMs": null,
+      "p95Ms": null
+    },
+    "inspection": {
+      "attempted": 0,
+      "passed": 0,
+      "failed": 0,
+      "medianMs": null,
+      "p95Ms": null
+    },
+    "hover": {
+      "attempted": 0,
+      "passed": 0,
+      "failed": 0,
+      "medianMs": null,
+      "p95Ms": null
+    }
+  },
+  "samples": [
+    {
+      "id": 1,
+      "kind": "load",
+      "startedAtMs": 215.6000000089407,
+      "status": "passed",
+      "sourceReadyAtMs": 754.6000000089407,
+      "viewport": {
+        "start": 0,
+        "end": 999999,
+        "width": 234
+      },
+      "drawSubmittedAtMs": 858.1000000089407,
+      "paintProxyAtMs": 871.8000000119209,
+      "durationMs": 656.2000000029802,
+      "navigationToPaintProxyMs": 871.8000000119209
+    }
+  ]
+}

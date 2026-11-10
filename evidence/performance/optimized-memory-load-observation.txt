@@ -1,0 +1,66 @@
+2026-11-10T09:04:41.864Z
+Window: "Task Manager", App: Google Chrome.
+0 standard window Task Manager, Secondary Actions: Raise
+	1 container Task Manager
+		2 container
+			3 container
+				4 tab group Tabs & extensions
+					5 tab (selected, settable, boolean) Tabs & extensions, Value: on
+					6 tab (settable, boolean) Browser, Value: off
+					7 tab (settable, boolean) All tasks, Value: off
+				8 text field (settable) Search for any process from the list., Placeholder: Search
+			9 scroll area
+				10 table
+					11 row Column Task, Column Memory Footprint, Column CPU sorted in descending order, Column Network, Column Process ID, and Column JavaScript Memory
+						12 cell Column Task
+						13 cell Column Memory Footprint
+						14 cell Column CPU sorted in descending order
+						15 cell Column Network
+						16 cell Column Process ID
+						17 cell Column JavaScript Memory
+					18 row Tool: Omnibox, 51.1 MB, –, 0, 24688, and 0K (0K live). Another task in the same task group: Tool: Omnibox
+						19 cell Tool: Omnibox
+						20 cell 51.1 MB
+						21 cell –
+						22 cell 0
+						23 cell 24688
+						24 cell 0K (0K live)
+					25 row Tool: Omnibox
+						26 cell Tool: Omnibox
+						27 cell
+						28 cell
+						29 cell
+						30 cell
+						31 cell
+					32 row (selected) Incognito Tab: Performance comparison · soup, 109 MB, –, 0, 24693, and 0K (0K live)
+						33 cell Incognito Tab: Performance comparison · soup
+						34 cell 109 MB
+						35 cell –
+						36 cell 0
+						37 cell 24693
+						38 cell 0K (0K live)
+					39 row Prerender: https://www.google.com/search/warmup.html, 28.3 MB, –, 0, 24689, and 0K (0K live)
+						40 cell Prerender: https://www.google.com/search/warmup.html
+						41 cell 28.3 MB
+						42 cell –
+						43 cell 0
+						44 cell 24689
+						45 cell 0K (0K live)
+			46 button End Task
+	47 close button
+	48 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	49 minimize button
+	50 text Task Manager
+51 menu bar
+	52 Chrome
+	53 File
+	54 Edit
+	55 View
+	56 History
+	57 Bookmarks
+	58 Profiles
+	59 Tab
+	60 Window
+	61 Help
+
+The focused UI element is 32 row (selected) Incognito Tab: Performance comparison · soup, 109 MB, –, 0, 24693, and 0K (0K live)

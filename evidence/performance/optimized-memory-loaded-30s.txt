@@ -1,0 +1,78 @@
+2026-11-10T09:05:49.927Z
+Window: "Task Manager", App: Google Chrome.
+0 standard window Task Manager, Secondary Actions: Raise
+	1 container Task Manager
+		2 container
+			3 container
+				4 tab group All tasks
+					5 tab (settable, boolean) Tabs & extensions, Value: off
+					6 tab (settable, boolean) Browser, Value: off
+					7 tab (selected, settable, boolean) All tasks, Value: on
+				8 text field (settable) Search for any process from the list., Placeholder: Search
+			9 scroll area
+				10 table
+					11 row Column Task, Column Memory Footprint, Column CPU sorted in descending order, Column Network, Column Process ID, and Column JavaScript Memory
+						12 cell Column Task
+						13 cell Column Memory Footprint
+						14 cell Column CPU sorted in descending order
+						15 cell Column Network
+						16 cell Column Process ID
+						17 cell Column JavaScript Memory
+					18 row Browser, 224 MB, 0.9, 0, 11755, and –
+						19 cell Browser
+						20 cell 224 MB
+						21 cell 0.9
+						22 cell 0
+						23 cell 11755
+						24 cell –
+					25 row GPU Process, 273 MB, 0.8, 0, 11871, and –
+						26 cell GPU Process
+						27 cell 273 MB
+						28 cell 0.8
+						29 cell 0
+						30 cell 11871
+						31 cell –
+					32 cell Incognito Tab: Performance comparison · soup
+					33 cell 103 MB
+					34 cell 0.0
+					35 cell 0
+					36 cell 24693
+					37 cell 8,448K (7,116K live)
+					38 cell Dedicated Worker: http://127.0.0.1:3001/_next/static/chunks/turbopack-worker-1hrsqshz0gfey.js#params=%5B%5B%22%2F_next%2Fstatic%2Fchunks%2Fturbopack-2u1d16houkiyo.js%22%2C%22%2F_next%2Fstatic%2Fchunks%2Fturbopack-2tg7fisnscj0e.js%22%2C%22%2F_next%2Fstatic%2Fchunks%2F3x5p4hg4vdrrg.js%22%5D%2C%22%22%2C%22%2F_next%2F%22%2Cnull%2Cnull%5D
+					39 cell
+					40 cell
+					41 cell
+					42 cell
+					43 cell
+					44 row Tool: Omnibox, 51.1 MB, 0.0, 0, 24688, and 5,376K (4,257K live). Another task in the same task group: Tool: Omnibox
+						45 cell Tool: Omnibox
+						46 cell 51.1 MB
+						47 cell 0.0
+						48 cell 0
+						49 cell 24688
+						50 cell 5,376K (4,257K live)
+					51 row Tool: Omnibox
+						52 cell Tool: Omnibox
+						53 cell
+						54 cell
+						55 cell
+						56 cell
+						57 cell
+					58 row Utility: Storage Service, 19.5 MB, 0.0, 0, 11873, and 0K (0K live)
+					59 row Spare Renderer, 24.6 MB, 0.0, 0, 24695, and 0K (0K live)
+			60 button End Task
+	61 close button
+	62 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	63 minimize button
+	64 text Task Manager
+65 menu bar
+	66 Chrome
+	67 File
+	68 Edit
+	69 View
+	70 History
+	71 Bookmarks
+	72 Profiles
+	73 Tab
+	74 Window
+	75 Help

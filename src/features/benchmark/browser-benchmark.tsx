@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createCanvasRenderer } from "../charts/metric-chart";
-import { buildMetricChartModel, drawablePlotWidth } from "../charts/chart-model";
+import { buildMetricChartModel, drawablePlotWidth, type MetricChartModel } from "../charts/chart-model";
 import type { ChartRenderer } from "../charts/chart-renderer";
 import { generateRun } from "../runs/data/generate";
 import { getRunDescriptor } from "../runs/data/manifest";
@@ -32,18 +32,23 @@ export function BrowserBenchmark() {
   const [reportText, setReportText] = useState("{}");
   const [running, setRunning] = useState(false);
   const [hasSamples, setHasSamples] = useState(false);
+  const [hoverArmed, setHoverArmed] = useState(false);
   const surfaces = useRef<Surface>({ loss: null, lr: null, grad_norm: null });
   const engine = useRef<ReturnType<typeof createEngine> | null>(null);
   const variantRef = useRef<Variant>("optimized");
   const initialization = useRef(false);
 
   function createEngine() {
-    const ledger = createTimingLedger(() => performance.now(), (name) => performance.mark(name));
+    const ledger = createTimingLedger(() => performance.now(), (name, at) => performance.mark(name, at === undefined ? undefined : { startTime: at }));
     let prepared: PreparedRun | null = null;
     let session: RunSession | null = null;
     let frame: RunFrame | null = null;
     let summary: RunSummary | null = null;
     let renderers: Partial<Record<Metric, ChartRenderer>> = {};
+    let models: Partial<Record<Metric, MetricChartModel>> = {};
+    let hoverEnabled = false;
+    let hoverFrame = 0;
+    let ignoredPointerEvents = 0;
     let activeVariant: Variant = "optimized";
     let operation: { id: number; resolve(): void; reject(error: Error): void; timer: ReturnType<typeof setTimeout>; navigation: boolean } | null = null;
     let sequence = 0;
@@ -65,7 +70,8 @@ export function BrowserBenchmark() {
       loadedAt, activeViewport: frame?.viewport ?? null, sourceRows: summary?.rowCount ?? 0, plottedEntries: frame?.plottedCount ?? 0,
       observedPeak: frame?.metrics.loss.peak ?? null,
       fcpMs: performance.getEntriesByName("first-contentful-paint")[0]?.startTime ?? null,
-      summary: { load: sampleSummary(ledger.samples, "load"), zoom: sampleSummary(ledger.samples, "zoom"), inspection: sampleSummary(ledger.samples, "inspection") },
+      hoverProtocol: { input: "Trusted DOM mousemove timestamp, one requestAnimationFrame before the same renderer coordinate mapping and source inspection", endpoint: "React inspector DOM commit, then double-animation-frame paint proxy; correlate with trace Paint", ignoredPointerEvents, mode: "Discrete pointer moves while armed; busy moves are counted and ignored, not a continuous-sweep benchmark" },
+      summary: { load: sampleSummary(ledger.samples, "load"), zoom: sampleSummary(ledger.samples, "zoom"), inspection: sampleSummary(ledger.samples, "inspection"), hover: sampleSummary(ledger.samples, "hover") },
       samples: ledger.samples,
     });
     const publishReport = () => setReportText(JSON.stringify(report(), null, 2));
@@ -82,6 +88,8 @@ export function BrowserBenchmark() {
         surface?.removeAttribute("aria-label");
       }
       renderers = {};
+      models = {}; hoverEnabled = false; setHoverArmed(false);
+      cancelAnimationFrame(hoverFrame);
     }
     function fail(error: unknown) {
       const message = error instanceof Error ? error.message : String(error);
@@ -106,7 +114,7 @@ export function BrowserBenchmark() {
         });
       });
     }
-    function begin(kind: SampleKind, target: { viewport?: Viewport; step?: number }, navigation = false) {
+    function begin(kind: SampleKind, target: { viewport?: Viewport; step?: number; inputEventAtMs?: number }, navigation = false) {
       if (disposed) return Promise.reject(new Error("Benchmark is disposed"));
       const id = ledger.begin(kind, target);
       setHasSamples(true);
@@ -118,7 +126,7 @@ export function BrowserBenchmark() {
     function draw(nextFrame: RunFrame) {
       if (!operation || disposed) return;
       const pending = ledger.active!;
-      if (pending.kind === "inspection") return;
+      if (pending.kind === "inspection" || pending.kind === "hover") return;
       if (pending.viewport && (pending.viewport.start !== nextFrame.viewport.start || pending.viewport.end !== nextFrame.viewport.end)) return;
       try {
         // Resolve label padding using lightweight frames first, avoiding an extra
@@ -139,6 +147,7 @@ export function BrowserBenchmark() {
           const element = surfaces.current[metric]!;
           renderers[metric] ??= createCanvasRenderer(element, { pointer: () => {}, leave: () => {} });
           const model = buildMetricChartModel(metric, frame.metrics[metric], frame.viewport, METRIC_COLORS[metric]);
+          models[metric] = model ?? undefined;
           if (model) renderers[metric]!.render(model); else renderers[metric]!.clear();
         }
         if (frame.viewport.start <= 500_000 && frame.viewport.end >= 500_000 &&
@@ -149,11 +158,9 @@ export function BrowserBenchmark() {
       } catch (error) { fail(error); }
     }
     function acceptInspection(inspection: StepInspection) {
-      if (ledger.active?.kind !== "inspection" || ledger.active.step !== inspection.requestedStep || !operation) return;
+      if (!ledger.active || !["inspection", "hover"].includes(ledger.active.kind) || ledger.active.step !== inspection.requestedStep || !operation) return;
       ledger.stage(operation.id, "sourceReadyAtMs");
       setView((previous) => ({ ...previous, inspection }));
-      ledger.stage(operation.id, "drawSubmittedAtMs");
-      completePaint(operation.id);
     }
     async function load(mode: Variant, navigation = false) {
       if (operation) return Promise.reject(new Error("Wait for the active sample"));
@@ -212,6 +219,37 @@ export function BrowserBenchmark() {
     }
     return {
       load, report,
+      inspectionCommitted(inspection: StepInspection | null) {
+        if (!inspection || !operation || !ledger.active || !["inspection", "hover"].includes(ledger.active.kind) || ledger.active.step !== inspection.requestedStep) return;
+        ledger.stage(operation.id, "drawSubmittedAtMs");
+        completePaint(operation.id);
+      },
+      armHover() { hoverEnabled = !hoverEnabled; setHoverArmed(hoverEnabled); publishReport(); },
+      pointer(metric: Metric, pixel: [number, number], inputEventAtMs: number, trusted: boolean) {
+        if (!hoverEnabled || !trusted || !painted || !frame) return;
+        if (operation || runningWorkload) { ignoredPointerEvents++; return; }
+        const model = models[metric];
+        if (!model) return;
+        // Reject moves outside the grid before creating a sample. Inspection itself
+        // uses the production Canvas coordinate conversion on the next frame.
+        const surface = surfaces.current[metric]!;
+        if (pixel[0] < model.grid.left || pixel[0] > surface.clientWidth - model.grid.right || pixel[1] < model.grid.top || pixel[1] > surface.clientHeight - model.grid.bottom) return;
+        const done = begin("hover", { inputEventAtMs });
+        void done.catch(() => {});
+        hoverFrame = requestAnimationFrame(() => {
+          try {
+            const coordinate = renderers[metric]!.coordinate(pixel);
+            if (coordinate === null || !Number.isFinite(coordinate)) throw new Error("Pointer left the chart grid");
+            const step = model.x.decode(coordinate);
+            ledger.active!.step = step;
+            if (activeVariant === "raw") {
+              const inspection = inspectStep(prepared!, step);
+              inspection.column = inspectColumn(prepared!, step, frame!.viewport);
+              acceptInspection(inspection);
+            } else session!.inspect(step);
+          } catch (error) { fail(error); }
+        });
+      },
       async workload(kind: "zoom" | "inspection" | "both") {
         if (runningWorkload || operation) throw new Error("A workload is already active");
         runningWorkload = true;
@@ -246,6 +284,8 @@ export function BrowserBenchmark() {
     // This isolated measurement engine owns mutable data and reads DOM only at runtime.
   }, []);
 
+  useLayoutEffect(() => { engine.current?.inspectionCommitted(view.inspection); }, [view.inspection]);
+
   async function run(kind: "zoom" | "inspection" | "both") {
     setRunning(true);
     try { await engine.current?.workload(kind); } catch (error) { setView((previous) => ({ ...previous, error: error instanceof Error ? error.message : "Workload failed" })); }
@@ -269,13 +309,14 @@ export function BrowserBenchmark() {
       <button disabled={!view.loaded || view.busy || running} onClick={() => void run("zoom")}>Run 30 zooms</button>
       <button disabled={!view.loaded || view.busy || running} onClick={() => void run("inspection")}>Run 30 inspections</button>
       <button disabled={view.busy || running} onClick={exportResults}>Export measurements</button>
+      <button disabled={!view.loaded || view.busy || running} aria-pressed={hoverArmed} onClick={() => engine.current?.armHover()}>{hoverArmed ? "Stop hover capture" : "Start hover capture"}</button>
     </div>
     {hasSamples && <p>Variant locked for this report. Export results and reload to compare the other variant.</p>}
     <p className={styles.status} role="status">{view.status}</p>
     {view.error && <p role="alert">{view.error}</p>}
     <div className={styles.facts}><span>{formatCount(view.rows)} source rows</span><span>{formatCount(view.plotted)} drawing entries</span><span>{view.width} reduction columns</span><span>Steps {view.range}</span></div>
-    <div className={styles.charts}>{METRICS.map((metric) => <section key={metric}><h2>{METRIC_LABELS[metric]}</h2><div className={styles.chart} ref={(element) => { surfaces.current[metric] = element; }} data-testid={`benchmark-${metric}`} /></section>)}</div>
     <div className={styles.inspector} aria-live="polite">{view.inspection ? `Step ${view.inspection.step} · Loss ${formatExactValue(view.inspection.readings.loss.value)} · Learning rate ${formatExactValue(view.inspection.readings.lr.value)} · Gradient norm ${formatExactValue(view.inspection.readings.grad_norm.value)}` : "No observation selected"}</div>
+    <div className={styles.charts}>{METRICS.map((metric) => <section key={metric}><h2>{METRIC_LABELS[metric]}</h2><div className={styles.chart} ref={(element) => { surfaces.current[metric] = element; }} data-testid={`benchmark-${metric}`} onMouseMove={(event) => { const rect = event.currentTarget.getBoundingClientRect(); engine.current?.pointer(metric, [event.clientX - rect.left, event.clientY - rect.top], event.timeStamp, event.isTrusted); }} /></section>)}</div>
     <details><summary>Measurement report and limits</summary><p>These timings end at a double-animation-frame paint proxy. They are not a Performance trace or total tab-memory measurement. A watchdog cannot interrupt synchronous main-thread work. Preserve failed samples and correlate successful endpoints with trace frames.</p><pre data-testid="benchmark-report" className={styles.results}>{reportText}</pre></details>
   </main>;
 }

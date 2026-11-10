@@ -2,6 +2,17 @@ import { describe, expect, it } from "vitest";
 import { createTimingLedger, inspectionWorkload, sampleSummary, zoomWorkload } from "../../src/features/benchmark/protocol";
 
 describe("browser benchmark measurement identity", () => {
+  it("includes browser input queueing time and rejects incompatible clock timestamps", () => {
+    let time = 120;
+    const ledger = createTimingLedger(() => time, () => {});
+    const id = ledger.begin("hover", { inputEventAtMs: 100 });
+    time = 150; ledger.complete(id);
+    expect(ledger.samples[0]).toMatchObject({ startedAtMs: 100, inputReceivedAtMs: 120, durationMs: 50 });
+    expect(sampleSummary(ledger.samples, "inspection").attempted).toBe(0);
+    expect(sampleSummary(ledger.samples, "hover").passed).toBe(1);
+    for (const timestamp of [NaN, Infinity, -1, 200]) expect(() => ledger.begin("hover", { inputEventAtMs: timestamp })).toThrow("Invalid browser input timestamp");
+    expect(ledger.samples).toHaveLength(1);
+  });
   it("never lets a failed or obsolete completion finish a new sample", () => {
     let time = 10; const marks: string[] = [];
     const ledger = createTimingLedger(() => time, (mark) => marks.push(mark));

@@ -1,9 +1,11 @@
 export type Variant = "raw" | "optimized";
-export type SampleKind = "load" | "zoom" | "inspection";
+export type SampleKind = "load" | "zoom" | "inspection" | "hover";
 export interface TimingSample {
   id: number;
   kind: SampleKind;
   startedAtMs: number;
+  inputReceivedAtMs?: number;
+  inputEventAtMs?: number;
   sourceReadyAtMs?: number;
   drawSubmittedAtMs?: number;
   paintProxyAtMs?: number;
@@ -36,17 +38,20 @@ export function sampleSummary(samples: TimingSample[], kind: SampleKind) {
 }
 
 /** Sequence identity prevents delayed completion from marking a newer sample passed. */
-export function createTimingLedger(now: () => number, mark: (name: string) => void) {
+export function createTimingLedger(now: () => number, mark: (name: string, at?: number) => void) {
   const samples: TimingSample[] = [];
   let active: TimingSample | null = null;
   return {
     samples,
     get active() { return active; },
-    begin(kind: SampleKind, target: Pick<TimingSample, "viewport" | "step"> = {}) {
+    begin(kind: SampleKind, target: Pick<TimingSample, "viewport" | "step" | "inputEventAtMs"> = {}) {
       if (active) throw new Error("A benchmark sample is already pending");
       if (samples.length >= 200) throw new Error("Export results and reload before starting more samples");
-      const sample: TimingSample = { id: samples.length + 1, kind, startedAtMs: now(), status: "pending", ...target };
-      samples.push(sample); active = sample; mark(`soup:${sample.id}:${kind}:input`);
+      const received = now();
+      if (target.inputEventAtMs !== undefined && (!Number.isFinite(target.inputEventAtMs) || target.inputEventAtMs < 0 || target.inputEventAtMs > received)) throw new Error("Invalid browser input timestamp");
+      const sample: TimingSample = { id: samples.length + 1, kind, startedAtMs: target.inputEventAtMs ?? received, status: "pending", ...target,
+        ...(target.inputEventAtMs === undefined ? {} : { inputReceivedAtMs: received }) };
+      samples.push(sample); active = sample; mark(`soup:${sample.id}:${kind}:input`, sample.startedAtMs);
       return sample.id;
     },
     stage(id: number, stage: "sourceReadyAtMs" | "drawSubmittedAtMs") {

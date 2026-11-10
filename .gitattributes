@@ -1,0 +1,3 @@
+*.pdf binary
+# Preserve the original external log, including its trailing spaces.
+evidence/performance/github-pages-ci.txt -whitespace

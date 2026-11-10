@@ -1,0 +1,80 @@
+2026-11-10T09:39:31.967Z
+Window: "Task Manager", App: Google Chrome.
+0 standard window Task Manager, Secondary Actions: Raise
+	1 container Task Manager
+		2 container
+			3 container
+				4 tab group All tasks
+					5 tab (settable, boolean) Tabs & extensions, Value: off
+					6 tab (settable, boolean) Browser, Value: off
+					7 tab (selected, settable, boolean) All tasks, Value: on
+				8 text field (settable) Search for any process from the list., Placeholder: Search
+			9 scroll area
+				10 table
+					11 row Column Task, Column Memory Footprint, Column CPU sorted in descending order, Column Network, Column Process ID, and Column JavaScript Memory
+						12 cell Column Task
+						13 cell Column Memory Footprint
+						14 cell Column CPU sorted in descending order
+						15 cell Column Network
+						16 cell Column Process ID
+						17 cell Column JavaScript Memory
+					18 row (selected) Utility: Network Service, 27.9 MB, 0.1, 0, 11872, and 0K (0K live)
+					19 row Tool: Omnibox, 48.6 MB, 0.1, 0, 24688, and 5,376K (4,257K live). Another task in the same task group: Tool: Omnibox
+						20 cell Tool: Omnibox
+						21 cell 48.6 MB
+						22 cell 0.1
+						23 cell 0
+						24 cell 24688
+						25 cell 5,376K (4,257K live)
+					26 cell Tool: Omnibox
+					27 cell
+					28 cell
+					29 cell
+					30 cell
+					31 cell
+					32 row Service Worker: chrome-extension://cfhdojbkjhnklbpkdaibdccddilifddb/background.js, 163 MB, 0.1, 0, 27334, and –
+						33 cell Service Worker: chrome-extension://cfhdojbkjhnklbpkdaibdccddilifddb/background.js
+						34 cell 163 MB
+						35 cell 0.1
+						36 cell 0
+						37 cell 27334
+						38 cell –
+					39 row Incognito Tab: Performance comparison · soup, 48.4 MB, 0.0, 0, 24693, and 7,680K (4,531K live)
+						40 cell Incognito Tab: Performance comparison · soup
+						41 cell 48.4 MB
+						42 cell 0.0
+						43 cell 0
+						44 cell 24693
+						45 cell 7,680K (4,531K live)
+					46 row Utility: Tracing Service, 40.9 MB, 0.0, 0, 21854, and 0K (0K live)
+						47 cell Utility: Tracing Service
+						48 cell 40.9 MB
+						49 cell 0.0
+						50 cell 0
+						51 cell 21854
+						52 cell 0K (0K live)
+					53 row Spare Renderer, 24.6 MB, 0.0, 0, 24695, and 0K (0K live)
+						54 cell Spare Renderer
+						55 cell 24.6 MB
+						56 cell 0.0
+						57 cell 0
+						58 cell 24695
+						59 cell 0K (0K live)
+			60 button End Task
+	61 close button
+	62 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	63 minimize button
+	64 text Task Manager
+65 menu bar
+	66 Chrome
+	67 File
+	68 Edit
+	69 View
+	70 History
+	71 Bookmarks
+	72 Profiles
+	73 Tab
+	74 Window
+	75 Help
+
+The focused UI element is 18 row (selected) Utility: Network Service, 27.9 MB, 0.1, 0, 11872, and 0K (0K live)

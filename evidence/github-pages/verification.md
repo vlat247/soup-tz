@@ -36,4 +36,8 @@ Live URL: **https://vlat247.github.io/soup-tz/**.
 - The live charts and isolated spike were visually reviewed ([screenshot](live-dashboard.jpg)). The normal-page [console record](live-console.json), captured before the deliberate missing-page request, has no warnings or errors.
 - The unknown-run URL showed the exported recovery page ([state](live-not-found.txt)). Enter on Browse training runs returned to a fully loaded run 001. The missing-page HTTP 404 is expected.
 
-Subsequent edits are documentation/evidence only and do not change the published application. A successful deployment does not supply the outstanding 4× CPU before/after traces, actual hover timings, tab-memory measurements or final rendered submission note.
+At this checkpoint the 4× CPU before/after traces, actual hover timings, tab-memory measurements and rendered submission note were still outstanding. They are now retained in [production browser evidence](../performance/verification.md) and the [final two-page note](../../output/pdf/soup-submission-note.pdf).
+
+## Performance-evidence delivery
+
+The opt-in benchmark input-timing change at `0eb0e3d` and its evidence were pushed in `9f80f0d`. [Workflow 42790484107](https://github.com/vlat247/soup-tz/actions/runs/42790484107) passed all **598 tests in 19 files**, lint, strict types, catalog consistency and the static build. Build and deploy both succeeded; deployment completed at 2026-11-10 09:26:28 UTC. The benchmark remains disabled on Pages. This CI/deployment confirmation is separate from the earlier hosted interaction checks above; it does not claim those browser checks were repeated.

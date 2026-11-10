@@ -4,6 +4,8 @@
   "pageSize": "A4",
   "source": "docs/submission/SUBMISSION.md",
   "renderer": "ReportLab; Poppler PNG at 120 dpi",
-  "visualReview": "Both final pages inspected; no clipping, overlaps, broken tables or missing glyphs. Links and footer/page numbers present.",
-  "limits": "Not a tagged accessible PDF; Markdown source also provided."
+  "visualReview": "Both final pages re-inspected after adding the memory-release result; no clipping, overlaps, broken tables or missing glyphs. Links and footer/page numbers present.",
+  "limits": "Not a tagged accessible PDF; Markdown source also provided.",
+  "verifiedAtUtc": "2026-11-10T09:44:54.196176+00:00",
+  "sha256": "ad9f0aea0ab3bb5170466ad5f5257e35a6f6fb65c694d94523ec0f50be8c0eff"
 }

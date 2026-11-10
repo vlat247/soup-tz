@@ -1,0 +1,78 @@
+2026-11-10T09:41:20.020Z
+Window: "Task Manager", App: Google Chrome.
+0 standard window Task Manager, Secondary Actions: Raise
+	1 container Task Manager
+		2 container
+			3 container
+				4 tab group All tasks
+					5 tab (settable, boolean) Tabs & extensions, Value: off
+					6 tab (settable, boolean) Browser, Value: off
+					7 tab (selected, settable, boolean) All tasks, Value: on
+				8 text field (settable) Search for any process from the list., Placeholder: Search
+			9 scroll area
+				10 table
+					11 row Column Task, Column Memory Footprint, Column CPU sorted in descending order, Column Network, Column Process ID, and Column JavaScript Memory
+						12 cell Column Task
+						13 cell Column Memory Footprint
+						14 cell Column CPU sorted in descending order
+						15 cell Column Network
+						16 cell Column Process ID
+						17 cell Column JavaScript Memory
+					18 row GPU Process, 267 MB, 0.8, 0, 11871, and –
+						19 cell GPU Process
+						20 cell 267 MB
+						21 cell 0.8
+						22 cell 0
+						23 cell 11871
+						24 cell –
+					25 row Browser, 219 MB, 0.7, 0, 11755, and –
+						26 cell Browser
+						27 cell 219 MB
+						28 cell 0.7
+						29 cell 0
+						30 cell 11755
+						31 cell –
+					32 row Utility: Network Service, 27.9 MB, 0.0, 0, 11872, and 0K (0K live)
+						33 cell Utility: Network Service
+						34 cell 27.9 MB
+						35 cell 0.0
+						36 cell 0
+						37 cell 11872
+						38 cell 0K (0K live)
+					39 row Tool: Omnibox, 48.6 MB, 0.0, 0, 24688, and 5,376K (4,257K live). Another task in the same task group: Tool: Omnibox
+						40 cell Tool: Omnibox
+						41 cell 48.6 MB
+						42 cell 0.0
+						43 cell 0
+						44 cell 24688
+						45 cell 5,376K (4,257K live)
+					46 row Tool: Omnibox
+						47 cell Tool: Omnibox
+						48 cell
+						49 cell
+						50 cell
+						51 cell
+						52 cell
+					53 row Utility: Tracing Service, 40.8 MB, 0.0, 0, 21854, and 0K (0K live)
+						54 cell Utility: Tracing Service
+						55 cell 40.8 MB
+						56 cell 0.0
+						57 cell 0
+						58 cell 21854
+						59 cell 0K (0K live)
+			60 button End Task
+	61 close button
+	62 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	63 minimize button
+	64 text Task Manager
+65 menu bar
+	66 Chrome
+	67 File
+	68 Edit
+	69 View
+	70 History
+	71 Bookmarks
+	72 Profiles
+	73 Tab
+	74 Window
+	75 Help

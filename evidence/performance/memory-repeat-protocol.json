@@ -1,0 +1,13 @@
+{
+  "variant": "optimized",
+  "rendererPid": 24693,
+  "repeatLoadStartedAt": "2026-11-10T09:39:42.684Z",
+  "repeatUnloadStartedAt": "2026-11-10T09:40:25.478Z",
+  "unloadedCaptureCompletedAt": "2026-11-10T09:42:27.303Z",
+  "sourceRows": 1000000,
+  "drawingEntries": 5088,
+  "sharedReductionWidth": 510,
+  "cpuThrottling": "none; DevTools closed",
+  "forcedGC": false,
+  "notes": "Supplemental load/unload cycle after unlock in the same renderer. Original fresh-renderer measurements are unchanged. First unloaded capture had the tab outside the AX view; preserved as optimized-memory-repeat-unloaded-offscreen. A later capture after sorting Task Manager by task exposes the tab, 122 seconds after unload."
+}

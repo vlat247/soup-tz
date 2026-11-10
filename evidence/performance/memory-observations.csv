@@ -6,3 +6,6 @@ raw,unloaded >=30s,1.4 GB,"982,368K","941,706K",24360,2026-11-10T09:03:21.352Z,r
 optimized,empty,44.5 MB,"3,840K","3,169K",24693,2026-11-10T09:04:36.205Z,optimized-memory-empty
 optimized,load observation,109 MB,not sampled,not sampled,24693,2026-11-10T09:04:41.864Z,optimized-memory-load-observation
 optimized,loaded >=30s,103 MB,"8,448K","7,116K",24693,2026-11-10T09:05:49.927Z,optimized-memory-loaded-30s
+optimized,after unlock; initial release lock-interrupted,48.4 MB,"7,680K","4,531K",24693,2026-11-10T09:39:31.967Z,optimized-memory-unloaded-after-unlock
+optimized,repeat loaded 42s,101 MB,"15,360K","7,564K",24693,2026-11-10T09:40:24.838Z,optimized-memory-repeat-loaded-30s
+optimized,repeat unloaded 122s,57.1 MB,"14,336K","7,169K",24693,2026-11-10T09:42:27.242Z,optimized-memory-repeat-unloaded-122s

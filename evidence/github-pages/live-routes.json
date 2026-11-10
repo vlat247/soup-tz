@@ -1,0 +1,131 @@
+{
+  "checkedAt": "2026-11-10T08:27:01.278Z",
+  "revision": "9b963338998024bf8fb316d7b02405379ca5a193",
+  "rows": [
+    {
+      "path": "/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/"
+    },
+    {
+      "path": "/runs/run-001/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-001/"
+    },
+    {
+      "path": "/runs/run-002/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-002/"
+    },
+    {
+      "path": "/runs/run-003/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-003/"
+    },
+    {
+      "path": "/runs/run-004/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-004/"
+    },
+    {
+      "path": "/runs/run-005/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-005/"
+    },
+    {
+      "path": "/runs/run-006/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-006/"
+    },
+    {
+      "path": "/runs/run-007/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-007/"
+    },
+    {
+      "path": "/runs/run-008/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-008/"
+    },
+    {
+      "path": "/runs/run-009/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-009/"
+    },
+    {
+      "path": "/runs/run-010/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-010/"
+    },
+    {
+      "path": "/runs/run-011/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-011/"
+    },
+    {
+      "path": "/runs/run-012/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-012/"
+    },
+    {
+      "path": "/runs/run-013/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-013/"
+    },
+    {
+      "path": "/runs/run-014/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-014/"
+    },
+    {
+      "path": "/runs/run-015/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-015/"
+    },
+    {
+      "path": "/runs/run-016/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-016/"
+    },
+    {
+      "path": "/runs/run-017/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-017/"
+    },
+    {
+      "path": "/runs/run-018/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-018/"
+    },
+    {
+      "path": "/runs/run-019/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-019/"
+    },
+    {
+      "path": "/runs/run-020/",
+      "status": 200,
+      "url": "https://vlat247.github.io/soup-tz/runs/run-020/"
+    },
+    {
+      "path": "/runs/no-such-run/",
+      "status": 404,
+      "url": "https://vlat247.github.io/soup-tz/runs/no-such-run/"
+    },
+    {
+      "path": "/benchmark/",
+      "status": 404,
+      "url": "https://vlat247.github.io/soup-tz/benchmark/"
+    },
+    {
+      "path": "/diagnostics/charts/",
+      "status": 404,
+      "url": "https://vlat247.github.io/soup-tz/diagnostics/charts/"
+    },
+    {
+      "path": "/diagnostics/silent-failures/",
+      "status": 404,
+      "url": "https://vlat247.github.io/soup-tz/diagnostics/silent-failures/"
+    }
+  ]
+}

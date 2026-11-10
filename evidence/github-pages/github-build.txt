@@ -1,0 +1,604 @@
+build	Set up job	﻿2026-11-10T08:24:10.9436637Z Current runner version: '2.338.2'
+build	Set up job	2026-11-10T08:24:10.9462179Z ##[group]Runner Image Provisioner
+build	Set up job	2026-11-10T08:24:10.9463084Z Hosted Compute Agent
+build	Set up job	2026-11-10T08:24:10.9463683Z Version: 20261028.624
+build	Set up job	2026-11-10T08:24:10.9464407Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+build	Set up job	2026-11-10T08:24:10.9465138Z Build Date: 2026-10-28T21:51:42Z
+build	Set up job	2026-11-10T08:24:10.9465998Z Worker ID: {dac69f90-9265-4ecf-a3c4-95ebd26dbc3f}
+build	Set up job	2026-11-10T08:24:10.9466746Z Region: westcentralus
+build	Set up job	2026-11-10T08:24:10.9467317Z Cloud: Azure
+build	Set up job	2026-11-10T08:24:10.9467962Z ##[endgroup]
+build	Set up job	2026-11-10T08:24:10.9469599Z ##[group]Operating System
+build	Set up job	2026-11-10T08:24:10.9470290Z Ubuntu
+build	Set up job	2026-11-10T08:24:10.9470998Z 26.04.1
+build	Set up job	2026-11-10T08:24:10.9471502Z LTS
+build	Set up job	2026-11-10T08:24:10.9472053Z ##[endgroup]
+build	Set up job	2026-11-10T08:24:10.9472619Z ##[group]Runner Image
+build	Set up job	2026-11-10T08:24:10.9473268Z Image: ubuntu-26.04
+build	Set up job	2026-11-10T08:24:10.9473904Z Version: 20261101.186.1
+build	Set up job	2026-11-10T08:24:10.9474992Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261101.186/images/ubuntu/Ubuntu2604-Readme.md
+build	Set up job	2026-11-10T08:24:10.9476753Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261101.186
+build	Set up job	2026-11-10T08:24:10.9477774Z ##[endgroup]
+build	Set up job	2026-11-10T08:24:10.9479350Z ##[group]GITHUB_TOKEN Permissions
+build	Set up job	2026-11-10T08:24:10.9481237Z Contents: read
+build	Set up job	2026-11-10T08:24:10.9482013Z Metadata: read
+build	Set up job	2026-11-10T08:24:10.9482612Z Pages: read
+build	Set up job	2026-11-10T08:24:10.9483199Z ##[endgroup]
+build	Set up job	2026-11-10T08:24:10.9485250Z Secret source: Actions
+build	Set up job	2026-11-10T08:24:10.9486309Z Cache mode: write
+build	Set up job	2026-11-10T08:24:10.9487061Z Prepare workflow directory
+build	Set up job	2026-11-10T08:24:10.9880437Z Prepare all required actions
+build	Set up job	2026-11-10T08:24:10.9927223Z Getting action download info
+build	Set up job	2026-11-10T08:24:11.2901983Z Download action repository 'actions/checkout@v7.0.1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+build	Set up job	2026-11-10T08:24:11.4266757Z Download action repository 'actions/setup-node@v7.1.0' (SHA:949feb2413d6458794dcd2491c4babbbce0c15c1)
+build	Set up job	2026-11-10T08:24:11.4911701Z Download action repository 'actions/configure-pages@v6.0.0' (SHA:45bfe0192ca1faeb007ade9deae92b16b8254a0d)
+build	Set up job	2026-11-10T08:24:11.9772225Z Download action repository 'actions/upload-pages-artifact@v5.0.0' (SHA:fc324d3547104276b827a68afc52ff2a11cc49c9)
+build	Set up job	2026-11-10T08:24:12.2818186Z Getting action download info
+build	Set up job	2026-11-10T08:24:12.3775792Z Download action repository 'actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f' (SHA:bbbca2ddaa5d8feaa63e36b76fdaad77386f024f)
+build	Set up job	2026-11-10T08:24:12.5644274Z Complete job name: build
+build	Run actions/checkout@v7.0.1	﻿2026-11-10T08:24:12.6673721Z ##[group]Run actions/checkout@v7.0.1
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6675246Z with:
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6676134Z   repository: vlat247/soup-tz
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6685191Z   token: ***
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6686088Z   ssh-strict: true
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6687009Z   ssh-user: git
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6687936Z   persist-credentials: true
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6689074Z   clean: true
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6689999Z   sparse-checkout-cone-mode: true
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6691107Z   fetch-depth: 1
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6692042Z   fetch-tags: false
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6692982Z   show-progress: true
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6693925Z   lfs: false
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6694791Z   submodules: false
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6695742Z   set-safe-directory: true
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6696812Z   allow-unsafe-pr-checkout: false
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6698143Z env:
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6699112Z   GITHUB_PAGES: true
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6700100Z   NEXT_PUBLIC_ENABLE_BENCHMARK: 0
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6701230Z   NEXT_TELEMETRY_DISABLED: 1
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.6702255Z ##[endgroup]
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9470167Z Syncing repository: vlat247/soup-tz
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9473111Z ##[group]Getting Git version info
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9474794Z Working directory is '/home/runner/work/soup-tz/soup-tz'
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9477092Z [command]/usr/bin/git version
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9478410Z git version 2.56.0
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9482233Z ##[endgroup]
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9491327Z Temporarily overriding HOME='/home/runner/work/_temp/a0da4a7e-5fa8-4c68-8ded-d1ad78fb3871' before making global git config changes
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9496899Z Adding repository directory to the temporary git global config as a safe directory
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9501311Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/soup-tz/soup-tz
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9507061Z Deleting the contents of '/home/runner/work/soup-tz/soup-tz'
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9510799Z ##[group]Determining repository object format
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9514395Z ##[endgroup]
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9516886Z ##[group]Initializing the repository
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9518827Z [command]/usr/bin/git init /home/runner/work/soup-tz/soup-tz
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9638971Z hint: Using 'master' as the name for the initial branch. This default branch name
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9641918Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9644158Z hint: to use in all of your new repositories, which will suppress this warning,
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9645941Z hint: call:
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9647065Z hint:
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9648370Z hint: 	git config --global init.defaultBranch <name>
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9650494Z hint:
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9652540Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9656023Z hint: 'development'. The just-created branch can be renamed via this command:
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9658995Z hint:
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9660551Z hint: 	git branch -m <name>
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9662284Z hint:
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9664729Z hint: Disable this message with "git config set advice.defaultBranchName false"
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9668372Z Initialized empty Git repository in /home/runner/work/soup-tz/soup-tz/.git/
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9676111Z [command]/usr/bin/git remote add origin https://github.com/vlat247/soup-tz
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9730263Z ##[endgroup]
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9732198Z ##[group]Disabling automatic garbage collection
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9741510Z [command]/usr/bin/git config --local gc.auto 0
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9781530Z ##[endgroup]
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9784112Z ##[group]Setting up auth
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9786000Z Removing SSH command configuration
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9789023Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:12.9831215Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.0352330Z Removing HTTP extra header
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.0360723Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.0411280Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.0696043Z Removing includeIf entries pointing to credentials config files
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.0701456Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.0735191Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.1013476Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-c9e32bee-a34c-406f-a980-5ba2bc3c1bbc.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.1052028Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/soup-tz/soup-tz/.git.path /home/runner/work/_temp/git-credentials-c9e32bee-a34c-406f-a980-5ba2bc3c1bbc.config
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.1086271Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/soup-tz/soup-tz/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-c9e32bee-a34c-406f-a980-5ba2bc3c1bbc.config
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.1124212Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-c9e32bee-a34c-406f-a980-5ba2bc3c1bbc.config
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.1159111Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-c9e32bee-a34c-406f-a980-5ba2bc3c1bbc.config
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.1189734Z ##[endgroup]
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.1192338Z ##[group]Fetching the repository
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.1197841Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +9b963338998024bf8fb316d7b02405379ca5a193:refs/remotes/origin/main
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9408028Z From https://github.com/vlat247/soup-tz
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9411178Z  * [new ref]         9b963338998024bf8fb316d7b02405379ca5a193 -> origin/main
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9423382Z [command]/usr/bin/git branch --list --remote origin/main
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9450593Z   origin/main
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9459215Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9483746Z 9b963338998024bf8fb316d7b02405379ca5a193
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9489826Z ##[endgroup]
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9491261Z ##[group]Determining the checkout info
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9492652Z ##[endgroup]
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9494044Z [command]/usr/bin/git sparse-checkout disable
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9545406Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9577033Z ##[group]Checking out the ref
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9580540Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9923860Z Switched to a new branch 'main'
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9929282Z branch 'main' set up to track 'origin/main'.
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9937027Z ##[endgroup]
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:13.9981890Z [command]/usr/bin/git log -1 --format=%H
+build	Run actions/checkout@v7.0.1	2026-11-10T08:24:14.0008009Z 9b963338998024bf8fb316d7b02405379ca5a193
+build	Run actions/setup-node@v7.1.0	﻿2026-11-10T08:24:14.0324358Z ##[group]Run actions/setup-node@v7.1.0
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.0325287Z with:
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.0326031Z   node-version: 24
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.0326793Z   cache: npm
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.0327546Z   check-latest: false
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.0331075Z   token: ***
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.0331872Z   package-manager-cache: true
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.0332681Z env:
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.0333412Z   GITHUB_PAGES: true
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.0334225Z   NEXT_PUBLIC_ENABLE_BENCHMARK: 0
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.0335074Z   NEXT_TELEMETRY_DISABLED: 1
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.0335870Z ##[endgroup]
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.1674288Z Found in cache @ /opt/hostedtoolcache/node/24.22.2/x64
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.2383777Z ##[group]Environment details
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.5705167Z node: v24.22.2
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.5707290Z npm: 11.19.1
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.5707859Z yarn: 1.22.22
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.5709128Z ##[endgroup]
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.5726455Z [command]/opt/hostedtoolcache/node/24.22.2/x64/bin/npm config get cache
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.6860334Z /home/runner/.npm
+build	Run actions/setup-node@v7.1.0	2026-11-10T08:24:14.9033850Z npm cache is not found
+build	Run actions/configure-pages@v6.0.0	﻿2026-11-10T08:24:14.9205933Z ##[group]Run actions/configure-pages@v6.0.0
+build	Run actions/configure-pages@v6.0.0	2026-11-10T08:24:14.9206326Z with:
+build	Run actions/configure-pages@v6.0.0	2026-11-10T08:24:14.9209072Z   token: ***
+build	Run actions/configure-pages@v6.0.0	2026-11-10T08:24:14.9209374Z   enablement: false
+build	Run actions/configure-pages@v6.0.0	2026-11-10T08:24:14.9209641Z env:
+build	Run actions/configure-pages@v6.0.0	2026-11-10T08:24:14.9209881Z   GITHUB_PAGES: true
+build	Run actions/configure-pages@v6.0.0	2026-11-10T08:24:14.9210169Z   NEXT_PUBLIC_ENABLE_BENCHMARK: 0
+build	Run actions/configure-pages@v6.0.0	2026-11-10T08:24:14.9210482Z   NEXT_TELEMETRY_DISABLED: 1
+build	Run actions/configure-pages@v6.0.0	2026-11-10T08:24:14.9210765Z ##[endgroup]
+build	Run npm ci	﻿2026-11-10T08:24:15.4040838Z ##[group]Run npm ci
+build	Run npm ci	2026-11-10T08:24:15.4041165Z [36;1mnpm ci[0m
+build	Run npm ci	2026-11-10T08:24:15.4100113Z shell: /usr/bin/bash -e {0}
+build	Run npm ci	2026-11-10T08:24:15.4100411Z env:
+build	Run npm ci	2026-11-10T08:24:15.4100611Z   GITHUB_PAGES: true
+build	Run npm ci	2026-11-10T08:24:15.4100876Z   NEXT_PUBLIC_ENABLE_BENCHMARK: 0
+build	Run npm ci	2026-11-10T08:24:15.4101146Z   NEXT_TELEMETRY_DISABLED: 1
+build	Run npm ci	2026-11-10T08:24:15.4101380Z ##[endgroup]
+build	Run npm ci	2026-11-10T08:24:39.1955264Z npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+build	Run npm ci	2026-11-10T08:25:13.0076953Z 
+build	Run npm ci	2026-11-10T08:25:13.0078091Z added 388 packages, and audited 389 packages in 58s
+build	Run npm ci	2026-11-10T08:25:13.0078776Z 
+build	Run npm ci	2026-11-10T08:25:13.0081868Z 156 packages are looking for funding
+build	Run npm ci	2026-11-10T08:25:13.0082325Z   run `npm fund` for details
+build	Run npm ci	2026-11-10T08:25:13.1881699Z 
+build	Run npm ci	2026-11-10T08:25:13.1882599Z 7 moderate severity vulnerabilities
+build	Run npm ci	2026-11-10T08:25:13.1883108Z 
+build	Run npm ci	2026-11-10T08:25:13.1883360Z To address all issues, run:
+build	Run npm ci	2026-11-10T08:25:13.1883828Z   npm audit fix
+build	Run npm ci	2026-11-10T08:25:13.1884218Z 
+build	Run npm ci	2026-11-10T08:25:13.1884487Z Run `npm audit` for details.
+build	Run npm ci	2026-11-10T08:25:13.1891406Z npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+build	Run npm ci	2026-11-10T08:25:13.1892834Z npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+build	Run npm ci	2026-11-10T08:25:13.1893670Z npm warn install-scripts
+build	Run npm ci	2026-11-10T08:25:13.1894829Z npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+build	Validate and build static site	﻿2026-11-10T08:25:13.2877098Z ##[group]Run npm run check
+build	Validate and build static site	2026-11-10T08:25:13.2877424Z [36;1mnpm run check[0m
+build	Validate and build static site	2026-11-10T08:25:13.2931388Z shell: /usr/bin/bash -e {0}
+build	Validate and build static site	2026-11-10T08:25:13.2931674Z env:
+build	Validate and build static site	2026-11-10T08:25:13.2931865Z   GITHUB_PAGES: true
+build	Validate and build static site	2026-11-10T08:25:13.2932097Z   NEXT_PUBLIC_ENABLE_BENCHMARK: 0
+build	Validate and build static site	2026-11-10T08:25:13.2932355Z   NEXT_TELEMETRY_DISABLED: 1
+build	Validate and build static site	2026-11-10T08:25:13.2932588Z ##[endgroup]
+build	Validate and build static site	2026-11-10T08:25:13.3912832Z 
+build	Validate and build static site	2026-11-10T08:25:13.3913580Z > soup-training-monitor@0.1.0 check
+build	Validate and build static site	2026-11-10T08:25:13.3914751Z > npm run lint && npm run typecheck && npm run test && npm run data:catalog:check && npm run build
+build	Validate and build static site	2026-11-10T08:25:13.3915423Z 
+build	Validate and build static site	2026-11-10T08:25:13.4897451Z 
+build	Validate and build static site	2026-11-10T08:25:13.4897955Z > soup-training-monitor@0.1.0 lint
+build	Validate and build static site	2026-11-10T08:25:13.4898728Z > eslint . --max-warnings=0
+build	Validate and build static site	2026-11-10T08:25:13.4898946Z 
+build	Validate and build static site	2026-11-10T08:25:18.0454877Z 
+build	Validate and build static site	2026-11-10T08:25:18.0455723Z > soup-training-monitor@0.1.0 typecheck
+build	Validate and build static site	2026-11-10T08:25:18.0456193Z > next typegen && tsc --noEmit
+build	Validate and build static site	2026-11-10T08:25:18.0456391Z 
+build	Validate and build static site	2026-11-10T08:25:18.3150081Z Generating route types...
+build	Validate and build static site	2026-11-10T08:25:18.3319725Z ✓ Types generated successfully
+build	Validate and build static site	2026-11-10T08:25:23.0215071Z 
+build	Validate and build static site	2026-11-10T08:25:23.0215832Z > soup-training-monitor@0.1.0 test
+build	Validate and build static site	2026-11-10T08:25:23.0216540Z > vitest run tests/unit
+build	Validate and build static site	2026-11-10T08:25:23.0216793Z 
+build	Validate and build static site	2026-11-10T08:25:23.3019625Z 
+build	Validate and build static site	2026-11-10T08:25:23.3040739Z [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m/home/runner/work/soup-tz/soup-tz[39m
+build	Validate and build static site	2026-11-10T08:25:23.3041544Z 
+build	Validate and build static site	2026-11-10T08:25:23.7044821Z  [32m✓[39m tests/unit/run-session.test.ts [2m([22m[2m58 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:24.3449790Z  [32m✓[39m tests/unit/mock-data.test.ts [2m([22m[2m58 tests[22m[2m)[22m[33m 736[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:24.7018095Z  [32m✓[39m tests/unit/chart-model.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 213[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:26.0873428Z  [32m✓[39m tests/unit/column-inspection.test.ts [2m([22m[2m24 tests[22m[2m)[22m[33m 1494[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:26.0886774Z    [32m✓[39m exact source bucket geometry [2m(18)[22m
+build	Validate and build static site	2026-11-10T08:25:26.0918159Z      [33m[2m✓[22m[39m matches BigInt at MAX_SAFE_INTEGER spans and every exact column boundary[33m 727[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:26.0929644Z    [32m✓[39m original source column facts [2m(6)[22m
+build	Validate and build static site	2026-11-10T08:25:26.0931332Z      [33m[2m✓[22m[39m finds the million-point spike even when another observation is nearest to the pointer[33m 642[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:28.1241034Z  [32m✓[39m tests/unit/response-contract.test.ts [2m([22m[2m66 tests[22m[2m)[22m[33m 1743[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:28.1279674Z    [32m✓[39m real source compatibility [2m(23)[22m
+build	Validate and build static site	2026-11-10T08:25:28.1281187Z      [33m[2m✓[22m[39m accepts run-020 summaries, reduced frames and exact inspections[33m 1339[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:28.3595944Z  [32m✓[39m tests/unit/chart-renderer.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:28.6100907Z  [32m✓[39m tests/unit/source-contract.test.ts [2m([22m[2m56 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:29.7480643Z  [32m✓[39m tests/unit/run-worker.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 1001[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:29.7511295Z    [32m✓[39m worker request boundary [2m(15)[22m
+build	Validate and build static site	2026-11-10T08:25:29.7570123Z      [33m[2m✓[22m[39m returns a column peak from source even when the nearest observation is not the peak[33m 701[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:30.6380585Z  [32m✓[39m tests/unit/run-view.test.ts [2m([22m[2m51 tests[22m[2m)[22m[33m 6948[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:30.6410977Z    [32m✓[39m million-point spike preservation [2m(26)[22m
+build	Validate and build static site	2026-11-10T08:25:30.6412445Z      [33m[2m✓[22m[39m retains the exact spike in [0, 999999] at width 1[33m 482[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:30.6440075Z      [33m[2m✓[22m[39m retains the exact spike in [0, 999999] at width 2[33m 742[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:30.6469640Z      [33m[2m✓[22m[39m retains the exact spike in [0, 999999] at width 17[33m 674[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:30.6490448Z      [33m[2m✓[22m[39m retains the exact spike in [0, 999999] at width 320[33m 694[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:30.6563201Z      [33m[2m✓[22m[39m retains the exact spike in [0, 999999] at width 1024[33m 643[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:30.6564894Z      [33m[2m✓[22m[39m retains the exact spike in [0, 500000] at width 1024[33m 377[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:30.6589628Z      [33m[2m✓[22m[39m retains the exact spike in [500000, 999999] at width 1[33m 317[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:30.6619831Z      [33m[2m✓[22m[39m retains the exact spike in [500000, 999999] at width 2[33m 345[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:30.6649924Z      [33m[2m✓[22m[39m does not leak an excluded spike into the visible domain or inspection values[33m 359[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:30.7770692Z  [32m✓[39m tests/unit/downsampling.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 833[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:30.8928635Z  [32m✓[39m tests/unit/format.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:31.1070630Z  [32m✓[39m tests/unit/validation-oracle.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 124[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:31.1447784Z  [32m✓[39m tests/unit/run-list.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:31.3278014Z  [32m✓[39m tests/unit/group-scan.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:31.3370292Z  [32m✓[39m tests/unit/fault-transport.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:31.5114248Z  [32m✓[39m tests/unit/validation-report.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:31.6156262Z  [32m✓[39m tests/unit/column-contract.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 77[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:31.6720324Z  [32m✓[39m tests/unit/benchmark-protocol.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:45.2720983Z  [32m✓[39m tests/unit/run-validation.test.ts [2m([22m[2m92 tests[22m[2m)[22m[33m 20338[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:45.2722511Z    [32m✓[39m independent full-source fixture audit [2m(21)[22m
+build	Validate and build static site	2026-11-10T08:25:45.2723871Z      [33m[2m✓[22m[39m preserves facts, provenance, extrema and breaks for run-020[33m 10748[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:45.2725836Z      [33m[2m✓[22m[39m retains the million-row spike and exact per-metric bounds over 32 saved generated viewports[33m 6761[2mms[22m[39m
+build	Validate and build static site	2026-11-10T08:25:45.2788246Z 
+build	Validate and build static site	2026-11-10T08:25:45.2801776Z [2m Test Files [22m [1m[32m19 passed[39m[22m[90m (19)[39m
+build	Validate and build static site	2026-11-10T08:25:45.2804484Z [2m      Tests [22m [1m[32m597 passed[39m[22m[90m (597)[39m
+build	Validate and build static site	2026-11-10T08:25:45.2805199Z [2m   Start at [22m 08:25:23
+build	Validate and build static site	2026-11-10T08:25:45.2806966Z [2m   Duration [22m 21.95s[2m (tests 94%, import 4%, transform 2%)[22m
+build	Validate and build static site	2026-11-10T08:25:45.2819255Z 
+build	Validate and build static site	2026-11-10T08:25:45.4257051Z 
+build	Validate and build static site	2026-11-10T08:25:45.4257713Z > soup-training-monitor@0.1.0 data:catalog:check
+build	Validate and build static site	2026-11-10T08:25:45.4258795Z > node --import tsx scripts/generate-run-catalog.ts --check
+build	Validate and build static site	2026-11-10T08:25:45.4259091Z 
+build	Validate and build static site	2026-11-10T08:25:46.0304761Z Verified 20 exact run summaries.
+build	Validate and build static site	2026-11-10T08:25:46.1771796Z 
+build	Validate and build static site	2026-11-10T08:25:46.1772421Z > soup-training-monitor@0.1.0 build
+build	Validate and build static site	2026-11-10T08:25:46.1772786Z > next build
+build	Validate and build static site	2026-11-10T08:25:46.1772922Z 
+build	Validate and build static site	2026-11-10T08:25:46.5429359Z ▲ Next.js 16.4.5 (Turbopack)
+build	Validate and build static site	2026-11-10T08:25:46.5900063Z ✓ Running next.config.ts took 46ms
+build	Validate and build static site	2026-11-10T08:25:46.5902820Z ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+build	Validate and build static site	2026-11-10T08:25:46.6023434Z 
+build	Validate and build static site	2026-11-10T08:25:46.6293315Z   Creating an optimized production build ...
+build	Validate and build static site	2026-11-10T08:25:51.5260477Z ✓ Compiled successfully in 4.9s
+build	Validate and build static site	2026-11-10T08:25:51.5349249Z   Running TypeScript ...
+build	Validate and build static site	2026-11-10T08:25:56.4223755Z   Finished TypeScript in 4.9s ...
+build	Validate and build static site	2026-11-10T08:25:56.4240978Z   Collecting page data using 3 workers ...
+build	Validate and build static site	2026-11-10T08:25:56.9629821Z   Generating static pages using 3 workers (0/28) ...
+build	Validate and build static site	2026-11-10T08:25:57.4047291Z   Generating static pages using 3 workers (7/28) 
+build	Validate and build static site	2026-11-10T08:25:57.4183707Z   Generating static pages using 3 workers (14/28) 
+build	Validate and build static site	2026-11-10T08:25:57.5432908Z   Generating static pages using 3 workers (21/28) 
+build	Validate and build static site	2026-11-10T08:25:57.5514233Z ✓ Generating static pages using 3 workers (28/28) in 591ms
+build	Validate and build static site	2026-11-10T08:25:57.5562054Z   Finalizing page optimization ...
+build	Validate and build static site	2026-11-10T08:25:57.5939939Z 
+build	Validate and build static site	2026-11-10T08:25:57.5958842Z Route (app)
+build	Validate and build static site	2026-11-10T08:25:57.5959431Z ┌ ○ /
+build	Validate and build static site	2026-11-10T08:25:57.5959749Z ├ ○ /_not-found
+build	Validate and build static site	2026-11-10T08:25:57.5960008Z ├ ○ /benchmark
+build	Validate and build static site	2026-11-10T08:25:57.5960476Z ├ ○ /diagnostics/charts
+build	Validate and build static site	2026-11-10T08:25:57.5961016Z ├ ○ /diagnostics/silent-failures
+build	Validate and build static site	2026-11-10T08:25:57.5961389Z ├ ○ /icon.png
+build	Validate and build static site	2026-11-10T08:25:57.5961611Z ├ ○ /runs
+build	Validate and build static site	2026-11-10T08:25:57.5961838Z └   /runs/[runId]
+build	Validate and build static site	2026-11-10T08:25:57.5962118Z   ├ ● /runs/run-001
+build	Validate and build static site	2026-11-10T08:25:57.5962348Z   ├ ● /runs/run-002
+build	Validate and build static site	2026-11-10T08:25:57.5962575Z   ├ ● /runs/run-003
+build	Validate and build static site	2026-11-10T08:25:57.5962804Z   └ ● [+17 more paths]
+build	Validate and build static site	2026-11-10T08:25:57.5962969Z 
+build	Validate and build static site	2026-11-10T08:25:57.5962977Z 
+build	Validate and build static site	2026-11-10T08:25:57.5963273Z ○  (Static)  prerendered as static content
+build	Validate and build static site	2026-11-10T08:25:57.5964058Z ●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+build	Validate and build static site	2026-11-10T08:25:57.5964435Z 
+build	Validate and build static site	2026-11-10T08:25:57.6772789Z 
+build	Validate and build static site	2026-11-10T08:25:57.6773504Z > soup-training-monitor@0.1.0 postbuild
+build	Validate and build static site	2026-11-10T08:25:57.6774246Z > node scripts/finalize-pages-export.mjs
+build	Validate and build static site	2026-11-10T08:25:57.6774623Z 
+build	Run actions/upload-pages-artifact@v5.0.0	﻿2026-11-10T08:25:57.7310438Z ##[group]Run actions/upload-pages-artifact@v5.0.0
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7310793Z with:
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7310988Z   path: out
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7311183Z   name: github-pages
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7311400Z   retention-days: 1
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7311617Z   include-hidden-files: false
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7311847Z env:
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7312026Z   GITHUB_PAGES: true
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7312242Z   NEXT_PUBLIC_ENABLE_BENCHMARK: 0
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7312498Z   NEXT_TELEMETRY_DISABLED: 1
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7312750Z ##[endgroup]
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7381937Z ##[start-action display=Archive artifact;id=__actions_upload-pages-artifact.__run]
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7428196Z ##[group]Run echo ::group::Archive artifact
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7428707Z [36;1mecho ::group::Archive artifact[0m
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7428978Z [36;1mtar \[0m
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7429228Z [36;1m  --dereference --hard-dereference \[0m
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7429546Z [36;1m  --directory "$INPUT_PATH" \[0m
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7429847Z [36;1m  -cvf "$RUNNER_TEMP/artifact.tar" \[0m
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7430165Z [36;1m  --exclude=.git \[0m
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7430415Z [36;1m  --exclude=.github \[0m
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7430657Z [36;1m  --exclude=.[^/]* \[0m
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7430879Z [36;1m  .[0m
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7431081Z [36;1mecho ::endgroup::[0m
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7506217Z shell: /usr/bin/sh -e {0}
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7506474Z env:
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7506667Z   GITHUB_PAGES: true
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7506904Z   NEXT_PUBLIC_ENABLE_BENCHMARK: 0
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7507349Z   NEXT_TELEMETRY_DISABLED: 1
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7507582Z   INPUT_PATH: out
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7507783Z ##[endgroup]
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7579717Z ##[group]Archive artifact
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7593226Z ./
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7593694Z ./__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7594030Z ./index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7594289Z ./soup-icon.png
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7594559Z ./icon.png
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7594812Z ./404.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7595129Z ./runs/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7595443Z ./runs/run-011/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7595804Z ./runs/run-011/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7596242Z ./runs/run-011/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7596659Z ./runs/run-011/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7597031Z ./runs/run-011/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7597454Z ./runs/run-011/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7597794Z ./runs/run-008/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7598094Z ./runs/run-008/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7598898Z ./runs/run-008/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7599345Z ./runs/run-008/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7599851Z ./runs/run-008/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7600183Z ./runs/run-008/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7600436Z ./runs/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7600804Z ./runs/run-010/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7601269Z ./runs/run-010/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7601814Z ./runs/run-010/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7602089Z ./runs/run-010/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7602339Z ./runs/run-010/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7602780Z ./runs/run-010/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7603140Z ./runs/run-007/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7603627Z ./runs/run-007/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7604098Z ./runs/run-007/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7604363Z ./runs/run-007/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7604703Z ./runs/run-007/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7605059Z ./runs/run-007/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7605582Z ./runs/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7605889Z ./runs/run-009/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7606192Z ./runs/run-009/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7606620Z ./runs/run-009/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7607036Z ./runs/run-009/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7607462Z ./runs/run-009/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7607824Z ./runs/run-009/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7608060Z ./runs/run-013/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7608436Z ./runs/run-013/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7609213Z ./runs/run-013/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7610010Z ./runs/run-013/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7610333Z ./runs/run-013/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7610609Z ./runs/run-013/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7610946Z ./runs/run-002/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7611449Z ./runs/run-002/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7612008Z ./runs/run-002/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7612280Z ./runs/run-002/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7612525Z ./runs/run-002/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7612955Z ./runs/run-002/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7613385Z ./runs/__next.runs.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7613760Z ./runs/run-019/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7614094Z ./runs/run-019/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7614498Z ./runs/run-019/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7614890Z ./runs/run-019/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7615273Z ./runs/run-019/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7615718Z ./runs/run-019/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7615961Z ./runs/run-004/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7616384Z ./runs/run-004/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7616892Z ./runs/run-004/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7617244Z ./runs/run-004/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7617666Z ./runs/run-004/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7617925Z ./runs/run-004/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7618154Z ./runs/run-015/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7618756Z ./runs/run-015/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7619239Z ./runs/run-015/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7619667Z ./runs/run-015/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7620107Z ./runs/run-015/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7620480Z ./runs/run-015/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7620848Z ./runs/run-020/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7621289Z ./runs/run-020/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7621752Z ./runs/run-020/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7622008Z ./runs/run-020/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7622332Z ./runs/run-020/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7622687Z ./runs/run-020/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7623070Z ./runs/run-018/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7623544Z ./runs/run-018/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7623890Z ./runs/run-018/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7624241Z ./runs/run-018/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7624619Z ./runs/run-018/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7625025Z ./runs/run-018/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7625409Z ./runs/run-005/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7625707Z ./runs/run-005/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7626127Z ./runs/run-005/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7626527Z ./runs/run-005/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7626871Z ./runs/run-005/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7627324Z ./runs/run-005/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7627557Z ./runs/run-001/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7627932Z ./runs/run-001/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7628396Z ./runs/run-001/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7629034Z ./runs/run-001/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7629407Z ./runs/run-001/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7629672Z ./runs/run-001/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7630007Z ./runs/run-003/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7630435Z ./runs/run-003/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7630957Z ./runs/run-003/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7631329Z ./runs/run-003/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7631568Z ./runs/run-003/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7631916Z ./runs/run-003/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7632329Z ./runs/run-016/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7632768Z ./runs/run-016/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7633265Z ./runs/run-016/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7633621Z ./runs/run-016/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7633862Z ./runs/run-016/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7634214Z ./runs/run-016/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7634538Z ./runs/run-014/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7634980Z ./runs/run-014/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7635546Z ./runs/run-014/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7635941Z ./runs/run-014/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7636322Z ./runs/run-014/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7636680Z ./runs/run-014/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7637112Z ./runs/run-012/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7637393Z ./runs/run-012/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7637719Z ./runs/run-012/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7638113Z ./runs/run-012/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7638618Z ./runs/run-012/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7639050Z ./runs/run-012/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7639332Z ./runs/run-006/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7639693Z ./runs/run-006/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7640177Z ./runs/run-006/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7640432Z ./runs/run-006/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7640668Z ./runs/run-006/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7640921Z ./runs/run-006/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7641150Z ./runs/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7641364Z ./runs/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7641641Z ./runs/run-017/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7642139Z ./runs/run-017/__next.runs.$d$runId.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7642487Z ./runs/run-017/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7642898Z ./runs/run-017/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7643173Z ./runs/run-017/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7643483Z ./runs/run-017/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7643843Z ./404/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7644116Z ./404/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7644329Z ./index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7644566Z ./__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7644825Z ./_next/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7645009Z ./_next/static/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7645400Z ./_next/static/chunks/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7645802Z ./_next/static/chunks/1pcw6gskne7pf.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7646394Z ./_next/static/chunks/0cz1d0mv5g_q7.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7646724Z ./_next/static/chunks/3w-hpmmdz8bzo.css
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7647052Z ./_next/static/chunks/0bv8cxp9yvt_g.css
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7647371Z ./_next/static/chunks/2oo5cr0gmcll0.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7647751Z ./_next/static/chunks/turbopack-worker-1hrsqshz0gfey.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7648257Z ./_next/static/chunks/1avo9cim_j5xg.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7648945Z ./_next/static/chunks/3x5p4hg4vdrrg.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7649302Z ./_next/static/chunks/3m9raxd7o-w2u.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7649740Z ./_next/static/chunks/2z3sh82dl8glu.js.map
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7650234Z ./_next/static/chunks/2qcdfo9w90xsr.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7650599Z ./_next/static/chunks/0f80i9bir4lp1.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7650911Z ./_next/static/chunks/1guf6s_26_pb9.css
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7651222Z ./_next/static/chunks/27v5qmcamo8av.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7651526Z ./_next/static/chunks/1wnov70f88xjy.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7651877Z ./_next/static/chunks/turbopack-2tg7fisnscj0e.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7652266Z ./_next/static/chunks/turbopack-3yxzqe-jkkeed.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7652601Z ./_next/static/chunks/2m0q3g2esnacg.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7652906Z ./_next/static/chunks/3jn_x8ihwq16e.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7653202Z ./_next/static/chunks/37i2hlaj0rg_c.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7653507Z ./_next/static/chunks/21qxow7d87gus.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7653807Z ./_next/static/chunks/2ynxpx7e0h3v0.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7654113Z ./_next/static/chunks/3zt_16xndew4w.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7654419Z ./_next/static/chunks/3uz7iv0cxk3b8.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7655048Z ./_next/static/chunks/3qfy96eoyh-ek.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7655743Z ./_next/static/2BtxOjJJzp6hq7ZIMeOH3/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7656614Z ./_next/static/2BtxOjJJzp6hq7ZIMeOH3/_clientMiddlewareManifest.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7657482Z ./_next/static/2BtxOjJJzp6hq7ZIMeOH3/_ssgManifest.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7658251Z ./_next/static/2BtxOjJJzp6hq7ZIMeOH3/_buildManifest.js
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7659026Z ./_next/static/media/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7659828Z ./_next/static/media/ibm-plex-mono-latin-ext-400-normal.1hjaitcyq2e2r.woff2
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7660929Z ./_next/static/media/geist-cyrillic-ext-wght-normal.1o60yhwqd7ueg.woff2
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7661789Z ./_next/static/media/soup-icon.3u1fe-7b75972.png
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7662453Z ./_next/static/media/icon.3u1fe-7b75972.png
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7663342Z ./_next/static/media/ibm-plex-mono-vietnamese-400-normal.2kzc8ichkozg5.woff
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7664508Z ./_next/static/media/run.worker.3gqum3j14khhj.ts
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7665380Z ./_next/static/media/ibm-plex-mono-latin-400-normal.3xdfs0-p_zi4c.woff2
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7666471Z ./_next/static/media/ibm-plex-mono-cyrillic-ext-400-normal.2iaubq2jy0rx3.woff
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7667427Z ./_next/static/media/ibm-plex-mono-latin-400-normal.2lhng2ntocry9.woff
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7668418Z ./_next/static/media/ibm-plex-mono-cyrillic-400-normal.2-z93d2j9-3s0.woff
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7669568Z ./_next/static/media/geist-cyrillic-wght-normal.0n0q_nh7u2mrm.woff2
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7670341Z ./_next/static/media/ibm-plex-mono-latin-ext-400-normal.0nrwft7nlo5oa.woff
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7670959Z ./_next/static/media/geist-latin-ext-wght-normal.39q78sztp1ci5.woff2
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7671570Z ./_next/static/media/ibm-plex-mono-vietnamese-400-normal.3a7fs2yw914a9.woff2
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7672193Z ./_next/static/media/ibm-plex-mono-cyrillic-ext-400-normal.09jq5v9-1wf71.woff2
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7672771Z ./_next/static/media/geist-vietnamese-wght-normal.0nt7ek_nfk5a4.woff2
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7673336Z ./_next/static/media/geist-latin-wght-normal.20f3xrkj613ah.woff2
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7673902Z ./_next/static/media/ibm-plex-mono-cyrillic-400-normal.0m1ahpdxrpokj.woff2
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7674356Z ./_next/2BtxOjJJzp6hq7ZIMeOH3/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7674617Z ./__next.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7674830Z ./_not-found/
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7675056Z ./_not-found/__next._full.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7675313Z ./_not-found/index.html
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7675809Z ./_not-found/__next._not-found.__PAGE__.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7676104Z ./_not-found/index.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7676345Z ./_not-found/__next._tree.txt
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7676811Z ##[endgroup]
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7688044Z ##[end-action id=__actions_upload-pages-artifact.__run;outcome=success;conclusion=success;duration_ms=30]
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7691845Z ##[start-action display=Archive artifact;id=__actions_upload-pages-artifact.__run_2]
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7697377Z ##[end-action id=__actions_upload-pages-artifact.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7700347Z ##[start-action display=Archive artifact;id=__actions_upload-pages-artifact.__run_3]
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7703967Z ##[end-action id=__actions_upload-pages-artifact.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7705926Z ##[start-action display=Upload artifact;id=__actions_upload-pages-artifact.upload-artifact]
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7742278Z ##[group]Run actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7742693Z with:
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7742884Z   name: github-pages
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7743131Z   path: /home/runner/work/_temp/artifact.tar
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7743413Z   retention-days: 1
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7743631Z   if-no-files-found: error
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7743864Z   compression-level: 6
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7744075Z   overwrite: false
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7744286Z   include-hidden-files: false
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7744524Z   archive: true
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7744714Z env:
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7744899Z   GITHUB_PAGES: true
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7745121Z   NEXT_PUBLIC_ENABLE_BENCHMARK: 0
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7745383Z   NEXT_TELEMETRY_DISABLED: 1
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.7745610Z ##[endgroup]
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.9168758Z With the provided path, there will be 1 file uploaded
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.9191215Z Artifact name is valid!
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:57.9191810Z Root directory input is valid!
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:58.2508349Z Uploading artifact: github-pages.zip
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:58.2547952Z Beginning upload of artifact content to blob storage
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:58.7430813Z Uploaded bytes 786833
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:58.7927122Z Finished uploading artifact content to blob storage!
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:58.7928085Z SHA256 digest of uploaded artifact is 7c5d254fa9d78c6eff59387e88d3c2693fe53fd882d35baf161048f7c90cbd12
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:58.7940675Z Finalizing artifact upload
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:59.2551817Z Artifact github-pages successfully finalized. Artifact ID 13746776779
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:59.2553366Z Artifact github-pages has been successfully uploaded! Final size is 786833 bytes. Artifact ID is 13746776779
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:59.2556883Z Artifact download URL: https://github.com/vlat247/soup-tz/actions/runs/42782341803/artifacts/13746776779
+build	Run actions/upload-pages-artifact@v5.0.0	2026-11-10T08:25:59.2705647Z ##[end-action id=__actions_upload-pages-artifact.upload-artifact;outcome=success;conclusion=success;duration_ms=1499]
+build	Post Run actions/setup-node@v7.1.0	﻿2026-11-10T08:25:59.2806815Z Post job cleanup.
+build	Post Run actions/setup-node@v7.1.0	2026-11-10T08:25:59.4166795Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/soup-tz/soup-tz --files-from manifest.txt --use-compress-program zstdmt
+build	Post Run actions/setup-node@v7.1.0	2026-11-10T08:26:01.0215261Z Sent 12454884 of 213781476 (5.8%), 11.9 MBs/sec
+build	Post Run actions/setup-node@v7.1.0	2026-11-10T08:26:01.7094271Z Sent 213781476 of 213781476 (100.0%), 120.4 MBs/sec
+build	Post Run actions/setup-node@v7.1.0	2026-11-10T08:26:01.9707106Z Cache saved with the key: node-cache-Linux-x64-npm-553a0fc4b4c73083cd6f531f19e5cc9c21e957a14eea8ff8981d8f872a3310a3
+build	Post Run actions/checkout@v7.0.1	﻿2026-11-10T08:26:01.9895663Z Post job cleanup.
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.0771335Z [command]/usr/bin/git version
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.0820722Z git version 2.56.0
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.0862766Z Temporarily overriding HOME='/home/runner/work/_temp/bd44cc97-26a6-49c2-80d7-d413dea63bb6' before making global git config changes
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.0864221Z Adding repository directory to the temporary git global config as a safe directory
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.0867855Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/soup-tz/soup-tz
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.0908640Z Removing SSH command configuration
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.0910443Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.0953139Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1274356Z Removing HTTP extra header
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1281804Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1331674Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1630137Z Removing includeIf entries pointing to credentials config files
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1638001Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1669400Z includeif.gitdir:/home/runner/work/soup-tz/soup-tz/.git.path
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1670004Z includeif.gitdir:/home/runner/work/soup-tz/soup-tz/.git/worktrees/*.path
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1670510Z includeif.gitdir:/github/workspace/.git.path
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1670953Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1682489Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/soup-tz/soup-tz/.git.path
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1703217Z /home/runner/work/_temp/git-credentials-c9e32bee-a34c-406f-a980-5ba2bc3c1bbc.config
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1713207Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/soup-tz/soup-tz/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-c9e32bee\-a34c\-406f\-a980\-5ba2bc3c1bbc\.config
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1749657Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/soup-tz/soup-tz/.git/worktrees/*.path
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1774345Z /home/runner/work/_temp/git-credentials-c9e32bee-a34c-406f-a980-5ba2bc3c1bbc.config
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1784475Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/soup-tz/soup-tz/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-c9e32bee\-a34c\-406f\-a980\-5ba2bc3c1bbc\.config
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1830287Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1841476Z /github/runner_temp/git-credentials-c9e32bee-a34c-406f-a980-5ba2bc3c1bbc.config
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1850762Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-c9e32bee\-a34c\-406f\-a980\-5ba2bc3c1bbc\.config
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1887217Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1914508Z /github/runner_temp/git-credentials-c9e32bee-a34c-406f-a980-5ba2bc3c1bbc.config
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1920034Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-c9e32bee\-a34c\-406f\-a980\-5ba2bc3c1bbc\.config
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.1955201Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build	Post Run actions/checkout@v7.0.1	2026-11-10T08:26:02.2228965Z Removing credentials config '/home/runner/work/_temp/git-credentials-c9e32bee-a34c-406f-a980-5ba2bc3c1bbc.config'
+build	Complete job	﻿2026-11-10T08:26:02.2377644Z Cleaning up orphan processes

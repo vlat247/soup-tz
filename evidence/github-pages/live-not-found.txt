@@ -1,0 +1,5 @@
+- heading "Run not found" [level=1]
+- paragraph: This run isn’t in the dataset. Choose another run to continue.
+- link "Browse training runs →":
+  - /url: /soup-tz/runs/run-001/
+- alert

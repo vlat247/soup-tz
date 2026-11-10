@@ -1,10 +1,10 @@
 # Soup Training Run Monitor Product Requirements
 
-**Version:** 1.5
+**Version:** 1.6
 
 **Date:** 2026-11-10
 
-**Status:** Core dashboard implemented; 597-test production check passed, performance evidence incomplete, deployment user-owned.
+**Status:** Core dashboard implemented; 597-test production check passed, performance evidence incomplete, GitHub Pages deployment in progress.
 
 **Companion specification:** [Technical requirements](TRD.md)
 
@@ -12,7 +12,7 @@
 
 The monitor helps an engineer decide whether a training run is behaving well enough to continue spending compute. It must expose uncertainty, invalid observations, and divergence instead of presenting a reassuring but misleading chart. The evaluation scenario is a person deciding whether to stop a $500 run; the application provides evidence for that decision and does not control real training infrastructure.
 
-The current delivery includes the Next.js dashboard, [20 deterministic fixtures](MOCK_DATA.md), three ECharts plots, exact summaries/reduction, worker processing, shared ranges, source/column inspection and explicit failure recovery. `pref/optimization` adds descending valid-loss sorting, a distinct empty-catalog state, focus recovery and an opt-in raw/reduced browser comparison harness. The final `npm run check` at `d8192b0` passed 597 tests in 19 files, lint, strict types, all 20 exact catalog summaries and a production build; see [current verification](../evidence/optimization/verification.md). The historical [silent-failure checkpoint](../evidence/silent-failers/verification.md) at `1aaeeca` passed 585 tests in 17 files, lint, types, catalog consistency and build, plus a 60-case independent audit and nine Node locale/time-zone cases. Required before/after 4× CPU traces, actual hover timing and tab memory remain outstanding. The user will deploy later. See the [progress audit](PRD_AUDIT.md) for evidence and limits; the requirements below retain their Brief/Decision/Target distinctions.
+The current delivery includes the Next.js dashboard, [20 deterministic fixtures](MOCK_DATA.md), three ECharts plots, exact summaries/reduction, worker processing, shared ranges, source/column inspection and explicit failure recovery. `pref/optimization` adds descending valid-loss sorting, a distinct empty-catalog state, focus recovery and an opt-in raw/reduced browser comparison harness. The final `npm run check` at `d8192b0` passed 597 tests in 19 files, lint, strict types, all 20 exact catalog summaries and a production build; see [current verification](../evidence/optimization/verification.md). The historical [silent-failure checkpoint](../evidence/silent-failers/verification.md) at `1aaeeca` passed 585 tests in 17 files, lint, types, catalog consistency and build, plus a 60-case independent audit and nine Node locale/time-zone cases. Required before/after 4× CPU traces, actual hover timing and tab memory remain outstanding. The user subsequently selected GitHub Pages for the public repository and requested deployment from `main`; publication and live checks are in progress. See the [progress audit](PRD_AUDIT.md) for evidence and limits; the requirements below retain their Brief/Decision/Target distinctions.
 
 Current targeted browser checks cover both loss-sort directions, keyboard filter reset/focus, exact spike and next-step inspection, a three-step range, All steps reset and mobile drawer keyboard recovery at 360px with no page overflow. Historical production smoke covers truthful invalid export and hidden diagnostic routes. These observations do not establish comprehensive browser automation, a browser locale matrix or assistive-technology conformance.
 
@@ -71,7 +71,7 @@ The key success criterion is correct interpretation, not smoothness or visual de
 - Show data-quality information alongside run health; an invalid value is evidence of a problem, not evidence of a successful run.
 - Make the source of summary values and the visible range explicit.
 - Use an explicit refresh action and synthetic dataset version. Continuous live ingestion is outside this version.
-- Prefer Vercel for the eventual Next.js deployment. GitHub Pages remains an allowed brief alternative if the implementation is adapted for static export.
+- Deploy to GitHub Pages, as selected by the user on 10 November 2026. The Pages build statically exports all 20 runs under `/soup-tz/`; local development retains the normal Next.js server mode.
 
 ### Non-goals
 
@@ -232,7 +232,7 @@ The local product implementation and assignment submission are separate completi
 
 The brief requests submission by email reply to `team@trysoup.dev`. Preparing artifacts and recording that requirement is in scope for planning; sending the email needs a separate explicit user instruction. The brief's 40-minute live discussion is an evaluation activity after submission, not content to script in these documents.
 
-The user explicitly retained deployment for later. No deployment is authorized in the current work; the deployed link and post-deployment checks remain the user's delivery step. A [submission draft](submission/NOTE_DRAFT.md) contains implementation decisions, reflection and AI disclosure, with unmeasured evidence clearly marked pending.
+The user subsequently made the repository public and explicitly authorized merging into `main`, pushing and deploying on GitHub Pages. The destination is `https://vlat247.github.io/soup-tz/`; publication and hosted smoke checks are in progress, so the deployed-link criterion is not yet marked complete. A [submission draft](submission/NOTE_DRAFT.md) contains implementation decisions, reflection and AI disclosure, with unmeasured evidence clearly marked pending.
 
 ## 11. Implementation sequence
 

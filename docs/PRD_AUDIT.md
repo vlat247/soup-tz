@@ -1,8 +1,8 @@
 # Dashboard progress against the PRD
 
-Updated 10 November 2026 for `pref/optimization`. The final `npm run check` at `d8192b0` passed 597 tests in 19 files, lint, strict types, all 20 exact catalog summaries and a production build; the [current verification record](../evidence/optimization/verification.md) records its actual checks. The historical [silent-failure checkpoint](../evidence/silent-failers/verification.md) at `1aaeeca` passed 585 tests across 17 files, lint, types, catalog consistency and build; 60 source audit cases; nine Node presentation environments; and targeted failure/recovery checks. Earlier checkpoint results remain historical evidence.
+Updated 10 November 2026 after merging `pref/optimization` into `main` for GitHub Pages deployment. The final `npm run check` at `d8192b0` passed 597 tests in 19 files, lint, strict types, all 20 exact catalog summaries and a production build; the [current verification record](../evidence/optimization/verification.md) records its actual checks. The historical [silent-failure checkpoint](../evidence/silent-failers/verification.md) at `1aaeeca` passed 585 tests across 17 files, lint, types, catalog consistency and build; 60 source audit cases; nine Node presentation environments; and targeted failure/recovery checks. Earlier checkpoint results remain historical evidence.
 
-The core monitor and previously identified list behavior gaps are implemented. **A final assignment SHIP verdict is not established**: required before/after 4× CPU traces, actual hover timing and tab-memory measurements are absent, and the short note remains a draft. Deployment is explicitly the user's later step, not unfinished agent implementation. This audit distinguishes local product behavior from assignment delivery evidence.
+The core monitor and previously identified list behavior gaps are implemented. **A final assignment SHIP verdict is not established**: required before/after 4× CPU traces, actual hover timing and tab-memory measurements are absent, and the short note remains a draft. The user subsequently authorized deployment of the public repository on GitHub Pages; publication and hosted smoke checks are in progress. This audit distinguishes local product behavior from assignment delivery evidence.
 
 This branch adds descending valid-loss sorting, unavailable values last in both directions, a distinct empty-catalog state, search-focus recovery and an opt-in raw/reduced browser comparison harness. Current targeted browser checks cover both sort directions, Enter-to-reset search focus, exact loss 12 at step 500,000 and ArrowRight to 500,001, a three-step viewport around the spike, All steps reset and a 360px layout with three canvases and drawer Enter/Escape focus recovery. Run-019 correctly shows no finite loss while its other metrics plot; ArrowRight switches Metrics to Data quality. The retained 60-case source audit covers 300 viewports, 900 metric results and 3,891 inspection groups/pages with unchanged fixture fingerprints. No comprehensive browser or accessibility certification is claimed.
 
@@ -103,8 +103,8 @@ Keep those three charts. The earlier optional rainfall-style quality timeline is
 
 | Artifact | Current state |
 | --- | --- |
-| Repository | Current implementation is on `pref/optimization`, tested at `d8192b0`; source, setup commands, fixtures, tests and limitations exist locally. Publication status belongs in the current evidence record. |
-| Deployed URL | The user explicitly chose to deploy later. No deployment performed; post-deployment checks remain user-owned. |
+| Repository | Public repository `vlat247/soup-tz`; `pref/optimization` is merged into `main`. The prior core checkpoint was tested at `d8192b0`; Pages-specific validation and publication are in progress. |
+| Deployed URL | Destination: `https://vlat247.github.io/soup-tz/`. The user authorized GitHub Pages deployment; workflow completion and hosted smoke checks remain pending. |
 | Test output | Final check at `d8192b0` passed 597 tests/19 files, lint, strict types, all 20 exact catalog summaries and production build. The initial 585-test branch check and earlier failures/reruns remain retained. |
 | Performance evidence | Raw/reduced browser harness and historical Node samples exist. Required before/after 4× CPU traces, actual hover timing and tab-memory measurements remain absent. |
 | Final note, at most two pages | [Working draft](submission/NOTE_DRAFT.md) exists; final measurements, verdict and rendered page-count verification remain pending. PRD/TRD do not substitute for it. |
@@ -115,7 +115,7 @@ Keep those three charts. The earlier optional rainfall-style quality timeline is
 
 1. Keep the final 597-test output and targeted local production/keyboard observations with the tested revision. Do not relabel historical counts as current results.
 2. Capture required before/after first-render, zoom and actual hover Performance evidence at 4× CPU throttling, plus tab memory. The harness alone does not close this requirement. Preserve failed attempts and measurement limitations.
-3. Finalize the short note, reflection, AI disclosure and evidence-based verdict. The user will deploy later and verify the published URLs. Sending the assignment email still requires an explicit user instruction.
+3. Finalize the short note, reflection, AI disclosure and evidence-based verdict. Complete the authorized GitHub Pages deployment and verify the published URLs. Sending the assignment email still requires an explicit user instruction.
 
 Broader router/locale/device automation and assistive-technology coverage remain useful follow-up work. They are disclosed limits; the original brief does not prescribe our entire matrix, numerical budgets or sample counts as additional assignment prerequisites.
 

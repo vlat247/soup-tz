@@ -1,8 +1,8 @@
 # Soup training monitor — submission note draft
 
-**Working draft.** Final branch validation passed; required browser performance measurements remain pending. The user will deploy later. This file is not the completed submission; verify a maximum of two rendered pages when finalizing it.
+**Working draft.** Final branch validation passed; required browser performance measurements remain pending. GitHub Pages publication and hosted smoke checks are in progress. This file is not the completed submission; verify a maximum of two rendered pages when finalizing it.
 
-Repository: https://github.com/vlat247/soup-tz (private; reviewer access must be arranged). Branch: `pref/optimization`. Deployed application: user-owned later step. Tested code revision: `d8192b0`.
+Repository: https://github.com/vlat247/soup-tz (public). Branch: `main`, with `pref/optimization` merged. Application destination: https://vlat247.github.io/soup-tz/ (publication and hosted verification pending). Prior tested core revision: `d8192b0`.
 
 ## What the monitor does
 
@@ -18,7 +18,7 @@ The previous committed checkpoint, `1aaeeca`, passed **585 tests in 17 files**, 
 
 Final `npm run check` at `d8192b0`: **597 tests in 19 files passed**, plus lint, strict types, all 20 exact catalog summaries and a production build. [Current evidence and retained output](../../evidence/optimization/verification.md) distinguish the new checks from the unchanged source/presentation audit. Unsuccessful attempts remain beside successful reruns.
 
-The historical browser record covers stale refresh disclosure, late run/range/inspection replies, malformed replies, timeout, keyboard retry, renderer failure/retry and zero-size recovery. Current targeted checks add both loss-sort directions, Enter-to-reset search focus, exact spike/next-step inspection, a three-step range, All steps reset and a 360px layout with three canvases and drawer Enter/Escape focus recovery. Deployed smoke checks belong to the user's later deployment. Nine locale/time-zone cases are **Node** checks. Numerical/fake-renderer tests and these observations do not establish every painted pixel, device, browser sequence or screen-reader interaction.
+The historical browser record covers stale refresh disclosure, late run/range/inspection replies, malformed replies, timeout, keyboard retry, renderer failure/retry and zero-size recovery. Current targeted checks add both loss-sort directions, Enter-to-reset search focus, exact spike/next-step inspection, a three-step range, All steps reset and a 360px layout with three canvases and drawer Enter/Escape focus recovery. Hosted smoke checks for the GitHub Pages export are pending. Nine locale/time-zone cases are **Node** checks. Numerical/fake-renderer tests and these observations do not establish every painted pixel, device, browser sequence or screen-reader interaction.
 
 ## Before/after performance
 
@@ -35,7 +35,7 @@ Record browser/OS/hardware, revision, fixture version, viewport/DPR, cache state
 
 ## Verdict and first change
 
-**Current draft: DON'T SHIP as a completed assignment.** Core product behavior is implemented and the final check passed, but required browser timing/memory evidence is not attached. The user retained deployment for later. Reassess from final evidence. The first action is to record the missing measurements; select any further performance change from the measured bottleneck rather than inventing an improvement claim.
+**Current draft: DON'T SHIP as a completed assignment.** Core product behavior is implemented and the final check passed, but required browser timing/memory evidence is not attached. The requested GitHub Pages deployment is in progress. Reassess from final evidence. The first action is to record the missing measurements; select any further performance change from the measured bottleneck rather than inventing an improvement claim.
 
 ## Implementation reflection
 

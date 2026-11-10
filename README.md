@@ -4,7 +4,7 @@ Next.js training-run monitor for the Soup Frontend Engineer take-home task, with
 
 The dashboard includes a searchable, sortable run browser; loss, learning-rate, and gradient-norm charts; whole-run summaries; data-quality details; shared zoom controls; and exact observation and reduction-column inspection. Twenty deterministic synthetic runs include broken telemetry and a million-point spike case. Apache ECharts renders linear, unsmoothed plots from independently reduced data, while a dedicated worker retains the full source observations.
 
-The `pref/optimization` work adds descending valid-loss sorting, a distinct empty-catalog state, focus recovery and an opt-in raw/reduced browser comparison harness. The final `npm run check` at `d8192b0` passed 597 tests in 19 files, lint, strict types, all 20 exact catalog summaries and a production build; [current verification](evidence/optimization/verification.md) records the checks actually performed. Required before/after 4× CPU traces, actual hover timing and tab-memory measurements remain outstanding. The user will deploy later.
+The `pref/optimization` work adds descending valid-loss sorting, a distinct empty-catalog state, focus recovery and an opt-in raw/reduced browser comparison harness. The final `npm run check` at `d8192b0` passed 597 tests in 19 files, lint, strict types, all 20 exact catalog summaries and a production build; [current verification](evidence/optimization/verification.md) records the checks actually performed. Required before/after 4× CPU traces, actual hover timing and tab-memory measurements remain outstanding. The public repository is being deployed from `main` to GitHub Pages; publication and live smoke checks are in progress.
 
 Independent source validation checks summaries, domains, provenance, breaks and retained extrema against raw-column scans. Historical [silent-failure verification](evidence/silent-failers/verification.md), through `1aaeeca`, records 585 tests across 17 files, a production build, 60 audit cases and nine Node locale/time-zone cases. It includes targeted browser failure/retry checks, truthful invalid export, the million-point spike and a 360px layout. Current browser checks additionally cover both loss-sort directions, keyboard filter reset, exact spike/next-step inspection, a three-step range and mobile drawer focus. These are targeted observations, not comprehensive browser automation or accessibility certification. Earlier [downsampling evidence](evidence/downsampling/verification.md) retains an isolated Node benchmark and a regression.
 
@@ -115,6 +115,16 @@ ESLint 9 and TypeScript 6 satisfy the Next.js lint plugins' current peer ranges;
 
 ## Deployment
 
-The user will deploy later. Vercel supports the current Next.js build: connect the repository, select the Next.js framework preset, use Node.js 24.x and the standard `npm run build` command. Leave `NEXT_PUBLIC_ENABLE_BENCHMARK` unset for the normal product build. Deployment has not been performed; verify direct run URLs, worker loading and the million-point case after publication.
+The user selected GitHub Pages for the public repository. Destination: [Soup training monitor](https://vlat247.github.io/soup-tz/). Publication and live smoke checks are in progress; this link is not yet recorded as verified.
+
+[The Pages workflow](.github/workflows/pages.yml) runs on code pushes to `main` and supports manual `workflow_dispatch`. It uses Node.js 24, installs from the lockfile, runs `npm run check` with `GITHUB_PAGES=true`, uploads `out/`, and deploys through the `github-pages` environment. Documentation/evidence-only pushes do not redeploy. The benchmark is explicitly disabled in the workflow.
+
+`GITHUB_PAGES=true` enables static export, the `/soup-tz` base path, directory-style routes and unoptimized local images. All 20 detail routes are generated at build time; computation and inspection still run in the browser worker. Reproduce the Pages build locally with:
+
+```sh
+GITHUB_PAGES=true NEXT_PUBLIC_ENABLE_BENCHMARK=0 npm run check
+```
+
+Serve `out/` beneath `/soup-tz/` with a static server; `next start` is for the default Next.js build, not this export. Verify root navigation, direct run URLs and reloads, the logo and worker assets, the million-point spike, and unknown-page recovery after publication. The standard local `npm run dev` and `npm run build` modes retain their existing root-path behavior.
 
 Before assignment submission, attach the required performance traces/tab memory and finish the [short note draft](docs/submission/NOTE_DRAFT.md). The comparison harness makes measurements reproducible but does not supply them. Preserve failed results, document AI assistance and report only checks actually performed.

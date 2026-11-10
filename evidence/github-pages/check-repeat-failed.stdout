@@ -1,0 +1,20 @@
+
+> soup-training-monitor@0.1.0 check
+> npm run lint && npm run typecheck && npm run test && npm run data:catalog:check && npm run build
+
+
+> soup-training-monitor@0.1.0 lint
+> eslint . --max-warnings=0
+
+
+> soup-training-monitor@0.1.0 typecheck
+> next typegen && tsc --noEmit
+
+Generating route types...
+✓ Types generated successfully
+out/_next/static/media/run.worker.3gqum3j14khhj.ts(1,29): error TS2307: Cannot find module '../data/generate' or its corresponding type declarations.
+out/_next/static/media/run.worker.3gqum3j14khhj.ts(2,29): error TS2307: Cannot find module '../model/inspect' or its corresponding type declarations.
+out/_next/static/media/run.worker.3gqum3j14khhj.ts(3,31): error TS2307: Cannot find module '../model/inspect-column' or its corresponding type declarations.
+out/_next/static/media/run.worker.3gqum3j14khhj.ts(4,46): error TS2307: Cannot find module '../model/prepare' or its corresponding type declarations.
+out/_next/static/media/run.worker.3gqum3j14khhj.ts(5,28): error TS2307: Cannot find module '../model/reduce' or its corresponding type declarations.
+out/_next/static/media/run.worker.3gqum3j14khhj.ts(6,58): error TS2307: Cannot find module '../model/view-types' or its corresponding type declarations.

@@ -5,6 +5,8 @@ import { RunDashboard } from "@/features/dashboard/run-dashboard";
 
 type Props = { params: Promise<{ runId: string }> };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return RUN_MANIFEST.map((run) => ({ runId: run.id }));
 }

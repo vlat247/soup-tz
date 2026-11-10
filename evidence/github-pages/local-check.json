@@ -1,0 +1,16 @@
+{
+  "command": "GITHUB_PAGES=true NEXT_PUBLIC_ENABLE_BENCHMARK=0 npm run check",
+  "exitCode": 0,
+  "tests": 597,
+  "testFiles": 19,
+  "node": "v24.13.1",
+  "completedAt": "2026-11-10T08:23:33.142Z",
+  "mode": "static export with /soup-tz base path",
+  "checks": {
+    "runRoutes": 20,
+    "global404": true,
+    "diagnosticsOmitted": true,
+    "benchmarkOmitted": true,
+    "noJekyll": true
+  }
+}

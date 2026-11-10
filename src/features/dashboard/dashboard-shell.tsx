@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import soupIcon from "../../../public/soup-icon.png";
 import { usePathname } from "next/navigation";
 import { useId, useMemo, useRef, useState, type ReactNode } from "react";
 import {
@@ -39,7 +40,7 @@ function RunBrowser({
   onNavigate?: () => void;
   entries: readonly RunListEntry[];
 }) {
-  const pathname = usePathname();
+  const pathname = usePathname().replace(/\/$/, "");
   const searchId = useId();
   const searchInput = useRef<HTMLInputElement>(null);
   const { search, quality: filter, sort, status } = filters;
@@ -207,7 +208,7 @@ function Brand({ onNavigate }: { onNavigate?: () => void }) {
       aria-label="Soup training runs"
       onClick={onNavigate}
     >
-      <Image src="/soup-icon.png" width={28} height={28} alt="" />
+      <Image src={soupIcon} width={28} height={28} alt="" />
       <span>soup</span>
     </Link>
   );
